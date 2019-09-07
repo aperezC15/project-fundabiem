@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2019-08-31" view-index="0" gantt-divider-location="589" resource-divider-location="300" version="2.8.10" locale="es_ES">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2019-08-31" view-index="0" gantt-divider-location="589" resource-divider-location="300" version="2.8.10" locale="es">
     <description/>
     <view zooming-state="default:2" id="gantt-chart">
-        <field id="tpd3" name="Nombre" width="407" order="0"/>
-        <field id="tpd4" name="Fecha de inicio" width="97" order="1"/>
-        <field id="tpd5" name="Fecha de fin" width="81" order="2"/>
-        <option id="color.recent"><![CDATA[#00ffff #0033ff #ffff00 #00ff33 #00ff00]]></option>
+        <field id="tpd3" name="Nombre" width="396" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="95" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="79" order="2"/>
+        <option id="color.recent"><![CDATA[#ffff00 #00ffff #0033ff #00ff33 #00ff00]]></option>
     </view>
     <view id="resource-table">
         <field id="0" name="Nombre" width="210" order="0"/>
@@ -65,6 +65,13 @@
         <task id="24" name="Dar la funcionalidad de editar pacientes registrados" color="#00ffff" meeting="false" start="2019-09-02" duration="1" complete="0" thirdDate="2019-09-02" thirdDate-constraint="0" expand="true"/>
         <task id="1" name="Contratar servicio de alojamiento web" color="#ffff00" meeting="false" start="2019-10-05" duration="1" complete="0" thirdDate="2019-09-02" thirdDate-constraint="0" expand="true"/>
         <task id="28" name="Entrega de Proyecto final" color="#0033ff" meeting="false" start="2019-11-02" duration="1" complete="0" thirdDate="2019-11-02" thirdDate-constraint="0" expand="true"/>
+        <task id="29" name="Diagramas de casos de uso" color="#ffff00" meeting="false" start="2019-09-07" duration="7" complete="0" thirdDate="2019-08-31" thirdDate-constraint="0" expand="true"/>
+        <task id="30" name="Marco conceptual" color="#ffff00" meeting="false" start="2019-09-07" duration="7" complete="0" thirdDate="2019-08-31" thirdDate-constraint="0" expand="true"/>
+        <task id="34" name="Frontend" color="#000000" meeting="false" start="2019-09-07" duration="7" complete="0" thirdDate="2019-08-31" thirdDate-constraint="0" expand="true">
+            <task id="31" name="Diseño de Login (Frontend)" color="#00ffff" meeting="false" start="2019-09-07" duration="7" complete="0" thirdDate="2019-08-31" thirdDate-constraint="0" expand="true"/>
+            <task id="32" name="Diseño de formulario de registro de paciones (Frontend)" color="#00ffff" meeting="false" start="2019-09-07" duration="7" complete="0" thirdDate="2019-08-31" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="33" name="Funcionamiento de Login (Backend)" color="#8cb6ce" meeting="false" start="2019-09-07" duration="7" complete="0" thirdDate="2019-08-31" thirdDate-constraint="0" expand="true"/>
     </tasks>
     <resources>
         <resource id="0" name="David Vásquez" function="Default:0" contacts="" phone=""/>
@@ -80,15 +87,25 @@
     </resources>
     <allocations>
         <allocation task-id="28" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="34" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
         <allocation task-id="28" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="30" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="28" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="30" resource-id="2" function="Default:1" responsible="true" load="100.0"/>
         <allocation task-id="28" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="29" resource-id="3" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="28" resource-id="4" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="33" resource-id="4" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="28" resource-id="5" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="29" resource-id="5" function="Default:1" responsible="true" load="100.0"/>
         <allocation task-id="28" resource-id="6" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="29" resource-id="6" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="28" resource-id="7" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="33" resource-id="7" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="28" resource-id="8" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="33" resource-id="8" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="28" resource-id="9" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="34" resource-id="9" function="Default:0" responsible="false" load="100.0"/>
     </allocations>
     <vacations/>
     <previous/>
