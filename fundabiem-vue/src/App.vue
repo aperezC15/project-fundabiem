@@ -1,14 +1,19 @@
 <template>
   <v-app>
     <toolbarhp/>
-    <HomePage/>
+   
+    <footerhp/>
+    <router-view/>
   </v-app>
 </template>
 
 <script lang="ts">
 //import Vue from 'vue';
-import toolbarhp from './components/PaginaInicio/toolbarhp.vue'
-import HomePage from './components/PaginaInicio/HomePage.vue'
+import toolbarhp from '@/components/PaginaInicio/toolbarhp.vue';
+import HomePage from '@/components/PaginaInicio/HomePage.vue';
+import footerhp from './components/PaginaInicio/footerhp.vue';
+import HomePageRM from './components/PaginaRegistroMedico/HomePageRM.vue';
+
 export default({
   name: 'App',
   data: () => ({
@@ -17,6 +22,8 @@ export default({
     components: {
       toolbarhp,
       HomePage,
+      footerhp,
+      HomePageRM
   },
 });
 </script>
