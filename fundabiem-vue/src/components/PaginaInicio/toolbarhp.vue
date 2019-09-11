@@ -1,17 +1,23 @@
 <template>
-    <div>        
+    <div id="app">        
         <v-app-bar 
-        color="blue" 
+        color="#2c2e3f" 
         dark 
         app>
             <v-app-bar-nav-icon title="MENU" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>         
+            <div>
+                <v-avatar>
+                  <v-img src="http://www.fundabiem.org.gt/wp-content/uploads/2017/08/favcon.jpg"> </v-img>
+                </v-avatar>
+            </div>
             <v-toolbar-title  class="headline text-uppercase">
                 <span>FUNDABIEM RETALHULEU</span>
             </v-toolbar-title>
+
             <v-spacer></v-spacer>
             
-            <v-btn class="mx-2" title="SALIR DEL SISTEMA" fab color="indigo" to="/HomePageRM">
-                <v-icon>fas fa-user-times</v-icon>
+            <v-btn class="mx-2" title="SALIR DEL SISTEMA" fab color="indigo" to="">
+                <v-icon>fas fa-power-off</v-icon>
             </v-btn>
         </v-app-bar>        
 

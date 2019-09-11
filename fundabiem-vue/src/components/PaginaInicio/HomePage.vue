@@ -1,6 +1,6 @@
 <template>
 <v-app>
-    <br> <br> <br> <br>
+    <br> <br> <br>
   
   <v-carousel 
         cycle

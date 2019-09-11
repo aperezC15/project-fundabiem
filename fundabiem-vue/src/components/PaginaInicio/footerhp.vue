@@ -1,5 +1,5 @@
 <template>
-  <v-footer color="blue"
+  <v-footer color="#2c2e3f" dark
     absolute
     class="font-weight-medium"
   >
