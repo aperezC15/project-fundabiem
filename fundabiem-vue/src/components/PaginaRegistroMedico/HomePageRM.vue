@@ -33,8 +33,8 @@
                             <v-card-title>
                                 <span class="headline">{{ formtitle}}</span>
                             </v-card-title>
-                            <v-card-text>
-                                <v-form v-model="valid"> 
+                            <v-card-text >
+                                <v-form v-model="valid" > 
                                     <v-container>
                                         <v-divider></v-divider>
                                         <v-row>

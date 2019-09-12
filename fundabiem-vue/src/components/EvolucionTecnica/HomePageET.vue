@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <v-container>
         <br> <br> <br>
         <h1 text-center>EVOLUCION TECNICA</h1>
         <button>hola</button>        
-    </div>
+    </v-container>
 </template>
 
 <script>

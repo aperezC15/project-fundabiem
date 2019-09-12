@@ -5,6 +5,7 @@ import toolbarhp from './components/PaginaInicio/toolbarhp.vue'
 import footerhp from './components/PaginaInicio/footerhp.vue'
 import HomePageRM from './components/PaginaRegistroMedico/HomePageRM.vue'
 import HomePageET from './components/EvolucionTecnica/HomePageET.vue'
+import HomePageES from './components/EstudioSocioeconomico/HomePageES.vue'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/HomePageET',
       name: 'HomePageET',
       component: HomePageET
+    },
+    {
+      path: '/HomePageES',
+      name: 'HomePageES',
+      component: HomePageES
     }
 
 
