@@ -4,8 +4,10 @@
 
 using System;
 using IdentityServer.dbContext;
+using IdentityServer.dbContext.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,16 +27,29 @@ namespace IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
             //add db context for postgresql on azure
+            
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(Environment.GetEnvironmentVariable("STRING_CONNECTION")));
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+            //options.UseNpgsql(Environment.GetEnvironmentVariable("STRING_CONNECTION")));
 
             // uncomment, if you wan to add an MVC-based UI
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2);
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => {
+                options.Lockout.MaxFailedAccessAttempts = 8;
+                options.Password.RequiredLength = 8;
+                options.Password.RequiredUniqueChars = 3;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<ApplicationDbContext>()
+               .AddDefaultTokenProviders();
 
             var builder = services.AddIdentityServer()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApis())
-                .AddTestUsers(Config.GetUsers())
+                //.AddTestUsers(Config.GetUsers())
+                .AddAspNetIdentity<ApplicationUser>()
                 .AddInMemoryClients(Config.GetClients());
             
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") =="Development")
