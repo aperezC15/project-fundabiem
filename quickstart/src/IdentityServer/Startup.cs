@@ -3,23 +3,31 @@
 
 
 using System;
+using IdentityServer.dbContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+
 
 namespace IdentityServer
 {
     public class Startup
     {
-        public IHostingEnvironment Environment { get; }
-
-        public Startup(IHostingEnvironment environment)
+        public Startup(IConfiguration configuration)
         {
-            Environment = environment;
+            this.configuration = configuration;
         }
+        public IConfiguration configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //add db context for postgresql on azure
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseNpgsql(Environment.GetEnvironmentVariable("STRING_CONNECTION")));
+
             // uncomment, if you wan to add an MVC-based UI
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2);
 
@@ -28,8 +36,8 @@ namespace IdentityServer
                 .AddInMemoryApiResources(Config.GetApis())
                 .AddTestUsers(Config.GetUsers())
                 .AddInMemoryClients(Config.GetClients());
-
-            if (Environment.IsDevelopment())
+            
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") =="Development")
             {
                 builder.AddDeveloperSigningCredential();
             }
@@ -39,9 +47,9 @@ namespace IdentityServer
             }
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (Environment.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }

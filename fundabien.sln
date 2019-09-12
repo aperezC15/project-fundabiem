@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "quickstart", "quickstart", "{4A0FB887-089D-4166-BAF1-33B9B4F903FB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{4A0FB887-089D-4166-BAF1-33B9B4F903FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E40EFDA9-B98B-4C48-B83E-13B7F4998D16}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "quickstart\src\Cl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testUser", "quickstart\src\testUser\testUser.csproj", "{D146FC2B-84A1-4318-A9AF-D06020A0F6DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mvcClient", "mvcClient\mvcClient.csproj", "{B9AF950B-D360-4A0D-841D-E76E55B5D2F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mvcClient", "mvcClient\mvcClient.csproj", "{B9AF950B-D360-4A0D-841D-E76E55B5D2F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
