@@ -3,6 +3,7 @@
 
 
 using IdentityModel;
+using IdentityServer.dbContext.Models;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
@@ -12,6 +13,7 @@ using IdentityServer4.Test;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -28,6 +30,7 @@ namespace IdentityServer
     [AllowAnonymous]
     public class AccountController : Controller
     {
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly TestUserStore _users;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
@@ -38,9 +41,11 @@ namespace IdentityServer
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
+            UserManager<ApplicationUser> userManager,
             IEventService events,
             TestUserStore users = null)
         {
+            this.userManager = userManager;
             // if the TestUserStore is not in DI, then we'll just use the global users collection
             // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
             _users = users ?? new TestUserStore(TestUsers.Users);
@@ -109,10 +114,12 @@ namespace IdentityServer
             if (ModelState.IsValid)
             {
                 // validate username/password against in-memory store
-                if (_users.ValidateCredentials(model.Username, model.Password))
+                var user = await userManager.FindByNameAsync(model.Username);
+
+                if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
                 {
-                    var user = _users.FindByUsername(model.Username);
-                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.SubjectId, user.Username));
+                    //var user = _users.FindByUsername(model.Username);
+                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.NormalizedUserName, user.Id, user.Email));
 
                     // only set explicit expiration here if user chooses "remember me". 
                     // otherwise we rely upon expiration configured in cookie middleware.
@@ -127,7 +134,7 @@ namespace IdentityServer
                     };
 
                     // issue authentication cookie with subject ID and username
-                    await HttpContext.SignInAsync(user.SubjectId, user.Username, props);
+                    await HttpContext.SignInAsync(user.Id, user.NormalizedUserName, props);
 
                     if (context != null)
                     {
