@@ -16,8 +16,11 @@
 
             <v-spacer></v-spacer>
             
-            <v-btn class="mx-2" title="SALIR DEL SISTEMA" fab color="indigo" to="">
+            <v-btn class="mx-2" title="SALIR DEL SISTEMA" fab color="indigo" @click="signOutOidc" v-if="oidcIsAuthenticated" >
                 <v-icon>fas fa-power-off</v-icon>
+            </v-btn>
+            <v-btn class="mx-2" title="Iniciar Sesion" fab color="indigo" to="/dashboard" v-if="!oidcIsAuthenticated" >
+                <v-icon>fas fa-sign-in-alt</v-icon>
             </v-btn>
         </v-app-bar>        
 
@@ -58,12 +61,13 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters, mapActions } from 'vuex';
 
 export default({
     name: 'App',
     data: () => ({
       drawer: false, 
-
+  //@click="signOutOidc" v-if="oidcIsAuthenticated"
       //AQUI MOSTRAMOS LAS OPCIONES EN EL MENU
       item: 1,
       items: [
@@ -73,6 +77,16 @@ export default({
           { title: 'Hoja de Estadísticas Diarias' , icon: 'far fa-address-card', path: ''},
       ]
     }),
+    computed: {
+      ...mapGetters('oidcStore', [
+                'oidcIsAuthenticated',
+                'oidcUser'
+            ])
+    },
+    methods: {
+      ...mapActions('oidcStore', ['authenticateOidcSilent',
+                'signOutOidc', 'authenticateOidc'])
+    },
 
 });
 </script>

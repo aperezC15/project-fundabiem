@@ -48,5 +48,8 @@
         ],
       }
     },
+    created() {
+      console.log('hola desde el homepage')
+    },
   }
 </script>

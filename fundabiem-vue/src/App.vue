@@ -7,6 +7,9 @@
 </template>
 
 <script lang="ts">
+import { mapGetters } from 'vuex'
+//import { Component, Vue } from 'vue-property-decorator'
+
 import Vue from 'vue';
 import toolbarhp from './components/PaginaInicio/toolbarhp.vue';
 import HomePage from './components/PaginaInicio/HomePage.vue';
@@ -24,5 +27,10 @@ export default({
       footerhp,
       HomePageRM
   },
+  computed: {
+    ...mapGetters('oidcStore', [
+                'oidcIsAuthenticated'
+            ])
+  }
 });
 </script>

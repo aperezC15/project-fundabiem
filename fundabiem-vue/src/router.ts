@@ -1,17 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import hello from './components/HelloWorld.vue'
+import Callback from './components/oidc/callback.vue'
+import callbackError from './components/oidc/callbackError.vue'
 import HomePage from './components/PaginaInicio/HomePage.vue'
 import toolbarhp from './components/PaginaInicio/toolbarhp.vue'
 import footerhp from './components/PaginaInicio/footerhp.vue'
 import HomePageRM from './components/PaginaRegistroMedico/HomePageRM.vue'
 import HomePageET from './components/EvolucionTecnica/HomePageET.vue'
 import HomePageES from './components/EstudioSocioeconomico/HomePageES.vue'
-import Callback from './components/oidc/callback.vue'
+
 
 //@ts-ignore
 import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
 import axios, { AxiosResponse } from 'axios'
 import store from '@/store'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -21,14 +25,26 @@ const router = new Router({
     {
       path: '/toolbarhp',
       name: 'toolbarhp',
-      component: toolbarhp
+      component: toolbarhp,
+      meta:{
+        isPulic:true
+      }
+    },
+    {
+      path: '/dashboard',
+      name:'dashboard',
+      component: hello,
+      meta: {
+        isPublic:false
+      }
     },
     {
       path: '/',
-      name: 'HomePage',
+      name: 'home',
       component: HomePage,
       meta:{
-        isPulic: true
+        //requiresAuth: false,
+        isPublic:true
       }
     },
     {
@@ -41,11 +57,19 @@ const router = new Router({
       }
     },
     {
+      path: '/oidc-callback-error', // Needs to match redirect_uri in you oidcSettings
+      name: 'oidcCallbackError',
+      component: callbackError,
+      meta: {
+          isPublic: true
+      }
+  },
+    {
       path: '/footerhp',
       name: 'footerhp',
       component: footerhp,
       meta:{
-        isPulic:false
+        isPulic:true
       }
     },
     {
@@ -53,7 +77,8 @@ const router = new Router({
       name: 'RegistroMedico',
       component: HomePageRM,
       meta:{
-        isPulic: false
+        requiresAuth: false,
+        isPulic: true
       }
     },
     {
@@ -66,10 +91,9 @@ const router = new Router({
       name: 'HomePageES',
       component: HomePageES
     }
-
-
   ]
 })
+
 router.beforeEach(vuexOidcCreateRouterMiddleware(store, 'oidcStore'))
 
 export default router

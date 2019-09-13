@@ -30,7 +30,7 @@
             console.log('initiatin callback')
             this.oidcSignInCallback()
                 .then((redirectPath: string) => {
-                    this.$router.push('/home')
+                    this.$router.push('/dashboard')
                 })
                 .catch((err: any) => {
                     console.error(err)

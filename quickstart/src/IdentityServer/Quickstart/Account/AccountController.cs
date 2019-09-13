@@ -36,6 +36,7 @@ namespace IdentityServer
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
@@ -43,12 +44,14 @@ namespace IdentityServer
             IAuthenticationSchemeProvider schemeProvider,
             UserManager<ApplicationUser> userManager,
             IEventService events,
-            TestUserStore users = null)
+            //TestUserStore users = null,
+            SignInManager<ApplicationUser> signInManager)
         {
+            this.signInManager = signInManager;
             this.userManager = userManager;
             // if the TestUserStore is not in DI, then we'll just use the global users collection
             // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
-            _users = users ?? new TestUserStore(TestUsers.Users);
+           // _users = users ?? new TestUserStore(TestUsers.Users);
 
             _interaction = interaction;
             _clientStore = clientStore;
@@ -182,16 +185,27 @@ namespace IdentityServer
         public async Task<IActionResult> Logout(string logoutId)
         {
             // build a model so the logout page knows what to display
-            var vm = await BuildLogoutViewModelAsync(logoutId);
-
-            if (vm.ShowLogoutPrompt == false)
+            //var vm = await BuildLogoutViewModelAsync(logoutId);
+            var clientJs = await BuildLoggedOutViewModelAsync(logoutId);
+            if (User?.Identity.IsAuthenticated == true)
             {
-                // if the request for logout was properly authenticated from IdentityServer, then
-                // we don't need to show the prompt and can just log the user out directly.
-                return await Logout(vm);
+                await signInManager.SignOutAsync();
+                await _events.RaiseAsync(new UserLogoutSuccessEvent(User.GetSubjectId(), User.GetDisplayName()));
             }
+            if (clientJs.TriggerExternalSignout)
+            {
+                string url = Url.Action("Logout", new { logoutId = clientJs.LogoutId });
+                return SignOut(new AuthenticationProperties { RedirectUri = url }, clientJs.ExternalAuthenticationScheme);
+            }
+            return Redirect(clientJs.PostLogoutRedirectUri);
+            //if (vm.ShowLogoutPrompt == false)
+            //{
+            //    // if the request for logout was properly authenticated from IdentityServer, then
+            //    // we don't need to show the prompt and can just log the user out directly.
+            //    return await Logout(vm);
+            //}
 
-            return View(vm);
+            //return View(vm);
         }
 
         /// <summary>
