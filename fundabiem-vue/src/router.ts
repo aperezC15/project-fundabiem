@@ -6,9 +6,13 @@ import footerhp from './components/PaginaInicio/footerhp.vue'
 import HomePageRM from './components/PaginaRegistroMedico/HomePageRM.vue'
 import HomePageET from './components/EvolucionTecnica/HomePageET.vue'
 
+//@ts-ignore
+import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
+import axios, { AxiosResponse } from 'axios'
+import store from '@/store'
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -30,7 +34,10 @@ export default new Router({
     {
       path: '/HomePageRM',
       name: 'HomePageRM',
-      component: HomePageRM
+      component: HomePageRM,
+      meta:{
+        isPulic: false
+      }
     },
     {
       path: '/HomePageET',
@@ -41,3 +48,6 @@ export default new Router({
 
   ]
 })
+router.beforeEach(vuexOidcCreateRouterMiddleware(store, 'oidcStore'))
+
+export default router

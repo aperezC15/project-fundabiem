@@ -7,6 +7,8 @@ using IdentityServer4.Models;
 using IdentityServer4.Test;
 using System.Collections.Generic;
 using System.Security.Claims;
+using static IdentityModel.OidcConstants;
+using GrantTypes = IdentityServer4.Models.GrantTypes;
 
 namespace IdentityServer
 {
@@ -104,7 +106,31 @@ namespace IdentityServer
 
                     // scopes that client has access to
                     AllowedScopes = { "api1" }
-                }
+                },//for fundabien front end
+                new Client {
+                    ClientId = "Fundabien",
+                    ClientName = "Frontend_Fundabien",
+                    RequireConsent=false,
+                    // no interactive user, use the clientid/secret for authentication
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AlwaysIncludeUserClaimsInIdToken = true,
+                    AllowAccessTokensViaBrowser = true,
+                    ClientSecrets =
+                    {
+                        new Secret("Secreto@1#2!2018".Sha256())
+                    },
+                    // secret for authentication
+                    AllowedCorsOrigins ={"http://localhost:8080" }, //{Environment.GetEnvironmentVariable("CORS_ORIGIN_HUMMINGBIRD") },
+                    RedirectUris ={ "http://localhost:8080/oidc-callback", "http://localhost:8080/silent-renew-oidc.html"}, //{Environment.GetEnvironmentVariable("CORS_REDIRECT_URI1_HUMMINGBIRD"), Environment.GetEnvironmentVariable("CORS_REDIRECT_URI2_HUMMINGBIRD")},
+                    PostLogoutRedirectUris = { "http://localhost:8080" },//{ Environment.GetEnvironmentVariable("POST_LOGOUT_HUMMINGBIRD")},
+                    AllowedScopes = new List<string>
+                    {
+                        StandardScopes.OpenId,
+                        StandardScopes.Profile,
+                        "api1",
+                    },
+                    IdentityTokenLifetime = 3000
+                },
             };
         }
     }
