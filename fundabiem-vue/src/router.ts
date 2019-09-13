@@ -5,6 +5,7 @@ import toolbarhp from './components/PaginaInicio/toolbarhp.vue'
 import footerhp from './components/PaginaInicio/footerhp.vue'
 import HomePageRM from './components/PaginaRegistroMedico/HomePageRM.vue'
 import HomePageET from './components/EvolucionTecnica/HomePageET.vue'
+import HomePageES from './components/EstudioSocioeconomico/HomePageES.vue'
 
 //@ts-ignore
 import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
@@ -43,6 +44,11 @@ const router = new Router({
       path: '/HomePageET',
       name: 'HomePageET',
       component: HomePageET
+    },
+    {
+      path: '/HomePageES',
+      name: 'HomePageES',
+      component: HomePageES
     }
 
 
