@@ -15,6 +15,8 @@
     "vue-axios": "^2.1.4",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.1.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
     "vue-router": "^3.0.3",
     "vuetify": "^2.0.0",
     "vuex": "^3.0.1",

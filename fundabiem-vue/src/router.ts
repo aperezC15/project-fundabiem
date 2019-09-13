@@ -6,6 +6,7 @@ import footerhp from './components/PaginaInicio/footerhp.vue'
 import HomePageRM from './components/PaginaRegistroMedico/HomePageRM.vue'
 import HomePageET from './components/EvolucionTecnica/HomePageET.vue'
 import HomePageES from './components/EstudioSocioeconomico/HomePageES.vue'
+import Callback from './components/oidc/callback.vue'
 
 //@ts-ignore
 import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
@@ -15,7 +16,7 @@ Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base:`${process.env.VUE_APP_ROUTER_ROOT_PATH}`,
   routes: [
     {
       path: '/toolbarhp',
@@ -25,16 +26,31 @@ const router = new Router({
     {
       path: '/',
       name: 'HomePage',
-      component: HomePage
+      component: HomePage,
+      meta:{
+        isPulic: true
+      }
+    },
+    {
+      path: '/oidc-callback', // Needs to match redirect_uri in you oidcSettings
+      name: 'oidcCallback',
+      component: Callback,
+      meta: {
+          isOidcCallback: true,
+          isPublic: true
+      }
     },
     {
       path: '/footerhp',
       name: 'footerhp',
-      component: footerhp
+      component: footerhp,
+      meta:{
+        isPulic:false
+      }
     },
     {
-      path: '/HomePageRM',
-      name: 'HomePageRM',
+      path: '/RegistroMedico',
+      name: 'RegistroMedico',
       component: HomePageRM,
       meta:{
         isPulic: false
