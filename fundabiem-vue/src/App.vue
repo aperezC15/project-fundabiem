@@ -15,6 +15,7 @@ import toolbarhp from './components/PaginaInicio/toolbarhp.vue';
 import HomePage from './components/PaginaInicio/HomePage.vue';
 import footerhp from './components/PaginaInicio/footerhp.vue';
 import HomePageRM from './components/PaginaRegistroMedico/HomePageRM.vue';
+import HomePageES from './components/EstudioSocioeconomico/HomePageES.vue';
 
 export default({
   name: 'App',
@@ -25,7 +26,8 @@ export default({
       toolbarhp,
       HomePage,
       footerhp,
-      HomePageRM
+      HomePageRM,
+      HomePageES
   },
   computed: {
     ...mapGetters('oidcStore', [

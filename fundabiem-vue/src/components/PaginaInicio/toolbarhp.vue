@@ -74,7 +74,7 @@ export default({
           { title: 'Registros Medicos' , icon: 'far fa-address-card', path: '/HomePageRM'},
           { title: 'Estudio Socioeconomico' , icon: 'far fa-address-card', path: '/HomePageES'},
           { title: 'Hoja Evolución Técnica ' , icon: 'far fa-address-card', path: '/HomePageET'},
-          { title: 'Hoja de Estadísticas Diarias' , icon: 'far fa-address-card', path: ''},
+          { title: 'Hoja de Estadísticas Diarias' , icon: 'far fa-address-card', path: '/HomePageRM'},
       ]
     }),
     computed: {
