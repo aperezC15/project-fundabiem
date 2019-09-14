@@ -1,8 +1,12 @@
 <template>
   <v-app>
-    <toolbarhp/>
-    <footerhp/>
-    <router-view/>
+    <v-content>
+      <v-container fluid>
+        <toolbarhp/>
+        <footerhp/>
+          <router-view></router-view>
+      </v-container>
+    </v-content>
   </v-app>
 </template>
 

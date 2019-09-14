@@ -1,7 +1,4 @@
 <template>
-<v-app>
-    <br> <br> <br>
-  
   <v-carousel 
         cycle
         hide-delimiter-background
@@ -25,7 +22,6 @@
       </v-sheet>
     </v-carousel-item>
   </v-carousel>
-</v-app>
 </template>
 
 <script>

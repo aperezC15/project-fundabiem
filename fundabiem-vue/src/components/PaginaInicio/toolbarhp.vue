@@ -4,7 +4,7 @@
         color="#2c2e3f" 
         dark 
         app>
-            <v-app-bar-nav-icon title="MENU" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>         
+            <v-app-bar-nav-icon title="MENU" @click.stop="drawer = !drawer" v-if="oidcIsAuthenticated"></v-app-bar-nav-icon>         
             <div>
                 <v-avatar>
                   <v-img src="http://www.fundabiem.org.gt/wp-content/uploads/2017/08/favcon.jpg"> </v-img>
@@ -31,6 +31,7 @@
         absolute
         temporary    
         width="300px"
+        
         >
         <v-card
           class="mx-auto"

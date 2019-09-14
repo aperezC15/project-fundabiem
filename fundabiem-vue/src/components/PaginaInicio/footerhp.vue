@@ -2,6 +2,7 @@
   <v-footer color="#2c2e3f" dark
     absolute
     class="font-weight-medium"
+    style="position:fixed;"
   >
     <v-col
       class="text-center"
