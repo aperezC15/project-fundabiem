@@ -210,6 +210,13 @@
                     <!-- FIN DEL SEGUNDO PASO DE DATOS GENERALES-->
                     <!-- INICIO DEL TERCER PASO DE DATOS DE GRUPO FAMILIAR -->
                     <v-stepper-content step="3">
+                        <v-data-table
+                        :headers="headersgrupofamiliar"
+                        :items="datagrupofamiliar"
+                        class="elevation-1"
+                        >
+
+                        </v-data-table>
                         <v-btn class="ma-2" rounded dark color="#01579B" @click="IrPaso1()">PASO 1</v-btn>
                         <v-btn class="ma-2" rounded dark color="#01579B" @click="IrPaso2()">2. DATOS GENERALES</v-btn>
                         <v-btn class="ma-2" rounded dark color="#01579B" @click="IrPaso4()">SIGUIENTE</v-btn>
@@ -217,6 +224,60 @@
                     <!-- FIN DEL TERCER PASO DE DATOS DE GRUPO FAMILIAR -->
                     <!-- INICIO DEL CUARTO PASO DATOS DE VIVIENDA -->
                     <v-stepper-content step="4">
+                        <v-form v-model="valid">
+                            <v-container>
+                                <v-row>
+                                    <v-col cols="12" md="3">
+                                        <v-checkbox v-model="editedItem.paredes" label="PAREDES"></v-checkbox>                                        
+                                    </v-col>
+                                    <v-col cols="12" md="3">
+                                        <v-checkbox v-model="editedItem.techo" label="TECHO"></v-checkbox>                                        
+                                    </v-col>
+                                    <v-col cols="12" md="3">
+                                        <v-checkbox v-model="editedItem.pisos" label="PISOS"></v-checkbox>
+                                    </v-col>
+                                    <v-col cols="12" md="3"> 
+                                        <v-checkbox v-model="editedItem.habitaciones" label="NO. DE HABITACIONES"></v-checkbox>
+                                    </v-col>
+
+                                    <v-col cols="12" md="3">
+                                        <v-checkbox v-model="editedItem.agua" label="AGUA"></v-checkbox>
+                                    </v-col>
+                                    <v-col cols="12" md="3">
+                                        <v-checkbox v-model="editedItem.luz" label="LUZ ELECTRICA"></v-checkbox>
+                                    </v-col>
+                                    <v-col>
+                                        <v-checkbox v-model="editedItem.serviciosanitario" label="SERVICIO SANITARIO"></v-checkbox>
+                                    </v-col>
+                                    <v-col cols="12" md="3">
+                                        <v-checkbox v-model="editedItem.letrina" label="LETRINA"></v-checkbox>
+                                    </v-col>
+
+                                    <v-col cols="12" md="3">
+                                        <v-checkbox v-model="editedItem.otros" label="OTROS"></v-checkbox>
+                                    </v-col>
+                                    <v-col cols="12" md="6">
+                                        <v-checkbox v-model="editedItem.cocina" label="LA COCINA ESTA FUERA DEL DOMITORIO"></v-checkbox>
+                                    </v-col>
+                                    <v-col cols="12" md="3">
+                                        <v-checkbox v-model="editedItem.espropia" label="ES PROPIA"></v-checkbox>
+                                    </v-col>
+
+                                    <v-col cols="12" md="3">
+                                        <v-checkbox v-model="editedItem.prestado" label="PRESTADO"></v-checkbox>
+                                    </v-col>
+                                    <v-col cols="12" md="3">
+                                        <v-checkbox v-model="editedItem.alquila" label="ALQUILA"></v-checkbox>
+                                    </v-col>
+                                    <v-col cols="12" md="3">
+                                        <v-checkbox v-model="editedItem.otros2" label="OTROS"></v-checkbox>
+                                    </v-col>
+                                    <v-col cols="12" md="3">
+                                        <v-checkbox v-model="editedItem.pagomensual" label="PAGO MENSUAL"></v-checkbox>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-form>
                         <v-btn class="ma-2" rounded dark color="#01579B" @click="IrPaso1()">PASO 1</v-btn>
                         <v-btn class="ma-2" rounded dark color="#01579B" @click="IrPaso2">2. DATOS GENERALES</v-btn>
                         <v-btn class="ma-2" rounded dark color="#01579B" @click="IrPaso3()">3. GRUPO FAMILIAR</v-btn>
@@ -225,13 +286,28 @@
                     <!-- FIN DEL CUARTO PASO DATOS DE VIVIENDA -->
                     <!-- INICIO DEL QUINTO PASO DE OBSERVACIONES  -->
                     <v-stepper-content step="5">
+                        <v-form v-model="valid">
+                            <v-container>
+                                <v-row>
+                                    <v-col cols="12" md="12">
+                                        <v-textarea v-model="editedItem.diagnostiosocial" label="DIAGNOSTICO SOCIAL"></v-textarea>
+                                    </v-col>
+                                    <v-col cols="12" md="12">
+                                        <v-textarea v-model="editedItem.opinionts" label="OPINION T.S."></v-textarea>
+                                    </v-col>
+                                    <v-col cols="12" md="12">
+                                        <v-textarea v-model="editedItem.observaciones" label="OBSERVACIONES"></v-textarea>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-form>
                         <v-btn class="ma-2" rounded dark color="#01579B" @click="IrPaso1()">1. PASO 1</v-btn>
                         <v-btn class="ma-2" rounded dark color="#01579B" @click="IrPaso2()">2. DATOS GENERALES</v-btn>
                         <v-btn class="ma-2" rounded dark color="#01579B" @click="IrPaso3()">3. GRUPO FAMILIAR</v-btn>
                         <v-btn class="ma-2" rounded dark color="#01579B" @click="IrPaso4()">4. VIVIENDA</v-btn>  
                         <v-divider class="mx-4" vertical></v-divider>
                         <v-btn class="ma-2" rounded dark color="#01579B" @click="CancelarDialogoRegistro()">CERRAR</v-btn>
-                        <v-btn class="ma-2" rounded dark color="#01579B" @click="guardarNuevoES">GUARDAR ESTUDIO SOCIOECONOMICO</v-btn>
+                        <v-btn class="ma-2" rounded dark color="#01579B" @click="guardarNuevoES">GUARDAR REGISTRO</v-btn>
                                        
                     </v-stepper-content>
                     <!-- FIN DEL QUINTO PASO DE OBSERVACIONES -->
@@ -242,7 +318,6 @@
         <!-- FIN DEL DIALOGO PARA REGISTRAR UN NUEVO ESTUDIO SOCIOECONOMICO -->
 
         <v-container>            
-            <br> <br><br>
             <!-- TITULO  DE LA PAGINA -->
             <v-layout text-center wrap>
                 <v-flex>
@@ -271,6 +346,9 @@
             >
                 <template v-slot:item.action="{item}">
                     <v-icon small class="mr-2" title="EDITAR REGISTRO DE ESTUDIO SOCIOECONOMICO" @click="editItem(item)">edit</v-icon>
+                </template>
+                <template v-slot:no-results>
+                    <v-alert type="error">EL REGISTRO "{{search}}" NO SE ENCUENTRA EN LA BASE DE DATOS</v-alert>
                 </template>
             </v-data-table>
             <!-- FIN DE LA TABLA DE REGISTROS -->
@@ -311,8 +389,22 @@ export default ({
             { text: 'T.S. ENTREVISTO', value: 'TSEntrevisto'},
             { text: 'Accion', value: 'action', sortable: false}
         ],
-        // EL ARREGLO DEL CUERPO DE LA TABLA
+
+        // AQUI SE DEFINEN LOS DATOS DEL ENCABEZADO DE LA TABLA DE GRUPO FAMILIAR
+        headersgrupofamiliar:[
+            { text: 'NOMBRE', value: 'NombreGrupoFamiliar'},
+            { text: 'E. CIVIL', value: 'ECivilGrupoFamiliar'},
+            { text: 'RELACION', value: 'RelacionGrupoFamiliar'},
+            { text: 'EDAD', value: 'EdadGrupoFamiliar'},
+            { text: 'ESCOLARIDAD', value: 'EscolaridadGrupoFamiliar'},
+            { text: 'OCUPACION', value: 'OcupacionGrupoFamiliar'},
+            { text: 'SALARIO', value: 'SalarioGrupoFamiliar'},
+        ],
+        // EL ARREGLO DEL CUERPO DE LA TABLA ESTUDIO SOCIOECONOMICO
         DataTableES: [],
+        // EL ARREGLO DEL CUERPO DE LA TABLA DE GRUPO FAMILIAR
+        datagrupofamiliar: [],
+
         editedIndex: -1,
         editedItem: {
             RegMedicoNo: '',
@@ -414,6 +506,17 @@ export default ({
                     datefechaingreso: '2019-09-13',
                     datefechaentrevista: '2019-09-14',
                     TSEntrevisto: 'CHINO'
+                }
+            ],
+            this.datagrupofamiliar = [
+                {
+                    NombreGrupoFamiliar: 'Daniel Estupe',
+                    ECivilGrupoFamiliar: 'Soltero',
+                    RelacionGrupoFamiliar: 'Hermano',
+                    EdadGrupoFamiliar: '23',
+                    EscolaridadGrupoFamiliar: 'Universitario',
+                    OcupacionGrupoFamiliar: 'Analista y Desarrollador de Software',
+                    SalarioGrupoFamiliar: 'Q. 10,000'
                 }
             ]
         },

@@ -30,14 +30,14 @@ const router = new Router({
         isPulic:true
       }
     },
-    {
-      path: '/dashboard',
-      name:'dashboard',
-      component: hello,
-      meta: {
-        isPublic:false
-      }
-    },
+    // {
+    //   path: '/dashboard',
+    //   name:'dashboard',
+    //   component: hello,
+    //   meta: {
+    //     isPublic:false
+    //   }
+    // },
     {
       path: '/',
       name: 'home',
@@ -73,8 +73,8 @@ const router = new Router({
       }
     },
     {
-      path: '/RegistroMedico',
-      name: 'RegistroMedico',
+      path: '/HomePageRM',
+      name: 'HomePageRM',
       component: HomePageRM,
       meta:{
         requiresAuth: false,
