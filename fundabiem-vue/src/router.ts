@@ -73,8 +73,8 @@ const router = new Router({
       }
     },
     {
-      path: '/RegistroMedico',
-      name: 'RegistroMedico',
+      path: '/HomePageRM',
+      name: 'HomePageRM',
       component: HomePageRM,
       meta:{
         requiresAuth: false,
