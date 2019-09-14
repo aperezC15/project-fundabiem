@@ -30,14 +30,14 @@ const router = new Router({
         isPulic:true
       }
     },
-    {
-      path: '/dashboard',
-      name:'dashboard',
-      component: hello,
-      meta: {
-        isPublic:false
-      }
-    },
+    // {
+    //   path: '/dashboard',
+    //   name:'dashboard',
+    //   component: hello,
+    //   meta: {
+    //     isPublic:false
+    //   }
+    // },
     {
       path: '/',
       name: 'home',
