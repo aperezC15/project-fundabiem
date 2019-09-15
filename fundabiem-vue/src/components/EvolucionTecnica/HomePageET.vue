@@ -1,28 +1,36 @@
 <template>
     <div>
         <!-- AQUI INICIAMOS EL EL MODAL QUE MOSTRARA EL FORMULARIO DE DATOS -->
-        <v-dialog v-model="DialogoNuevo" max-width="1200px">
+        <v-dialog v-model="DialogoNuevo"  max-width="1200px">
             <!-- ENCABEZADO DEL MODAL -->
-            <v-layout text-center>
-                <v-flex>
-                    <span class="headline">{{FormTitle}}</span>
-                </v-flex>
-            </v-layout>
-            <v-divider></v-divider>
-
-            <!-- ESTRUCTURA DEL FORMULARIO DE DATOS -->
-            <v-form>
-                <v-container>
-                    <v-row>
-                        <v-col cols="12" md="6">
-                            <v-text-field v-model="editedItem.Apellidos" ></v-text-field>
-                        </v-col>
-                    </v-row>
-                </v-container>
-            </v-form>
-            <v-btn color="indigo">CERRAR</v-btn>
+            <v-card>
+                <v-card-title>
+                    <v-layout text-center>
+                        <v-flex>
+                            <span class="headline">{{FormTitle}}</span>
+                        </v-flex>
+                    </v-layout>
+                </v-card-title>
+                <v-divider></v-divider>
+                <v-card-text>
+                    <!-- ESTRUCTURA DEL FORMULARIO DE DATOS -->
+                    <v-form>
+                        <v-container>
+                            <v-row>
+                                <v-col cols="12" md="6">
+                                    <v-text-field v-model="editedItem.Apellidos" ></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </v-form>
+                </v-card-text>
+                <v-card-actions>
+                    <div class="flex-grow-1"></div>
+                    <v-btn color="indigo">CERRAR</v-btn>
+                </v-card-actions>
+            </v-card>
         </v-dialog>
-        <!-- FIN DEL MODAL -->
+        <!-- FIN DEL DIALOGO PARA REGISTRAR UN NUEVO ESTUDIO SOCIOECONOMICO -->
 
         <v-container>
             <!-- TITULO DE LA PAGINA  -->
