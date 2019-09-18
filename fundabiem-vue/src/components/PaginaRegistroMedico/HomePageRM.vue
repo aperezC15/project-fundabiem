@@ -64,6 +64,7 @@
                                             <v-col cols="12" sm="6" md="2">
                                                 <v-text-field v-model="editedItem.edadDataTableRM" label="EDAD" :rules="nameRules" required></v-text-field>
                                             </v-col>
+                                            <!-- fecha de nacimiento -->
                                             <v-col cols="12" ms="6" md="3">
                                                 <v-dialog
                                                     ref="dialog"
@@ -81,7 +82,7 @@
                                                         v-on="on"
                                                     ></v-text-field>
                                                     </template>
-                                                    <v-date-picker v-model="date" color="#2c2e3f" scrollable>
+                                                    <v-date-picker locale="es-Es" v-model="date" color="#2c2e3f" scrollable>
                                                     <div class="flex-grow-1"></div>
                                                     <v-btn text color="primary" @click="modaldate = false">CANCELAR</v-btn>
                                                     <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
@@ -163,6 +164,7 @@
                                     <v-container>
                                         <v-divider></v-divider>
                                         <v-row>
+                                            <!-- fecha de admision -->
                                             <v-col cols="12" ms="6" md="6">
                                                 <v-dialog
                                                     ref="dialog2"
@@ -180,7 +182,7 @@
                                                         v-on="on"
                                                     ></v-text-field>
                                                     </template>
-                                                    <v-date-picker v-model="date2" color="#2c2e3f" scrollable>
+                                                    <v-date-picker locale="es-ES" v-model="date2" color="#2c2e3f" scrollable>
                                                     <div class="flex-grow-1"></div>
                                                     <v-btn text color="primary" @click="modaldate2 = false">CANCELAR</v-btn>
                                                     <v-btn text color="primary" @click="$refs.dialog2.save(date2)">OK</v-btn>

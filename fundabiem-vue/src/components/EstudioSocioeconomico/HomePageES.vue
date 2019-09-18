@@ -59,7 +59,7 @@
                                                 v-on="on"
                                             ></v-text-field>
                                             </template>
-                                            <v-date-picker v-model="editedItem.datefechaingreso" color="#2c2e3f" scrollable>
+                                            <v-date-picker locale="es-ES" v-model="editedItem.datefechaingreso" color="#2c2e3f" scrollable>
                                             <div class="flex-grow-1"></div>
                                             <v-btn text color="primary" @click="modaldatefechaingreso = false">CANCELAR</v-btn>
                                             <v-btn text color="primary" @click="$refs.dialog.save(editedItem.datefechaingreso)">OK</v-btn>
@@ -84,7 +84,7 @@
                                                 v-on="on"
                                             ></v-text-field>
                                             </template>
-                                            <v-date-picker v-model="editedItem.datefechaentrevista" color="#2c2e3f" scrollable>
+                                            <v-date-picker locale="es-ES" v-model="editedItem.datefechaentrevista" color="#2c2e3f" scrollable>
                                             <div class="flex-grow-1"></div>
                                             <v-btn text color="primary" @click="modaldatefechaentrevista = false">CANCELAR</v-btn>
                                             <v-btn text color="primary" @click="$refs.dialog2.save(editedItem.datefechaentrevista)">OK</v-btn>
@@ -153,7 +153,7 @@
                                                 v-on="on"
                                             ></v-text-field>
                                             </template>
-                                            <v-date-picker v-model="editedItem.datefechanacimiento" color="#2c2e3f" scrollable>
+                                            <v-date-picker locale="es-Es" v-model="editedItem.datefechanacimiento" color="#2c2e3f" scrollable>
                                             <div class="flex-grow-1"></div>
                                             <v-btn text color="primary" @click="modaldatefechanacimiento = false">CANCELAR</v-btn>
                                             <v-btn text color="primary" @click="$refs.dialog3.save(editedItem.datefechanacimiento)">OK</v-btn>
