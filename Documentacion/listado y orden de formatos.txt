@@ -1,0 +1,5 @@
+1. registro medico
+2. historia clinica
+3. ciclo de rehabilitacion y herramientas cif
+4. hoja de evolucion medica
+5. hoja de evolucion tecnica
