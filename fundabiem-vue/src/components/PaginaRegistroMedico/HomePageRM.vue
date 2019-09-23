@@ -1,224 +1,231 @@
 <template>
-    <v-container app> <br><br>
+    <v-container>
+        <!-- INICIO DE LA ESTRUCTURA DEL DIALOGO PARA LLENAR EL FORMULARIO -->
+        <v-dialog v-model="DiagoloNuevoRM" fullscreen hide-overlay transition="dialog-bottom-transition" scrollable>                        
+            <v-card>
+                <!-- ENCABEZADO DEL MODAL DE FORMULARIO -->
+                <v-toolbar  dark color="#2c2e3f">
+                    <span class="headline">{{ formtitle}}</span>
+                    <div class="flex-grow-1"></div>
+
+                    <v-btn color="indigo" rounded  @click="cerrarmodalNuevoRM()" class="mx-4">CERRAR</v-btn>
+                    <v-btn color="indigo" rounded  @click="guardarNuevoRM()">GUARDAR REGISTRO</v-btn>
+                </v-toolbar>
+                <v-card-text >
+                    <v-form v-model="valid" > 
+                        <v-container>
+                            <v-row>
+                                <v-col cols="12" sm="6" md="3">
+                                    <v-text-field v-model="editedItem.apellido1DataTableRM" label="1er. APELLIDO" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="3">
+                                    <v-text-field v-model="editedItem.apellido2DataTableRM" label="2do. APELLIDO" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="2">
+                                    <v-text-field v-model="editedItem.name1DataTableRM" label="1er. NOMBRE" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="2">
+                                    <v-text-field v-model="editedItem.name2DataTableRM" label="2d. NOMBRE" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                                <v-col cols="12" sm="6" md="2">
+                                    <v-text-field v-model="editedItem.clinicaDataTableRM" label="His. Clínica" :rules="nameRules" required></v-text-field>
+                                </v-col>                                                                                    
+                            </v-row>
+                        </v-container>
+                        <v-container>
+                            <v-divider></v-divider>
+                            <v-row>
+                                <v-col class="d-flex" cols="12" sm="6" md="2">
+                                    <v-select v-model="editedItem.sexoDataTableRM" :items="itemsexo" label="SEXO" :rules="nameRules" required></v-select>
+                                </v-col>                                                                                    
+                                <v-col cols="12" sm="6" md="2">
+                                    <v-text-field v-model="editedItem.edadDataTableRM" label="EDAD" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                                <!-- fecha de nacimiento -->
+                                <v-col cols="12" ms="6" md="3">
+                                    <v-dialog
+                                        ref="dialog"
+                                        v-model="modaldate"
+                                        return-value.sync="date"
+                                        persistent
+                                        width="290px"
+                                    >
+                                        <template v-slot:activator="{ on }">
+                                        <v-text-field
+                                            v-model="date"
+                                            label="Fecha Nacimiento"
+                                            prepend-icon="event"
+                                            readonly
+                                            v-on="on"
+                                        ></v-text-field>
+                                        </template>
+                                        <v-date-picker locale="es-Es" v-model="date" color="#2c2e3f" scrollable>
+                                        <div class="flex-grow-1"></div>
+                                        <v-btn text color="primary" @click="modaldate = false">CANCELAR</v-btn>
+                                        <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+                                        </v-date-picker>
+                                    </v-dialog>
+                                </v-col>
+                                <v-col cols="12" ms="6" md="3">
+                                    <v-text-field v-model="editedItem.tecnicoDataTableRM" label="GRUPO TECNICO" :rules="nameRules" required></v-text-field>
+                                </v-col>                              
+                                <v-col cols="12" ms="6" md="2">
+                                    <v-text-field v-model="editedItem.otrosDataTableRM" label="OTROS"></v-text-field>
+                                </v-col>                                                                                          
+                            </v-row>
+                        </v-container>
+                        <v-container>
+                            <v-divider></v-divider>
+                            <v-row>
+                                <v-col cols="12" ms="6" md="6">
+                                    <v-text-field v-model="editedItem.direccionDataTableRM" label="DIRECCION" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                                <v-col cols="12" ms="6" md="6">
+                                    <v-text-field v-model="editedItem.departamentoDataTableRM" label="DEPARTAMENTO" :rules="nameRules" required ></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                        <v-container>
+                            <v-divider></v-divider>
+                            <v-row>
+                                <v-col cols="12" ms="6" md="3">
+                                    <v-text-field v-model="editedItem.residenciaDataTableRM" label="RESIDENCIA HABITUAL" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                                <v-col cols="12" ms="6" md="3">
+                                    <v-text-field v-model="editedItem.ciudadDataTableRM" label="CIUDAD" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                                <v-col cols="12" ms="6" md="3">
+                                    <v-text-field v-model="editedItem.departamento2DataTableRM" label="DEPARTAMENTO" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                                <v-col cols="12" ms="6" md="3">
+                                    <v-text-field v-model="editedItem.paisDataTableRM" label="PAIS" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                        <v-container>
+                            <v-divider></v-divider>
+                            <v-row>
+                                <v-col cols="12" ms="6" md="6">
+                                    <v-text-field v-model="editedItem.residencia2DataTableRM" label="RESIDENCIA HABITUAL" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                                <v-col cols="12" ms="6" md="6">
+                                    <v-text-field v-model="editedItem.lugarDataTableRM" label="LUGAR" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                        <v-container>
+                            <v-divider></v-divider>
+                            <v-row>
+                                <v-col cols="12" ms="6" md="6">
+                                    <v-text-field v-model="editedItem.padreDataTableRM" label="PADRE" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                                <v-col cols="12" ms="6" md="6">
+                                    <v-text-field v-model="editedItem.madreDataTableRM" label="MADRE" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                        <v-container>
+                            <v-divider></v-divider>
+                            <v-row>
+                                <v-col cols="12" ms="6" md="4">
+                                    <v-text-field v-model="editedItem.encargadoDataTableRM" label="PERSONA ENCARGADA" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                                <v-col cols="12" ms="6" md="4">
+                                    <v-text-field v-model="editedItem.direccion2DataTableRM" label="DIRECCION" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                                <v-col cols="12" ms="6" md="4">
+                                    <v-text-field v-model="editedItem.telefonoDataTableRM" label="TELEFONO" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                        <v-container>
+                            <v-divider></v-divider>
+                            <v-row>
+                                <!-- fecha de admision -->
+                                <v-col cols="12" ms="6" md="6">
+                                    <v-dialog
+                                        ref="dialog2"
+                                        v-model="modaldate2"
+                                        return-value.sync="date2"
+                                        persistent
+                                        width="290px"
+                                    >
+                                        <template v-slot:activator="{ on }">
+                                        <v-text-field
+                                            v-model="date2"
+                                            label="FECHA Y HORA DE ADMISION"
+                                            prepend-icon="event"
+                                            readonly
+                                            v-on="on"
+                                        ></v-text-field>
+                                        </template>
+                                        <v-date-picker locale="es-ES" v-model="date2" color="#2c2e3f" scrollable>
+                                        <div class="flex-grow-1"></div>
+                                        <v-btn text color="primary" @click="modaldate2 = false">CANCELAR</v-btn>
+                                        <v-btn text color="primary" @click="$refs.dialog2.save(date2)">OK</v-btn>
+                                        </v-date-picker>
+                                    </v-dialog>
+                                </v-col>
+                                <v-col cols="12" ms="6" md="6">
+                                    <v-text-field v-model="editedItem.firmaDataTableRM" label="FIRMA" :rules="nameRules" required></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                        <v-container>
+                            <v-divider></v-divider>
+                            <v-row>
+                                <v-textarea autocomplete="diagnostico" v-model="editedItem.diagnosticoDataTableRM" label="DIAGNOSTICO FINAL"></v-textarea>                                            
+                            </v-row>
+                        </v-container>
+                        <v-container>
+                            <v-divider></v-divider>
+                            <v-row>
+                                <v-textarea v-model="editedItem.recomendacionesDataTableRM" autocomplete="recomendaciones" label="RECOMENDACIONES"></v-textarea>
+                            </v-row>
+                        </v-container>
+                    </v-form>
+                </v-card-text>
+                <v-card-actions>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <!-- FIN DE LA ESTRUCTURA DEL DIALOGO NUEVO REGISTRO MEDICO -->
         <!-- TITULO DE LA PAGINA  -->
         <v-layout text-center wrap >
             <v-flex mb-4>
             <h1>DEPARTAMENTO REGISTROS MEDICOS</h1>
             </v-flex>
         </v-layout>
+        <!-- FIN DEL TITULO DE LA PAGINA  -->
 
+        <!-- INICIO DEL ENCABEZADO DE LA TABLA Y LOS COMPONENTES DEL BOTON REGISTRO NUEVO Y BUSCAR REGISTRO    -->
+        <v-toolbar flat dark color="#2c2e3f">
+            <v-toolbar-title>REGISTROS</v-toolbar-title>
+            <v-divider class="mx-4" inset vertical></v-divider>
+            <div class="flex-grow-1"></div>
+
+            <v-text-field class="mx-2" height="50px" color="white" v-model="search" label="BUSCAR REGISTRO MEDICO" append-icon="search" single-line hide-details></v-text-field>
+            <v-btn color="indigo" title="NUEVO REGISTRO MEDICO" @click="AbrirModalNuevo()" fab dark class="mx-2">
+                <v-icon>add</v-icon>
+            </v-btn>
+        </v-toolbar>                    
+        <!-- FIN DEL ENCABEZADO DE LA TABLA -->
         <!-- AQUI INICIA LA ESTRUCTURA DE LA TABLA -->
         <v-data-table 
         :headers="TableHeaderRM"
         :items="DataTableRM"
         :search="search"
-        class="elevation-1"
-        >            
-            <template v-slot:top>               
-                <!-- ENCABEZADO DE LA TABLA DE REGISTROS  -->
-                <v-toolbar flat color="white">
-                    <v-toolbar-title>REGISTROS</v-toolbar-title>
-                    
-                    <v-divider class="mx-4" inset vertical></v-divider>
-                    <div class="flex-grow-1"></div>
-                    <!-- ESTRUCTURA DEL DIALOGO PARA LLENAR EL FORMULARIO -->
-                    <v-dialog v-model="DiagoloNuevoRM" persistent max-width="900px">                        
-                        <template v-slot:activator="{on}">    
-                            <v-btn color="indigo" title="NUEVO REGISTRO MEDICO" fab dark class="mx-2" v-on="on">
-                                <v-icon>add</v-icon>
-                            </v-btn>
-                            <v-text-field height="50px" color="#2c2e3f" v-model="search" label="BUSCAR REGISTRO MEDICO" append-icon="search" single-line hide-details></v-text-field>                        
-                        </template>
-                        <v-card>
-                            <v-card-title>
-                                <span class="headline">{{ formtitle}}</span>
-                            </v-card-title>
-                            <v-card-text >
-                                <v-form v-model="valid" > 
-                                    <v-container>
-                                        <v-divider></v-divider>
-                                        <v-row>
-                                            <v-col cols="12" sm="6" md="3">
-                                                <v-text-field v-model="editedItem.apellido1DataTableRM" label="1er. APELLIDO" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="3">
-                                                <v-text-field v-model="editedItem.apellido2DataTableRM" label="2do. APELLIDO" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="2">
-                                                <v-text-field v-model="editedItem.name1DataTableRM" label="1er. NOMBRE" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="2">
-                                                <v-text-field v-model="editedItem.name2DataTableRM" label="2d. NOMBRE" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="2">
-                                                <v-text-field v-model="editedItem.clinicaDataTableRM" label="His. Clínica" :rules="nameRules" required></v-text-field>
-                                            </v-col>                                                                                    
-                                        </v-row>
-                                    </v-container>
-                                    <v-container>
-                                        <v-divider></v-divider>
-                                        <v-row>
-                                            <v-col class="d-flex" cols="12" sm="6" md="2">
-                                                <v-select v-model="editedItem.sexoDataTableRM" :items="itemsexo" label="SEXO" :rules="nameRules" required></v-select>
-                                            </v-col>                                                                                    
-                                            <v-col cols="12" sm="6" md="2">
-                                                <v-text-field v-model="editedItem.edadDataTableRM" label="EDAD" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                            <!-- fecha de nacimiento -->
-                                            <v-col cols="12" ms="6" md="3">
-                                                <v-dialog
-                                                    ref="dialog"
-                                                    v-model="modaldate"
-                                                    return-value.sync="date"
-                                                    persistent
-                                                    width="290px"
-                                                >
-                                                    <template v-slot:activator="{ on }">
-                                                    <v-text-field
-                                                        v-model="date"
-                                                        label="Fecha Nacimiento"
-                                                        prepend-icon="event"
-                                                        readonly
-                                                        v-on="on"
-                                                    ></v-text-field>
-                                                    </template>
-                                                    <v-date-picker locale="es-Es" v-model="date" color="#2c2e3f" scrollable>
-                                                    <div class="flex-grow-1"></div>
-                                                    <v-btn text color="primary" @click="modaldate = false">CANCELAR</v-btn>
-                                                    <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
-                                                    </v-date-picker>
-                                                </v-dialog>
-                                            </v-col>
-                                            <v-col cols="12" ms="6" md="3">
-                                                <v-text-field v-model="editedItem.tecnicoDataTableRM" label="GRUPO TECNICO" :rules="nameRules" required></v-text-field>
-                                            </v-col>                              
-                                            <v-col cols="12" ms="6" md="2">
-                                                <v-text-field v-model="editedItem.otrosDataTableRM" label="OTROS"></v-text-field>
-                                            </v-col>                                                                                          
-                                        </v-row>
-                                    </v-container>
-                                    <v-container>
-                                        <v-divider></v-divider>
-                                        <v-row>
-                                            <v-col cols="12" ms="6" md="6">
-                                                <v-text-field v-model="editedItem.direccionDataTableRM" label="DIRECCION" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" ms="6" md="6">
-                                                <v-text-field v-model="editedItem.departamentoDataTableRM" label="DEPARTAMENTO" :rules="nameRules" required ></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                    </v-container>
-                                    <v-container>
-                                        <v-divider></v-divider>
-                                        <v-row>
-                                            <v-col cols="12" ms="6" md="3">
-                                                <v-text-field v-model="editedItem.residenciaDataTableRM" label="RESIDENCIA HABITUAL" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" ms="6" md="3">
-                                                <v-text-field v-model="editedItem.ciudadDataTableRM" label="CIUDAD" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" ms="6" md="3">
-                                                <v-text-field v-model="editedItem.departamento2DataTableRM" label="DEPARTAMENTO" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" ms="6" md="3">
-                                                <v-text-field v-model="editedItem.paisDataTableRM" label="PAIS" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                    </v-container>
-                                    <v-container>
-                                        <v-divider></v-divider>
-                                        <v-row>
-                                            <v-col cols="12" ms="6" md="6">
-                                                <v-text-field v-model="editedItem.residencia2DataTableRM" label="RESIDENCIA HABITUAL" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" ms="6" md="6">
-                                                <v-text-field v-model="editedItem.lugarDataTableRM" label="LUGAR" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                    </v-container>
-                                    <v-container>
-                                        <v-divider></v-divider>
-                                        <v-row>
-                                            <v-col cols="12" ms="6" md="6">
-                                                <v-text-field v-model="editedItem.padreDataTableRM" label="PADRE" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" ms="6" md="6">
-                                                <v-text-field v-model="editedItem.madreDataTableRM" label="MADRE" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                    </v-container>
-                                    <v-container>
-                                        <v-divider></v-divider>
-                                        <v-row>
-                                            <v-col cols="12" ms="6" md="4">
-                                                <v-text-field v-model="editedItem.encargadoDataTableRM" label="PERSONA ENCARGADA" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" ms="6" md="4">
-                                                <v-text-field v-model="editedItem.direccion2DataTableRM" label="DIRECCION" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" ms="6" md="4">
-                                                <v-text-field v-model="editedItem.telefonoDataTableRM" label="TELEFONO" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                    </v-container>
-                                    <v-container>
-                                        <v-divider></v-divider>
-                                        <v-row>
-                                            <!-- fecha de admision -->
-                                            <v-col cols="12" ms="6" md="6">
-                                                <v-dialog
-                                                    ref="dialog2"
-                                                    v-model="modaldate2"
-                                                    return-value.sync="date2"
-                                                    persistent
-                                                    width="290px"
-                                                >
-                                                    <template v-slot:activator="{ on }">
-                                                    <v-text-field
-                                                        v-model="date2"
-                                                        label="FECHA Y HORA DE ADMISION"
-                                                        prepend-icon="event"
-                                                        readonly
-                                                        v-on="on"
-                                                    ></v-text-field>
-                                                    </template>
-                                                    <v-date-picker locale="es-ES" v-model="date2" color="#2c2e3f" scrollable>
-                                                    <div class="flex-grow-1"></div>
-                                                    <v-btn text color="primary" @click="modaldate2 = false">CANCELAR</v-btn>
-                                                    <v-btn text color="primary" @click="$refs.dialog2.save(date2)">OK</v-btn>
-                                                    </v-date-picker>
-                                                </v-dialog>
-                                            </v-col>
-                                            <v-col cols="12" ms="6" md="6">
-                                                <v-text-field v-model="editedItem.firmaDataTableRM" label="FIRMA" :rules="nameRules" required></v-text-field>
-                                            </v-col>
-                                        </v-row>
-                                    </v-container>
-                                    <v-container>
-                                        <v-divider></v-divider>
-                                        <v-row>
-                                            <v-textarea autocomplete="diagnostico" v-model="editedItem.diagnosticoDataTableRM" label="DIAGNOSTICO FINAL"></v-textarea>                                            
-                                        </v-row>
-                                    </v-container>
-                                    <v-container>
-                                        <v-divider></v-divider>
-                                        <v-row>
-                                            <v-textarea v-model="editedItem.recomendacionesDataTableRM" autocomplete="recomendaciones" label="RECOMENDACIONES"></v-textarea>
-                                        </v-row>
-                                    </v-container>
-                                </v-form>
-                            </v-card-text>
-                            <v-card-actions>
-                                <div class="flex-grow-1"></div>
-                                <v-btn color="indigo" text @click="cerrarmodalNuevoRM">CERRAR</v-btn>
-                                <v-btn color="indigo" text @click="guardarNuevoRM">GUARDAR REGISTRO</v-btn>
-                            </v-card-actions>
-                        </v-card>
-                    </v-dialog>
-                </v-toolbar>                    
-            </template>
+        class="elevation-10"
+        >                        
             <template v-slot:item.action="{ item }">
-                <v-icon small class="mr-2" title="EDITAR REGISTRO MEDICO" @click="editItem(item)">edit</v-icon>
+                <div class="text-right">
+                    <v-btn class="mx-2" rounded dark color="#2c2e3f" @click="editItem(item)" title="EDITAR REGISTRO MEDICO"> 
+                        <v-icon small left>edit</v-icon> EDITAR
+                    </v-btn>
+                    <v-btn rounded dark color="#2c2e3f" title="HOJA DE EVOLUCION MEDICA">
+                        <v-icon small left>edit</v-icon> DIAGNOSTICO
+                    </v-btn>
+                </div>
             </template>
             <template v-slot:no-results>        
                 <v-alert type="error">EL REGISTRO "{{search}}" NO SE ENCUENTRA EN LA BASE DE DATOS</v-alert>            
@@ -251,12 +258,12 @@ export default({
     search: '',
     // AQUI SE DEFINEN LOS DATOS DEL ENCABEZADO DE LA TABLA DE REGISTROS MEDICOS
     TableHeaderRM:[
-        { text: '1er. APELLIDO', value: 'apellido1DataTableRM'},
-        { text: '2do. APELLIDO', value: 'apellido2DataTableRM'},
-        { text: '1er. NOMBRE', value: 'name1DataTableRM'},
-        { text: '2do. NOMBRE', value: 'name2DataTableRM'},
-        { text: 'His. Clínica', value: 'clinicaDataTableRM'},
-        { text: 'Accion', value: 'action', sortable: false}
+        { text: '1er. APELLIDO', value: 'apellido1DataTableRM', align: 'center'},
+        { text: '2do. APELLIDO', value: 'apellido2DataTableRM', align: 'center'},
+        { text: '1er. NOMBRE', value: 'name1DataTableRM', align: 'center'},
+        { text: '2do. NOMBRE', value: 'name2DataTableRM', align: 'center'},
+        { text: 'His. Clínica', value: 'clinicaDataTableRM', align: 'center'},
+        { text: 'Accion', value: 'action', sortable: false, align: 'center'}
     ],
         DataTableRM: [],
         editedIndex: -1,
@@ -353,6 +360,10 @@ export default({
         editItem (item) {
             this.editedIndex = this.DataTableRM.indexOf(item)
             this.editedItem = Object.assign({}, item)
+            this.DiagoloNuevoRM = true
+        },
+
+        AbrirModalNuevo () {
             this.DiagoloNuevoRM = true
         },
 
