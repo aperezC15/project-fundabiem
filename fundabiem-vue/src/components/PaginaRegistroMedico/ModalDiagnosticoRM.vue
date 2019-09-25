@@ -31,6 +31,24 @@
 
 <script>
 export default {
-    
+    props: ['DialogoDiagnosticoRM'],
+    data: () => ({
+
+    }),
+
+    computed: {
+        DialogoDiagnostico: {
+            get:  function(){
+                return this.DialogoDiagnosticoRM
+            },
+        }
+    },
+
+    methods: {
+        CerrarModalDiagnostico(){
+            // this.DialogoDiagnostico = false
+            this.$emit('cerrar-modal-diagnostico')
+        },        
+    },
 }
 </script>

@@ -1,5 +1,9 @@
 <template>
     <v-container>
+        <ModalDiagnosticoRM
+            @cerrar-modal-diagnostico = "DialogoDiagnosticoRM=false"
+            :DialogoDiagnosticoRM = "DialogoDiagnosticoRM"
+        />
         <!-- INICIO DE LA ESTRUCTURA DEL DIALOGO PARA LLENAR EL FORMULARIO DE REGISTRO MEDICO -->
         <v-dialog v-model="DiagoloNuevoRM" fullscreen hide-overlay transition="dialog-bottom-transition" scrollable>                        
             <v-card>
@@ -191,32 +195,6 @@
             </v-card>
         </v-dialog>
         <!-- FIN DE LA ESTRUCTURA DEL DIALOGO NUEVO REGISTRO MEDICO -->
-        <!-- INICIO DE LA ESTRUCTURA DEL DIALOGO DE LA EVOLUCION MEDICA DE DIAGNOSTICO -->
-        <v-dialog v-model="DialogoDiagnostico" fullscreen hide-overlay transition="dialog-bottom-transition" >
-            <v-card>
-                <!-- ENCABEZADO DE LA TABLA DE LA EVOLUCION MEDICA, DIAGNOSTICO -->
-                <v-toolbar dark color="#2c2e3f">
-                    <span class="headline">EVOLUCION MEDICA</span>
-                    <div class="flex-grow-1"></div>
-
-                    <v-btn color="indigo" rounded class="mx-4" @click="CerrarModalDiagnostico()">CERRAR</v-btn>
-                    <v-btn color="indigo" rounded @click="CerrarModalDiagnostico()">GUARDAR DIAGNOSTICO</v-btn>
-                </v-toolbar>
-                <v-card-text>
-                    <v-form>
-                        <v-container>
-                            <v-row>
-                                <v-col>
-                                    <v-textarea  label="DIAGNOSTICO MEDICO"></v-textarea>
-                                </v-col>
-                            </v-row>
-                        </v-container>
-                    </v-form>
-                </v-card-text>
-
-            </v-card>
-        </v-dialog>
-        <!-- FIN DEL FORMULARIO DE EVOLUCION MEDICA  -->
         <!-- TITULO DE LA PAGINA  -->
         <v-layout text-center wrap >
             <v-flex mb-4>
@@ -225,7 +203,8 @@
         </v-layout>
         <!-- FIN DEL TITULO DE LA PAGINA  -->
 
-        <!-- INICIO DEL ENCABEZADO DE LA TABLA Y LOS COMPONENTES DEL BOTON REGISTRO NUEVO Y BUSCAR REGISTRO    -->
+        <!-- INICIO DEL ENCABEZADO DE LA TABLA Y LOS COMPONENTES DEL BOTON REGIS
+        TRO NUEVO Y BUSCAR REGISTRO    -->
         <v-toolbar flat dark color="#2c2e3f">
             <v-toolbar-title>REGISTROS</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
@@ -263,18 +242,24 @@
 
 <script>
 import { __values } from 'tslib';
+import ModalDiagnosticoRM from './ModalDiagnosticoRM.vue'
 
 export default({
+    components: {
+        ModalDiagnosticoRM,
+    },
+
     data: () => ({
     
         DiagoloNuevoRM: false,
-        DialogoDiagnostico: false,
 
         valid: false,
 
         nameRules: [
             v => !!v || 'Dato Requerido',
         ],
+    //declaramos la variable del componente del modal diagnostico
+    DialogoDiagnosticoRM: false,
     // CALENDARIO FECHA DE NACIMIENTO
     date: new Date().toISOString().substr(0, 10),
     modaldate: false,
@@ -423,12 +408,9 @@ export default({
 
         //abrimos el modal para agregar el diagnostico del registro medico
         AbrirModalDiagnostico (){
-            this.DialogoDiagnostico = true
+            this.DialogoDiagnosticoRM = true
         },
 
-        CerrarModalDiagnostico(){
-            this.DialogoDiagnostico = false
-        },
     },
 })
 
