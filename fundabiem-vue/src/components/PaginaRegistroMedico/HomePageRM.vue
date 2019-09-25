@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container fluid>
         <ModalDiagnosticoRM
             @cerrar-modal-diagnostico = "DialogoDiagnosticoRM=false"
             :DialogoDiagnosticoRM = "DialogoDiagnosticoRM"
@@ -195,6 +195,7 @@
             </v-card>
         </v-dialog>
         <!-- FIN DE LA ESTRUCTURA DEL DIALOGO NUEVO REGISTRO MEDICO -->
+
         <!-- TITULO DE LA PAGINA  -->
         <v-layout text-center wrap >
             <v-flex mb-4>
