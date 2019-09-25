@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <!-- INICIO DE LA ESTRUCTURA DEL DIALOGO PARA LLENAR EL FORMULARIO -->
+        <!-- INICIO DE LA ESTRUCTURA DEL DIALOGO PARA LLENAR EL FORMULARIO DE REGISTRO MEDICO -->
         <v-dialog v-model="DiagoloNuevoRM" fullscreen hide-overlay transition="dialog-bottom-transition" scrollable>                        
             <v-card>
                 <!-- ENCABEZADO DEL MODAL DE FORMULARIO -->
@@ -190,6 +190,32 @@
             </v-card>
         </v-dialog>
         <!-- FIN DE LA ESTRUCTURA DEL DIALOGO NUEVO REGISTRO MEDICO -->
+        <!-- INICIO DE LA ESTRUCTURA DEL DIALOGO DE LA EVOLUCION MEDICA DE DIAGNOSTICO -->
+        <v-dialog v-model="DialogoDiagnostico" fullscreen hide-overlay transition="dialog-bottom-transition" scrollable>
+            <v-card>
+                <!-- ENCABEZADO DE LA TABLA DE LA EVOLUCION MEDICA, DIAGNOSTICO -->
+                <v-toolbar dark color="#2c2e3f">
+                    <span class="headline">EVOLUCION MEDICA</span>
+                    <div class="flex-grow-1"></div>
+
+                    <v-btn color="indigo" rounded class="mx-4">CERRAR</v-btn>
+                    <v-btn color="indigo" rounded >GUARDAR DIAGNOSTICO</v-btn>
+                </v-toolbar>
+                <v-card-text>
+                    <v-form>
+                        <v-container>
+                            <v-row>
+                                <v-col>
+                                    <v-textarea v-model="DiagnosticoMedico" label="DIAGNOSTICO MEDICO"></v-textarea>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </v-form>
+                </v-card-text>
+
+            </v-card>
+        </v-dialog>
+        <!-- FIN DEL FORMULARIO DE EVOLUCION MEDICA  -->
         <!-- TITULO DE LA PAGINA  -->
         <v-layout text-center wrap >
             <v-flex mb-4>
@@ -222,7 +248,7 @@
                     <v-btn class="mx-2" rounded dark color="#2c2e3f" @click="editItem(item)" title="EDITAR REGISTRO MEDICO"> 
                         <v-icon small left>edit</v-icon> EDITAR
                     </v-btn>
-                    <v-btn rounded dark color="#2c2e3f" title="HOJA DE EVOLUCION MEDICA">
+                    <v-btn rounded dark color="#2c2e3f" @click="AbrirModalDiagnostico()" title="HOJA DE EVOLUCION MEDICA">
                         <v-icon small left>edit</v-icon> DIAGNOSTICO
                     </v-btn>
                 </div>
@@ -241,6 +267,8 @@ export default({
     data: () => ({
     
         DiagoloNuevoRM: false,
+        DialogoDiagnostico: false,
+
         valid: false,
 
         nameRules: [
@@ -363,8 +391,14 @@ export default({
             this.DiagoloNuevoRM = true
         },
 
+        //abrimos el modal de un nuevo registro medico
         AbrirModalNuevo () {
             this.DiagoloNuevoRM = true
+        },
+
+        //abrimos el modal para agregar el diagnostico del registro medico
+        AbrirModalDiagnostico (){
+            this.DialogoDiagnostico = true
         },
 
         cerrarmodalNuevoRM () {
