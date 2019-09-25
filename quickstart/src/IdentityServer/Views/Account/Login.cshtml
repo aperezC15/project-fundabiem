@@ -14,15 +14,15 @@
                     <input class="form-control" placeholder="Usuario"  autofocus asp-for="Username" >
                 </div>
                 <div class="form-group mb-4">
-                    <label asp-for="Password">Contraseña</label>
-                    <input type="password" class="form-control" placeholder="Contraseña" asp-for="Password" autocomplete="off">
+                    <label asp-for="Password">Contrase&ntilde;a</label>
+                    <input type="password" class="form-control" placeholder="Contrase&ntilde;a" asp-for="Password" autocomplete="off">
                 </div>
                 @if (Model.AllowRememberLogin)
                 {
                     <div class="form-group login-remember">
                         <label asp-for="RememberLogin">
                             <input asp-for="RememberLogin">
-                            <strong>Mantener sesión</strong>
+                            <strong>Mantener sesi&oacute;n</strong>
                         </label>
                     </div>
                 }
