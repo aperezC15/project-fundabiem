@@ -4,7 +4,6 @@
         color="#2c2e3f" 
         dark 
         app>
-            <v-app-bar-nav-icon title="MENU" @click.stop="drawer = !drawer" v-if="oidcIsAuthenticated"></v-app-bar-nav-icon>         
             <div>
                 <v-avatar>
                   <v-img src="http://www.fundabiem.org.gt/wp-content/uploads/2017/08/favcon.jpg"> </v-img>
@@ -24,38 +23,34 @@
             </v-btn>
         </v-app-bar>        
 
-        <v-navigation-drawer app clipped
-        mini-variant.sync="mini"
-        hide-overlay
-        v-model="drawer"
-        absolute
-        temporary    
-        width="300px"
-        
-        >
-        <v-card
-          class="mx-auto"
-        >
-          <v-list shaped>
-            <v-subheader>REPORTS</v-subheader>
-            <v-list-item-group v-model="item" color="blue darken-1">
-              <v-list-item
-                v-for="(item, i) in items"
-                :key="i" :to="item.path"
-              >
-                <v-list-item-icon>
-                  <v-icon v-text="item.icon"></v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title v-text="item.title"></v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
-        </v-card>
-        </v-navigation-drawer>
 
-
+          <v-navigation-drawer permanent expand-on-hover
+          hide-overlay
+          absolute
+          width="300px"
+          v-if="oidcIsAuthenticated"
+          v-model="drawer"
+          :mini-variant.sync="mini"
+          >
+          <v-card>
+            <v-list shaped>
+              <v-subheader>REPORTS</v-subheader>
+              <v-list-item-group v-model="item" color="blue darken-1">
+                <v-list-item
+                  v-for="(item, i) in items"
+                  :key="i" :to="item.path"
+                >
+                  <v-list-item-icon>
+                    <v-icon v-text="item.icon"></v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title v-text="item.title"></v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-card>
+          </v-navigation-drawer>
     </div>
     
 </template>
@@ -67,7 +62,8 @@ import { mapGetters, mapActions } from 'vuex';
 export default({
     name: 'App',
     data: () => ({
-      drawer: false, 
+      drawer: true, 
+      mini:true,
   //@click="signOutOidc" v-if="oidcIsAuthenticated"
       //AQUI MOSTRAMOS LAS OPCIONES EN EL MENU
       item: 1,
