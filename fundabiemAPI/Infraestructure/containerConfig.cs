@@ -1,5 +1,7 @@
 ﻿using System;
 using Autofac;
+using BrokerServices.common;
+using Microsoft.AspNetCore.Http;
 using Serilog;
 
 namespace fundabiemAPI.Infraestructure
@@ -18,5 +20,24 @@ namespace fundabiemAPI.Infraestructure
             this.appSettings = appSettings;
             this.logger = logger;
         }
+
+        protected override void Load(ContainerBuilder builder)
+        {
+            base.Load(builder);
+
+            #region "Infrastructure"
+            //builder.Register(x => new connectionSQL(connectionStrings.postgreSql, logger));
+            logger.Information("I'm going to connection data  base");
+            builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
+            builder
+                .RegisterType<dbContext>()
+                .WithParameter("Options", connectionSQL.con(connectionStrings.postgreSql))
+                .InstancePerLifetimeScope();
+            logger.Information("Success connection");
+            #endregion
+
+
+        }
     }
 }
+
