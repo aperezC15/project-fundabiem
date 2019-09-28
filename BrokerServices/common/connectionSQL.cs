@@ -15,13 +15,7 @@ namespace BrokerServices.common
         {
             this.uri = uri;
         }
-        public  DbContextOptions<dbContext> Get()
-        {
-            var builder = new DbContextOptionsBuilder<dbContext>();
-            DbContextConfigure.Configure(builder,uri);
-            return builder.Options;
-        }
-
+       
         public static DbContextOptions<dbContext> con(string ur)
         {
             var builder = new DbContextOptionsBuilder<dbContext>();
