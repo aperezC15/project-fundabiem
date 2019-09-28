@@ -1,5 +1,9 @@
 <template>
-    <v-container>
+    <v-container fluid>
+        <ModalDiagnosticoRM
+            @cerrar-modal-diagnostico = "DialogoDiagnosticoRM=false"
+            :DialogoDiagnosticoRM = "DialogoDiagnosticoRM"
+        />
         <!-- INICIO DE LA ESTRUCTURA DEL DIALOGO PARA LLENAR EL FORMULARIO DE REGISTRO MEDICO -->
         <v-dialog v-model="DiagoloNuevoRM" fullscreen hide-overlay transition="dialog-bottom-transition" scrollable>                        
             <v-card>
@@ -42,7 +46,7 @@
                                     <v-text-field v-model="editedItem.edadDataTableRM" label="EDAD" :rules="nameRules" required></v-text-field>
                                 </v-col>
                                 <!-- fecha de nacimiento -->
-                                <v-col cols="12" ms="6" md="3">
+                                <v-col cols="12" ms="6" md="4">
                                     <v-dialog
                                         ref="dialog"
                                         v-model="modaldate"
@@ -66,12 +70,13 @@
                                         </v-date-picker>
                                     </v-dialog>
                                 </v-col>
-                                <v-col cols="12" ms="6" md="3">
-                                    <v-text-field v-model="editedItem.tecnicoDataTableRM" label="GRUPO TECNICO" :rules="nameRules" required></v-text-field>
+                                <v-col cols="12" ms="6" md="4">
+                                    <v-select v-model="editedItem.grupoetnicoDataTableRM" :items="itemgrupoetnico" label="GRUPO ETNICO" :rules="nameRules" required></v-select>
+                                    <!-- <v-text-field v-model="editedItem.tecnicoDataTableRM" label="GRUPO ETNICO" :rules="nameRules" required></v-text-field> -->
                                 </v-col>                              
-                                <v-col cols="12" ms="6" md="2">
+                                <!-- <v-col cols="12" ms="6" md="2">
                                     <v-text-field v-model="editedItem.otrosDataTableRM" label="OTROS"></v-text-field>
-                                </v-col>                                                                                          
+                                </v-col>                                                                                           -->
                             </v-row>
                         </v-container>
                         <v-container>
@@ -167,7 +172,7 @@
                                     </v-dialog>
                                 </v-col>
                                 <v-col cols="12" ms="6" md="6">
-                                    <v-text-field v-model="editedItem.firmaDataTableRM" label="FIRMA" :rules="nameRules" required></v-text-field>
+                                    <v-checkbox v-model="editedItem.firmaDataTableRM" label="FIRMA"></v-checkbox>                                    
                                 </v-col>
                             </v-row>
                         </v-container>
@@ -190,32 +195,7 @@
             </v-card>
         </v-dialog>
         <!-- FIN DE LA ESTRUCTURA DEL DIALOGO NUEVO REGISTRO MEDICO -->
-        <!-- INICIO DE LA ESTRUCTURA DEL DIALOGO DE LA EVOLUCION MEDICA DE DIAGNOSTICO -->
-        <v-dialog v-model="DialogoDiagnostico" fullscreen hide-overlay transition="dialog-bottom-transition" scrollable>
-            <v-card>
-                <!-- ENCABEZADO DE LA TABLA DE LA EVOLUCION MEDICA, DIAGNOSTICO -->
-                <v-toolbar dark color="#2c2e3f">
-                    <span class="headline">EVOLUCION MEDICA</span>
-                    <div class="flex-grow-1"></div>
 
-                    <v-btn color="indigo" rounded class="mx-4">CERRAR</v-btn>
-                    <v-btn color="indigo" rounded >GUARDAR DIAGNOSTICO</v-btn>
-                </v-toolbar>
-                <v-card-text>
-                    <v-form>
-                        <v-container>
-                            <v-row>
-                                <v-col>
-                                    <v-textarea v-model="DiagnosticoMedico" label="DIAGNOSTICO MEDICO"></v-textarea>
-                                </v-col>
-                            </v-row>
-                        </v-container>
-                    </v-form>
-                </v-card-text>
-
-            </v-card>
-        </v-dialog>
-        <!-- FIN DEL FORMULARIO DE EVOLUCION MEDICA  -->
         <!-- TITULO DE LA PAGINA  -->
         <v-layout text-center wrap >
             <v-flex mb-4>
@@ -224,7 +204,8 @@
         </v-layout>
         <!-- FIN DEL TITULO DE LA PAGINA  -->
 
-        <!-- INICIO DEL ENCABEZADO DE LA TABLA Y LOS COMPONENTES DEL BOTON REGISTRO NUEVO Y BUSCAR REGISTRO    -->
+        <!-- INICIO DEL ENCABEZADO DE LA TABLA Y LOS COMPONENTES DEL BOTON REGIS
+        TRO NUEVO Y BUSCAR REGISTRO    -->
         <v-toolbar flat dark color="#2c2e3f">
             <v-toolbar-title>REGISTROS</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
@@ -245,10 +226,10 @@
         >                        
             <template v-slot:item.action="{ item }">
                 <div class="text-right">
-                    <v-btn class="mx-2" rounded dark color="#2c2e3f" @click="editItem(item)" title="EDITAR REGISTRO MEDICO"> 
+                    <v-btn class="mx-2" rounded dark color="#2c2e3f" @click="editItem(item)" title="EDITAR REGISTRO MEDICO" small> 
                         <v-icon small left>edit</v-icon> EDITAR
                     </v-btn>
-                    <v-btn rounded dark color="#2c2e3f" @click="AbrirModalDiagnostico()" title="HOJA DE EVOLUCION MEDICA">
+                    <v-btn rounded dark color="#2c2e3f" @click="AbrirModalDiagnostico()" title="HOJA DE EVOLUCION MEDICA" small>
                         <v-icon small left>edit</v-icon> DIAGNOSTICO
                     </v-btn>
                 </div>
@@ -262,18 +243,24 @@
 
 <script>
 import { __values } from 'tslib';
+import ModalDiagnosticoRM from './ModalDiagnosticoRM.vue'
 
 export default({
+    components: {
+        ModalDiagnosticoRM,
+    },
+
     data: () => ({
     
         DiagoloNuevoRM: false,
-        DialogoDiagnostico: false,
 
         valid: false,
 
         nameRules: [
             v => !!v || 'Dato Requerido',
         ],
+    //declaramos la variable del componente del modal diagnostico
+    DialogoDiagnosticoRM: false,
     // CALENDARIO FECHA DE NACIMIENTO
     date: new Date().toISOString().substr(0, 10),
     modaldate: false,
@@ -282,6 +269,9 @@ export default({
     modaldate2: false,
     // AQUI SELECCIONAMOS EL SEXO DEL USUARIO
     itemsexo: ['M', 'F'],
+    //aqui declaramos el contenido del select del grupo etcnico
+    itemgrupoetnico: ['Maya', 'Xinka', 'Ladina', 'Garifuna'],
+
     // DECLARAMSO LA VARIABLE QUE HARA LA BUSQUEDA EN LA TABLA
     search: '',
     // AQUI SE DEFINEN LOS DATOS DEL ENCABEZADO DE LA TABLA DE REGISTROS MEDICOS
@@ -304,7 +294,7 @@ export default({
             sexoDataTableRM: '',
             edadDataTableRM: '',
             date: '',
-            tecnicoDataTableRM: '',
+            grupoetnicoDataTableRM: '',
             otrosDataTableRM: '',
             direccionDataTableRM: '',
             departamentoDataTableRM: '',
@@ -334,7 +324,7 @@ export default({
             sexoDataTableRM: '',
             edadDataTableRM: '',
             date: '',
-            tecnicoDataTableRM: '',
+            grupoetnicoDataTableRM: '',
             otrosDataTableRM: '',
             direccionDataTableRM: '',
             departamentoDataTableRM: '',
@@ -396,11 +386,6 @@ export default({
             this.DiagoloNuevoRM = true
         },
 
-        //abrimos el modal para agregar el diagnostico del registro medico
-        AbrirModalDiagnostico (){
-            this.DialogoDiagnostico = true
-        },
-
         cerrarmodalNuevoRM () {
             this.DiagoloNuevoRM = false
             setTimeout(() => {
@@ -421,6 +406,12 @@ export default({
             }
             this.cerrarmodalNuevoRM()
         },
+
+        //abrimos el modal para agregar el diagnostico del registro medico
+        AbrirModalDiagnostico (){
+            this.DialogoDiagnosticoRM = true
+        },
+
     },
 })
 
