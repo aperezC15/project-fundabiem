@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid>
+    <v-container>
         <ModalDiagnosticoRM
             @cerrar-modal-diagnostico = "DialogoDiagnosticoRM=false"
             :DialogoDiagnosticoRM = "DialogoDiagnosticoRM"

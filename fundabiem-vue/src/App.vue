@@ -3,7 +3,7 @@
     <v-content>
         <toolbarhp/>
         <footerhp/>
-          <router-view></router-view>
+        <router-view></router-view>
     </v-content>
   </v-app>
 </template>
