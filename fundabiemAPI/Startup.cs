@@ -64,6 +64,7 @@ namespace fundabiemAPI
                     //this you can configure access policys, e.g edad => 18
                 });
             });
+            
 
             services.AddCors(options=> {
                 options.AddPolicy("default", policy =>
