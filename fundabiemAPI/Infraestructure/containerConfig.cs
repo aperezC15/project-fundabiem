@@ -37,7 +37,7 @@ namespace fundabiemAPI.Infraestructure
             logger.Information("Success connection");
             #endregion
 
-            #region "Custom Business Classes"
+            #region "Custom Business Classes -bls-"
             builder.Register(c => new clsFundabiemCommonLogic<TI, TC>(
             )).InstancePerDependency()
             .As<IFundabiemCommonLogic<TI, TC>>();
