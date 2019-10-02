@@ -17,12 +17,13 @@ namespace EntityModelFundabien.common
         where TC : struct
     {
         private readonly Func<IFundabiemCommonLogic<TI, TC>> contratoEntityFactory;
-        //private readonly dbContext context;
+        private readonly dbContext context;
         private readonly IMapper mapper;
 
-        public clsFundabiemCommonLogic(IMapper mapper)
+        public clsFundabiemCommonLogic(IMapper mapper, dbContext context)
         {
             this.mapper = mapper;
+            this.context = context;
         }
         
 
@@ -38,8 +39,7 @@ namespace EntityModelFundabien.common
 
         public ActionResult<AutorDTO> obtenerAutor(int id)
         {
-            var con = new dbContext();
-            var autor = con.Autores.FirstOrDefault(x => x.AutorId == id);
+            var autor = context.Autores.FirstOrDefault(x => x.AutorId == id);
             var autorDTO = mapper.Map<AutorDTO>(autor);
             return autorDTO;
         }

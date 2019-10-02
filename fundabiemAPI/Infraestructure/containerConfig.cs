@@ -18,13 +18,15 @@ namespace fundabiemAPI.Infraestructure
         private readonly connectionStrings connectionStrings;
         private readonly ILogger logger;
         public readonly IMapper mapper;
+        private readonly dbContext context;
 
-        public containerConfig(connectionStrings connectionStrings, appSettings appSettings, ILogger logger, IMapper mapper)
+        public containerConfig(connectionStrings connectionStrings, appSettings appSettings, ILogger logger, IMapper mapper, dbContext context)
         {
             this.connectionStrings = connectionStrings;
             this.appSettings = appSettings;
             this.logger = logger;
             this.mapper = mapper;
+            this.context = context;
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -41,7 +43,7 @@ namespace fundabiemAPI.Infraestructure
             #endregion
 
             #region "Custom Business Classes -bls-"
-            builder.Register(c => new clsFundabiemCommonLogic<TI, TC>(mapper
+            builder.Register(c => new clsFundabiemCommonLogic<TI, TC>(mapper, context
             )).InstancePerDependency()
             .As<IFundabiemCommonLogic<TI, TC>>();
             #endregion
