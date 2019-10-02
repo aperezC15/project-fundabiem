@@ -3,6 +3,9 @@ using Autofac;
 using BrokerServices.common;
 using Microsoft.AspNetCore.Http;
 using Serilog;
+using EntityModelFundabien;
+using EntityModelFundabien.common;
+using EntityModelFundabien.Interfaces;
 
 namespace fundabiemAPI.Infraestructure
 {
@@ -24,18 +27,21 @@ namespace fundabiemAPI.Infraestructure
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-
             #region "Infrastructure"
-            //builder.Register(x => new connectionSQL(connectionStrings.postgreSql, logger));
             logger.Information("I'm going to connection data  base");
             builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
             builder
                 .RegisterType<dbContext>()
                 .WithParameter("Options", connectionSQL.con(connectionStrings.postgreSql))
-                .InstancePerLifetimeScope();
+                .InstancePerDependency();
             logger.Information("Success connection");
             #endregion
 
+            #region "Custom Business Classes -bls-"
+            builder.Register(c => new clsFundabiemCommonLogic<TI, TC>(
+            )).InstancePerDependency()
+            .As<IFundabiemCommonLogic<TI, TC>>();
+            #endregion
 
         }
     }

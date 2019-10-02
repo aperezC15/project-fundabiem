@@ -9,7 +9,7 @@ namespace BrokerServices.common
     {
         public static void Configure(DbContextOptionsBuilder<dbContext> builder, string connectionString)
         {
-            builder.UseNpgsql(connectionString);
+            builder.UseNpgsql(connectionString, providerOptions => providerOptions.CommandTimeout(60));
         }
     }
 }
