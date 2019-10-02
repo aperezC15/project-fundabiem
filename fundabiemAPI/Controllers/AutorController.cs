@@ -37,7 +37,7 @@ namespace fundabiemAPI.Controllers
         {
             logger.LogInformation("Searching Autor with id = {0}",id);
             var autor = fundabiem.obtenerAutor(id);
-            if(autor == null) { return NotFound(); }
+            if(autor.Value == null) { return NotFound(); }
             return autor;
         }
 
