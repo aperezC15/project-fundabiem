@@ -42,7 +42,7 @@ namespace fundabiemAPI.Controllers
             //}
             //var autorDTO = mapper.Map<AutorDTO>(autor);
             //return autorDTO;
-            var autor = fundabiem.obtenerAutor(id, mapper);
+            var autor = fundabiem.obtenerAutor(id);
             if(autor == null) { return NotFound(); }
             return autor;
         }

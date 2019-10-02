@@ -17,6 +17,6 @@ namespace EntityModelFundabien.Interfaces
         Task RegistrarPAciente();
         Task Saludar<TI>();
 
-        ActionResult<AutorDTO> obtenerAutor(int id, IMapper map);
+        ActionResult<AutorDTO> obtenerAutor(int id);
     }
 }

@@ -6,6 +6,7 @@ using Serilog;
 using EntityModelFundabien;
 using EntityModelFundabien.common;
 using EntityModelFundabien.Interfaces;
+using AutoMapper;
 
 namespace fundabiemAPI.Infraestructure
 {
@@ -16,12 +17,14 @@ namespace fundabiemAPI.Infraestructure
         private readonly appSettings appSettings;
         private readonly connectionStrings connectionStrings;
         private readonly ILogger logger;
+        public readonly IMapper mapper;
 
-        public containerConfig(connectionStrings connectionStrings, appSettings appSettings, ILogger logger)
+        public containerConfig(connectionStrings connectionStrings, appSettings appSettings, ILogger logger, IMapper mapper)
         {
             this.connectionStrings = connectionStrings;
             this.appSettings = appSettings;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -38,7 +41,7 @@ namespace fundabiemAPI.Infraestructure
             #endregion
 
             #region "Custom Business Classes -bls-"
-            builder.Register(c => new clsFundabiemCommonLogic<TI, TC>(
+            builder.Register(c => new clsFundabiemCommonLogic<TI, TC>(mapper
             )).InstancePerDependency()
             .As<IFundabiemCommonLogic<TI, TC>>();
             #endregion

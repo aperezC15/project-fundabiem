@@ -26,14 +26,22 @@ namespace fundabiemAPI
         private IConfiguration configuration { get; }
         private IOptions<appSettings> appSettings;
         private IOptions<connectionStrings> connectionStrings;
+        public IMapper mapper { get; set; }
         public Startup(IConfiguration configuration)
         {
             this.configuration = configuration;
+            this.mapper = mappingConfig.CreateMapper();
         }
+
+        MapperConfiguration mappingConfig = new MapperConfiguration(mc => {
+            mc.AddProfile(new MappingProfile());
+        });
+
+        
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule(new containerConfig<int,int>(connectionStrings.Value, appSettings.Value, Log.Logger));
+            builder.RegisterModule(new containerConfig<int,int>(connectionStrings.Value, appSettings.Value, Log.Logger, mapper));
         }
 
         
@@ -41,12 +49,7 @@ namespace fundabiemAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            var mappingConfig = new MapperConfiguration(mc => {
-                mc.AddProfile(new MappingProfile());
-            });
-
-            IMapper mapper = mappingConfig.CreateMapper();
+            //mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
             //this for replacement environment variables

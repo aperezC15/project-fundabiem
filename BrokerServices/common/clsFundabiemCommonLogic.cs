@@ -18,8 +18,12 @@ namespace EntityModelFundabien.common
     {
         private readonly Func<IFundabiemCommonLogic<TI, TC>> contratoEntityFactory;
         //private readonly dbContext context;
-        //private readonly IMapper mapper;
+        private readonly IMapper mapper;
 
+        public clsFundabiemCommonLogic(IMapper mapper)
+        {
+            this.mapper = mapper;
+        }
         
 
         public Task RegistrarPAciente()
@@ -32,11 +36,11 @@ namespace EntityModelFundabien.common
             throw new NotImplementedException();
         }
 
-        public ActionResult<AutorDTO> obtenerAutor(int id,  IMapper map)
+        public ActionResult<AutorDTO> obtenerAutor(int id)
         {
             var con = new dbContext();
             var autor = con.Autores.FirstOrDefault(x => x.AutorId == id);
-            var autorDTO = map.Map<AutorDTO>(autor);
+            var autorDTO = mapper.Map<AutorDTO>(autor);
             return autorDTO;
         }
 
