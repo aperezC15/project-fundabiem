@@ -25,8 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\cproject-fundabiem\DataAccess\EntityModelFundabien\EntityModelFundabien.csproj" />
     <ProjectReference Include="..\BrokerServices\BrokerServices.csproj" />
+    <ProjectReference Include="..\DataAccess\EntityModelFundabien\EntityModelFundabien.csproj" />
   </ItemGroup>
 
 </Project>
