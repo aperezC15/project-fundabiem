@@ -33,7 +33,7 @@ namespace fundabiemAPI.Infraestructure
             builder
                 .RegisterType<dbContext>()
                 .WithParameter("Options", connectionSQL.con(connectionStrings.postgreSql))
-                .InstancePerLifetimeScope();
+                .InstancePerDependency();
             logger.Information("Success connection");
             #endregion
 
