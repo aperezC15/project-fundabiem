@@ -17,7 +17,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using Autofac;
 using Serilog;
 using AutoMapper;
-using EntityModelFundabien.Maper;
+using EntityModelFundabien.mapper;
 
 namespace fundabiemAPI
 {

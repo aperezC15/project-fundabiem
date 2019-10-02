@@ -35,13 +35,16 @@ namespace fundabiemAPI.Controllers
         [HttpGet("{id}", Name = "ObtenerAutor")]
         public ActionResult<AutorDTO> GetId(int id)
         {
-            var autor = context.Autores.FirstOrDefault(x => x.AutorId == id);
-            if (autor == null)
-            {
-                return NotFound();
-            }
-            var autorDTO = mapper.Map<AutorDTO>(autor);
-            return autorDTO;
+            //var autor = context.Autores.FirstOrDefault(x => x.AutorId == id);
+            //if (autor == null)
+            //{
+            //    return NotFound();
+            //}
+            //var autorDTO = mapper.Map<AutorDTO>(autor);
+            //return autorDTO;
+            var autor = fundabiem.obtenerAutor(id, mapper);
+            if(autor == null) { return NotFound(); }
+            return autor;
         }
 
         [HttpPost]

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EntityModelFundabien.Maper
+namespace EntityModelFundabien.mapper
 {
     public class MappingProfile : Profile
     {

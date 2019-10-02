@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AutoMapper;
+using EntityModelFundabien.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,5 +16,7 @@ namespace EntityModelFundabien.Interfaces
         //add all task
         Task RegistrarPAciente();
         Task Saludar<TI>();
+
+        ActionResult<AutorDTO> obtenerAutor(int id, IMapper map);
     }
 }
