@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -24,8 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\cproject-fundabiem\DataAccess\EntityModelFundabien\EntityModelFundabien.csproj" />
     <ProjectReference Include="..\BrokerServices\BrokerServices.csproj" />
+    <ProjectReference Include="..\DataAccess\EntityModelFundabien\EntityModelFundabien.csproj" />
   </ItemGroup>
 
 </Project>

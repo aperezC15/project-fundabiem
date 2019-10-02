@@ -16,6 +16,8 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Autofac;
 using Serilog;
+using AutoMapper;
+using EntityModelFundabien.Maper;
 
 namespace fundabiemAPI
 {
@@ -39,6 +41,14 @@ namespace fundabiemAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            var mappingConfig = new MapperConfiguration(mc => {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             //this for replacement environment variables
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddOptions();
