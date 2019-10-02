@@ -67,6 +67,13 @@
       @saveRehabilitacion="saveRehabilitacion"
     />
 
+    <edit-ciclo-rehabilitacion 
+      :showEditCiclo="showEditCiclo"
+      :cicloEdit="cicloEdit"
+      @closeEditModalRehabilitation="closeEditModalRehabilitation"
+      @saveEditRehabilitacion="saveEditRehabilitacion"
+    />
+
     <v-dialog v-model="loading" width="300px">
       <v-card height="100px" class="d-flex justify-center align-center">
       <v-card-text>
@@ -87,9 +94,11 @@
 
 <script>
 import CicloRehabilitacion from '../../components/ciclo-rehabilitacion/CicloRehabilitacion.vue'
+import EditCicloRehabilitacion from '../../components/ciclo-rehabilitacion/EditCicloRehabilitacion.vue'
 export default {
   components: { 
-    CicloRehabilitacion
+    CicloRehabilitacion,
+    EditCicloRehabilitacion
   },
   data() {
     return {
@@ -108,7 +117,9 @@ export default {
         { id: 2, nombre: "Benito Juarez", edad: 32, sexo: "masculino", origen: "Guatemala", diagnostico: "El diagnostico", fecha: "2016-02-10" },
       ],
       dialogRehabilitacion: false,
-      loading: false
+      loading: false,
+      cicloEdit: {},
+      showEditCiclo: false
 
     }
   },
@@ -140,8 +151,34 @@ export default {
     closeModalRehabilitation() {
       this.dialogRehabilitacion= false
     },
-    editItem(id) {
-      console.log(id);
+    editItem(item) {
+      this.showEditCiclo = true
+
+       this.cicloEdit = this.cicloRehabilitacionCIF.find( ciclo => ciclo.id === item.id)
+
+    },
+    saveEditRehabilitacion(data) {
+          const { id, nombre,  edad , sexo , origen, diagnostico, fecha } = data 
+
+          const editCiclo = {id, nombre, edad, sexo, origen, diagnostico, fecha}
+
+        this.cicloRehabilitacionCIF = this.cicloRehabilitacionCIF.map( ciclo => ciclo.id === data.id ? editCiclo : ciclo )
+
+       this.showEditCiclo = false
+
+      this.loading = true
+
+       setTimeout( () => {
+         this.loading = false
+         this.$swal.fire(
+          'Ciclo de rehabilitación editado con éxito!',
+          'Ciclo editado exitosamente',
+          'success'
+         );
+       },2000)
+    },
+    closeEditModalRehabilitation() {
+      this.showEditCiclo = false
     }
   }
 };
