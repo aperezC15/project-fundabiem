@@ -1,4 +1,5 @@
-﻿using EntityModelFundabien.entities;
+﻿
+using EntityModelFundabien.entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
