@@ -10,6 +10,8 @@ import HomePageRM from './components/PaginaRegistroMedico/HomePageRM.vue'
 import HomePageET from './components/EvolucionTecnica/HomePageET.vue'
 import HomePageES from './components/EstudioSocioeconomico/HomePageES.vue'
 
+import CicloRehabilitacion from './views/Ciclo_Rehabilitacion/Ciclo_de_Rehabilitacion.vue'
+
 
 //@ts-ignore
 import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
@@ -90,6 +92,11 @@ const router = new Router({
       path: '/HomePageES',
       name: 'HomePageES',
       component: HomePageES
+    },
+    {
+      path: "/ciclo-rehabilitacion",
+      name:'/ciclo-rehabilitacion',
+      component: CicloRehabilitacion
     }
   ]
 })
