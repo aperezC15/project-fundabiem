@@ -87,6 +87,7 @@ export default class tool extends Vue{
         { title: 'Estudio Socioeconomico' , icon: 'far fa-address-card', path: '/HomePageES'},
         { title: 'Hoja Evolución Técnica ' , icon: 'far fa-address-card', path: '/HomePageET'},
         { title: 'Hoja de Estadísticas Diarias' , icon: 'far fa-address-card', path: ''},
+        { title: 'Ciclo de Rehabilitacion', icon: "far fa-address-card", path:'/ciclo-rehabilitacion'},
     ]
 
     mounted() {
