@@ -63,7 +63,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { Component, Vue } from 'vue-property-decorator'
 const namespace: string = 'oidcStore/';
 
-@Component({
+ @Component({
    computed: {
       ...mapGetters('oidcStore', [
                 'oidcIsAuthenticated',

@@ -63,7 +63,7 @@ namespace fundabiemAPI
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = appSettings.Value.autority;
+                    options.Authority = appSettings.Value.Authority;
                     options.RequireHttpsMetadata = false;
                 });
 
