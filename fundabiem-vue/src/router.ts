@@ -95,15 +95,14 @@ const router = new Router({
       component: HomePageES
     },
     {
-<<<<<<< HEAD
       path: '/HomePageHC',
       name: 'HomePageHC',
       component: HomePageHC
-=======
+    },
+    {
       path: "/ciclo-rehabilitacion",
       name:'/ciclo-rehabilitacion',
       component: CicloRehabilitacion
->>>>>>> bf7a07071cd5ec7ec3b5ecad55d668265e664d20
     }
   ]
 })
