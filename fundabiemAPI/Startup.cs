@@ -17,7 +17,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using Autofac;
 using Serilog;
 using AutoMapper;
-using EntityModelFundabien.Maper;
+using EntityModelFundabien.mapper;
+using BrokerServices.common;
 
 namespace fundabiemAPI
 {
@@ -26,27 +27,27 @@ namespace fundabiemAPI
         private IConfiguration configuration { get; }
         private IOptions<appSettings> appSettings;
         private IOptions<connectionStrings> connectionStrings;
+        public IMapper mapper { get; set; }
+        private dbContext context;
         public Startup(IConfiguration configuration)
         {
             this.configuration = configuration;
+            this.mapper = mappingConfig.CreateMapper();
+            this.context = new dbContext();
         }
+
+        MapperConfiguration mappingConfig = new MapperConfiguration(mc => {
+            mc.AddProfile(new MappingProfile());
+        });
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule(new containerConfig<int,int>(connectionStrings.Value, appSettings.Value, Log.Logger));
+            builder.RegisterModule(new containerConfig<int,int>(connectionStrings.Value, appSettings.Value, Log.Logger, mapper, context));
         }
-
-        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            var mappingConfig = new MapperConfiguration(mc => {
-                mc.AddProfile(new MappingProfile());
-            });
-
-            IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
             //this for replacement environment variables

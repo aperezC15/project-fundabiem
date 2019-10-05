@@ -1,0 +1,51 @@
+﻿using AutoMapper;
+using BrokerServices.common;
+using EntityModelFundabien.Interfaces;
+using EntityModelFundabien.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EntityModelFundabien.common
+{
+    public class clsFundabiemCommonLogic<TI, TC> : IFundabiemCommonLogic<TI, TC>
+    where TI : struct, IEquatable<TI>
+        where TC : struct
+    {
+        private readonly Func<IFundabiemCommonLogic<TI, TC>> contratoEntityFactory;
+        private readonly dbContext context;
+        private readonly IMapper mapper;
+
+        public clsFundabiemCommonLogic(IMapper mapper, dbContext context)
+        {
+            this.mapper = mapper;
+            this.context = context;
+        }
+        
+
+        public Task RegistrarPAciente()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Saludar<TI1>()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ActionResult<AutorDTO> obtenerAutor(int id)
+        {
+            var autor = context.Autores.FirstOrDefault(x => x.AutorId == id);
+            var autorDTO = mapper.Map<AutorDTO>(autor);
+            return autorDTO;
+        }
+
+      
+    }
+
+   
+}

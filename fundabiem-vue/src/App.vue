@@ -18,6 +18,7 @@ import HomePage from './components/PaginaInicio/HomePage.vue';
 import footerhp from './components/PaginaInicio/footerhp.vue';
 import HomePageRM from './components/PaginaRegistroMedico/HomePageRM.vue';
 import HomePageES from './components/EstudioSocioeconomico/HomePageES.vue';
+import HomePageHC from './components/HistoriaClinica/PageHistoryClinic.vue';
 
 export default({
   name: 'App',
@@ -29,7 +30,8 @@ export default({
       HomePage,
       footerhp,
       HomePageRM,
-      HomePageES
+      HomePageES,
+      HomePageHC
   },
   computed: {
     ...mapGetters('oidcStore', [
@@ -38,3 +40,4 @@ export default({
   }
 });
 </script>
+run 
