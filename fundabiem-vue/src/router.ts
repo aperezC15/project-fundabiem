@@ -9,6 +9,7 @@ import footerhp from './components/PaginaInicio/footerhp.vue'
 import HomePageRM from './components/PaginaRegistroMedico/HomePageRM.vue'
 import HomePageET from './components/EvolucionTecnica/HomePageET.vue'
 import HomePageES from './components/EstudioSocioeconomico/HomePageES.vue'
+import HomePageHC from './components/HistoriaClinica/PageHistoryClinic.vue'
 
 
 //@ts-ignore
@@ -90,6 +91,11 @@ const router = new Router({
       path: '/HomePageES',
       name: 'HomePageES',
       component: HomePageES
+    },
+    {
+      path: '/HomePageHC',
+      name: 'HomePageHC',
+      component: HomePageHC
     }
   ]
 })
