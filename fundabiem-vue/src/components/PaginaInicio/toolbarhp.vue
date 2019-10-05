@@ -1,9 +1,7 @@
 <template>
     <div id="app">        
-        <v-app-bar 
-        color="#2c2e3f" 
-        dark 
-        app>
+        <!-- start  of the toolbar -->
+        <v-app-bar color="#2c2e3f" dark app>
             <div>
                 <v-avatar>
                   <v-img src="http://www.fundabiem.org.gt/wp-content/uploads/2017/08/favcon.jpg"> </v-img>
@@ -22,8 +20,8 @@
                 <v-icon>fas fa-sign-in-alt</v-icon>
             </v-btn>
         </v-app-bar>        
-
-
+        <!-- end of the toolbar -->
+          
           <v-navigation-drawer permanent expand-on-hover
           hide-overlay
           absolute
@@ -34,7 +32,12 @@
           >
           <v-card>
             <v-list shaped>
-              <v-subheader>REPORTS</v-subheader>
+              <v-list-item>
+                <v-list-item-avatar>
+                  <v-img src="img/user.png"></v-img>
+                </v-list-item-avatar>
+                  <v-list-title>{{userName}}</v-list-title>
+              </v-list-item>                
               <v-list-item-group v-model="item" color="blue darken-1">
                 <v-list-item
                   v-for="(item, i) in items"
@@ -55,10 +58,12 @@
     
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import { mapGetters, mapActions } from 'vuex';
+<script lang="ts" >
+import { mapGetters, mapActions } from 'vuex'; 
+import { Component, Vue } from 'vue-property-decorator'
+const namespace: string = 'oidcStore/';
 
+<<<<<<< HEAD
 export default({
     name: 'App',
     data: () => ({
@@ -76,6 +81,10 @@ export default({
       ]
     }),
     computed: {
+=======
+@Component({
+   computed: {
+>>>>>>> bf7a07071cd5ec7ec3b5ecad55d668265e664d20
       ...mapGetters('oidcStore', [
                 'oidcIsAuthenticated',
                 'oidcUser'
@@ -85,6 +94,27 @@ export default({
       ...mapActions('oidcStore', ['authenticateOidcSilent',
                 'signOutOidc', 'authenticateOidc'])
     },
+})
 
-});
+export default class tool extends Vue{
+
+    drawer:boolean=true
+    mini:boolean=true
+    userName:string = ''
+    item:number=1
+    items:any=[
+        { title: 'Registros Medicos' , icon: 'far fa-address-card', path: '/HomePageRM'},
+        { title: 'Estudio Socioeconomico' , icon: 'far fa-address-card', path: '/HomePageES'},
+        { title: 'Hoja Evolución Técnica ' , icon: 'far fa-address-card', path: '/HomePageET'},
+        { title: 'Hoja de Estadísticas Diarias' , icon: 'far fa-address-card', path: ''},
+        { title: 'Ciclo de Rehabilitacion', icon: "far fa-address-card", path:'/ciclo-rehabilitacion'},
+    ]
+
+    mounted() {
+        const user = this.$store.getters[namespace + 'oidcUser'];
+        var nombre = user.name.split('@')
+        var apellido = nombre[1].split('@')
+        this.userName = nombre[0]; 
+    }
+}
 </script>

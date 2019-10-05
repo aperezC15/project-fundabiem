@@ -11,6 +11,8 @@ import HomePageET from './components/EvolucionTecnica/HomePageET.vue'
 import HomePageES from './components/EstudioSocioeconomico/HomePageES.vue'
 import HomePageHC from './components/HistoriaClinica/PageHistoryClinic.vue'
 
+import CicloRehabilitacion from './views/Ciclo_Rehabilitacion/Ciclo_de_Rehabilitacion.vue'
+
 
 //@ts-ignore
 import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
@@ -93,9 +95,15 @@ const router = new Router({
       component: HomePageES
     },
     {
+<<<<<<< HEAD
       path: '/HomePageHC',
       name: 'HomePageHC',
       component: HomePageHC
+=======
+      path: "/ciclo-rehabilitacion",
+      name:'/ciclo-rehabilitacion',
+      component: CicloRehabilitacion
+>>>>>>> bf7a07071cd5ec7ec3b5ecad55d668265e664d20
     }
   ]
 })
