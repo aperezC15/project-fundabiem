@@ -10,9 +10,9 @@ import HomePageRM from './components/PaginaRegistroMedico/HomePageRM.vue'
 import HomePageET from './components/EvolucionTecnica/HomePageET.vue'
 import HomePageES from './components/EstudioSocioeconomico/HomePageES.vue'
 import HomePageHC from './components/HistoriaClinica/PageHistoryClinic.vue'
+import HistoriaClinicaPsicologia from './components/Historia-Clinica-Psicologia/HistoriaClinicaPsicologia.vue'
 
 import CicloRehabilitacion from './views/Ciclo_Rehabilitacion/Ciclo_de_Rehabilitacion.vue'
-import HistoriaClinicaPsicologia from './views/Historia-Clinica-Psicologia/HistoriaClinicaPsicologia.vue'
 
 
 //@ts-ignore

@@ -1,5 +1,9 @@
 <template>
     <v-container>
+        <ModalHistoriaClinicaPsicologia
+            @cerrar-modal-HistoriaPsicologicaHP = "DialogoHistoriaPsicologicaHP = false"
+            :DialogoHistoriaPsicologicaHP = "DialogoHistoriaPsicologicaHP"
+        />
         <!-- TITULO DE LA PAGINA DE HISTORIA CLINICA PSICOLOGIA -->
         <v-layout text-center wrap>
             <v-flex>
@@ -14,7 +18,7 @@
             <div class="flex-grow-1"></div>
 
             <v-text-field class="mx-2" color="white" v-model="Search_Historia_Psicologica" label="BUSCAR REGISTRO DE HISTORIA CLINICA PSICOLOGIA" append-icon="search" single-line hide-details></v-text-field>
-            <v-btn color="indigo" title="NUEVO REGISTRO HISTORIA CLINICA PSICOLOGICA" fab dark class="mx-2">
+            <v-btn color="indigo" title="NUEVO REGISTRO HISTORIA CLINICA PSICOLOGICA" @click="AbrirDialogoHistoriaPsicologica()" fab dark class="mx-2">
                 <v-icon>add</v-icon>
             </v-btn>
         </v-toolbar>
@@ -45,8 +49,16 @@
 </template>
 
 <script>
+import ModalHistoriaClinicaPsicologia from './ModalHistoriaClinicaPsicologia.vue'
+
 export default {
+    components: {
+        ModalHistoriaClinicaPsicologia
+    },
+
     data: () => ({
+        DialogoHistoriaPsicologicaHP: false,
+
         // VARIABLE PARA LA BUSQUEDA DE UN REGISTRO DE HISTORIA CLINICA PSICOLOGICA
         Search_Historia_Psicologica:  '',
 
@@ -168,6 +180,11 @@ export default {
                 }
             ]
         },
+
+        AbrirDialogoHistoriaPsicologica(){
+            this.DialogoHistoriaPsicologicaHP = true
+        },
+
     },
 }
 </script>
