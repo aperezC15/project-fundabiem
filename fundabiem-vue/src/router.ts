@@ -12,6 +12,7 @@ import HomePageES from './components/EstudioSocioeconomico/HomePageES.vue'
 import HomePageHC from './components/HistoriaClinica/PageHistoryClinic.vue'
 
 import CicloRehabilitacion from './views/Ciclo_Rehabilitacion/Ciclo_de_Rehabilitacion.vue'
+import HistoriaClinicaPsicologia from './views/Historia-Clinica-Psicologia/HistoriaClinicaPsicologia.vue'
 
 
 //@ts-ignore
@@ -103,6 +104,11 @@ const router = new Router({
       path: "/ciclo-rehabilitacion",
       name:'/ciclo-rehabilitacion',
       component: CicloRehabilitacion
+    },
+    {
+      path: "/Psicologia-clinica",
+      name: "/Psicologia-clinica",
+      component: HistoriaClinicaPsicologia
     }
   ]
 })
