@@ -1,5 +1,6 @@
 ﻿
 using EntityModelFundabien.entities;
+using EntityModelFundabien.Seeds;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,14 @@ namespace BrokerServices.common
         public DbSet<Correo> Correos { get; set; }
         public DbSet<Telefono> Telefonos { get; set; }
         public DbSet<Persona> Personas { get; set; }
+
+        //to seeds
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.paisesSeed();
+            modelBuilder.seedDepartamentos();
+        }
     }
-    
 }
+
+    
