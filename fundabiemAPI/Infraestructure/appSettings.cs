@@ -2,7 +2,7 @@
 {
     public class appSettings
     {
-        public string autority {get;set;}
+        public string Authority { get;set;}
         public string[] allowedHosts { get; set; }
     }
 }

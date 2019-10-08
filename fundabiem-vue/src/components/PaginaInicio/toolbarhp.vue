@@ -63,28 +63,8 @@ import { mapGetters, mapActions } from 'vuex';
 import { Component, Vue } from 'vue-property-decorator'
 const namespace: string = 'oidcStore/';
 
-<<<<<<< HEAD
-export default({
-    name: 'App',
-    data: () => ({
-      drawer: true, 
-      mini:true,
-  //@click="signOutOidc" v-if="oidcIsAuthenticated"
-      //AQUI MOSTRAMOS LAS OPCIONES EN EL MENU
-      item: 1,
-      items: [
-          { title: 'Registros Medicos' , icon: 'far fa-address-card', path: '/HomePageRM'},
-          { title: 'Estudio Socioeconomico' , icon: 'far fa-address-card', path: '/HomePageES'},
-          { title: 'Hoja Evolución Técnica ' , icon: 'far fa-address-card', path: '/HomePageET'},
-          { title: 'Hoja de Estadísticas Diarias' , icon: 'far fa-address-card', path: '/HomePageRM'},
-          { title: 'Historia Clinica' , icon: 'far fa-address-card', path: '/HomePageHC'},
-      ]
-    }),
-    computed: {
-=======
-@Component({
+ @Component({
    computed: {
->>>>>>> bf7a07071cd5ec7ec3b5ecad55d668265e664d20
       ...mapGetters('oidcStore', [
                 'oidcIsAuthenticated',
                 'oidcUser'
@@ -108,13 +88,14 @@ export default class tool extends Vue{
         { title: 'Hoja Evolución Técnica ' , icon: 'far fa-address-card', path: '/HomePageET'},
         { title: 'Hoja de Estadísticas Diarias' , icon: 'far fa-address-card', path: ''},
         { title: 'Ciclo de Rehabilitacion', icon: "far fa-address-card", path:'/ciclo-rehabilitacion'},
+        { title: 'Historia Clínica Psicologia', icon: "far fa-address-card", path:'/Psicologia-clinica'},
     ]
 
-    mounted() {
-        const user = this.$store.getters[namespace + 'oidcUser'];
-        var nombre = user.name.split('@')
-        var apellido = nombre[1].split('@')
-        this.userName = nombre[0]; 
-    }
+    // mounted() {
+    //     const user = this.$store.getters[namespace + 'oidcUser'];
+    //     var nombre = user.name.split('@')
+    //     var apellido = nombre[1].split('@')
+    //     this.userName = nombre[0]; 
+    // }
 }
 </script>

@@ -12,6 +12,7 @@ namespace fundabiemAPI.Middleware
     {
         protected readonly ILogger<T> logger;
         private const string roleTag = "role";
+        private const string userTag = "preferred_username";
 
         public coreControllerFundabiem(ILogger<T> logger)
         {
@@ -29,6 +30,21 @@ namespace fundabiemAPI.Middleware
             catch (Exception ex)
             {
                 logger.LogError(ex,"Was ocurred a error to read roles for user");
+                throw ex;
+            }
+        }
+
+        protected string getUser()
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                return identity.Claims.Where(x => x.Type.Equals(userTag)).First().Value;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Error al obtener usuario");
+                return "Undefined_user";
                 throw ex;
             }
         }
