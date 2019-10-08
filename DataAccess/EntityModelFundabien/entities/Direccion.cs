@@ -1,13 +1,15 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace EntityModelFundabien.entities
 {
     public class Direccion
     {
-        public double idPersona { get; set; }
-        public int idMunicipio { get; set; }
-        public string direccion { get; set; }
+        [Key]
+        public double idDireccion { get; set; }
+        public string descripcion { get; set; }
+        public double idMunicipio { get; set; }
 
-        public Persona persona { get; set; }
         public Municipio municipio { get; set; }
     }
 }
