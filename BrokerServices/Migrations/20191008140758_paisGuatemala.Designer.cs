@@ -3,15 +3,17 @@ using System;
 using BrokerServices.common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BrokerServices.Migrations
 {
     [DbContext(typeof(dbContext))]
-    partial class dbContextModelSnapshot : ModelSnapshot
+    [Migration("20191008140758_paisGuatemala")]
+    partial class paisGuatemala
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,140 +66,6 @@ namespace BrokerServices.Migrations
                     b.HasIndex("idPais");
 
                     b.ToTable("Departamentos");
-
-                    b.HasData(
-                        new
-                        {
-                            idDepartamento = 1.0,
-                            idPais = 1.0,
-                            nombre = "Alta Verapaz"
-                        },
-                        new
-                        {
-                            idDepartamento = 2.0,
-                            idPais = 1.0,
-                            nombre = "Baja Verapaz"
-                        },
-                        new
-                        {
-                            idDepartamento = 3.0,
-                            idPais = 1.0,
-                            nombre = "Chimaltenango"
-                        },
-                        new
-                        {
-                            idDepartamento = 4.0,
-                            idPais = 1.0,
-                            nombre = "Chiquimula"
-                        },
-                        new
-                        {
-                            idDepartamento = 5.0,
-                            idPais = 1.0,
-                            nombre = "El Progreso"
-                        },
-                        new
-                        {
-                            idDepartamento = 6.0,
-                            idPais = 1.0,
-                            nombre = "Escuintla"
-                        },
-                        new
-                        {
-                            idDepartamento = 7.0,
-                            idPais = 1.0,
-                            nombre = "Guatemala"
-                        },
-                        new
-                        {
-                            idDepartamento = 8.0,
-                            idPais = 1.0,
-                            nombre = "Huehuetenango"
-                        },
-                        new
-                        {
-                            idDepartamento = 9.0,
-                            idPais = 1.0,
-                            nombre = "Izabal"
-                        },
-                        new
-                        {
-                            idDepartamento = 10.0,
-                            idPais = 1.0,
-                            nombre = "Jutiapa"
-                        },
-                        new
-                        {
-                            idDepartamento = 11.0,
-                            idPais = 1.0,
-                            nombre = "Petén"
-                        },
-                        new
-                        {
-                            idDepartamento = 12.0,
-                            idPais = 1.0,
-                            nombre = "Quetzaltenango"
-                        },
-                        new
-                        {
-                            idDepartamento = 13.0,
-                            idPais = 1.0,
-                            nombre = "Quiché"
-                        },
-                        new
-                        {
-                            idDepartamento = 14.0,
-                            idPais = 1.0,
-                            nombre = "Retalhuleu"
-                        },
-                        new
-                        {
-                            idDepartamento = 15.0,
-                            idPais = 1.0,
-                            nombre = "Sacatepéquez"
-                        },
-                        new
-                        {
-                            idDepartamento = 16.0,
-                            idPais = 1.0,
-                            nombre = "San Marcos"
-                        },
-                        new
-                        {
-                            idDepartamento = 17.0,
-                            idPais = 1.0,
-                            nombre = "Santa Rosa"
-                        },
-                        new
-                        {
-                            idDepartamento = 18.0,
-                            idPais = 1.0,
-                            nombre = "Sololá"
-                        },
-                        new
-                        {
-                            idDepartamento = 19.0,
-                            idPais = 1.0,
-                            nombre = "Suchitepéquez"
-                        },
-                        new
-                        {
-                            idDepartamento = 20.0,
-                            idPais = 1.0,
-                            nombre = "Totonicapán"
-                        },
-                        new
-                        {
-                            idDepartamento = 21.0,
-                            idPais = 1.0,
-                            nombre = "Zacapa"
-                        },
-                        new
-                        {
-                            idDepartamento = 22.0,
-                            idPais = 1.0,
-                            nombre = "Jalapa"
-                        });
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.Direccion", b =>
