@@ -22,14 +22,13 @@ namespace BrokerServices.common
         }
 
         public DbSet<Autor> Autores { get; set; }
+        public DbSet<Pais> Paises { get; set; }
         public DbSet<Departamento> Departamentos { get; set; }
         public DbSet<Municipio> Municipios { get; set; }
         public DbSet<Direccion> Direcciones { get; set; }
         public DbSet<Correo> Correos { get; set; }
         public DbSet<Telefono> Telefonos { get; set; }
         public DbSet<Persona> Personas { get; set; }
-        public DbSet<Paciente> Pacientes { get; set; }
-        public DbSet<PersonaEncargada> PersonasEncargadas { get; set; }
     }
     
 }

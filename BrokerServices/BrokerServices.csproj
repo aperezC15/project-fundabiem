@@ -8,6 +8,10 @@
   <ItemGroup>
     <Compile Remove="Migrations\20191002001205_inicial.cs" />
     <Compile Remove="Migrations\20191002001205_inicial.Designer.cs" />
+    <Compile Remove="Migrations\20191008053905_CorregirTablaPersona.cs" />
+    <Compile Remove="Migrations\20191008053905_CorregirTablaPersona.Designer.cs" />
+    <Compile Remove="Migrations\20191008055443_CrearTablaPersona.cs" />
+    <Compile Remove="Migrations\20191008055443_CrearTablaPersona.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
