@@ -88,13 +88,14 @@ export default class tool extends Vue{
         { title: 'Hoja Evolución Técnica ' , icon: 'far fa-address-card', path: '/HomePageET'},
         { title: 'Hoja de Estadísticas Diarias' , icon: 'far fa-address-card', path: ''},
         { title: 'Ciclo de Rehabilitacion', icon: "far fa-address-card", path:'/ciclo-rehabilitacion'},
+        { title: 'Historia Clínica Psicologia', icon: "far fa-address-card", path:'/Psicologia-clinica'},
     ]
 
-    mounted() {
-        const user = this.$store.getters[namespace + 'oidcUser'];
-        var nombre = user.name.split('@')
-        var apellido = nombre[1].split('@')
-        this.userName = nombre[0]; 
-    }
+    // mounted() {
+    //     const user = this.$store.getters[namespace + 'oidcUser'];
+    //     var nombre = user.name.split('@')
+    //     var apellido = nombre[1].split('@')
+    //     this.userName = nombre[0]; 
+    // }
 }
 </script>
