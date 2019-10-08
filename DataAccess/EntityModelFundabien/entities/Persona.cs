@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace EntityModelFundabien.entities
 {
     public class Persona
     {
+        [Key]
         public double idPersona { get; set; }
         public string primerNombre { get; set; }
         public string segundoNombre { get; set; }
@@ -14,9 +17,16 @@ namespace EntityModelFundabien.entities
         public bool sexo { get; set; }
         public DateTime fechaNacimiento { get; set; }
         public string grupoEtnico { get; set; }
-        public Direccion domicilio { get; set; }
-        public Direccion residencia { get; set; }
+        
         public string escolaridad { get; set; }
         public string religion { get; set; }
+
+        public double idDomicilio { get; set; }
+        [ForeignKey("idDomicilio")]
+        public Direccion domicilio { get; set; }
+
+        public double idResidencia { get; set; }
+        [ForeignKey("idResidencia")]
+        public Direccion residencia { get; set; }
     }
 }

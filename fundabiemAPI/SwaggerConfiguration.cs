@@ -4,7 +4,7 @@
     /// <summary>
     /// <para>Foo API v1</para>
     /// </summary>
-    public const string EndpointDescription = "FUNDABIEN API v1";
+    public const string EndpointDescription = "FUNDABIEM API v1";
 
     /// <summary>
     /// <para>/swagger/v1/swagger.json</para>
@@ -39,6 +39,6 @@
     /// <summary>
     /// <para>Foo Api - Sample Web API in ASP.NET Core 2</para>
     /// </summary>
-    public const string DocInfoDescription = "* FUNDABIEN API *";
+    public const string DocInfoDescription = "* FUNDABIEM API *";
 
 }
