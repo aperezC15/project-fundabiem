@@ -12,6 +12,8 @@
     <Compile Remove="Migrations\20191008053905_CorregirTablaPersona.Designer.cs" />
     <Compile Remove="Migrations\20191008055443_CrearTablaPersona.cs" />
     <Compile Remove="Migrations\20191008055443_CrearTablaPersona.Designer.cs" />
+    <Compile Remove="Migrations\20191009020108_AgregarTablaRegistrosMedicos.cs" />
+    <Compile Remove="Migrations\20191009020108_AgregarTablaRegistrosMedicos.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
