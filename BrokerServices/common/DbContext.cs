@@ -30,6 +30,10 @@ namespace BrokerServices.common
         public DbSet<Correo> Correos { get; set; }
         public DbSet<Telefono> Telefonos { get; set; }
         public DbSet<Persona> Personas { get; set; }
+        public DbSet<Paciente> Pacientes { get; set; }
+        public DbSet<PersonaEncargada> PersonasEncargadas { get; set; }
+        public DbSet<RegistroMedico> RegistrosMedicos { get; set; }
+        public DbSet<RegistroMedicoDiagnostico> RegistrosMedicosDiagnostico { get; set; }
 
         //to seeds
         protected override void OnModelCreating(ModelBuilder modelBuilder)

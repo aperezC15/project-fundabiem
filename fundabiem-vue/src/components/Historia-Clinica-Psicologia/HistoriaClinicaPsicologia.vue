@@ -1,9 +1,15 @@
 <template>
     <v-container>
+        <!-- AQUI MANDAMOS LOS PARAMETROS PARA ABRIR Y CERRAR EL MODAL -->
+        <!--variables de datos del formulario @variables = "editedItem" -->
         <ModalHistoriaClinicaPsicologia
-            @cerrar-modal-HistoriaPsicologicaHP = "DialogoHistoriaPsicologicaHP = false"
-            :DialogoHistoriaPsicologicaHP = "DialogoHistoriaPsicologicaHP"
+            @close-modal-historia-psicologica = "CerrarDialogoHistoriaPsicologica"
+            @variables = "editedItem"
+            @Save-Historia-Psicologica = "SaveHistoriaPsicologica"
+            :ModalHistoriaPsicologica = "DialogoHistoriaPsicologicaHP"
+            :ModalTitle = "FormTitle"
         />
+        
         <!-- TITULO DE LA PAGINA DE HISTORIA CLINICA PSICOLOGIA -->
         <v-layout text-center wrap>
             <v-flex>
@@ -18,7 +24,7 @@
             <div class="flex-grow-1"></div>
 
             <v-text-field class="mx-2" color="white" v-model="Search_Historia_Psicologica" label="BUSCAR REGISTRO DE HISTORIA CLINICA PSICOLOGIA" append-icon="search" single-line hide-details></v-text-field>
-            <v-btn color="indigo" title="NUEVO REGISTRO HISTORIA CLINICA PSICOLOGICA" @click="AbrirDialogoHistoriaPsicologica()" fab dark class="mx-2">
+            <v-btn color="indigo" title="NUEVO REGISTRO HISTORIA CLINICA PSICOLOGICA" @click="OpenDialogoHistoriaPsicologica()" fab dark class="mx-2">
                 <v-icon>add</v-icon>
             </v-btn>
         </v-toolbar>
@@ -49,6 +55,7 @@
 </template>
 
 <script>
+import { __values } from 'tslib';
 import ModalHistoriaClinicaPsicologia from './ModalHistoriaClinicaPsicologia.vue'
 
 export default {
@@ -154,7 +161,7 @@ export default {
     }),
 
     computed: {
-        ModalTitle(){
+        FormTitle(){
             return this.editedIndex === -1 ? 'NUEVO REGISTRO DE HISTORIA CLINICA PSICOLOGICA':' EDITAR REGISTRO DE HISTORIA CLINICA PSICOLOGICA'
         }
     },
@@ -167,6 +174,7 @@ export default {
         this.initialize()
     },
 
+    // metodos de la pagina
     methods: {
         initialize(){
             this.DataTablePsicologia = [
@@ -181,10 +189,42 @@ export default {
             ]
         },
 
-        AbrirDialogoHistoriaPsicologica(){
+        OpenDialogoHistoriaPsicologica(){
             this.DialogoHistoriaPsicologicaHP = true
         },
 
-    },
+        CerrarDialogoHistoriaPsicologica(){     
+            this.$swal.fire({
+                title: '¿Está seguro que quiere Salir?',
+                text: "¡Perdera la información ingresada del Paciente!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Sí, Salir del Registro!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    this.$swal.fire(
+                        '¡Cancelado!',
+                        'El Ingreso del Paciente ha sido Cancelado',
+                        'success'
+                    )                
+                    this.DialogoHistoriaPsicologicaHP =  false
+                    }
+            })        
+        },
+
+        SaveHistoriaPsicologica () {
+            if (this.editedIndex > -1){
+                Object.assign(this.DataTablePsicologia [this.editedIndex], this.editedItem)
+            }
+            else
+            {
+                this.DataTablePsicologia.push(this.editedItem)
+            }
+            this.DialogoHistoriaPsicologicaHP =  false
+        },
+    }
 }
 </script>
