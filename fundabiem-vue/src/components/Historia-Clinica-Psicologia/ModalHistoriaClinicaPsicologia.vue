@@ -74,83 +74,6 @@ export default {
         PasoAPaso: 0,
         itemsexo: ['MASCULINO', 'FEMENINO'],
 
-        // editedIndex: -1,
-        // // DECLARAMOS LAS VARIABLES DE ENTRADA DE NUESTRO FORMULARIO 
-        // editedItem: {
-        //     // DATOS GENERALES
-        //     NombreHP: '',
-        //     SexoHP: '',
-        //     EdadHP: '',
-        //     EstudiosHP: '',
-        //     OrigenHP: '',
-        //     OcupacionHP: '',
-        //     EstadoCivilHP: '',
-        //     ReligionHP: '',
-        //     ProgenitorHP: '',
-        //     // MOTIVO DE LA CONSULTA
-        //     MotivoConsultaHP: '',
-        //     // ANTECEDENTES DEL PACIENTE
-        //     AntecedentesPacienteHP: '',
-        //     // PERFIL SOCIAL
-        //     PerfilSocialHP: '',
-        //     // PESONALIDAD
-        //     PersonalidadHP: '',
-        //     // EXAMEN MENTAL
-        //     AparienciaGeneralHP: '',
-        //     EstadoConcienciaHP: '',
-        //     EstadoAnimoHP: '',
-        //     ActividadMotoraHP: '',
-        //     AsociacionHP: '',
-        //     ContenidoIdeasHP: '',
-        //     SensoriumHP: '',
-        //     MemoriaHP: '',
-        //     PensamientoHP: '',
-        //     ResultadoHP: '',
-        //     // DATOS RELEVANTES SOBRE LA FAMILIA DEL PACIENTE
-        //     DatosRelevantesHP: '',
-        //     // DIAGNOSTICO
-        //     DiagnosticoHP: '',
-        //     // PLAN DE ORIENTACION PSICOLOGICA
-        //     PlanOrientacionHP: '',
-        // },
-
-        // defaultItem: {
-        //     // DATOS GENERALES
-        //     NombreHP: '',
-        //     SexoHP: '',
-        //     EdadHP: '',
-        //     EstudiosHP: '',
-        //     OrigenHP: '',
-        //     OcupacionHP: '',
-        //     EstadoCivilHP: '',
-        //     ReligionHP: '',
-        //     ProgenitorHP: '',
-        //     // MOTIVO DE LA CONSULTA
-        //     MotivoConsultaHP: '',
-        //     // ANTECEDENTES DEL PACIENTE
-        //     AntecedentesPacienteHP: '',
-        //     // PERFIL SOCIAL
-        //     PerfilSocialHP: '',
-        //     // PESONALIDAD
-        //     PersonalidadHP: '',
-        //     // EXAMEN MENTAL
-        //     AparienciaGeneralHP: '',
-        //     EstadoConcienciaHP: '',
-        //     EstadoAnimoHP: '',
-        //     ActividadMotoraHP: '',
-        //     AsociacionHP: '',
-        //     ContenidoIdeasHP: '',
-        //     SensoriumHP: '',
-        //     MemoriaHP: '',
-        //     PensamientoHP: '',
-        //     ResultadoHP: '',
-        //     // DATOS RELEVANTES SOBRE LA FAMILIA DEL PACIENTE
-        //     DatosRelevantesHP: '',
-        //     // DIAGNOSTICO
-        //     DiagnosticoHP: '',
-        //     // PLAN DE ORIENTACION PSICOLOGICA
-        //     PlanOrientacionHP: '',
-        // },
     }),
 
     methods: {
@@ -165,6 +88,19 @@ export default {
 
         SaveHistoriaPsicologica(){
             this.$emit('Save-Historia-Psicologica')
+      
+        },
+
+        editedIndex(){
+            this.$emit('editedIndexModal')
+        },
+
+        defaultItem(){
+            this.$emit('defaultItem')
+        },
+
+        editItem(){
+            this.$emit('editItem')
         }
     },
 }

@@ -6,6 +6,9 @@
             @close-modal-historia-psicologica = "CerrarDialogoHistoriaPsicologica"
             @variables = "editedItem"
             @Save-Historia-Psicologica = "SaveHistoriaPsicologica"
+            @editedIndexModal = "editedIndex"
+            @defaultItem = "defaultItem"
+            @editItem = "editItem"
             :ModalHistoriaPsicologica = "DialogoHistoriaPsicologicaHP"
             :ModalTitle = "FormTitle"
         />
@@ -166,10 +169,6 @@ export default {
         }
     },
 
-    watch: {
-
-    },
-
     created() {
         this.initialize()
     },
@@ -224,7 +223,14 @@ export default {
                 this.DataTablePsicologia.push(this.editedItem)
             }
             this.DialogoHistoriaPsicologicaHP =  false
+         
         },
+
+        editItem (item) {
+            this.editedIndex = this.DataTablePsicologia.indexOf(item)
+            this.editedItem = Object.assign({}, item)
+            this.DialogoHistoriaPsicologicaHP = true
+        },        
     }
 }
 </script>
