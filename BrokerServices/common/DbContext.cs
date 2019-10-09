@@ -40,7 +40,7 @@ namespace BrokerServices.common
         {
             modelBuilder.paisesSeed();
             modelBuilder.seedDepartamentos();
-            modelBuilder.seddMunicipios();
+            //modelBuilder.seddMunicipios();
         }
     }
 }
