@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
 using fundabiemAPI.Middleware;
 using Microsoft.AspNetCore.Authorization;
@@ -23,11 +24,23 @@ namespace fundabiemAPI.Controllers
             this.fundabiem = fundabiem;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> responderHola()
+        [HttpGet("/paises")]
+        public  Task<ActionResult<IEnumerable<Pais>>> getAllPaises()
         {
-            //var r = await fundabiem.Saludar();
-             return Ok("Hola Fundabien estoy :)  ");
+            string user = getUser();
+            logger.LogInformation("Searching all paises");
+            var autor = fundabiem.getAllPaises();
+            return autor;
+        }
+
+        [HttpGet("/departamentos/{id}")]
+        public ActionResult<IEnumerable<Departamento>> getDepartamentoByIdPais(double id)
+        {
+            string user = getUser();
+            logger.LogInformation("Searching all departamentos idPais = {0}", id);
+            var departamentos = fundabiem.getDepartamentosByIdPais(id);
+            if(departamentos.Count() == 0) { return NotFound(); }
+            return Ok(departamentos);
         }
     }
 }

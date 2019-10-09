@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BrokerServices.common;
+using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
 using EntityModelFundabien.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +45,18 @@ namespace EntityModelFundabien.common
             return autorDTO;
         }
 
-      
+        //obtiene todos los paises existentes
+        public async Task<ActionResult<IEnumerable<Pais>>> getAllPaises()
+        {
+            return await context.Paises.ToListAsync();
+        }
+        //obtiene los departamento de un pais
+        public  IEnumerable<Departamento> getDepartamentosByIdPais(double id)
+        {
+            var a = context.Departamentos.Where(x => x.idPais == id).ToList();
+            return a;
+        }
+
     }
 
    
