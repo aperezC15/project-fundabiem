@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EntityModelFundabien.entities;
 using EntityModelFundabien.Models;
+using EntityModelFundabien.ModelsDTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,7 +21,7 @@ namespace EntityModelFundabien.Interfaces
 
         ActionResult<AutorDTO> obtenerAutor(int id);
 
-        Task<ActionResult<IEnumerable<Pais>>> getAllPaises();
+        ActionResult<IEnumerable<DTOPaises>> getAllPaises();
 
         IEnumerable<Departamento> getDepartamentosByIdPais(double id);
     }

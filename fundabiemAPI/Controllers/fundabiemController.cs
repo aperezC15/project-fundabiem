@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
+using EntityModelFundabien.ModelsDTO;
 using fundabiemAPI.Middleware;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -25,7 +26,7 @@ namespace fundabiemAPI.Controllers
         }
 
         [HttpGet("/paises")]
-        public  Task<ActionResult<IEnumerable<Pais>>> getAllPaises()
+        public  ActionResult<IEnumerable<DTOPaises>> getAllPaises()
         {
             string user = getUser();
             logger.LogInformation("Searching all paises");

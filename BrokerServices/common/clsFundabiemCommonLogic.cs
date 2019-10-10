@@ -3,6 +3,7 @@ using BrokerServices.common;
 using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
 using EntityModelFundabien.Models;
+using EntityModelFundabien.ModelsDTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -46,9 +47,12 @@ namespace EntityModelFundabien.common
         }
 
         //obtiene todos los paises existentes
-        public async Task<ActionResult<IEnumerable<Pais>>> getAllPaises()
+        public ActionResult<IEnumerable<DTOPaises>> getAllPaises()
         {
-            return await context.Paises.ToListAsync();
+            var paises = context.Paises.ToList();
+            var paisDTO = mapper.Map<List<DTOPaises>>(paises);
+            return paisDTO;
+                
         }
         //obtiene los departamento de un pais
         public  IEnumerable<Departamento> getDepartamentosByIdPais(double id)
