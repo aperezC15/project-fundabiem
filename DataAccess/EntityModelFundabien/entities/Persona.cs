@@ -9,7 +9,7 @@ namespace EntityModelFundabien.entities
     public class Persona
     {
         [Key]
-        public double idPersona { get; set; }
+        public Int64 idPersona { get; set; }
         public string primerNombre { get; set; }
         public string segundoNombre { get; set; }
         public string primerApellido { get; set; }
@@ -21,11 +21,11 @@ namespace EntityModelFundabien.entities
         public string escolaridad { get; set; }
         public string religion { get; set; }
 
-        public double idDomicilio { get; set; }
+        public Int64 idDomicilio { get; set; }
         [ForeignKey("idDomicilio")]
         public Direccion domicilio { get; set; }
 
-        public double idResidencia { get; set; }
+        public Int64 idResidencia { get; set; }
         [ForeignKey("idResidencia")]
         public Direccion residencia { get; set; }
     }

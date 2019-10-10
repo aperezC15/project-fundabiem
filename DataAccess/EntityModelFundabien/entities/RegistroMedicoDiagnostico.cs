@@ -8,8 +8,8 @@ namespace EntityModelFundabien.entities
     public class RegistroMedicoDiagnostico
     {
         [Key]
-        public double idRegistroMedicoDiagnostico { get; set; }
-        public double idRegistroMedico { get; set; }
+        public Int64 idRegistroMedicoDiagnostico { get; set; }
+        public Int64 idRegistroMedico { get; set; }
         public string diagnosticoFinal { get; set; }
         public string recomendaciones { get; set; }
 

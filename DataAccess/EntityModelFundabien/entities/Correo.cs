@@ -8,7 +8,7 @@ namespace EntityModelFundabien.entities
     public class Correo
     {
         [Key]
-        public double idCorreo { get; set; }
+        public Int64 idCorreo { get; set; }
         public string  correo { get; set; }
         public DateTime fechaRegistro { get; set; }
         public bool estaHabilitado { get; set; }

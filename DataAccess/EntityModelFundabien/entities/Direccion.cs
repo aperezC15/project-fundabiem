@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace EntityModelFundabien.entities
@@ -6,9 +6,9 @@ namespace EntityModelFundabien.entities
     public class Direccion
     {
         [Key]
-        public double idDireccion { get; set; }
+        public Int64 idDireccion { get; set; }
         public string descripcion { get; set; }
-        public double idMunicipio { get; set; }
+        public Int64 idMunicipio { get; set; }
 
         public Municipio municipio { get; set; }
     }
