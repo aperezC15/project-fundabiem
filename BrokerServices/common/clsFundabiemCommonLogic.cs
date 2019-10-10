@@ -55,12 +55,20 @@ namespace EntityModelFundabien.common
                 
         }
         //obtiene los departamento de un pais
-        public  IEnumerable<Departamento> getDepartamentosByIdPais(double id)
+        public  IEnumerable<departamentosDTO> getDepartamentosByIdPais(double id)
         {
-            var a = context.Departamentos.Where(x => x.idPais == id).ToList();
-            return a;
+            var departamentos = context.Departamentos.Where(x => x.idPais == id).ToList();
+            var dep = mapper.Map<List<departamentosDTO>>(departamentos);
+            return dep;
         }
 
+        //obtiene los municpios de un departamento
+        public IEnumerable<municipiosDTO> MunicipiosByIdDepartamento(double idDepartamento)
+        {
+            var municipios = context.Municipios.Where(x => x.idDepartamento == idDepartamento).ToList();
+            var munis = mapper.Map<List<municipiosDTO>>(municipios);
+            return munis;
+        }
     }
 
    

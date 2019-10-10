@@ -24,7 +24,7 @@ namespace fundabiemAPI.Controllers
         {
             this.fundabiem = fundabiem;
         }
-
+        //obtiene todos los paises
         [HttpGet("/paises")]
         public  ActionResult<IEnumerable<DTOPaises>> getAllPaises()
         {
@@ -33,15 +33,25 @@ namespace fundabiemAPI.Controllers
             var autor = fundabiem.getAllPaises();
             return autor;
         }
-
+        //obtiene todos los paises segun idPais
         [HttpGet("/departamentos/{id}")]
-        public ActionResult<IEnumerable<Departamento>> getDepartamentoByIdPais(double id)
+        public ActionResult<IEnumerable<departamentosDTO>> getDepartamentoByIdPais(double id)
         {
             string user = getUser();
             logger.LogInformation("Searching all departamentos idPais = {0}", id);
             var departamentos = fundabiem.getDepartamentosByIdPais(id);
             if(departamentos.Count() == 0) { return NotFound(); }
             return Ok(departamentos);
+        }
+        //optine todos los municipios segun idDepartaento
+        [HttpGet("/municipios/{idDepartamento}")]
+        public ActionResult<IEnumerable<municipiosDTO>> getMunicipiosByIdDepartamento(double idDepartamento)
+        {
+            string user = getUser();
+            logger.LogInformation("Searching all municipios idDepartamento = {0} ", idDepartamento);
+            var munis = fundabiem.MunicipiosByIdDepartamento(idDepartamento);
+            if (munis.Count() == 0) { return NotFound(); }
+            return Ok(munis);
         }
     }
 }
