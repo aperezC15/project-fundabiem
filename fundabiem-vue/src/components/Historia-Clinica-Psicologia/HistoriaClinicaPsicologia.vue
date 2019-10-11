@@ -5,10 +5,7 @@
         <ModalHistoriaClinicaPsicologia
             @close-modal-historia-psicologica = "CerrarDialogoHistoriaPsicologica"
             @variables = "editedItem"
-            @Save-Historia-Psicologica = "SaveHistoriaPsicologica"
-            @editedIndexModal = "editedIndex"
-            @defaultItem = "defaultItem"
-            @editItem = "editItem"
+            @Save_Historia_Psicologica = "SaveHistoriaPsicologica"
             :ModalHistoriaPsicologica = "DialogoHistoriaPsicologicaHP"
             :ModalTitle = "FormTitle"
         />
@@ -169,6 +166,12 @@ export default {
         }
     },
 
+    watch: {
+        DialogoHistoriaPsicologicaHP (val){
+            val || this.CerrarDialogoHistoriaPsicologica()
+        },
+    },
+
     created() {
         this.initialize()
     },
@@ -188,49 +191,45 @@ export default {
             ]
         },
 
+        editItem (item) {
+            this.editedIndex = this.DataTablePsicologia.indexOf(item)
+            this.editedItem = Object.assign({}, item)
+            this.DialogoHistoriaPsicologicaHP = true
+        },         
+
         OpenDialogoHistoriaPsicologica(){
             this.DialogoHistoriaPsicologicaHP = true
         },
 
         CerrarDialogoHistoriaPsicologica(){     
-            this.$swal.fire({
-                title: '¿Está seguro que quiere Salir?',
-                text: "¡Perdera la información ingresada del Paciente!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: '¡Sí, Salir del Registro!',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.value) {
-                    this.$swal.fire(
-                        '¡Cancelado!',
-                        'El Ingreso del Paciente ha sido Cancelado',
-                        'success'
-                    )                
-                    this.DialogoHistoriaPsicologicaHP =  false
-                    }
-            })        
+            this.DialogoHistoriaPsicologicaHP = false
+            setTimeout(() => {
+                this.editedItem = Object.assign({}, this.defaultItem)
+                this.editedIndex = -1
+            }, 
+            300
+            )
         },
 
         SaveHistoriaPsicologica () {
             if (this.editedIndex > -1){
-                Object.assign(this.DataTablePsicologia [this.editedIndex], this.editedItem)
+                Object.assign(this.DataTablePsicologia[this.editedIndex], this.editedItem)
             }
             else
             {
                 this.DataTablePsicologia.push(this.editedItem)
             }
-            this.DialogoHistoriaPsicologicaHP =  false
+            this.CerrarDialogoHistoriaPsicologica()
          
         },
+        // FUNCION GUARDAR SI FUNCIONA
+        // SaveHistoriaPsicologica(data){
+        //     const {NombreHP, SexoHP, EdadHP} = data
 
-        editItem (item) {
-            this.editedIndex = this.DataTablePsicologia.indexOf(item)
-            this.editedItem = Object.assign({}, item)
-            this.DialogoHistoriaPsicologicaHP = true
-        },        
+        //     this.DataTablePsicologia.push({NombreHP, EdadHP, SexoHP})
+        //     this.DialogoHistoriaPsicologicaHP =  false
+        // },
+       
     }
 }
 </script>

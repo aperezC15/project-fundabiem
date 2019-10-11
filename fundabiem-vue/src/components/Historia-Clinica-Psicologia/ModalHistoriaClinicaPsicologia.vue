@@ -182,7 +182,10 @@ export default {
         PasoAPaso: 0,
         itemsexo: ['MASCULINO', 'FEMENINO'],
         itemEstadoCivil: ['Soltero/a','Comprometido/a', 'En Relacion', 'Casado/a', 'Separado/a', 'Divorciado/a', 'Viudo/a'],
-        
+            // DATOS GENERALES
+            // NombreHP: '',
+            // SexoHP: '',
+            // EdadHP: '',           
     }),
 
     methods: {
@@ -210,23 +213,19 @@ export default {
         editedItem(){
             this.$emit('variables')
         },
-
+        // FUNCION GUARDAR SI FUNCIONA
+        // SaveHistoriaPsicologica(){
+        //     const data = {
+        //         NombreHP: this.NombreHP,
+        //         SexoHP: this.SexoHP,
+        //         EdadHP: this.EdadHP,
+        //     }
+        //     this.$emit('Save_Historia_Psicologica',data)
+        // },
         SaveHistoriaPsicologica(){
-            this.$emit('Save-Historia-Psicologica')
-      
+            this.$emit('Save_Historia_Psicologica')
         },
 
-        editedIndex(){
-            this.$emit('editedIndexModal')
-        },
-
-        defaultItem(){
-            this.$emit('defaultItem')
-        },
-
-        editItem(){
-            this.$emit('editItem')
-        }
     },
 }
 </script>
