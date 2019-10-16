@@ -34,15 +34,15 @@ namespace BrokerServices.common
         public DbSet<PersonaEncargada> PersonasEncargadas { get; set; }
         public DbSet<RegistroMedico> RegistrosMedicos { get; set; }
         public DbSet<RegistroMedicoDiagnostico> RegistrosMedicosDiagnostico { get; set; }
-        public DbSet<SeccionAnamnesis> SeccionesAnamnesis { get; set; }
-        public DbSet<ItemAnamnesis> ItemsAnamnesis { get; set; }
-        public DbSet<DetalleFormularioAnamnesis> DetalleFormularioAnamnesis { get; set; }
-        public DbSet<FormularioAnamnesis> FormularioAnamnesis { get; set; }
-        public DbSet<Personal> Personal { get; set; }
-        public DbSet<Anamnesis> Anamnesis { get; set; }
-        public DbSet<HistoriaClinica> HistoriaClinicas { get; set; }
-        public DbSet<Tratamiento> Tratamientos { get; set; }
-        public DbSet<DetalleTratamiento> DetallesTratamientos { get; set; }
+        //public DbSet<SeccionAnamnesis> SeccionesAnamnesis { get; set; }
+        //public DbSet<ItemAnamnesis> ItemsAnamnesis { get; set; }
+        //public DbSet<DetalleFormularioAnamnesis> DetalleFormularioAnamnesis { get; set; }
+        //public DbSet<FormularioAnamnesis> FormularioAnamnesis { get; set; }
+        //public DbSet<Personal> Personal { get; set; }
+        //public DbSet<Anamnesis> Anamnesis { get; set; }
+        //public DbSet<HistoriaClinica> HistoriaClinicas { get; set; }
+        //public DbSet<Tratamiento> Tratamientos { get; set; }
+        //public DbSet<DetalleTratamiento> DetallesTratamientos { get; set; }
 
         //to seeds
         protected override void OnModelCreating(ModelBuilder modelBuilder)
