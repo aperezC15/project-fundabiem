@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2019-08-31" view-index="0" gantt-divider-location="589" resource-divider-location="300" version="2.8.10" locale="es">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2019-10-06" view-index="0" gantt-divider-location="664" resource-divider-location="300" version="2.8.8" locale="es">
     <description/>
     <view zooming-state="default:2" id="gantt-chart">
-        <field id="tpd3" name="Nombre" width="396" order="0"/>
-        <field id="tpd4" name="Fecha de inicio" width="95" order="1"/>
-        <field id="tpd5" name="Fecha de fin" width="79" order="2"/>
-        <option id="color.recent"><![CDATA[#ffff00 #00ffff #0033ff #00ff33 #00ff00]]></option>
+        <field id="tpd3" name="Nombre" width="407" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="125" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="113" order="2"/>
+        <timeline><![CDATA[43,71]]></timeline>
+        <option id="color.recent"><![CDATA[#ff00ff #9900ff #ffcc33 #ff0000 #ff6633 #0033ff #00ff33 #000000 #00ff00 #ffff00]]></option>
     </view>
     <view id="resource-table">
         <field id="0" name="Nombre" width="210" order="0"/>
@@ -15,8 +16,8 @@
         <day-types>
             <day-type id="0"/>
             <day-type id="1"/>
-            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="0"/>
-            <only-show-weekends value="false"/>
+            <default-week id="1" name="default" sun="0" mon="0" tue="0" wed="0" thu="0" fri="0" sat="0"/>
+            <only-show-weekends value="true"/>
             <overriden-day-types/>
             <days/>
         </day-types>
@@ -34,6 +35,69 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
+        <task id="35" name="Documentación Fundabiem" color="#000000" meeting="false" start="2019-09-01" duration="48" complete="76" thirdDate="2019-08-31" thirdDate-constraint="0" expand="true">
+            <task id="43" name="CAPITULO 1 MARCO CONCEPTUAL" color="#0033ff" meeting="false" start="2019-09-01" duration="20" complete="100" thirdDate="2019-08-31" thirdDate-constraint="0" priority="2" expand="false">
+                <task id="39" name="Titulo de la investigacion" color="#00ff00" shape="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" meeting="false" start="2019-09-01" duration="6" complete="100" thirdDate="2019-09-01" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="40" name="Antecedentes" color="#00ff33" meeting="false" start="2019-09-01" duration="6" complete="100" thirdDate="2019-09-01" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="41" name="Unidad de Estudio" color="#00ff33" shape="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" meeting="false" start="2019-09-01" duration="6" complete="100" thirdDate="2019-09-01" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="42" name="Situacion Actual" color="#0033ff" meeting="false" start="2019-09-08" duration="6" complete="100" thirdDate="2019-09-08" thirdDate-constraint="0" expand="false">
+                    <task id="44" name="Matriz Diag. del Planteamiento del problema" color="#00ff33" meeting="false" start="2019-09-08" duration="6" complete="100" thirdDate="2019-09-08" thirdDate-constraint="0" priority="2" expand="true"/>
+                    <task id="45" name="Matriz de objetivos" color="#00ff33" meeting="false" start="2019-09-08" duration="6" complete="100" thirdDate="2019-08-31" thirdDate-constraint="0" expand="true"/>
+                    <task id="46" name="Priorización" color="#00ff33" meeting="false" start="2019-09-08" duration="6" complete="100" thirdDate="2019-09-08" thirdDate-constraint="0" priority="2" expand="true"/>
+                </task>
+                <task id="47" name="Justificación" color="#00ff33" meeting="false" start="2019-09-08" duration="6" complete="100" thirdDate="2019-09-08" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="48" name="Planteamiento del Problema" color="#00ff33" meeting="false" start="2019-09-08" duration="6" complete="100" thirdDate="2019-09-08" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="49" name="Importancia" color="#00ff33" meeting="false" start="2019-09-08" duration="6" complete="100" thirdDate="2019-09-08" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="50" name="Delimitación del problema" color="#0033ff" meeting="false" start="2019-09-08" duration="6" complete="100" thirdDate="2019-09-08" thirdDate-constraint="0" expand="false">
+                    <task id="51" name="Espacial" color="#00ff33" meeting="false" start="2019-09-08" duration="6" complete="100" thirdDate="2019-09-08" thirdDate-constraint="0" priority="2" expand="true"/>
+                    <task id="52" name="Temporal" color="#00ff33" meeting="false" start="2019-09-08" duration="6" complete="100" thirdDate="2019-08-31" thirdDate-constraint="0" priority="2" expand="true"/>
+                    <task id="53" name="Institucional" color="#00ff33" meeting="false" start="2019-09-08" duration="6" complete="100" thirdDate="2019-08-31" thirdDate-constraint="0" priority="2" expand="true"/>
+                    <task id="54" name="Personal" color="#00ff33" meeting="false" start="2019-09-08" duration="6" complete="100" thirdDate="2019-09-08" thirdDate-constraint="0" priority="2" expand="true"/>
+                </task>
+                <task id="55" name="Objetivos" color="#0033ff" meeting="false" start="2019-09-15" duration="6" complete="100" thirdDate="2019-09-15" thirdDate-constraint="0" priority="2" expand="false">
+                    <task id="56" name="General" color="#00ff33" meeting="false" start="2019-09-15" duration="6" complete="100" thirdDate="2019-09-15" thirdDate-constraint="0" priority="2" expand="true"/>
+                    <task id="57" name="Especificos" color="#00ff33" meeting="false" start="2019-09-15" duration="6" complete="100" thirdDate="2019-09-15" thirdDate-constraint="0" priority="2" expand="true"/>
+                    <task id="58" name="Alcances" color="#00ff33" meeting="false" start="2019-09-15" duration="6" complete="100" thirdDate="2019-08-31" thirdDate-constraint="0" priority="2" expand="true"/>
+                </task>
+                <task id="59" name="Limites" color="#00ff33" meeting="false" start="2019-09-15" duration="6" complete="100" thirdDate="2019-08-31" thirdDate-constraint="0" priority="2" expand="true"/>
+            </task>
+            <task id="81" name="PROTOTIPO WEB" color="#ff0000" meeting="false" start="2019-09-22" duration="6" complete="100" thirdDate="2019-09-22" thirdDate-constraint="0" priority="2" expand="false">
+                <notes><![CDATA[EL PROTOTIPO WEB FUE REALIZADO CON LA HERRAMIENTA EDRAW]]></notes>
+                <task id="89" name="PORTADA FUNDABIEM" color="#ffcc33" meeting="false" start="2019-09-22" duration="6" complete="100" thirdDate="2019-09-22" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="82" name="LOGIN" color="#ffcc33" meeting="false" start="2019-09-22" duration="6" complete="100" thirdDate="2019-09-22" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="87" name="HOMEPAGE" color="#ffcc33" meeting="false" start="2019-09-22" duration="6" complete="100" thirdDate="2019-09-22" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="94" name="REGISTROS MEDICOS" color="#ffcc33" meeting="false" start="2019-09-22" duration="6" complete="100" thirdDate="2019-09-20" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="95" name="ESTUDIO SOCIOECONOMICO" color="#ffcc33" meeting="false" start="2019-09-22" duration="6" complete="100" thirdDate="2019-09-20" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="96" name="EVOLUCION MEDICA" color="#ffcc33" meeting="false" start="2019-09-22" duration="6" complete="100" thirdDate="2019-09-20" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="98" name="CICLO DE REHABILITACION" color="#ffcc33" meeting="false" start="2019-09-22" duration="6" complete="100" thirdDate="2019-09-20" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="99" name="HISTORIA CLINICA" color="#ffcc33" meeting="false" start="2019-09-22" duration="6" complete="100" thirdDate="2019-09-20" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="100" name="EVOLUCION MEDICA" color="#ffcc33" meeting="false" start="2019-09-22" duration="6" complete="100" thirdDate="2019-09-20" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="101" name="HISTORIA CLINICA PSICOLOGICA" color="#ffcc33" meeting="false" start="2019-09-22" duration="6" complete="100" thirdDate="2019-09-20" thirdDate-constraint="0" priority="2" expand="true"/>
+            </task>
+            <task id="71" name="DIAGRAMAS UML &quot;ACTIVIDADES&quot; &quot;CASOS DE USO&quot;" color="#ff0000" meeting="false" start="2019-09-29" duration="6" complete="100" thirdDate="2019-09-29" thirdDate-constraint="0" priority="2" expand="false">
+                <notes><![CDATA[SE REALIZARAN DIAGRAMAS UML DE ACTIVIDADES Y CASOS DE USO, TAMBIEN SE AGREGARA EL LENGUAJE GHERKIN PARA LA TOMA DE REQUERIMIENTOS]]></notes>
+                <task id="73" name="LOGIN" color="#ffcc33" meeting="false" start="2019-09-29" duration="6" complete="100" thirdDate="2019-09-29" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="74" name="REGISTROS MEDICOS" color="#ffcc33" meeting="false" start="2019-09-29" duration="6" complete="100" thirdDate="2019-09-29" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="75" name="ESTUDIO SOCIOECONOMICO" color="#ffcc33" meeting="false" start="2019-09-29" duration="6" complete="100" thirdDate="2019-08-31" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="76" name="HOJA EVOLUCION MEDICA" color="#ffcc33" meeting="false" start="2019-09-29" duration="6" complete="100" thirdDate="2019-08-31" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="77" name="CICLO DE REHABILITACION" color="#ffcc33" meeting="false" start="2019-09-29" duration="6" complete="100" thirdDate="2019-08-31" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="78" name="HISTORIA CLINICA" color="#ffcc33" meeting="false" start="2019-09-29" duration="6" complete="100" thirdDate="2019-08-31" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="79" name="HOJA EVOLUCION TECNICA" color="#ffcc33" meeting="false" start="2019-09-29" duration="6" complete="100" thirdDate="2019-09-29" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="80" name="HISTORIA CLINICA PSICOLOGICA" color="#ffcc33" meeting="false" start="2019-09-29" duration="6" complete="100" thirdDate="2019-08-31" thirdDate-constraint="0" priority="2" expand="true"/>
+            </task>
+            <task id="70" name="CAPITULO 2 MARCO TEORICO" color="#9900ff" meeting="false" start="2019-10-06" duration="6" complete="30" thirdDate="2019-10-06" thirdDate-constraint="0" priority="2" expand="true"/>
+            <task id="103" name="CAPITULO 3 MARCO METODOLOGICO" color="#9900ff" meeting="false" start="2019-10-13" duration="6" complete="0" thirdDate="2019-10-13" thirdDate-constraint="0" priority="2" expand="true">
+                <task id="106" name="1. tipo de investigacion" color="#ff00ff" meeting="false" start="2019-10-13" duration="6" complete="0" thirdDate="2019-10-13" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="107" name="2. formulacion de hipotesis" color="#ff00ff" meeting="false" start="2019-10-13" duration="6" complete="0" thirdDate="2019-09-28" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="108" name="3. tecnicas de investigacion" color="#ff00ff" meeting="false" start="2019-10-13" duration="6" complete="0" thirdDate="2019-09-28" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="110" name="4. unidad de estudio" color="#ff00ff" meeting="false" start="2019-10-13" duration="6" complete="0" thirdDate="2019-09-28" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="111" name="5. sujetos" color="#ff00ff" meeting="false" start="2019-10-13" duration="6" complete="0" thirdDate="2019-09-28" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="112" name="6. diseño de la muestra" color="#ff00ff" meeting="false" start="2019-10-13" duration="6" complete="0" thirdDate="2019-09-28" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="113" name="7. estadisticas" color="#ff00ff" meeting="false" start="2019-10-13" duration="6" complete="0" thirdDate="2019-09-28" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="114" name="8. diseño de la distribucion de la muestra" color="#ff00ff" meeting="false" start="2019-10-13" duration="6" complete="0" thirdDate="2019-10-13" thirdDate-constraint="0" priority="2" expand="true"/>
+                <task id="115" name="9. metodo de analisis" color="#ff00ff" meeting="false" start="2019-10-13" duration="6" complete="0" thirdDate="2019-09-28" thirdDate-constraint="0" priority="2" expand="true"/>
+            </task>
+        </task>
         <task id="17" name="Creación de repositorio para servidor web" color="#8cb6ce" meeting="false" start="2019-09-02" duration="2" complete="0" thirdDate="2019-09-02" thirdDate-constraint="0" expand="true"/>
         <task id="18" name="Creación de repositorio para Frontend" color="#00ffff" meeting="false" start="2019-09-02" duration="2" complete="0" thirdDate="2019-09-02" thirdDate-constraint="0" expand="true"/>
         <task id="5" name="Instalación de base de datos Mongo" color="#00ff33" meeting="false" start="2019-09-02" duration="2" complete="0" thirdDate="2019-09-02" thirdDate-constraint="0" expand="true"/>
@@ -67,7 +131,7 @@
         <task id="28" name="Entrega de Proyecto final" color="#0033ff" meeting="false" start="2019-11-02" duration="1" complete="0" thirdDate="2019-11-02" thirdDate-constraint="0" expand="true"/>
         <task id="29" name="Diagramas de casos de uso" color="#ffff00" meeting="false" start="2019-09-07" duration="7" complete="0" thirdDate="2019-08-31" thirdDate-constraint="0" expand="true"/>
         <task id="30" name="Marco conceptual" color="#ffff00" meeting="false" start="2019-09-07" duration="7" complete="0" thirdDate="2019-08-31" thirdDate-constraint="0" expand="true"/>
-        <task id="34" name="Frontend" color="#000000" meeting="false" start="2019-09-07" duration="7" complete="0" thirdDate="2019-08-31" thirdDate-constraint="0" expand="true">
+        <task id="34" name="Frontend" color="#000000" meeting="false" start="2019-09-07" duration="7" complete="0" thirdDate="2019-08-31" thirdDate-constraint="0" expand="false">
             <task id="31" name="Diseño de Login (Frontend)" color="#00ffff" meeting="false" start="2019-09-07" duration="7" complete="0" thirdDate="2019-08-31" thirdDate-constraint="0" expand="true"/>
             <task id="32" name="Diseño de formulario de registro de paciones (Frontend)" color="#00ffff" meeting="false" start="2019-09-07" duration="7" complete="0" thirdDate="2019-08-31" thirdDate-constraint="0" expand="true"/>
         </task>
