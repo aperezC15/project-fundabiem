@@ -18,7 +18,7 @@ namespace BrokerServices.common
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var stringConn = "Server = 70.37.80.92; port = 5432; Database = fundabien; User Id = postgres; Password = Fundabien@2019; Pooling = true; MinPoolSize = 1; MaxPoolSize = 20; ";
+            var stringConn = "Server =35.183.137.109; port = 5432; Database = fundabien; User Id = postgres; Password = Fundabien@2019; Pooling = true; MinPoolSize = 1; MaxPoolSize = 20; ";
             optionsBuilder.UseNpgsql(stringConn);
         }
 
@@ -34,15 +34,15 @@ namespace BrokerServices.common
         public DbSet<PersonaEncargada> PersonasEncargadas { get; set; }
         public DbSet<RegistroMedico> RegistrosMedicos { get; set; }
         public DbSet<RegistroMedicoDiagnostico> RegistrosMedicosDiagnostico { get; set; }
-        public DbSet<SeccionAnamnesis> SeccionesAnamnesis { get; set; }
-        public DbSet<ItemAnamnesis> ItemsAnamnesis { get; set; }
-        public DbSet<DetalleFormularioAnamnesis> DetalleFormularioAnamnesis { get; set; }
-        public DbSet<FormularioAnamnesis> FormularioAnamnesis { get; set; }
-        public DbSet<Personal> Personal { get; set; }
-        public DbSet<Anamnesis> Anamnesis { get; set; }
-        public DbSet<HistoriaClinica> HistoriaClinicas { get; set; }
-        public DbSet<Tratamiento> Tratamientos { get; set; }
-        public DbSet<DetalleTratamiento> DetallesTratamientos { get; set; }
+        //public DbSet<SeccionAnamnesis> SeccionesAnamnesis { get; set; }
+        //public DbSet<ItemAnamnesis> ItemsAnamnesis { get; set; }
+        //public DbSet<DetalleFormularioAnamnesis> DetalleFormularioAnamnesis { get; set; }
+        //public DbSet<FormularioAnamnesis> FormularioAnamnesis { get; set; }
+        //public DbSet<Personal> Personal { get; set; }
+        //public DbSet<Anamnesis> Anamnesis { get; set; }
+        //public DbSet<HistoriaClinica> HistoriaClinicas { get; set; }
+        //public DbSet<Tratamiento> Tratamientos { get; set; }
+        //public DbSet<DetalleTratamiento> DetallesTratamientos { get; set; }
 
         //to seeds
         protected override void OnModelCreating(ModelBuilder modelBuilder)
