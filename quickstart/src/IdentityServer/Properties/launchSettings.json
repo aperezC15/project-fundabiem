@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "Project",
       "environmentVariables": {
-        "STRING_CONNECTION": "Server=70.37.80.92;port=5432;Database=fundabien;User Id=postgres;Password=Fundabien@2019;Pooling=true;MinPoolSize=1;MaxPoolSize=20;",
+        "STRING_CONNECTION": "Server=35.183.198.48;port=5432;Database=fundabien;User Id=postgres;Password=Fundabien@2019;Pooling=true;MinPoolSize=1;MaxPoolSize=20;",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"

@@ -11,7 +11,7 @@ namespace EntityModelFundabien.Seeds
                 //municipios de Alta Verapaz
                 new Municipio
                 {
-                    idMunicipio = 241,
+                    idMunicipio = 1,
                     idDepartamento = 1,
                     nombre= "Cahabón"
                 },

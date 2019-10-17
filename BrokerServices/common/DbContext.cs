@@ -18,7 +18,7 @@ namespace BrokerServices.common
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var stringConn = "Server =35.183.137.109; port = 5432; Database = fundabien; User Id = postgres; Password = Fundabien@2019; Pooling = true; MinPoolSize = 1; MaxPoolSize = 20; ";
+            var stringConn = "Server =35.183.198.48; port = 5432; Database = fundabien; User Id = postgres; Password = Fundabien@2019; Pooling = true; MinPoolSize = 1; MaxPoolSize = 20; ";
             optionsBuilder.UseNpgsql(stringConn);
         }
 
@@ -49,7 +49,7 @@ namespace BrokerServices.common
         {
             modelBuilder.paisesSeed();
             modelBuilder.seedDepartamentos();
-            //modelBuilder.seddMunicipios();
+            modelBuilder.seddMunicipios();
         }
     }
 }

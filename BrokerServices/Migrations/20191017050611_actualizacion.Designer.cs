@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BrokerServices.Migrations
 {
     [DbContext(typeof(dbContext))]
-    [Migration("20191009020724_AgregarTablaRegistrosMedicos")]
-    partial class AgregarTablaRegistrosMedicos
+    [Migration("20191017050611_actualizacion")]
+    partial class actualizacion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,7 +36,8 @@ namespace BrokerServices.Migrations
 
             modelBuilder.Entity("EntityModelFundabien.entities.Correo", b =>
                 {
-                    b.Property<double>("idCorreo");
+                    b.Property<long>("idCorreo")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("correo");
 
@@ -44,7 +45,7 @@ namespace BrokerServices.Migrations
 
                     b.Property<DateTime>("fechaRegistro");
 
-                    b.Property<double?>("personaidPersona");
+                    b.Property<long?>("personaidPersona");
 
                     b.HasKey("idCorreo");
 
@@ -55,9 +56,10 @@ namespace BrokerServices.Migrations
 
             modelBuilder.Entity("EntityModelFundabien.entities.Departamento", b =>
                 {
-                    b.Property<double>("idDepartamento");
+                    b.Property<long>("idDepartamento")
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<double>("idPais");
+                    b.Property<long>("idPais");
 
                     b.Property<string>("nombre");
 
@@ -70,145 +72,146 @@ namespace BrokerServices.Migrations
                     b.HasData(
                         new
                         {
-                            idDepartamento = 1.0,
-                            idPais = 1.0,
+                            idDepartamento = 1L,
+                            idPais = 1L,
                             nombre = "Alta Verapaz"
                         },
                         new
                         {
-                            idDepartamento = 2.0,
-                            idPais = 1.0,
+                            idDepartamento = 2L,
+                            idPais = 1L,
                             nombre = "Baja Verapaz"
                         },
                         new
                         {
-                            idDepartamento = 3.0,
-                            idPais = 1.0,
+                            idDepartamento = 3L,
+                            idPais = 1L,
                             nombre = "Chimaltenango"
                         },
                         new
                         {
-                            idDepartamento = 4.0,
-                            idPais = 1.0,
+                            idDepartamento = 4L,
+                            idPais = 1L,
                             nombre = "Chiquimula"
                         },
                         new
                         {
-                            idDepartamento = 5.0,
-                            idPais = 1.0,
+                            idDepartamento = 5L,
+                            idPais = 1L,
                             nombre = "El Progreso"
                         },
                         new
                         {
-                            idDepartamento = 6.0,
-                            idPais = 1.0,
+                            idDepartamento = 6L,
+                            idPais = 1L,
                             nombre = "Escuintla"
                         },
                         new
                         {
-                            idDepartamento = 7.0,
-                            idPais = 1.0,
+                            idDepartamento = 7L,
+                            idPais = 1L,
                             nombre = "Guatemala"
                         },
                         new
                         {
-                            idDepartamento = 8.0,
-                            idPais = 1.0,
+                            idDepartamento = 8L,
+                            idPais = 1L,
                             nombre = "Huehuetenango"
                         },
                         new
                         {
-                            idDepartamento = 9.0,
-                            idPais = 1.0,
+                            idDepartamento = 9L,
+                            idPais = 1L,
                             nombre = "Izabal"
                         },
                         new
                         {
-                            idDepartamento = 10.0,
-                            idPais = 1.0,
+                            idDepartamento = 10L,
+                            idPais = 1L,
                             nombre = "Jutiapa"
                         },
                         new
                         {
-                            idDepartamento = 11.0,
-                            idPais = 1.0,
+                            idDepartamento = 11L,
+                            idPais = 1L,
                             nombre = "Petén"
                         },
                         new
                         {
-                            idDepartamento = 12.0,
-                            idPais = 1.0,
+                            idDepartamento = 12L,
+                            idPais = 1L,
                             nombre = "Quetzaltenango"
                         },
                         new
                         {
-                            idDepartamento = 13.0,
-                            idPais = 1.0,
+                            idDepartamento = 13L,
+                            idPais = 1L,
                             nombre = "Quiché"
                         },
                         new
                         {
-                            idDepartamento = 14.0,
-                            idPais = 1.0,
+                            idDepartamento = 14L,
+                            idPais = 1L,
                             nombre = "Retalhuleu"
                         },
                         new
                         {
-                            idDepartamento = 15.0,
-                            idPais = 1.0,
+                            idDepartamento = 15L,
+                            idPais = 1L,
                             nombre = "Sacatepéquez"
                         },
                         new
                         {
-                            idDepartamento = 16.0,
-                            idPais = 1.0,
+                            idDepartamento = 16L,
+                            idPais = 1L,
                             nombre = "San Marcos"
                         },
                         new
                         {
-                            idDepartamento = 17.0,
-                            idPais = 1.0,
+                            idDepartamento = 17L,
+                            idPais = 1L,
                             nombre = "Santa Rosa"
                         },
                         new
                         {
-                            idDepartamento = 18.0,
-                            idPais = 1.0,
+                            idDepartamento = 18L,
+                            idPais = 1L,
                             nombre = "Sololá"
                         },
                         new
                         {
-                            idDepartamento = 19.0,
-                            idPais = 1.0,
+                            idDepartamento = 19L,
+                            idPais = 1L,
                             nombre = "Suchitepéquez"
                         },
                         new
                         {
-                            idDepartamento = 20.0,
-                            idPais = 1.0,
+                            idDepartamento = 20L,
+                            idPais = 1L,
                             nombre = "Totonicapán"
                         },
                         new
                         {
-                            idDepartamento = 21.0,
-                            idPais = 1.0,
+                            idDepartamento = 21L,
+                            idPais = 1L,
                             nombre = "Zacapa"
                         },
                         new
                         {
-                            idDepartamento = 22.0,
-                            idPais = 1.0,
+                            idDepartamento = 22L,
+                            idPais = 1L,
                             nombre = "Jalapa"
                         });
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.Direccion", b =>
                 {
-                    b.Property<double>("idDireccion");
+                    b.Property<long>("idDireccion")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("descripcion");
 
-                    b.Property<double>("idMunicipio");
+                    b.Property<long>("idMunicipio");
 
                     b.HasKey("idDireccion");
 
@@ -219,9 +222,10 @@ namespace BrokerServices.Migrations
 
             modelBuilder.Entity("EntityModelFundabien.entities.Municipio", b =>
                 {
-                    b.Property<double>("idMunicipio");
+                    b.Property<long>("idMunicipio")
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<double>("idDepartamento");
+                    b.Property<long>("idDepartamento");
 
                     b.Property<string>("nombre");
 
@@ -234,13 +238,14 @@ namespace BrokerServices.Migrations
 
             modelBuilder.Entity("EntityModelFundabien.entities.Paciente", b =>
                 {
-                    b.Property<double>("idPaciente");
+                    b.Property<long>("idPaciente")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("estaActivo");
 
-                    b.Property<double>("historialClinico");
+                    b.Property<long>("historialClinico");
 
-                    b.Property<double>("idPersona");
+                    b.Property<long>("idPersona");
 
                     b.HasKey("idPaciente");
 
@@ -251,7 +256,8 @@ namespace BrokerServices.Migrations
 
             modelBuilder.Entity("EntityModelFundabien.entities.Pais", b =>
                 {
-                    b.Property<double>("idPais");
+                    b.Property<long>("idPais")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("nombre");
 
@@ -262,14 +268,15 @@ namespace BrokerServices.Migrations
                     b.HasData(
                         new
                         {
-                            idPais = 1.0,
+                            idPais = 1L,
                             nombre = "Guatemala"
                         });
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.Persona", b =>
                 {
-                    b.Property<double>("idPersona");
+                    b.Property<long>("idPersona")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("escolaridad");
 
@@ -277,9 +284,9 @@ namespace BrokerServices.Migrations
 
                     b.Property<string>("grupoEtnico");
 
-                    b.Property<double>("idDomicilio");
+                    b.Property<long>("idDomicilio");
 
-                    b.Property<double>("idResidencia");
+                    b.Property<long>("idResidencia");
 
                     b.Property<string>("primerApellido");
 
@@ -304,13 +311,14 @@ namespace BrokerServices.Migrations
 
             modelBuilder.Entity("EntityModelFundabien.entities.PersonaEncargada", b =>
                 {
-                    b.Property<double>("idPersonaEncargada");
+                    b.Property<long>("idPersonaEncargada")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("estaActivo");
 
-                    b.Property<double>("idPaciente");
+                    b.Property<long>("idPaciente");
 
-                    b.Property<double>("idPersona");
+                    b.Property<long>("idPersona");
 
                     b.Property<string>("parentezco");
 
@@ -325,13 +333,14 @@ namespace BrokerServices.Migrations
 
             modelBuilder.Entity("EntityModelFundabien.entities.RegistroMedico", b =>
                 {
-                    b.Property<double>("idRegistroMedico");
+                    b.Property<long>("idRegistroMedico")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("estaFirmado");
 
                     b.Property<DateTime>("fechaAdmision");
 
-                    b.Property<double>("idPaciente");
+                    b.Property<long>("idPaciente");
 
                     b.HasKey("idRegistroMedico");
 
@@ -342,11 +351,12 @@ namespace BrokerServices.Migrations
 
             modelBuilder.Entity("EntityModelFundabien.entities.RegistroMedicoDiagnostico", b =>
                 {
-                    b.Property<double>("idRegistroMedicoDiagnostico");
+                    b.Property<long>("idRegistroMedicoDiagnostico")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("diagnosticoFinal");
 
-                    b.Property<double>("idRegistroMedico");
+                    b.Property<long>("idRegistroMedico");
 
                     b.Property<string>("recomendaciones");
 
@@ -359,13 +369,14 @@ namespace BrokerServices.Migrations
 
             modelBuilder.Entity("EntityModelFundabien.entities.Telefono", b =>
                 {
-                    b.Property<double>("idTelefono");
+                    b.Property<long>("idTelefono")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("estaHabilitado");
 
                     b.Property<DateTime>("fechaRegistro");
 
-                    b.Property<double>("idPersona");
+                    b.Property<long>("idPersona");
 
                     b.Property<string>("telefono");
 
@@ -444,7 +455,7 @@ namespace BrokerServices.Migrations
             modelBuilder.Entity("EntityModelFundabien.entities.RegistroMedico", b =>
                 {
                     b.HasOne("EntityModelFundabien.entities.Paciente", "paciente")
-                        .WithMany()
+                        .WithMany("registrosMedicos")
                         .HasForeignKey("idPaciente")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

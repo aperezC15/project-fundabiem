@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BrokerServices.Migrations
 {
     [DbContext(typeof(dbContext))]
-    [Migration("20191009050829_municipios2")]
-    partial class municipios2
+    [Migration("20191017053044_municipiosUpdate")]
+    partial class municipiosUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,7 +36,8 @@ namespace BrokerServices.Migrations
 
             modelBuilder.Entity("EntityModelFundabien.entities.Correo", b =>
                 {
-                    b.Property<double>("idCorreo");
+                    b.Property<long>("idCorreo")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("correo");
 
@@ -44,7 +45,7 @@ namespace BrokerServices.Migrations
 
                     b.Property<DateTime>("fechaRegistro");
 
-                    b.Property<double?>("personaidPersona");
+                    b.Property<long?>("personaidPersona");
 
                     b.HasKey("idCorreo");
 
@@ -55,9 +56,10 @@ namespace BrokerServices.Migrations
 
             modelBuilder.Entity("EntityModelFundabien.entities.Departamento", b =>
                 {
-                    b.Property<double>("idDepartamento");
+                    b.Property<long>("idDepartamento")
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<double>("idPais");
+                    b.Property<long>("idPais");
 
                     b.Property<string>("nombre");
 
@@ -70,145 +72,146 @@ namespace BrokerServices.Migrations
                     b.HasData(
                         new
                         {
-                            idDepartamento = 1.0,
-                            idPais = 1.0,
+                            idDepartamento = 1L,
+                            idPais = 1L,
                             nombre = "Alta Verapaz"
                         },
                         new
                         {
-                            idDepartamento = 2.0,
-                            idPais = 1.0,
+                            idDepartamento = 2L,
+                            idPais = 1L,
                             nombre = "Baja Verapaz"
                         },
                         new
                         {
-                            idDepartamento = 3.0,
-                            idPais = 1.0,
+                            idDepartamento = 3L,
+                            idPais = 1L,
                             nombre = "Chimaltenango"
                         },
                         new
                         {
-                            idDepartamento = 4.0,
-                            idPais = 1.0,
+                            idDepartamento = 4L,
+                            idPais = 1L,
                             nombre = "Chiquimula"
                         },
                         new
                         {
-                            idDepartamento = 5.0,
-                            idPais = 1.0,
+                            idDepartamento = 5L,
+                            idPais = 1L,
                             nombre = "El Progreso"
                         },
                         new
                         {
-                            idDepartamento = 6.0,
-                            idPais = 1.0,
+                            idDepartamento = 6L,
+                            idPais = 1L,
                             nombre = "Escuintla"
                         },
                         new
                         {
-                            idDepartamento = 7.0,
-                            idPais = 1.0,
+                            idDepartamento = 7L,
+                            idPais = 1L,
                             nombre = "Guatemala"
                         },
                         new
                         {
-                            idDepartamento = 8.0,
-                            idPais = 1.0,
+                            idDepartamento = 8L,
+                            idPais = 1L,
                             nombre = "Huehuetenango"
                         },
                         new
                         {
-                            idDepartamento = 9.0,
-                            idPais = 1.0,
+                            idDepartamento = 9L,
+                            idPais = 1L,
                             nombre = "Izabal"
                         },
                         new
                         {
-                            idDepartamento = 10.0,
-                            idPais = 1.0,
+                            idDepartamento = 10L,
+                            idPais = 1L,
                             nombre = "Jutiapa"
                         },
                         new
                         {
-                            idDepartamento = 11.0,
-                            idPais = 1.0,
+                            idDepartamento = 11L,
+                            idPais = 1L,
                             nombre = "Petén"
                         },
                         new
                         {
-                            idDepartamento = 12.0,
-                            idPais = 1.0,
+                            idDepartamento = 12L,
+                            idPais = 1L,
                             nombre = "Quetzaltenango"
                         },
                         new
                         {
-                            idDepartamento = 13.0,
-                            idPais = 1.0,
+                            idDepartamento = 13L,
+                            idPais = 1L,
                             nombre = "Quiché"
                         },
                         new
                         {
-                            idDepartamento = 14.0,
-                            idPais = 1.0,
+                            idDepartamento = 14L,
+                            idPais = 1L,
                             nombre = "Retalhuleu"
                         },
                         new
                         {
-                            idDepartamento = 15.0,
-                            idPais = 1.0,
+                            idDepartamento = 15L,
+                            idPais = 1L,
                             nombre = "Sacatepéquez"
                         },
                         new
                         {
-                            idDepartamento = 16.0,
-                            idPais = 1.0,
+                            idDepartamento = 16L,
+                            idPais = 1L,
                             nombre = "San Marcos"
                         },
                         new
                         {
-                            idDepartamento = 17.0,
-                            idPais = 1.0,
+                            idDepartamento = 17L,
+                            idPais = 1L,
                             nombre = "Santa Rosa"
                         },
                         new
                         {
-                            idDepartamento = 18.0,
-                            idPais = 1.0,
+                            idDepartamento = 18L,
+                            idPais = 1L,
                             nombre = "Sololá"
                         },
                         new
                         {
-                            idDepartamento = 19.0,
-                            idPais = 1.0,
+                            idDepartamento = 19L,
+                            idPais = 1L,
                             nombre = "Suchitepéquez"
                         },
                         new
                         {
-                            idDepartamento = 20.0,
-                            idPais = 1.0,
+                            idDepartamento = 20L,
+                            idPais = 1L,
                             nombre = "Totonicapán"
                         },
                         new
                         {
-                            idDepartamento = 21.0,
-                            idPais = 1.0,
+                            idDepartamento = 21L,
+                            idPais = 1L,
                             nombre = "Zacapa"
                         },
                         new
                         {
-                            idDepartamento = 22.0,
-                            idPais = 1.0,
+                            idDepartamento = 22L,
+                            idPais = 1L,
                             nombre = "Jalapa"
                         });
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.Direccion", b =>
                 {
-                    b.Property<double>("idDireccion");
+                    b.Property<long>("idDireccion")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("descripcion");
 
-                    b.Property<double>("idMunicipio");
+                    b.Property<long>("idMunicipio");
 
                     b.HasKey("idDireccion");
 
@@ -219,9 +222,10 @@ namespace BrokerServices.Migrations
 
             modelBuilder.Entity("EntityModelFundabien.entities.Municipio", b =>
                 {
-                    b.Property<double>("idMunicipio");
+                    b.Property<long>("idMunicipio")
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<double>("idDepartamento");
+                    b.Property<long>("idDepartamento");
 
                     b.Property<string>("nombre");
 
@@ -234,2049 +238,2068 @@ namespace BrokerServices.Migrations
                     b.HasData(
                         new
                         {
-                            idMunicipio = 1.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 1L,
+                            idDepartamento = 1L,
                             nombre = "Cahabón"
                         },
                         new
                         {
-                            idMunicipio = 2.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 2L,
+                            idDepartamento = 1L,
                             nombre = "Chahal"
                         },
                         new
                         {
-                            idMunicipio = 3.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 3L,
+                            idDepartamento = 1L,
                             nombre = "Chisec"
                         },
                         new
                         {
-                            idMunicipio = 4.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 4L,
+                            idDepartamento = 1L,
                             nombre = "Cobán"
                         },
                         new
                         {
-                            idMunicipio = 5.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 5L,
+                            idDepartamento = 1L,
                             nombre = "Fray Bartolomé de las Casas"
                         },
                         new
                         {
-                            idMunicipio = 6.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 6L,
+                            idDepartamento = 1L,
                             nombre = "Lanquín"
                         },
                         new
                         {
-                            idMunicipio = 7.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 7L,
+                            idDepartamento = 1L,
                             nombre = "Panzós"
                         },
                         new
                         {
-                            idMunicipio = 8.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 8L,
+                            idDepartamento = 1L,
                             nombre = "Raxruha"
                         },
                         new
                         {
-                            idMunicipio = 9.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 9L,
+                            idDepartamento = 1L,
                             nombre = "San Cristóbal Verapaz"
                         },
                         new
                         {
-                            idMunicipio = 10.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 10L,
+                            idDepartamento = 1L,
                             nombre = "San Juan Chamelco"
                         },
                         new
                         {
-                            idMunicipio = 11.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 11L,
+                            idDepartamento = 1L,
                             nombre = "San Pedro Carchá"
                         },
                         new
                         {
-                            idMunicipio = 12.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 12L,
+                            idDepartamento = 1L,
                             nombre = "Santa Cruz Verapaz"
                         },
                         new
                         {
-                            idMunicipio = 13.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 13L,
+                            idDepartamento = 1L,
                             nombre = "Senahú"
                         },
                         new
                         {
-                            idMunicipio = 14.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 14L,
+                            idDepartamento = 1L,
                             nombre = "Tactic"
                         },
                         new
                         {
-                            idMunicipio = 15.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 15L,
+                            idDepartamento = 1L,
                             nombre = "Tamahú"
                         },
                         new
                         {
-                            idMunicipio = 16.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 16L,
+                            idDepartamento = 1L,
                             nombre = "Tucurú"
                         },
                         new
                         {
-                            idMunicipio = 17.0,
-                            idDepartamento = 1.0,
+                            idMunicipio = 17L,
+                            idDepartamento = 1L,
                             nombre = "Santa Catarina La Tinta"
                         },
                         new
                         {
-                            idMunicipio = 18.0,
-                            idDepartamento = 2.0,
+                            idMunicipio = 18L,
+                            idDepartamento = 2L,
                             nombre = "Cubulco"
                         },
                         new
                         {
-                            idMunicipio = 19.0,
-                            idDepartamento = 2.0,
+                            idMunicipio = 19L,
+                            idDepartamento = 2L,
                             nombre = "Granados"
                         },
                         new
                         {
-                            idMunicipio = 20.0,
-                            idDepartamento = 2.0,
+                            idMunicipio = 20L,
+                            idDepartamento = 2L,
                             nombre = "Purulhá"
                         },
                         new
                         {
-                            idMunicipio = 21.0,
-                            idDepartamento = 2.0,
+                            idMunicipio = 21L,
+                            idDepartamento = 2L,
                             nombre = "Rabinal"
                         },
                         new
                         {
-                            idMunicipio = 22.0,
-                            idDepartamento = 2.0,
+                            idMunicipio = 22L,
+                            idDepartamento = 2L,
                             nombre = "Salamá"
                         },
                         new
                         {
-                            idMunicipio = 23.0,
-                            idDepartamento = 2.0,
+                            idMunicipio = 23L,
+                            idDepartamento = 2L,
                             nombre = "San Jerónimo"
                         },
                         new
                         {
-                            idMunicipio = 24.0,
-                            idDepartamento = 2.0,
+                            idMunicipio = 24L,
+                            idDepartamento = 2L,
                             nombre = "San Miguel Chicaj"
                         },
                         new
                         {
-                            idMunicipio = 25.0,
-                            idDepartamento = 2.0,
+                            idMunicipio = 25L,
+                            idDepartamento = 2L,
                             nombre = "Santa Cruz El Chol"
                         },
                         new
                         {
-                            idMunicipio = 26.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 26L,
+                            idDepartamento = 3L,
                             nombre = "Acatenango"
                         },
                         new
                         {
-                            idMunicipio = 27.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 27L,
+                            idDepartamento = 3L,
                             nombre = "Chimaltenango"
                         },
                         new
                         {
-                            idMunicipio = 28.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 28L,
+                            idDepartamento = 3L,
                             nombre = "El Tejar"
                         },
                         new
                         {
-                            idMunicipio = 29.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 29L,
+                            idDepartamento = 3L,
                             nombre = "Parramos"
                         },
                         new
                         {
-                            idMunicipio = 30.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 30L,
+                            idDepartamento = 3L,
                             nombre = "Patzicía"
                         },
                         new
                         {
-                            idMunicipio = 31.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 31L,
+                            idDepartamento = 3L,
                             nombre = "Patzún"
                         },
                         new
                         {
-                            idMunicipio = 32.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 32L,
+                            idDepartamento = 3L,
                             nombre = "Pochuta"
                         },
                         new
                         {
-                            idMunicipio = 33.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 33L,
+                            idDepartamento = 3L,
                             nombre = "San Andrés Itzapa"
                         },
                         new
                         {
-                            idMunicipio = 34.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 34L,
+                            idDepartamento = 3L,
                             nombre = "San José Poaquil"
                         },
                         new
                         {
-                            idMunicipio = 35.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 35L,
+                            idDepartamento = 3L,
                             nombre = "San Juan Comalapa"
                         },
                         new
                         {
-                            idMunicipio = 36.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 36L,
+                            idDepartamento = 3L,
                             nombre = "San Martín Jilotepeque"
                         },
                         new
                         {
-                            idMunicipio = 37.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 37L,
+                            idDepartamento = 3L,
                             nombre = "Santa Apolonia"
                         },
                         new
                         {
-                            idMunicipio = 38.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 38L,
+                            idDepartamento = 3L,
                             nombre = "Santa Cruz Balanyá"
                         },
                         new
                         {
-                            idMunicipio = 39.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 39L,
+                            idDepartamento = 3L,
                             nombre = "Tecpán Guatemala"
                         },
                         new
                         {
-                            idMunicipio = 40.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 40L,
+                            idDepartamento = 3L,
                             nombre = "Yepocapa"
                         },
                         new
                         {
-                            idMunicipio = 41.0,
-                            idDepartamento = 3.0,
+                            idMunicipio = 41L,
+                            idDepartamento = 3L,
                             nombre = "Zaragoza"
                         },
                         new
                         {
-                            idMunicipio = 42.0,
-                            idDepartamento = 4.0,
+                            idMunicipio = 42L,
+                            idDepartamento = 4L,
                             nombre = "Camotán"
                         },
                         new
                         {
-                            idMunicipio = 43.0,
-                            idDepartamento = 4.0,
+                            idMunicipio = 43L,
+                            idDepartamento = 4L,
                             nombre = "Chiquimula"
                         },
                         new
                         {
-                            idMunicipio = 44.0,
-                            idDepartamento = 4.0,
+                            idMunicipio = 44L,
+                            idDepartamento = 4L,
                             nombre = "Concepción Las Minas"
                         },
                         new
                         {
-                            idMunicipio = 45.0,
-                            idDepartamento = 4.0,
+                            idMunicipio = 45L,
+                            idDepartamento = 4L,
                             nombre = "Esquipulas"
                         },
                         new
                         {
-                            idMunicipio = 46.0,
-                            idDepartamento = 4.0,
+                            idMunicipio = 46L,
+                            idDepartamento = 4L,
                             nombre = "Ipala"
                         },
                         new
                         {
-                            idMunicipio = 47.0,
-                            idDepartamento = 4.0,
+                            idMunicipio = 47L,
+                            idDepartamento = 4L,
                             nombre = "Jocotán"
                         },
                         new
                         {
-                            idMunicipio = 48.0,
-                            idDepartamento = 4.0,
+                            idMunicipio = 48L,
+                            idDepartamento = 4L,
                             nombre = "Olopa"
                         },
                         new
                         {
-                            idMunicipio = 49.0,
-                            idDepartamento = 4.0,
+                            idMunicipio = 49L,
+                            idDepartamento = 4L,
                             nombre = "Quezaltepeque"
                         },
                         new
                         {
-                            idMunicipio = 50.0,
-                            idDepartamento = 4.0,
+                            idMunicipio = 50L,
+                            idDepartamento = 4L,
                             nombre = "San Jacinto"
                         },
                         new
                         {
-                            idMunicipio = 51.0,
-                            idDepartamento = 4.0,
+                            idMunicipio = 51L,
+                            idDepartamento = 4L,
                             nombre = "San José La Arada"
                         },
                         new
                         {
-                            idMunicipio = 52.0,
-                            idDepartamento = 4.0,
+                            idMunicipio = 52L,
+                            idDepartamento = 4L,
                             nombre = "San Juan Ermita"
                         },
                         new
                         {
-                            idMunicipio = 53.0,
-                            idDepartamento = 5.0,
+                            idMunicipio = 53L,
+                            idDepartamento = 5L,
                             nombre = "El Jícaro"
                         },
                         new
                         {
-                            idMunicipio = 54.0,
-                            idDepartamento = 5.0,
+                            idMunicipio = 54L,
+                            idDepartamento = 5L,
                             nombre = "Guastatoya"
                         },
                         new
                         {
-                            idMunicipio = 55.0,
-                            idDepartamento = 5.0,
+                            idMunicipio = 55L,
+                            idDepartamento = 5L,
                             nombre = "Morazán"
                         },
                         new
                         {
-                            idMunicipio = 56.0,
-                            idDepartamento = 5.0,
+                            idMunicipio = 56L,
+                            idDepartamento = 5L,
                             nombre = "San Agustín Acasaguastlán"
                         },
                         new
                         {
-                            idMunicipio = 57.0,
-                            idDepartamento = 5.0,
+                            idMunicipio = 57L,
+                            idDepartamento = 5L,
                             nombre = "San Antonio La Paz"
                         },
                         new
                         {
-                            idMunicipio = 58.0,
-                            idDepartamento = 5.0,
+                            idMunicipio = 58L,
+                            idDepartamento = 5L,
                             nombre = "San Cristóbal Acasaguastlán"
                         },
                         new
                         {
-                            idMunicipio = 59.0,
-                            idDepartamento = 5.0,
+                            idMunicipio = 59L,
+                            idDepartamento = 5L,
                             nombre = "Sanarate"
                         },
                         new
                         {
-                            idMunicipio = 60.0,
-                            idDepartamento = 6.0,
+                            idMunicipio = 60L,
+                            idDepartamento = 6L,
                             nombre = "Escuintla"
                         },
                         new
                         {
-                            idMunicipio = 61.0,
-                            idDepartamento = 6.0,
+                            idMunicipio = 61L,
+                            idDepartamento = 6L,
                             nombre = "Iztapa"
                         },
                         new
                         {
-                            idMunicipio = 62.0,
-                            idDepartamento = 6.0,
+                            idMunicipio = 62L,
+                            idDepartamento = 6L,
                             nombre = "La Democracia"
                         },
                         new
                         {
-                            idMunicipio = 63.0,
-                            idDepartamento = 6.0,
+                            idMunicipio = 63L,
+                            idDepartamento = 6L,
                             nombre = "La Gomera"
                         },
                         new
                         {
-                            idMunicipio = 64.0,
-                            idDepartamento = 6.0,
+                            idMunicipio = 64L,
+                            idDepartamento = 6L,
                             nombre = "Masagua"
                         },
                         new
                         {
-                            idMunicipio = 65.0,
-                            idDepartamento = 6.0,
+                            idMunicipio = 65L,
+                            idDepartamento = 6L,
                             nombre = "Nueva Concepción"
                         },
                         new
                         {
-                            idMunicipio = 66.0,
-                            idDepartamento = 6.0,
+                            idMunicipio = 66L,
+                            idDepartamento = 6L,
                             nombre = "Palín"
                         },
                         new
                         {
-                            idMunicipio = 67.0,
-                            idDepartamento = 6.0,
+                            idMunicipio = 67L,
+                            idDepartamento = 6L,
                             nombre = "San José"
                         },
                         new
                         {
-                            idMunicipio = 68.0,
-                            idDepartamento = 6.0,
+                            idMunicipio = 68L,
+                            idDepartamento = 6L,
                             nombre = "San Vicente Pacaya"
                         },
                         new
                         {
-                            idMunicipio = 69.0,
-                            idDepartamento = 6.0,
+                            idMunicipio = 69L,
+                            idDepartamento = 6L,
                             nombre = "Santa Lucía Cotzumalguapa"
                         },
                         new
                         {
-                            idMunicipio = 70.0,
-                            idDepartamento = 6.0,
+                            idMunicipio = 70L,
+                            idDepartamento = 6L,
                             nombre = "Siquinalá"
                         },
                         new
                         {
-                            idMunicipio = 71.0,
-                            idDepartamento = 6.0,
+                            idMunicipio = 71L,
+                            idDepartamento = 6L,
                             nombre = "Tiquisate"
                         },
                         new
                         {
-                            idMunicipio = 72.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 72L,
+                            idDepartamento = 7L,
                             nombre = "Amatitlán"
                         },
                         new
                         {
-                            idMunicipio = 73.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 73L,
+                            idDepartamento = 7L,
                             nombre = "Chinautla"
                         },
                         new
                         {
-                            idMunicipio = 74.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 74L,
+                            idDepartamento = 7L,
                             nombre = "Chuarrancho"
                         },
                         new
                         {
-                            idMunicipio = 75.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 75L,
+                            idDepartamento = 7L,
                             nombre = "Fraijanes"
                         },
                         new
                         {
-                            idMunicipio = 76.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 76L,
+                            idDepartamento = 7L,
                             nombre = "Guatemala"
                         },
                         new
                         {
-                            idMunicipio = 77.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 77L,
+                            idDepartamento = 7L,
                             nombre = "Mixco"
                         },
                         new
                         {
-                            idMunicipio = 78.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 78L,
+                            idDepartamento = 7L,
                             nombre = "Palencia"
                         },
                         new
                         {
-                            idMunicipio = 79.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 79L,
+                            idDepartamento = 7L,
                             nombre = "San Miguel Petapa"
                         },
                         new
                         {
-                            idMunicipio = 80.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 80L,
+                            idDepartamento = 7L,
                             nombre = "San José del Golfo"
                         },
                         new
                         {
-                            idMunicipio = 81.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 81L,
+                            idDepartamento = 7L,
                             nombre = "San José Pinula"
                         },
                         new
                         {
-                            idMunicipio = 82.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 82L,
+                            idDepartamento = 7L,
                             nombre = "San Juan Sacatepéquez"
                         },
                         new
                         {
-                            idMunicipio = 83.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 83L,
+                            idDepartamento = 7L,
                             nombre = "San Pedro Ayampuc"
                         },
                         new
                         {
-                            idMunicipio = 84.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 84L,
+                            idDepartamento = 7L,
                             nombre = "San Pedro Sacatepéquez"
                         },
                         new
                         {
-                            idMunicipio = 85.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 85L,
+                            idDepartamento = 7L,
                             nombre = "San Raymundo"
                         },
                         new
                         {
-                            idMunicipio = 86.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 86L,
+                            idDepartamento = 7L,
                             nombre = "Santa Catarina Pinula"
                         },
                         new
                         {
-                            idMunicipio = 87.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 87L,
+                            idDepartamento = 7L,
                             nombre = "Villa Canales"
                         },
                         new
                         {
-                            idMunicipio = 88.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 88L,
+                            idDepartamento = 8L,
                             nombre = "Aguacatán"
                         },
                         new
                         {
-                            idMunicipio = 89.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 89L,
+                            idDepartamento = 8L,
                             nombre = "Chiantla"
                         },
                         new
                         {
-                            idMunicipio = 90.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 90L,
+                            idDepartamento = 8L,
                             nombre = "Colotenango"
                         },
                         new
                         {
-                            idMunicipio = 91.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 91L,
+                            idDepartamento = 8L,
                             nombre = "Concepción Huista"
                         },
                         new
                         {
-                            idMunicipio = 92.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 92L,
+                            idDepartamento = 8L,
                             nombre = "Cuilco"
                         },
                         new
                         {
-                            idMunicipio = 93.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 93L,
+                            idDepartamento = 8L,
                             nombre = "Huehuetenango"
                         },
                         new
                         {
-                            idMunicipio = 94.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 94L,
+                            idDepartamento = 8L,
                             nombre = "Ixtahuacán"
                         },
                         new
                         {
-                            idMunicipio = 95.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 95L,
+                            idDepartamento = 8L,
                             nombre = "Jacaltenango"
                         },
                         new
                         {
-                            idMunicipio = 96.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 96L,
+                            idDepartamento = 8L,
                             nombre = "La Democracia"
                         },
                         new
                         {
-                            idMunicipio = 97.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 97L,
+                            idDepartamento = 8L,
                             nombre = "La Libertad"
                         },
                         new
                         {
-                            idMunicipio = 98.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 98L,
+                            idDepartamento = 8L,
                             nombre = "Malacatancito"
                         },
                         new
                         {
-                            idMunicipio = 99.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 99L,
+                            idDepartamento = 8L,
                             nombre = "Nentón"
                         },
                         new
                         {
-                            idMunicipio = 100.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 100L,
+                            idDepartamento = 8L,
                             nombre = "San Antonio Huista"
                         },
                         new
                         {
-                            idMunicipio = 101.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 101L,
+                            idDepartamento = 8L,
                             nombre = "San Gaspar Ixchil"
                         },
                         new
                         {
-                            idMunicipio = 102.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 102L,
+                            idDepartamento = 8L,
                             nombre = "San Juan Atitán"
                         },
                         new
                         {
-                            idMunicipio = 103.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 103L,
+                            idDepartamento = 8L,
                             nombre = "San Juan Ixcoy"
                         },
                         new
                         {
-                            idMunicipio = 104.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 104L,
+                            idDepartamento = 8L,
                             nombre = "San Mateo Ixtatán"
                         },
                         new
                         {
-                            idMunicipio = 105.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 105L,
+                            idDepartamento = 8L,
                             nombre = "San Miguel Acatán"
                         },
                         new
                         {
-                            idMunicipio = 106.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 106L,
+                            idDepartamento = 8L,
                             nombre = "San Pedro Necta"
                         },
                         new
                         {
-                            idMunicipio = 107.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 107L,
+                            idDepartamento = 8L,
                             nombre = "San Rafael La Independencia"
                         },
                         new
                         {
-                            idMunicipio = 108.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 108L,
+                            idDepartamento = 8L,
                             nombre = "San Rafael Petzal"
                         },
                         new
                         {
-                            idMunicipio = 109.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 109L,
+                            idDepartamento = 8L,
                             nombre = "San Sebastián Coatán"
                         },
                         new
                         {
-                            idMunicipio = 110.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 110L,
+                            idDepartamento = 8L,
                             nombre = "San Sebastián Huehuetenango"
                         },
                         new
                         {
-                            idMunicipio = 111.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 111L,
+                            idDepartamento = 8L,
                             nombre = "Santa Ana Huista"
                         },
                         new
                         {
-                            idMunicipio = 112.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 112L,
+                            idDepartamento = 8L,
                             nombre = "Santa Bárbara"
                         },
                         new
                         {
-                            idMunicipio = 113.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 113L,
+                            idDepartamento = 8L,
                             nombre = "Santa Cruz Barillas"
                         },
                         new
                         {
-                            idMunicipio = 114.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 114L,
+                            idDepartamento = 8L,
                             nombre = "Santa Eulalia"
                         },
                         new
                         {
-                            idMunicipio = 115.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 115L,
+                            idDepartamento = 8L,
                             nombre = "Santiago Chimaltenango"
                         },
                         new
                         {
-                            idMunicipio = 116.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 116L,
+                            idDepartamento = 8L,
                             nombre = "Soloma"
                         },
                         new
                         {
-                            idMunicipio = 117.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 117L,
+                            idDepartamento = 8L,
                             nombre = "Tectitán"
                         },
                         new
                         {
-                            idMunicipio = 118.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 118L,
+                            idDepartamento = 8L,
                             nombre = "Todos Santos Cuchumatan"
                         },
                         new
                         {
-                            idMunicipio = 119.0,
-                            idDepartamento = 9.0,
+                            idMunicipio = 119L,
+                            idDepartamento = 9L,
                             nombre = "El Estor"
                         },
                         new
                         {
-                            idMunicipio = 120.0,
-                            idDepartamento = 9.0,
+                            idMunicipio = 120L,
+                            idDepartamento = 9L,
                             nombre = "Livingston"
                         },
                         new
                         {
-                            idMunicipio = 121.0,
-                            idDepartamento = 9.0,
+                            idMunicipio = 121L,
+                            idDepartamento = 9L,
                             nombre = "Los Amates"
                         },
                         new
                         {
-                            idMunicipio = 122.0,
-                            idDepartamento = 9.0,
+                            idMunicipio = 122L,
+                            idDepartamento = 9L,
                             nombre = "Morales"
                         },
                         new
                         {
-                            idMunicipio = 123.0,
-                            idDepartamento = 9.0,
+                            idMunicipio = 123L,
+                            idDepartamento = 9L,
                             nombre = "Puerto Barrios"
                         },
                         new
                         {
-                            idMunicipio = 124.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 124L,
+                            idDepartamento = 10L,
                             nombre = "Agua Blanca"
                         },
                         new
                         {
-                            idMunicipio = 125.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 125L,
+                            idDepartamento = 10L,
                             nombre = "Asunción Mita"
                         },
                         new
                         {
-                            idMunicipio = 126.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 126L,
+                            idDepartamento = 10L,
                             nombre = "Atescatempa"
                         },
                         new
                         {
-                            idMunicipio = 127.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 127L,
+                            idDepartamento = 10L,
                             nombre = "Comapa"
                         },
                         new
                         {
-                            idMunicipio = 128.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 128L,
+                            idDepartamento = 10L,
                             nombre = "Conguaco"
                         },
                         new
                         {
-                            idMunicipio = 129.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 129L,
+                            idDepartamento = 10L,
                             nombre = "El Adelanto"
                         },
                         new
                         {
-                            idMunicipio = 130.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 130L,
+                            idDepartamento = 10L,
                             nombre = "El Progreso"
                         },
                         new
                         {
-                            idMunicipio = 131.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 131L,
+                            idDepartamento = 10L,
                             nombre = "Jalpatagua"
                         },
                         new
                         {
-                            idMunicipio = 132.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 132L,
+                            idDepartamento = 10L,
                             nombre = "Jerez"
                         },
                         new
                         {
-                            idMunicipio = 133.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 133L,
+                            idDepartamento = 10L,
                             nombre = "Jutiapa"
                         },
                         new
                         {
-                            idMunicipio = 134.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 134L,
+                            idDepartamento = 10L,
                             nombre = "Moyuta"
                         },
                         new
                         {
-                            idMunicipio = 135.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 135L,
+                            idDepartamento = 10L,
                             nombre = "Pasaco"
                         },
                         new
                         {
-                            idMunicipio = 136.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 136L,
+                            idDepartamento = 10L,
                             nombre = "Quezada"
                         },
                         new
                         {
-                            idMunicipio = 137.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 137L,
+                            idDepartamento = 10L,
                             nombre = "San José Acatempa"
                         },
                         new
                         {
-                            idMunicipio = 138.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 138L,
+                            idDepartamento = 10L,
                             nombre = "Santa Catarina Mita"
                         },
                         new
                         {
-                            idMunicipio = 139.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 139L,
+                            idDepartamento = 10L,
                             nombre = "Yupiltepeque"
                         },
                         new
                         {
-                            idMunicipio = 140.0,
-                            idDepartamento = 10.0,
+                            idMunicipio = 140L,
+                            idDepartamento = 10L,
                             nombre = "Zapotitlán"
                         },
                         new
                         {
-                            idMunicipio = 141.0,
-                            idDepartamento = 11.0,
+                            idMunicipio = 141L,
+                            idDepartamento = 11L,
                             nombre = "Dolores"
                         },
                         new
                         {
-                            idMunicipio = 142.0,
-                            idDepartamento = 11.0,
+                            idMunicipio = 142L,
+                            idDepartamento = 11L,
                             nombre = "Flores"
                         },
                         new
                         {
-                            idMunicipio = 143.0,
-                            idDepartamento = 11.0,
+                            idMunicipio = 143L,
+                            idDepartamento = 11L,
                             nombre = "La Libertad"
                         },
                         new
                         {
-                            idMunicipio = 144.0,
-                            idDepartamento = 11.0,
+                            idMunicipio = 144L,
+                            idDepartamento = 11L,
                             nombre = "Melchor de Mencos"
                         },
                         new
                         {
-                            idMunicipio = 145.0,
-                            idDepartamento = 11.0,
+                            idMunicipio = 145L,
+                            idDepartamento = 11L,
                             nombre = "Poptún"
                         },
                         new
                         {
-                            idMunicipio = 146.0,
-                            idDepartamento = 11.0,
+                            idMunicipio = 146L,
+                            idDepartamento = 11L,
                             nombre = "San Andrés"
                         },
                         new
                         {
-                            idMunicipio = 147.0,
-                            idDepartamento = 11.0,
+                            idMunicipio = 147L,
+                            idDepartamento = 11L,
                             nombre = "San Benito"
                         },
                         new
                         {
-                            idMunicipio = 148.0,
-                            idDepartamento = 11.0,
+                            idMunicipio = 148L,
+                            idDepartamento = 11L,
                             nombre = "San Francisco"
                         },
                         new
                         {
-                            idMunicipio = 149.0,
-                            idDepartamento = 11.0,
+                            idMunicipio = 149L,
+                            idDepartamento = 11L,
                             nombre = "San José"
                         },
                         new
                         {
-                            idMunicipio = 150.0,
-                            idDepartamento = 11.0,
+                            idMunicipio = 150L,
+                            idDepartamento = 11L,
                             nombre = "San Luis"
                         },
                         new
                         {
-                            idMunicipio = 151.0,
-                            idDepartamento = 11.0,
+                            idMunicipio = 151L,
+                            idDepartamento = 11L,
                             nombre = "Santa Ana"
                         },
                         new
                         {
-                            idMunicipio = 152.0,
-                            idDepartamento = 11.0,
+                            idMunicipio = 152L,
+                            idDepartamento = 11L,
                             nombre = "Sayaxché"
                         },
                         new
                         {
-                            idMunicipio = 153.0,
-                            idDepartamento = 11.0,
+                            idMunicipio = 153L,
+                            idDepartamento = 11L,
                             nombre = "Las Cruces"
                         },
                         new
                         {
-                            idMunicipio = 154.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 154L,
+                            idDepartamento = 12L,
                             nombre = "Almolonga"
                         },
                         new
                         {
-                            idMunicipio = 155.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 155L,
+                            idDepartamento = 12L,
                             nombre = "Cabricán"
                         },
                         new
                         {
-                            idMunicipio = 156.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 156L,
+                            idDepartamento = 12L,
                             nombre = "Cajolá"
                         },
                         new
                         {
-                            idMunicipio = 157.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 157L,
+                            idDepartamento = 12L,
                             nombre = "Cantel"
                         },
                         new
                         {
-                            idMunicipio = 158.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 158L,
+                            idDepartamento = 12L,
                             nombre = "Coatepeque"
                         },
                         new
                         {
-                            idMunicipio = 159.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 159L,
+                            idDepartamento = 12L,
                             nombre = "Colomba"
                         },
                         new
                         {
-                            idMunicipio = 160.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 160L,
+                            idDepartamento = 12L,
                             nombre = "Concepción Chiquirichapa"
                         },
                         new
                         {
-                            idMunicipio = 161.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 161L,
+                            idDepartamento = 12L,
                             nombre = "El Palmar"
                         },
                         new
                         {
-                            idMunicipio = 162.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 162L,
+                            idDepartamento = 12L,
                             nombre = "Flores Costa Cuca"
                         },
                         new
                         {
-                            idMunicipio = 163.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 163L,
+                            idDepartamento = 12L,
                             nombre = "Génova"
                         },
                         new
                         {
-                            idMunicipio = 164.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 164L,
+                            idDepartamento = 12L,
                             nombre = "Huitán"
                         },
                         new
                         {
-                            idMunicipio = 165.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 165L,
+                            idDepartamento = 12L,
                             nombre = "La Esperanza"
                         },
                         new
                         {
-                            idMunicipio = 166.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 166L,
+                            idDepartamento = 12L,
                             nombre = "Olintepeque"
                         },
                         new
                         {
-                            idMunicipio = 167.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 167L,
+                            idDepartamento = 12L,
                             nombre = "Ostuncalco"
                         },
                         new
                         {
-                            idMunicipio = 168.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 168L,
+                            idDepartamento = 12L,
                             nombre = "Palestina de Los Altos"
                         },
                         new
                         {
-                            idMunicipio = 169.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 169L,
+                            idDepartamento = 12L,
                             nombre = "Quetzaltenango"
                         },
                         new
                         {
-                            idMunicipio = 170.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 170L,
+                            idDepartamento = 12L,
                             nombre = "Salcajá"
                         },
                         new
                         {
-                            idMunicipio = 171.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 171L,
+                            idDepartamento = 12L,
                             nombre = "San Carlos Sija"
                         },
                         new
                         {
-                            idMunicipio = 172.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 172L,
+                            idDepartamento = 12L,
                             nombre = "San Francisco La Unión"
                         },
                         new
                         {
-                            idMunicipio = 173.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 173L,
+                            idDepartamento = 12L,
                             nombre = "San Martín Sacatepéquez"
                         },
                         new
                         {
-                            idMunicipio = 174.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 174L,
+                            idDepartamento = 12L,
                             nombre = "San Mateo"
                         },
                         new
                         {
-                            idMunicipio = 175.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 175L,
+                            idDepartamento = 12L,
                             nombre = "San Miguel Sigüilá"
                         },
                         new
                         {
-                            idMunicipio = 176.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 176L,
+                            idDepartamento = 12L,
                             nombre = "Sibilia"
                         },
                         new
                         {
-                            idMunicipio = 177.0,
-                            idDepartamento = 12.0,
+                            idMunicipio = 177L,
+                            idDepartamento = 12L,
                             nombre = "Zunil"
                         },
                         new
                         {
-                            idMunicipio = 178.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 178L,
+                            idDepartamento = 13L,
                             nombre = "Canillá"
                         },
                         new
                         {
-                            idMunicipio = 179.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 179L,
+                            idDepartamento = 13L,
                             nombre = "Chajul"
                         },
                         new
                         {
-                            idMunicipio = 180.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 180L,
+                            idDepartamento = 13L,
                             nombre = "Chicamán"
                         },
                         new
                         {
-                            idMunicipio = 181.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 181L,
+                            idDepartamento = 13L,
                             nombre = "Chiché"
                         },
                         new
                         {
-                            idMunicipio = 182.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 182L,
+                            idDepartamento = 13L,
                             nombre = "Chichicastenango"
                         },
                         new
                         {
-                            idMunicipio = 183.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 183L,
+                            idDepartamento = 13L,
                             nombre = "Chinique"
                         },
                         new
                         {
-                            idMunicipio = 184.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 184L,
+                            idDepartamento = 13L,
                             nombre = "Cunén"
                         },
                         new
                         {
-                            idMunicipio = 185.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 185L,
+                            idDepartamento = 13L,
                             nombre = "Ixcán"
                         },
                         new
                         {
-                            idMunicipio = 186.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 186L,
+                            idDepartamento = 13L,
                             nombre = "Joyabaj"
                         },
                         new
                         {
-                            idMunicipio = 187.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 187L,
+                            idDepartamento = 13L,
                             nombre = "Nebaj"
                         },
                         new
                         {
-                            idMunicipio = 188.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 188L,
+                            idDepartamento = 13L,
                             nombre = "Pachalum"
                         },
                         new
                         {
-                            idMunicipio = 189.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 189L,
+                            idDepartamento = 13L,
                             nombre = "Patzité"
                         },
                         new
                         {
-                            idMunicipio = 190.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 190L,
+                            idDepartamento = 13L,
                             nombre = "Sacapulas"
                         },
                         new
                         {
-                            idMunicipio = 191.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 191L,
+                            idDepartamento = 13L,
                             nombre = "San Andrés Sajcabajá"
                         },
                         new
                         {
-                            idMunicipio = 192.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 192L,
+                            idDepartamento = 13L,
                             nombre = "San Antonio Ilotenango"
                         },
                         new
                         {
-                            idMunicipio = 193.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 193L,
+                            idDepartamento = 13L,
                             nombre = "San Bartolomé Jocotenango"
                         },
                         new
                         {
-                            idMunicipio = 194.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 194L,
+                            idDepartamento = 13L,
                             nombre = "San Juan Cotzal"
                         },
                         new
                         {
-                            idMunicipio = 195.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 195L,
+                            idDepartamento = 13L,
                             nombre = "San Pedro Jocopilas"
                         },
                         new
                         {
-                            idMunicipio = 196.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 196L,
+                            idDepartamento = 13L,
                             nombre = "Santa Cruz del Quiché"
                         },
                         new
                         {
-                            idMunicipio = 197.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 197L,
+                            idDepartamento = 13L,
                             nombre = "Uspantán"
                         },
                         new
                         {
-                            idMunicipio = 198.0,
-                            idDepartamento = 13.0,
+                            idMunicipio = 198L,
+                            idDepartamento = 13L,
                             nombre = "Zacualpa"
                         },
                         new
                         {
-                            idMunicipio = 199.0,
-                            idDepartamento = 14.0,
+                            idMunicipio = 199L,
+                            idDepartamento = 14L,
                             nombre = "Champerico"
                         },
                         new
                         {
-                            idMunicipio = 200.0,
-                            idDepartamento = 14.0,
+                            idMunicipio = 200L,
+                            idDepartamento = 14L,
                             nombre = "El Asintal"
                         },
                         new
                         {
-                            idMunicipio = 201.0,
-                            idDepartamento = 14.0,
+                            idMunicipio = 201L,
+                            idDepartamento = 14L,
                             nombre = "Nuevo San Carlos"
                         },
                         new
                         {
-                            idMunicipio = 202.0,
-                            idDepartamento = 14.0,
+                            idMunicipio = 202L,
+                            idDepartamento = 14L,
                             nombre = "Retalhuleu"
                         },
                         new
                         {
-                            idMunicipio = 203.0,
-                            idDepartamento = 14.0,
+                            idMunicipio = 203L,
+                            idDepartamento = 14L,
                             nombre = "San Andrés Villa Seca"
                         },
                         new
                         {
-                            idMunicipio = 204.0,
-                            idDepartamento = 14.0,
+                            idMunicipio = 204L,
+                            idDepartamento = 14L,
                             nombre = "San Felipe"
                         },
                         new
                         {
-                            idMunicipio = 205.0,
-                            idDepartamento = 14.0,
+                            idMunicipio = 205L,
+                            idDepartamento = 14L,
                             nombre = "San Martín Zapotitlán"
                         },
                         new
                         {
-                            idMunicipio = 206.0,
-                            idDepartamento = 14.0,
+                            idMunicipio = 206L,
+                            idDepartamento = 14L,
                             nombre = "San Sebastián"
                         },
                         new
                         {
-                            idMunicipio = 207.0,
-                            idDepartamento = 14.0,
+                            idMunicipio = 207L,
+                            idDepartamento = 14L,
                             nombre = "Santa Cruz Muluá"
                         },
                         new
                         {
-                            idMunicipio = 208.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 208L,
+                            idDepartamento = 15L,
                             nombre = "Alotenango"
                         },
                         new
                         {
-                            idMunicipio = 209.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 209L,
+                            idDepartamento = 15L,
                             nombre = "Antigua"
                         },
                         new
                         {
-                            idMunicipio = 210.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 210L,
+                            idDepartamento = 15L,
                             nombre = "Ciudad Vieja"
                         },
                         new
                         {
-                            idMunicipio = 211.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 211L,
+                            idDepartamento = 15L,
                             nombre = "Jocotenango"
                         },
                         new
                         {
-                            idMunicipio = 212.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 212L,
+                            idDepartamento = 15L,
                             nombre = "Magdalena Milpas Altas"
                         },
                         new
                         {
-                            idMunicipio = 213.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 213L,
+                            idDepartamento = 15L,
                             nombre = "Pastores"
                         },
                         new
                         {
-                            idMunicipio = 214.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 214L,
+                            idDepartamento = 15L,
                             nombre = "San Antonio Aguas Calientes"
                         },
                         new
                         {
-                            idMunicipio = 215.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 215L,
+                            idDepartamento = 15L,
                             nombre = "San Bartolomé Milpas Altas"
                         },
                         new
                         {
-                            idMunicipio = 216.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 216L,
+                            idDepartamento = 15L,
                             nombre = "San Lucas Sacatepéquez"
                         },
                         new
                         {
-                            idMunicipio = 217.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 217L,
+                            idDepartamento = 15L,
                             nombre = "San Miguel Dueñas"
                         },
                         new
                         {
-                            idMunicipio = 218.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 218L,
+                            idDepartamento = 15L,
                             nombre = "Santa Catarina Barahona"
                         },
                         new
                         {
-                            idMunicipio = 219.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 219L,
+                            idDepartamento = 15L,
                             nombre = "Santa Lucía Milpas Altas"
                         },
                         new
                         {
-                            idMunicipio = 220.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 220L,
+                            idDepartamento = 15L,
                             nombre = "Santa María de Jesús"
                         },
                         new
                         {
-                            idMunicipio = 221.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 221L,
+                            idDepartamento = 15L,
                             nombre = "Santiago Sacatepéquez"
                         },
                         new
                         {
-                            idMunicipio = 222.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 222L,
+                            idDepartamento = 15L,
                             nombre = "Santo Domingo Xenacoj"
                         },
                         new
                         {
-                            idMunicipio = 223.0,
-                            idDepartamento = 15.0,
+                            idMunicipio = 223L,
+                            idDepartamento = 15L,
                             nombre = "Sumpango"
                         },
                         new
                         {
-                            idMunicipio = 224.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 224L,
+                            idDepartamento = 16L,
                             nombre = "Ayutla"
                         },
                         new
                         {
-                            idMunicipio = 225.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 225L,
+                            idDepartamento = 16L,
                             nombre = "Catarina"
                         },
                         new
                         {
-                            idMunicipio = 226.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 226L,
+                            idDepartamento = 16L,
                             nombre = "Comitancillo"
                         },
                         new
                         {
-                            idMunicipio = 227.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 227L,
+                            idDepartamento = 16L,
                             nombre = "Concepción Tutuapa"
                         },
                         new
                         {
-                            idMunicipio = 228.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 228L,
+                            idDepartamento = 16L,
                             nombre = "El Quetzal"
                         },
                         new
                         {
-                            idMunicipio = 229.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 229L,
+                            idDepartamento = 16L,
                             nombre = "El Rodeo"
                         },
                         new
                         {
-                            idMunicipio = 230.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 230L,
+                            idDepartamento = 16L,
                             nombre = "El Tumbador"
                         },
                         new
                         {
-                            idMunicipio = 231.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 231L,
+                            idDepartamento = 16L,
                             nombre = "Esquipulas Palo Gordo"
                         },
                         new
                         {
-                            idMunicipio = 232.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 232L,
+                            idDepartamento = 16L,
                             nombre = "Ixchiguan"
                         },
                         new
                         {
-                            idMunicipio = 233.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 233L,
+                            idDepartamento = 16L,
                             nombre = "La Reforma"
                         },
                         new
                         {
-                            idMunicipio = 234.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 234L,
+                            idDepartamento = 16L,
                             nombre = "Malacatán"
                         },
                         new
                         {
-                            idMunicipio = 235.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 235L,
+                            idDepartamento = 16L,
                             nombre = "Nuevo Progreso"
                         },
                         new
                         {
-                            idMunicipio = 236.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 236L,
+                            idDepartamento = 16L,
                             nombre = "Ocos"
                         },
                         new
                         {
-                            idMunicipio = 237.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 237L,
+                            idDepartamento = 16L,
                             nombre = "Pajapita"
                         },
                         new
                         {
-                            idMunicipio = 238.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 238L,
+                            idDepartamento = 16L,
                             nombre = "Río Blanco"
                         },
                         new
                         {
-                            idMunicipio = 239.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 239L,
+                            idDepartamento = 16L,
                             nombre = "San Antonio Sacatepéquez"
                         },
                         new
                         {
-                            idMunicipio = 240.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 240L,
+                            idDepartamento = 16L,
                             nombre = "San Cristóbal Cucho"
                         },
                         new
                         {
-                            idMunicipio = 241.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 241L,
+                            idDepartamento = 16L,
                             nombre = "San José Ojetenam"
                         },
                         new
                         {
-                            idMunicipio = 242.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 242L,
+                            idDepartamento = 16L,
                             nombre = "San Lorenzo"
                         },
                         new
                         {
-                            idMunicipio = 243.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 243L,
+                            idDepartamento = 16L,
                             nombre = "San Marcos"
                         },
                         new
                         {
-                            idMunicipio = 244.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 244L,
+                            idDepartamento = 16L,
                             nombre = "San Miguel Ixtahuacán"
                         },
                         new
                         {
-                            idMunicipio = 245.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 245L,
+                            idDepartamento = 16L,
                             nombre = "San Pablo"
                         },
                         new
                         {
-                            idMunicipio = 246.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 246L,
+                            idDepartamento = 16L,
                             nombre = "San Pedro Sacatepéquez"
                         },
                         new
                         {
-                            idMunicipio = 247.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 247L,
+                            idDepartamento = 16L,
                             nombre = "San Rafael Pie de La Cuesta"
                         },
                         new
                         {
-                            idMunicipio = 248.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 248L,
+                            idDepartamento = 16L,
                             nombre = "San Sibinal"
                         },
                         new
                         {
-                            idMunicipio = 249.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 249L,
+                            idDepartamento = 16L,
                             nombre = "Sipacapa"
                         },
                         new
                         {
-                            idMunicipio = 250.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 250L,
+                            idDepartamento = 16L,
                             nombre = "Tacaná"
                         },
                         new
                         {
-                            idMunicipio = 251.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 251L,
+                            idDepartamento = 16L,
                             nombre = "Tajumulco"
                         },
                         new
                         {
-                            idMunicipio = 252.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 252L,
+                            idDepartamento = 16L,
                             nombre = "Tejutla"
                         },
                         new
                         {
-                            idMunicipio = 253.0,
-                            idDepartamento = 17.0,
+                            idMunicipio = 253L,
+                            idDepartamento = 17L,
                             nombre = "Barberena"
                         },
                         new
                         {
-                            idMunicipio = 254.0,
-                            idDepartamento = 17.0,
+                            idMunicipio = 254L,
+                            idDepartamento = 17L,
                             nombre = "Casillas"
                         },
                         new
                         {
-                            idMunicipio = 255.0,
-                            idDepartamento = 17.0,
+                            idMunicipio = 255L,
+                            idDepartamento = 17L,
                             nombre = "Chiquimulilla"
                         },
                         new
                         {
-                            idMunicipio = 256.0,
-                            idDepartamento = 17.0,
+                            idMunicipio = 256L,
+                            idDepartamento = 17L,
                             nombre = "Cuilapa"
                         },
                         new
                         {
-                            idMunicipio = 257.0,
-                            idDepartamento = 17.0,
+                            idMunicipio = 257L,
+                            idDepartamento = 17L,
                             nombre = "Guazacapán"
                         },
                         new
                         {
-                            idMunicipio = 258.0,
-                            idDepartamento = 17.0,
+                            idMunicipio = 258L,
+                            idDepartamento = 17L,
                             nombre = "Nueva Santa Rosa"
                         },
                         new
                         {
-                            idMunicipio = 259.0,
-                            idDepartamento = 17.0,
+                            idMunicipio = 259L,
+                            idDepartamento = 17L,
                             nombre = "Oratorio"
                         },
                         new
                         {
-                            idMunicipio = 260.0,
-                            idDepartamento = 17.0,
+                            idMunicipio = 260L,
+                            idDepartamento = 17L,
                             nombre = "Pueblo Nuevo Viñas"
                         },
                         new
                         {
-                            idMunicipio = 261.0,
-                            idDepartamento = 17.0,
+                            idMunicipio = 261L,
+                            idDepartamento = 17L,
                             nombre = "San Juan Tecuaco"
                         },
                         new
                         {
-                            idMunicipio = 262.0,
-                            idDepartamento = 17.0,
+                            idMunicipio = 262L,
+                            idDepartamento = 17L,
                             nombre = "San Rafael Las Flores"
                         },
                         new
                         {
-                            idMunicipio = 263.0,
-                            idDepartamento = 17.0,
+                            idMunicipio = 263L,
+                            idDepartamento = 17L,
                             nombre = "Santa Cruz Naranjo"
                         },
                         new
                         {
-                            idMunicipio = 264.0,
-                            idDepartamento = 17.0,
+                            idMunicipio = 264L,
+                            idDepartamento = 17L,
                             nombre = "Santa María Ixhuatán"
                         },
                         new
                         {
-                            idMunicipio = 265.0,
-                            idDepartamento = 17.0,
+                            idMunicipio = 265L,
+                            idDepartamento = 17L,
                             nombre = "Santa Rosa de Lima"
                         },
                         new
                         {
-                            idMunicipio = 266.0,
-                            idDepartamento = 17.0,
+                            idMunicipio = 266L,
+                            idDepartamento = 17L,
                             nombre = "Taxisco"
                         },
                         new
                         {
-                            idMunicipio = 267.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 267L,
+                            idDepartamento = 18L,
                             nombre = "Concepción"
                         },
                         new
                         {
-                            idMunicipio = 268.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 268L,
+                            idDepartamento = 18L,
                             nombre = "Nahualá"
                         },
                         new
                         {
-                            idMunicipio = 269.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 269L,
+                            idDepartamento = 18L,
                             nombre = "Panajachel"
                         },
                         new
                         {
-                            idMunicipio = 270.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 270L,
+                            idDepartamento = 18L,
                             nombre = "San Andrés Semetabaj"
                         },
                         new
                         {
-                            idMunicipio = 271.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 271L,
+                            idDepartamento = 18L,
                             nombre = "San Antonio Palopó"
                         },
                         new
                         {
-                            idMunicipio = 272.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 272L,
+                            idDepartamento = 18L,
                             nombre = "San José Chacaya"
                         },
                         new
                         {
-                            idMunicipio = 273.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 273L,
+                            idDepartamento = 18L,
                             nombre = "San Juan La Laguna"
                         },
                         new
                         {
-                            idMunicipio = 274.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 274L,
+                            idDepartamento = 18L,
                             nombre = "San Lucas Tolimán"
                         },
                         new
                         {
-                            idMunicipio = 275.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 275L,
+                            idDepartamento = 18L,
                             nombre = "San Marcos La Laguna"
                         },
                         new
                         {
-                            idMunicipio = 276.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 276L,
+                            idDepartamento = 18L,
                             nombre = "San Pablo La Laguna"
                         },
                         new
                         {
-                            idMunicipio = 277.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 277L,
+                            idDepartamento = 18L,
                             nombre = "San Pedro La Laguna"
                         },
                         new
                         {
-                            idMunicipio = 278.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 278L,
+                            idDepartamento = 18L,
                             nombre = "Santa Catarina Ixtahuacan"
                         },
                         new
                         {
-                            idMunicipio = 279.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 279L,
+                            idDepartamento = 18L,
                             nombre = "Santa Catarina Palopó"
                         },
                         new
                         {
-                            idMunicipio = 280.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 280L,
+                            idDepartamento = 18L,
                             nombre = "Santa Clara La Laguna"
                         },
                         new
                         {
-                            idMunicipio = 281.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 281L,
+                            idDepartamento = 18L,
                             nombre = "Santa Cruz La Laguna"
                         },
                         new
                         {
-                            idMunicipio = 282.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 282L,
+                            idDepartamento = 18L,
                             nombre = "Santa Lucía Utatlán"
                         },
                         new
                         {
-                            idMunicipio = 283.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 283L,
+                            idDepartamento = 18L,
                             nombre = "Santa María Visitación"
                         },
                         new
                         {
-                            idMunicipio = 284.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 284L,
+                            idDepartamento = 18L,
                             nombre = "Santiago Atitlán"
                         },
                         new
                         {
-                            idMunicipio = 285.0,
-                            idDepartamento = 18.0,
+                            idMunicipio = 285L,
+                            idDepartamento = 18L,
                             nombre = "Sololá"
                         },
                         new
                         {
-                            idMunicipio = 286.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 286L,
+                            idDepartamento = 19L,
                             nombre = "Chicacao"
                         },
                         new
                         {
-                            idMunicipio = 287.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 287L,
+                            idDepartamento = 19L,
                             nombre = "Cuyotenango"
                         },
                         new
                         {
-                            idMunicipio = 288.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 288L,
+                            idDepartamento = 19L,
                             nombre = "Mazatenango"
                         },
                         new
                         {
-                            idMunicipio = 289.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 289L,
+                            idDepartamento = 19L,
                             nombre = "Patulul"
                         },
                         new
                         {
-                            idMunicipio = 290.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 290L,
+                            idDepartamento = 19L,
                             nombre = "Pueblo Nuevo"
                         },
                         new
                         {
-                            idMunicipio = 291.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 291L,
+                            idDepartamento = 19L,
                             nombre = "Río Bravo"
                         },
                         new
                         {
-                            idMunicipio = 292.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 292L,
+                            idDepartamento = 19L,
                             nombre = "Samayac"
                         },
                         new
                         {
-                            idMunicipio = 293.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 293L,
+                            idDepartamento = 19L,
                             nombre = "San Antonio Suchitepéquez"
                         },
                         new
                         {
-                            idMunicipio = 294.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 294L,
+                            idDepartamento = 19L,
                             nombre = "San Bernardino"
                         },
                         new
                         {
-                            idMunicipio = 295.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 295L,
+                            idDepartamento = 19L,
                             nombre = "San Francisco Zapotitlán"
                         },
                         new
                         {
-                            idMunicipio = 296.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 296L,
+                            idDepartamento = 19L,
                             nombre = "San Gabriel"
                         },
                         new
                         {
-                            idMunicipio = 297.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 297L,
+                            idDepartamento = 19L,
                             nombre = "San José El Idolo"
                         },
                         new
                         {
-                            idMunicipio = 298.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 298L,
+                            idDepartamento = 19L,
                             nombre = "San Juan Bautista"
                         },
                         new
                         {
-                            idMunicipio = 299.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 299L,
+                            idDepartamento = 19L,
                             nombre = "San Lorenzo"
                         },
                         new
                         {
-                            idMunicipio = 300.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 300L,
+                            idDepartamento = 19L,
                             nombre = "San Miguel Panán"
                         },
                         new
                         {
-                            idMunicipio = 301.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 301L,
+                            idDepartamento = 19L,
                             nombre = "San Pablo Jocopilas"
                         },
                         new
                         {
-                            idMunicipio = 302.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 302L,
+                            idDepartamento = 19L,
                             nombre = "Santa Bárbara"
                         },
                         new
                         {
-                            idMunicipio = 303.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 303L,
+                            idDepartamento = 19L,
                             nombre = "Santo Domingo Suchitepequez"
                         },
                         new
                         {
-                            idMunicipio = 304.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 304L,
+                            idDepartamento = 19L,
                             nombre = "Santo Tomas La Unión"
                         },
                         new
                         {
-                            idMunicipio = 305.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 305L,
+                            idDepartamento = 19L,
                             nombre = "Zunilito"
                         },
                         new
                         {
-                            idMunicipio = 306.0,
-                            idDepartamento = 20.0,
+                            idMunicipio = 306L,
+                            idDepartamento = 20L,
                             nombre = "Momostenango"
                         },
                         new
                         {
-                            idMunicipio = 307.0,
-                            idDepartamento = 20.0,
+                            idMunicipio = 307L,
+                            idDepartamento = 20L,
                             nombre = "San Andrés Xecul"
                         },
                         new
                         {
-                            idMunicipio = 308.0,
-                            idDepartamento = 20.0,
+                            idMunicipio = 308L,
+                            idDepartamento = 20L,
                             nombre = "San Bartolo"
                         },
                         new
                         {
-                            idMunicipio = 309.0,
-                            idDepartamento = 20.0,
+                            idMunicipio = 309L,
+                            idDepartamento = 20L,
                             nombre = "San Cristóbal Totonicapán"
                         },
                         new
                         {
-                            idMunicipio = 310.0,
-                            idDepartamento = 20.0,
+                            idMunicipio = 310L,
+                            idDepartamento = 20L,
                             nombre = "San Francisco El Alto"
                         },
                         new
                         {
-                            idMunicipio = 311.0,
-                            idDepartamento = 20.0,
+                            idMunicipio = 311L,
+                            idDepartamento = 20L,
                             nombre = "Santa Lucía La Reforma"
                         },
                         new
                         {
-                            idMunicipio = 312.0,
-                            idDepartamento = 20.0,
+                            idMunicipio = 312L,
+                            idDepartamento = 20L,
                             nombre = "Santa María Chiquimula"
                         },
                         new
                         {
-                            idMunicipio = 313.0,
-                            idDepartamento = 20.0,
+                            idMunicipio = 313L,
+                            idDepartamento = 20L,
                             nombre = "Totonicapán"
                         },
                         new
                         {
-                            idMunicipio = 314.0,
-                            idDepartamento = 20.0,
+                            idMunicipio = 314L,
+                            idDepartamento = 20L,
                             nombre = "San"
                         },
                         new
                         {
-                            idMunicipio = 315.0,
-                            idDepartamento = 21.0,
+                            idMunicipio = 315L,
+                            idDepartamento = 21L,
                             nombre = "Cabañas"
                         },
                         new
                         {
-                            idMunicipio = 316.0,
-                            idDepartamento = 21.0,
+                            idMunicipio = 316L,
+                            idDepartamento = 21L,
                             nombre = "Estanzuela"
                         },
                         new
                         {
-                            idMunicipio = 317.0,
-                            idDepartamento = 21.0,
+                            idMunicipio = 317L,
+                            idDepartamento = 21L,
                             nombre = "Gualán"
                         },
                         new
                         {
-                            idMunicipio = 318.0,
-                            idDepartamento = 21.0,
+                            idMunicipio = 318L,
+                            idDepartamento = 21L,
                             nombre = "Huité"
                         },
                         new
                         {
-                            idMunicipio = 319.0,
-                            idDepartamento = 21.0,
+                            idMunicipio = 319L,
+                            idDepartamento = 21L,
                             nombre = "La Unión"
                         },
                         new
                         {
-                            idMunicipio = 320.0,
-                            idDepartamento = 21.0,
+                            idMunicipio = 320L,
+                            idDepartamento = 21L,
                             nombre = "Río Hondo"
                         },
                         new
                         {
-                            idMunicipio = 321.0,
-                            idDepartamento = 21.0,
+                            idMunicipio = 321L,
+                            idDepartamento = 21L,
                             nombre = "San Diego"
                         },
                         new
                         {
-                            idMunicipio = 322.0,
-                            idDepartamento = 21.0,
+                            idMunicipio = 322L,
+                            idDepartamento = 21L,
                             nombre = "Teculután"
                         },
                         new
                         {
-                            idMunicipio = 323.0,
-                            idDepartamento = 21.0,
+                            idMunicipio = 323L,
+                            idDepartamento = 21L,
                             nombre = "Usumatlán"
                         },
                         new
                         {
-                            idMunicipio = 324.0,
-                            idDepartamento = 21.0,
+                            idMunicipio = 324L,
+                            idDepartamento = 21L,
                             nombre = "Zacapa"
                         },
                         new
                         {
-                            idMunicipio = 325.0,
-                            idDepartamento = 22.0,
+                            idMunicipio = 325L,
+                            idDepartamento = 22L,
                             nombre = "Jalapa"
                         },
                         new
                         {
-                            idMunicipio = 326.0,
-                            idDepartamento = 22.0,
+                            idMunicipio = 326L,
+                            idDepartamento = 22L,
                             nombre = "Mataquescuintla"
                         },
                         new
                         {
-                            idMunicipio = 327.0,
-                            idDepartamento = 22.0,
+                            idMunicipio = 327L,
+                            idDepartamento = 22L,
                             nombre = "Monjas"
                         },
                         new
                         {
-                            idMunicipio = 328.0,
-                            idDepartamento = 22.0,
+                            idMunicipio = 328L,
+                            idDepartamento = 22L,
                             nombre = "San Carlos Alzatate"
                         },
                         new
                         {
-                            idMunicipio = 329.0,
-                            idDepartamento = 22.0,
+                            idMunicipio = 329L,
+                            idDepartamento = 22L,
                             nombre = "San Luis Jilotepeque"
                         },
                         new
                         {
-                            idMunicipio = 330.0,
-                            idDepartamento = 22.0,
+                            idMunicipio = 330L,
+                            idDepartamento = 22L,
                             nombre = "San Pedro Pinula"
                         },
                         new
                         {
-                            idMunicipio = 331.0,
-                            idDepartamento = 22.0,
+                            idMunicipio = 331L,
+                            idDepartamento = 22L,
                             nombre = "San Manuel Chaparrón"
                         },
                         new
                         {
-                            idMunicipio = 332.0,
-                            idDepartamento = 5.0,
+                            idMunicipio = 332L,
+                            idDepartamento = 5L,
                             nombre = "Sansare"
                         },
                         new
                         {
-                            idMunicipio = 333.0,
-                            idDepartamento = 6.0,
+                            idMunicipio = 333L,
+                            idDepartamento = 6L,
                             nombre = "Guanagazapa"
                         },
                         new
                         {
-                            idMunicipio = 334.0,
-                            idDepartamento = 6.0,
+                            idMunicipio = 334L,
+                            idDepartamento = 6L,
                             nombre = "Sipacate"
                         },
                         new
                         {
-                            idMunicipio = 335.0,
-                            idDepartamento = 7.0,
+                            idMunicipio = 335L,
+                            idDepartamento = 7L,
                             nombre = "Villa Nueva"
                         },
                         new
                         {
-                            idMunicipio = 336.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 336L,
+                            idDepartamento = 8L,
                             nombre = "Petatán"
                         },
                         new
                         {
-                            idMunicipio = 337.0,
-                            idDepartamento = 8.0,
+                            idMunicipio = 337L,
+                            idDepartamento = 8L,
                             nombre = "San Ildefonso Ixtahuacán"
                         },
                         new
                         {
-                            idMunicipio = 338.0,
-                            idDepartamento = 11.0,
+                            idMunicipio = 338L,
+                            idDepartamento = 11L,
                             nombre = "El Chal"
                         },
                         new
                         {
-                            idMunicipio = 339.0,
-                            idDepartamento = 16.0,
+                            idMunicipio = 339L,
+                            idDepartamento = 16L,
                             nombre = "La Blanca"
                         },
                         new
                         {
-                            idMunicipio = 340.0,
-                            idDepartamento = 19.0,
+                            idMunicipio = 340L,
+                            idDepartamento = 19L,
                             nombre = "San José La Máquina"
                         });
                 });
 
+            modelBuilder.Entity("EntityModelFundabien.entities.Paciente", b =>
+                {
+                    b.Property<long>("idPaciente")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("estaActivo");
+
+                    b.Property<long>("historialClinico");
+
+                    b.Property<long>("idPersona");
+
+                    b.HasKey("idPaciente");
+
+                    b.HasIndex("idPersona");
+
+                    b.ToTable("Pacientes");
+                });
+
             modelBuilder.Entity("EntityModelFundabien.entities.Pais", b =>
                 {
-                    b.Property<double>("idPais");
+                    b.Property<long>("idPais")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("nombre");
 
@@ -2287,14 +2310,15 @@ namespace BrokerServices.Migrations
                     b.HasData(
                         new
                         {
-                            idPais = 1.0,
+                            idPais = 1L,
                             nombre = "Guatemala"
                         });
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.Persona", b =>
                 {
-                    b.Property<double>("idPersona");
+                    b.Property<long>("idPersona")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("escolaridad");
 
@@ -2302,9 +2326,9 @@ namespace BrokerServices.Migrations
 
                     b.Property<string>("grupoEtnico");
 
-                    b.Property<double>("idDomicilio");
+                    b.Property<long>("idDomicilio");
 
-                    b.Property<double>("idResidencia");
+                    b.Property<long>("idResidencia");
 
                     b.Property<string>("primerApellido");
 
@@ -2327,15 +2351,74 @@ namespace BrokerServices.Migrations
                     b.ToTable("Personas");
                 });
 
+            modelBuilder.Entity("EntityModelFundabien.entities.PersonaEncargada", b =>
+                {
+                    b.Property<long>("idPersonaEncargada")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("estaActivo");
+
+                    b.Property<long>("idPaciente");
+
+                    b.Property<long>("idPersona");
+
+                    b.Property<string>("parentezco");
+
+                    b.HasKey("idPersonaEncargada");
+
+                    b.HasIndex("idPaciente");
+
+                    b.HasIndex("idPersona");
+
+                    b.ToTable("PersonasEncargadas");
+                });
+
+            modelBuilder.Entity("EntityModelFundabien.entities.RegistroMedico", b =>
+                {
+                    b.Property<long>("idRegistroMedico")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("estaFirmado");
+
+                    b.Property<DateTime>("fechaAdmision");
+
+                    b.Property<long>("idPaciente");
+
+                    b.HasKey("idRegistroMedico");
+
+                    b.HasIndex("idPaciente");
+
+                    b.ToTable("RegistrosMedicos");
+                });
+
+            modelBuilder.Entity("EntityModelFundabien.entities.RegistroMedicoDiagnostico", b =>
+                {
+                    b.Property<long>("idRegistroMedicoDiagnostico")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("diagnosticoFinal");
+
+                    b.Property<long>("idRegistroMedico");
+
+                    b.Property<string>("recomendaciones");
+
+                    b.HasKey("idRegistroMedicoDiagnostico");
+
+                    b.HasIndex("idRegistroMedico");
+
+                    b.ToTable("RegistrosMedicosDiagnostico");
+                });
+
             modelBuilder.Entity("EntityModelFundabien.entities.Telefono", b =>
                 {
-                    b.Property<double>("idTelefono");
+                    b.Property<long>("idTelefono")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("estaHabilitado");
 
                     b.Property<DateTime>("fechaRegistro");
 
-                    b.Property<double>("idPersona");
+                    b.Property<long>("idPersona");
 
                     b.Property<string>("telefono");
 
@@ -2377,6 +2460,14 @@ namespace BrokerServices.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("EntityModelFundabien.entities.Paciente", b =>
+                {
+                    b.HasOne("EntityModelFundabien.entities.Persona", "persona")
+                        .WithMany()
+                        .HasForeignKey("idPersona")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("EntityModelFundabien.entities.Persona", b =>
                 {
                     b.HasOne("EntityModelFundabien.entities.Direccion", "domicilio")
@@ -2387,6 +2478,35 @@ namespace BrokerServices.Migrations
                     b.HasOne("EntityModelFundabien.entities.Direccion", "residencia")
                         .WithMany()
                         .HasForeignKey("idResidencia")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EntityModelFundabien.entities.PersonaEncargada", b =>
+                {
+                    b.HasOne("EntityModelFundabien.entities.Paciente", "paciente")
+                        .WithMany()
+                        .HasForeignKey("idPaciente")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("EntityModelFundabien.entities.Persona", "persona")
+                        .WithMany()
+                        .HasForeignKey("idPersona")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EntityModelFundabien.entities.RegistroMedico", b =>
+                {
+                    b.HasOne("EntityModelFundabien.entities.Paciente", "paciente")
+                        .WithMany("registrosMedicos")
+                        .HasForeignKey("idPaciente")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EntityModelFundabien.entities.RegistroMedicoDiagnostico", b =>
+                {
+                    b.HasOne("EntityModelFundabien.entities.RegistroMedico", "registroMedico")
+                        .WithMany()
+                        .HasForeignKey("idRegistroMedico")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

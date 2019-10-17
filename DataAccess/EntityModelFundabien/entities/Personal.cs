@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using IdentityServer.dbContext.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace EntityModelFundabien.entities
 {
-    public class Personal : IdentityUser
+    public class Personal : ApplicationUser
     {
 
     }
