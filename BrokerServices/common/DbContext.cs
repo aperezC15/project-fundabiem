@@ -52,8 +52,8 @@ namespace BrokerServices.common
             modelBuilder.seedDepartamentos();
             modelBuilder.seddMunicipios();
             modelBuilder.seedTipoDirecciones();
-            //modelBuilder.seddSeccionesAnamnesis();
-            //modelBuilder.seedItemsAnamnesis();
+            modelBuilder.seddSeccionesAnamnesis();
+            modelBuilder.seedItemsAnamnesis();
         }
     }
 }
