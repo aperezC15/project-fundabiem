@@ -17,9 +17,7 @@ namespace EntityModelFundabien.entities
         public bool sexo { get; set; }
         public DateTime fechaNacimiento { get; set; }
         public string grupoEtnico { get; set; }
-        
         public string escolaridad { get; set; }
         public string religion { get; set; }
-       
     }
 }
