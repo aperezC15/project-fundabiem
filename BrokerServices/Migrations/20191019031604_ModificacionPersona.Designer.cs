@@ -3,15 +3,17 @@ using System;
 using BrokerServices.common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BrokerServices.Migrations
 {
     [DbContext(typeof(dbContext))]
-    partial class dbContextModelSnapshot : ModelSnapshot
+    [Migration("20191019031604_ModificacionPersona")]
+    partial class ModificacionPersona
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2427,18 +2429,6 @@ namespace BrokerServices.Migrations
                     b.ToTable("Telefonos");
                 });
 
-            modelBuilder.Entity("EntityModelFundabien.entities.TipoDirecciones", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Descripcion");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tipoDirecciones");
-                });
-
             modelBuilder.Entity("EntityModelFundabien.entities.Correo", b =>
                 {
                     b.HasOne("EntityModelFundabien.entities.Persona", "persona")
@@ -2466,7 +2456,7 @@ namespace BrokerServices.Migrations
                         .HasForeignKey("idPersona")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("EntityModelFundabien.entities.TipoDirecciones", "tipoDirecciones")
+                    b.HasOne("EntityModelFundabien.entities.Direccion", "direccion")
                         .WithMany()
                         .HasForeignKey("idTipoDireccion")
                         .OnDelete(DeleteBehavior.Cascade);

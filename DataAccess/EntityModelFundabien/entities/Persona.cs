@@ -20,13 +20,6 @@ namespace EntityModelFundabien.entities
         
         public string escolaridad { get; set; }
         public string religion { get; set; }
-
-        public Int64 idDomicilio { get; set; }
-        [ForeignKey("idDomicilio")]
-        public Direccion domicilio { get; set; }
-
-        public Int64 idResidencia { get; set; }
-        [ForeignKey("idResidencia")]
-        public Direccion residencia { get; set; }
+       
     }
 }

@@ -18,7 +18,7 @@ namespace BrokerServices.common
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var stringConn = "Server =35.183.198.48; port = 5432; Database = fundabien; User Id = postgres; Password = Fundabien@2019; Pooling = true; MinPoolSize = 1; MaxPoolSize = 20; ";
+            var stringConn = "Server =35.183.69.28; port = 5432; Database = fundabien; User Id = postgres; Password = Fundabien@2019; Pooling = true; MinPoolSize = 1; MaxPoolSize = 20; ";
             optionsBuilder.UseNpgsql(stringConn);
         }
 
@@ -34,6 +34,7 @@ namespace BrokerServices.common
         public DbSet<PersonaEncargada> PersonasEncargadas { get; set; }
         public DbSet<RegistroMedico> RegistrosMedicos { get; set; }
         public DbSet<RegistroMedicoDiagnostico> RegistrosMedicosDiagnostico { get; set; }
+        public DbSet<TipoDirecciones> tipoDirecciones { get; set; } 
         //public DbSet<SeccionAnamnesis> SeccionesAnamnesis { get; set; }
         //public DbSet<ItemAnamnesis> ItemsAnamnesis { get; set; }
         //public DbSet<DetalleFormularioAnamnesis> DetalleFormularioAnamnesis { get; set; }
