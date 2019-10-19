@@ -18,6 +18,8 @@
     <Compile Remove="Migrations\20191017045347_correcciones.Designer.cs" />
     <Compile Remove="Migrations\20191017050005_actualizacion.cs" />
     <Compile Remove="Migrations\20191017050005_actualizacion.Designer.cs" />
+    <Compile Remove="Migrations\20191019183112_AgregarTablaSeccionEItemAnamnesis.cs" />
+    <Compile Remove="Migrations\20191019183112_AgregarTablaSeccionEItemAnamnesis.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
