@@ -19,6 +19,7 @@ namespace EntityModelFundabien.mapper
             CreateMap<Municipio, municipiosDTO>();
             CreateMap<CreateAutorDTO, Autor>();
             CreateMap<Autor, CreateAutorDTO>();
+            CreateMap<Persona, CreatePersonaDTO>();
         }
     }
 }

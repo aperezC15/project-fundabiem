@@ -6,6 +6,7 @@ using EntityModelFundabien.Models;
 using EntityModelFundabien.ModelsDTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +22,16 @@ namespace EntityModelFundabien.common
         private readonly Func<IFundabiemCommonLogic<TI, TC>> contratoEntityFactory;
         private readonly dbContext context;
         private readonly IMapper mapper;
+        private readonly ILogger logger;
+        private dbContext context1;
+        
 
-        public clsFundabiemCommonLogic(IMapper mapper, dbContext context)
+        public clsFundabiemCommonLogic(IMapper mapper, dbContext context, ILogger logger)
         {
             this.mapper = mapper;
             this.context = context;
+            this.logger = logger;
         }
-        
 
         public Task RegistrarPAciente()
         {
@@ -76,7 +80,39 @@ namespace EntityModelFundabien.common
             var tipos = context.tipoDirecciones.ToList();
             return tipos;
         }
-    }
+        public async Task<IActionResult> newPersona(CreatePersonaDTO persona)
+        {
+            logger.Information("Create a new persona");
+            var pe = mapper.Map<Persona>(persona);
+            await context.Personas.AddAsync(pe);
+            await context.SaveChangesAsync();
+            var personaDTO = mapper.Map<CreatePersonaDTO>(pe);
+            return new CreatedAtRouteResult("getPersona", new { idpersona = pe.idPersona }, personaDTO);
+        }
 
-   
+        //obtiene una persona segun idPersona
+        public async Task<Persona> getPersona(Int64 idPersona)
+        {
+            var persona = await context.Personas.FirstOrDefaultAsync(x => x.idPersona == idPersona);
+            return persona;
+        }
+
+        //crea un nuevo paciente
+        public async Task<IActionResult> newPatient(createPacienteDTO paciente)
+        {
+            logger.Information("create a new Paciente");
+            var patient = mapper.Map<Paciente>(paciente);
+            await context.Pacientes.AddAsync(patient);
+            await context.SaveChangesAsync();
+            var pacienteDTO = mapper.Map<createPacienteDTO>(patient);
+            return new CreatedAtRouteResult("getPacienteById", new { idPaciente = patient.idPaciente}, pacienteDTO);
+        }
+
+        public async Task<Paciente> getPacienteById(Int64 idPaciente)
+        {
+            logger.Information("reading paciente with id = ", idPaciente);
+            var paciente = await context.Pacientes.FirstOrDefaultAsync(x => x.idPaciente == idPaciente);
+            return paciente;
+        }
+    }
 }

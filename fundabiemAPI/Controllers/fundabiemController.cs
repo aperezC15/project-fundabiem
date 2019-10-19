@@ -65,5 +65,12 @@ namespace fundabiemAPI.Controllers
                 return BadRequest();
             return Ok(tipos);
         }
+        //crer un registro medico
+        //[HttpPost]
+        //public async Task<ActionResult> newRegistroMedico([FromBody] CreateRegistroMedicoDTO model)
+        //{
+        //    getUser();
+        //    var RegistroMedico = await fundabiem.CreateNewRegistroMedico(model);
+        //}
     }
 }
