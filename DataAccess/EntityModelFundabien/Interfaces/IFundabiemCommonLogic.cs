@@ -25,5 +25,6 @@ namespace EntityModelFundabien.Interfaces
 
         IEnumerable<departamentosDTO> getDepartamentosByIdPais(double idPais);
         IEnumerable<municipiosDTO> MunicipiosByIdDepartamento(double idDepartamento);
+        IEnumerable<TipoDirecciones> getTipoDirecciones();
     }
 }

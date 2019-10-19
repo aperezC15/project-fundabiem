@@ -53,5 +53,17 @@ namespace fundabiemAPI.Controllers
             if (munis.Count() == 0) { return NotFound(); }
             return Ok(munis);
         }
+
+        //obtiene los tipos de direccion
+        [HttpGet("/direcciones/tipos")]
+        public ActionResult<IEnumerable<TipoDirecciones>> getTipoDirecciones()
+        {
+            getUser();
+            logger.LogInformation("Reading all tipoDirecciones");
+            var tipos = fundabiem.getTipoDirecciones();
+            if (tipos.Count() == 0)
+                return BadRequest();
+            return Ok(tipos);
+        }
     }
 }

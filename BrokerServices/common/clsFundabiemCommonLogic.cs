@@ -69,6 +69,13 @@ namespace EntityModelFundabien.common
             var munis = mapper.Map<List<municipiosDTO>>(municipios);
             return munis;
         }
+
+        //obtiene los tipos de direcciones
+        public IEnumerable<TipoDirecciones> getTipoDirecciones()
+        {
+            var tipos = context.tipoDirecciones.ToList();
+            return tipos;
+        }
     }
 
    
