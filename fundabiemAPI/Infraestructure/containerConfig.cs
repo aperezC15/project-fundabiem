@@ -43,7 +43,7 @@ namespace fundabiemAPI.Infraestructure
             #endregion
 
             #region "Custom Business Classes -bls-"
-            builder.Register(c => new clsFundabiemCommonLogic<TI, TC>(mapper, context
+            builder.Register(c => new clsFundabiemCommonLogic<TI, TC>(mapper, context, logger
             )).InstancePerDependency()
             .As<IFundabiemCommonLogic<TI, TC>>();
             #endregion

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EntityModelFundabien.ModelsDTO
 {
-    class CreateRegistroMedicoDTO
+    public class CreateRegistroMedicoDTO
     {
 
     }

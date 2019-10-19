@@ -18,14 +18,18 @@ namespace EntityModelFundabien.Interfaces
         //add all task
         Task RegistrarPAciente();
         Task Saludar<TI>();
-
         ActionResult<AutorDTO> obtenerAutor(int id);
-
         ActionResult<IEnumerable<DTOPaises>> getAllPaises();
-
         IEnumerable<departamentosDTO> getDepartamentosByIdPais(double idPais);
         IEnumerable<municipiosDTO> MunicipiosByIdDepartamento(double idDepartamento);
         IEnumerable<TipoDirecciones> getTipoDirecciones();
+
         IEnumerable<SeccionAnamnesisDTO> getSeccionesconItemsAnamnesis();
+
+        //Task<ActionResult> CreateNewRegistroMedico(CreateRegistroMedicoDTO RegistroMedico);
+        Task<Persona> getPersona(Int64 idPersona);
+        Task<IActionResult> newPersona(CreatePersonaDTO persona);
+        Task<IActionResult> newPatient(createPacienteDTO paciente);
+        Task<Paciente> getPacienteById(Int64 idPaciente);
     }
 }
