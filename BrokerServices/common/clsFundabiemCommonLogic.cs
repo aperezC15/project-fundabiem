@@ -76,6 +76,15 @@ namespace EntityModelFundabien.common
             var tipos = context.tipoDirecciones.ToList();
             return tipos;
         }
+
+        public IEnumerable<SeccionAnamnesisDTO> getSeccionesconItemsAnamnesis()
+        {
+            var secciones = context.SeccionesAnamnesis.Include(seccion => seccion.itemsAnamnesis).ToList();
+
+            var seccionesDTO = mapper.Map<List<SeccionAnamnesisDTO>>(secciones);
+
+            return seccionesDTO;
+        }
     }
 
    

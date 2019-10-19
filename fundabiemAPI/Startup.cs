@@ -51,7 +51,8 @@ namespace fundabiemAPI
             services.AddSingleton(mapper);
 
             //this for replacement environment variables
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddOptions();
             services.Configure<connectionStrings>(configuration.GetSection("connectionStrings"));
             services.Configure<appSettings>(configuration.GetSection("security"));
