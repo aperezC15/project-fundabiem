@@ -89,6 +89,7 @@ export default class tool extends Vue{
         { title: 'Hoja de Estadísticas Diarias' , icon: 'far fa-address-card', path: ''},
         { title: 'Ciclo de Rehabilitacion', icon: "far fa-address-card", path:'/ciclo-rehabilitacion'},
         { title: 'Historia Clínica Psicologia', icon: "far fa-address-card", path:'/Psicologia-clinica'},
+        { title: 'Registros Médicos', icon: "far fa-folder", path:'/registro-medico'},
     ]
 
     // mounted() {
