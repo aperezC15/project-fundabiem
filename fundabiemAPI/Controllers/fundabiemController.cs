@@ -53,5 +53,35 @@ namespace fundabiemAPI.Controllers
             if (munis.Count() == 0) { return NotFound(); }
             return Ok(munis);
         }
+
+        // obtiene las secciones con sus items de anamnesis
+        [HttpGet("/anamnesis/secciones")]
+        public ActionResult<IEnumerable<SeccionAnamnesisDTO>> getSeccioneseItemsAnamnesis()
+        {
+            string user = getUser();
+            logger.LogInformation("Searching list of sections and items of anamnesis");
+            var secciones = fundabiem.getSeccionesconItemsAnamnesis();
+            if (secciones.Count() == 0) { return NotFound(); }
+            return Ok(secciones);
+        }
+
+        //obtiene los tipos de direccion
+        [HttpGet("/direcciones/tipos")]
+        public ActionResult<IEnumerable<TipoDirecciones>> getTipoDirecciones()
+        {
+            getUser();
+            logger.LogInformation("Reading all tipoDirecciones");
+            var tipos = fundabiem.getTipoDirecciones();
+            if (tipos.Count() == 0)
+                return BadRequest();
+            return Ok(tipos);
+        }
+        //crer un registro medico
+        //[HttpPost]
+        //public async Task<ActionResult> newRegistroMedico([FromBody] CreateRegistroMedicoDTO model)
+        //{
+        //    getUser();
+        //    var RegistroMedico = await fundabiem.CreateNewRegistroMedico(model);
+        //}
     }
 }

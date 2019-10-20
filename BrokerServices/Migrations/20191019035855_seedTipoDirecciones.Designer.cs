@@ -3,15 +3,17 @@ using System;
 using BrokerServices.common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BrokerServices.Migrations
 {
     [DbContext(typeof(dbContext))]
-    partial class dbContextModelSnapshot : ModelSnapshot
+    [Migration("20191019035855_seedTipoDirecciones")]
+    partial class seedTipoDirecciones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,215 +226,6 @@ namespace BrokerServices.Migrations
                     b.HasIndex("idTipoDireccion");
 
                     b.ToTable("Direcciones");
-                });
-
-            modelBuilder.Entity("EntityModelFundabien.entities.ItemAnamnesis", b =>
-                {
-                    b.Property<long>("idItemAnamnesis")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("descripcion");
-
-                    b.Property<long>("idSeccionAnamnesis");
-
-                    b.Property<string>("nombre");
-
-                    b.HasKey("idItemAnamnesis");
-
-                    b.HasIndex("idSeccionAnamnesis");
-
-                    b.ToTable("ItemsAnamnesis");
-
-                    b.HasData(
-                        new
-                        {
-                            idItemAnamnesis = 1L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 1L,
-                            nombre = "Hijos vivos"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 2L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 1L,
-                            nombre = "Hijos muertos y sus causas"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 3L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 1L,
-                            nombre = "Padres"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 4L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 1L,
-                            nombre = "Otros"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 5L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 2L,
-                            nombre = "Peso al nacer"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 6L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 2L,
-                            nombre = "Duración del embarazo"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 7L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 2L,
-                            nombre = "Problemas gestacionales"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 8L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 2L,
-                            nombre = "Medicamentos durante el embarazo"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 9L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 2L,
-                            nombre = "Tabaquismo"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 10L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 2L,
-                            nombre = "Alcohol"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 11L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 2L,
-                            nombre = "Duración del trabajo de parto"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 12L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 2L,
-                            nombre = "Sufrimiento fetal"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 13L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 2L,
-                            nombre = "Vaginal"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 14L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 2L,
-                            nombre = "Cesarea"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 15L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 3L,
-                            nombre = "Estado al nacer"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 16L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 3L,
-                            nombre = "Apgar"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 17L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 4L,
-                            nombre = "Edad en que empezó a sostener la cabeza"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 18L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 4L,
-                            nombre = "Edad en que empezó a sonreir"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 19L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 4L,
-                            nombre = "Edad en que empezó a rodar al lado"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 20L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 4L,
-                            nombre = "Edad en que empezó a sentarse solo"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 21L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 4L,
-                            nombre = "Edad en que empezó a pararse"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 22L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 4L,
-                            nombre = "Edad en que empezó a andar"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 23L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 4L,
-                            nombre = "Edad en que empezó a caminar solo"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 24L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 4L,
-                            nombre = "Edad en que empezó a hablar"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 25L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 4L,
-                            nombre = "Vacunaciones"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 26L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 4L,
-                            nombre = "Enfermedades"
-                        },
-                        new
-                        {
-                            idItemAnamnesis = 27L,
-                            descripcion = "",
-                            idSeccionAnamnesis = 4L,
-                            nombre = "Antecedentes Qx"
-                        });
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.Municipio", b =>
@@ -2616,46 +2409,6 @@ namespace BrokerServices.Migrations
                     b.ToTable("RegistrosMedicosDiagnostico");
                 });
 
-            modelBuilder.Entity("EntityModelFundabien.entities.SeccionAnamnesis", b =>
-                {
-                    b.Property<long>("idSeccionAnamnesis")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("descripcion");
-
-                    b.Property<string>("nombre");
-
-                    b.HasKey("idSeccionAnamnesis");
-
-                    b.ToTable("SeccionesAnamnesis");
-
-                    b.HasData(
-                        new
-                        {
-                            idSeccionAnamnesis = 1L,
-                            descripcion = "",
-                            nombre = "Antecedentes familiares"
-                        },
-                        new
-                        {
-                            idSeccionAnamnesis = 2L,
-                            descripcion = "",
-                            nombre = "Antecedentes médicos"
-                        },
-                        new
-                        {
-                            idSeccionAnamnesis = 3L,
-                            descripcion = "",
-                            nombre = "Periodo neonatal"
-                        },
-                        new
-                        {
-                            idSeccionAnamnesis = 4L,
-                            descripcion = "",
-                            nombre = "Desarrollo"
-                        });
-                });
-
             modelBuilder.Entity("EntityModelFundabien.entities.Telefono", b =>
                 {
                     b.Property<long>("idTelefono")
@@ -2735,14 +2488,6 @@ namespace BrokerServices.Migrations
                     b.HasOne("EntityModelFundabien.entities.TipoDirecciones", "tipoDirecciones")
                         .WithMany()
                         .HasForeignKey("idTipoDireccion")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("EntityModelFundabien.entities.ItemAnamnesis", b =>
-                {
-                    b.HasOne("EntityModelFundabien.entities.SeccionAnamnesis", "seccion")
-                        .WithMany("itemsAnamnesis")
-                        .HasForeignKey("idSeccionAnamnesis")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

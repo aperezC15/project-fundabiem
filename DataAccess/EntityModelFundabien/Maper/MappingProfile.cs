@@ -19,6 +19,11 @@ namespace EntityModelFundabien.mapper
             CreateMap<Municipio, municipiosDTO>();
             CreateMap<CreateAutorDTO, Autor>();
             CreateMap<Autor, CreateAutorDTO>();
+            CreateMap<ItemAnamnesis, ItemAnamnesisDTO>();
+            CreateMap<ItemAnamnesisDTO, ItemAnamnesis>();
+            CreateMap<SeccionAnamnesis, SeccionAnamnesisDTO>();
+            CreateMap<SeccionAnamnesisDTO, SeccionAnamnesis>();
+            CreateMap<Persona, CreatePersonaDTO>();
         }
     }
 }

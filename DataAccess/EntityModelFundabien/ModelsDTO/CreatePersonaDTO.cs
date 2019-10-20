@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace EntityModelFundabien.entities
+namespace EntityModelFundabien.ModelsDTO
 {
-    public class Persona
+    public class CreatePersonaDTO
     {
-        [Key]
-        public Int64 idPersona { get; set; }
-        public string dpi { get; set; }
         public string primerNombre { get; set; }
         public string segundoNombre { get; set; }
         public string primerApellido { get; set; }

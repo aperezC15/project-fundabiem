@@ -4,8 +4,9 @@ using System.Text;
 
 namespace EntityModelFundabien.ModelsDTO
 {
-    public class CreateRegistroMedicoDTO
+    public class ItemAnamnesisDTO
     {
-
+        public Int64 idItemAnamnesis { get; set; }
+        public string nombre { get; set; }
     }
 }
