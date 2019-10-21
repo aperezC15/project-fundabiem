@@ -97,38 +97,23 @@ namespace fundabiemAPI.Controllers
                     //crea la direccion del paciente
                     await fundabiem.newDirection(model.direccionPaciente, PersonaPaciente.idPersona);
                     //crea el paciente
-                    CreatePacienteDTO paciente = new CreatePacienteDTO();
-                    paciente.estaActivo = true;
-                    paciente.historialClinico = model.HistorialClinico;
-                    paciente.idPersona = PersonaPaciente.idPersona;
-                    var pacienteR = await fundabiem.newPatient(paciente);
+                    var pacienteR = await fundabiem.newPatient(model.HistorialClinico, PersonaPaciente.idPersona);
                     //agrega el registro medico
-                    RegistroMedico rg = new RegistroMedico();
-                    rg.idPaciente = pacienteR.idPaciente;
-                    rg.fechaAdmision = new DateTime();
-                    rg.estaFirmado = true;
-                    await fundabiem.newRegistroMedico(rg);
+                    await fundabiem.newRegistroMedico(pacienteR.idPaciente);
                     //creamos todos los familiares del paciente, hago un forEach para saber quien es el encargado
                     foreach (var familiar in model.familiaresPaciente)
                     {   //agrega la persona
                         var fm = mapper.Map<CreatePersonaDTO>(familiar);
                         var prsona = await fundabiem.newPersona(fm);
                         //agrega el familiar
-                        FamiliaresPaciente fmr = new FamiliaresPaciente();
-                        fmr.idPersona = prsona.idPersona;
-                        fmr.idPaciente = pacienteR.idPaciente;
-                        fmr.parentezco = familiar.parentezco;
-                        await fundabiem.newFamiliar(fmr);
+                        await fundabiem.newFamiliar(prsona.idPersona,pacienteR.idPersona,familiar.parentezco);
                         //si es encargado, hacemos el registro
                         if (familiar.isManager)
                         {
                             //registramos la direccion del encargado
                             await fundabiem.newDirection(model.direccionEncargado, prsona.idPersona);
-                            PersonaEncargada prsonEncargada = new PersonaEncargada();
-                            prsonEncargada.idPersona = prsona.idPersona;
-                            prsonEncargada.idPaciente = pacienteR.idPaciente;
-                            prsonEncargada.estaActivo = true;
-                            await fundabiem.newPersonaEncargada(prsonEncargada);
+                            //agregamos el registro a la tabla de personas encargadas
+                            await fundabiem.newPersonaEncargada(prsona.idPersona,pacienteR.idPaciente);
                         }
                     }
                     transaction.Commit();

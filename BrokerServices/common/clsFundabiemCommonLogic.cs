@@ -110,9 +110,13 @@ namespace EntityModelFundabien.common
         }
 
         //crea un nuevo paciente
-        public async Task<Paciente> newPatient(CreatePacienteDTO paciente)
+        public async Task<Paciente> newPatient(int historialClinico, Int64 idPersona)
         {
             logger.Information("create a new Paciente");
+            CreatePacienteDTO paciente = new CreatePacienteDTO();
+            paciente.estaActivo = true;
+            paciente.historialClinico = historialClinico;
+            paciente.idPersona = idPersona;
             var patient = mapper.Map<Paciente>(paciente);
             await context.Pacientes.AddAsync(patient);
             await context.SaveChangesAsync();
@@ -129,17 +133,25 @@ namespace EntityModelFundabien.common
         }
 
         //crea un registro medico
-        public async Task newRegistroMedico(RegistroMedico model)
+        public async Task newRegistroMedico(Int64 idPaciente)
         {
-            logger.Information("Create a new Registro Medico to paciente id = ", model.idPaciente);
-            await context.RegistrosMedicos.AddAsync(model);
+            logger.Information("Create a new Registro Medico to paciente id = {0}", idPaciente);
+            RegistroMedico rg = new RegistroMedico();
+            rg.idPaciente = idPaciente;
+            rg.fechaAdmision = new DateTime();
+            rg.estaFirmado = true;
+            await context.RegistrosMedicos.AddAsync(rg);
             await context.SaveChangesAsync();
         }
 
-        public async Task newPersonaEncargada(PersonaEncargada encargado)
+        public async Task newPersonaEncargada(Int64 idPersona, Int64 idPaciente)
         {
-            logger.Information("Create a new Persona encargado to paciente id = ", encargado.idPaciente);
-            await context.PersonasEncargadas.AddAsync(encargado);
+            logger.Information("Create a new Persona encargado to paciente id = {0}", idPaciente);
+            PersonaEncargada prsonEncargada = new PersonaEncargada();
+            prsonEncargada.idPersona = idPersona;
+            prsonEncargada.idPaciente = idPaciente;
+            prsonEncargada.estaActivo = true;
+            await context.PersonasEncargadas.AddAsync(prsonEncargada);
             await context.SaveChangesAsync();
         }
 
@@ -154,10 +166,14 @@ namespace EntityModelFundabien.common
         }
 
         //crea un familiar de un paciente
-        public async Task newFamiliar(FamiliaresPaciente familiar)
+        public async Task newFamiliar(Int64 idPersona, Int64 idPaciente, string parentezco)
         {
-            logger.Information("Creating a new familiar to pacienteId = ", familiar.idPaciente);
-            await context.familiaresPacientes.AddAsync(familiar);
+            logger.Information("Creating a new familiar to pacienteId = {0}", idPaciente);
+            FamiliaresPaciente fmr = new FamiliaresPaciente();
+            fmr.idPersona = idPersona;
+            fmr.idPaciente = idPaciente;
+            fmr.parentezco = parentezco;
+            await context.familiaresPacientes.AddAsync(fmr);
             await context.SaveChangesAsync();
         }
     }
