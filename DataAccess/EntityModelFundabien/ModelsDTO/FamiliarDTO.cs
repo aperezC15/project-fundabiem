@@ -10,6 +10,7 @@ namespace EntityModelFundabien.ModelsDTO
         public string segundoNombre { get; set; }
         public string primerApellido { get; set; }
         public string segundoApellido { get; set; }
+        public string dpi { get; set; }
         public bool sexo { get; set; }
         public DateTime fechaNacimiento { get; set; }
         public string grupoEtnico { get; set; }

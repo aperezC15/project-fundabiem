@@ -15,5 +15,6 @@ namespace EntityModelFundabien.ModelsDTO
         public string grupoEtnico { get; set; }
         public string escolaridad { get; set; }
         public string religion { get; set; }
+        public string dpi { get; set; }
     }
 }
