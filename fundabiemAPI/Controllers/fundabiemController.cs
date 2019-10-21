@@ -16,16 +16,16 @@ namespace fundabiemAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     //[Authorize]
-    public class fundabiemController : coreControllerFundabiem<fundabiemController>
+    public class FundabiemController : coreControllerFundabiem<FundabiemController>
     {
         private readonly IFundabiemCommonLogic<int, int> fundabiem;
-        public fundabiemController(ILogger<fundabiemController> logger,
+        public FundabiemController(ILogger<FundabiemController> logger,
         IFundabiemCommonLogic<int,int> fundabiem ) : base(logger)
         {
             this.fundabiem = fundabiem;
         }
         //obtiene todos los paises
-        [HttpGet("/paises")]
+        [HttpGet("paises")]
         public  ActionResult<IEnumerable<DTOPaises>> getAllPaises()
         {
             string user = getUser();
@@ -34,7 +34,7 @@ namespace fundabiemAPI.Controllers
             return autor;
         }
         //obtiene todos los paises segun idPais
-        [HttpGet("/departamentos/{id}")]
+        [HttpGet("departamentos/{id}")]
         public ActionResult<IEnumerable<departamentosDTO>> getDepartamentoByIdPais(double id)
         {
             string user = getUser();
@@ -44,7 +44,7 @@ namespace fundabiemAPI.Controllers
             return Ok(departamentos);
         }
         //optine todos los municipios segun idDepartaento
-        [HttpGet("/municipios/{idDepartamento}")]
+        [HttpGet("municipios/{idDepartamento}")]
         public ActionResult<IEnumerable<municipiosDTO>> getMunicipiosByIdDepartamento(double idDepartamento)
         {
             string user = getUser();
@@ -55,7 +55,7 @@ namespace fundabiemAPI.Controllers
         }
 
         // obtiene las secciones con sus items de anamnesis
-        [HttpGet("/anamnesis/secciones")]
+        [HttpGet("anamnesis/secciones")]
         public ActionResult<IEnumerable<SeccionAnamnesisDTO>> getSeccioneseItemsAnamnesis()
         {
             string user = getUser();
@@ -66,7 +66,7 @@ namespace fundabiemAPI.Controllers
         }
 
         //obtiene los tipos de direccion
-        [HttpGet("/direcciones/tipos")]
+        [HttpGet("tipoDirecciones")]
         public ActionResult<IEnumerable<TipoDirecciones>> getTipoDirecciones()
         {
             getUser();
@@ -77,11 +77,12 @@ namespace fundabiemAPI.Controllers
             return Ok(tipos);
         }
         //crer un registro medico
-        //[HttpPost]
-        //public async Task<ActionResult> newRegistroMedico([FromBody] CreateRegistroMedicoDTO model)
-        //{
-        //    getUser();
-        //    var RegistroMedico = await fundabiem.CreateNewRegistroMedico(model);
-        //}
+        [HttpPost]
+        public async Task<ActionResult> newRegistroMedico([FromBody] CreateRegistroMedicoDTO model)
+        {
+            getUser();
+            //var RegistroMedico = await fundabiem.CreateNewRegistroMedico(model);
+            return Ok();
+        }
     }
 }
