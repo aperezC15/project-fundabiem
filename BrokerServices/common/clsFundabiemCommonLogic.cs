@@ -80,6 +80,18 @@ namespace EntityModelFundabien.common
             var tipos = context.tipoDirecciones.ToList();
             return tipos;
         }
+
+
+        public IEnumerable<SeccionAnamnesisDTO> getSeccionesconItemsAnamnesis()
+        {
+            var secciones = context.SeccionesAnamnesis.Include(seccion => seccion.itemsAnamnesis).ToList();
+
+            var seccionesDTO = mapper.Map<List<SeccionAnamnesisDTO>>(secciones);
+
+            return seccionesDTO;
+        }
+    
+
         public async Task<IActionResult> newPersona(CreatePersonaDTO persona)
         {
             logger.Information("Create a new persona");
@@ -107,6 +119,7 @@ namespace EntityModelFundabien.common
             var pacienteDTO = mapper.Map<createPacienteDTO>(patient);
             return new CreatedAtRouteResult("getPacienteById", new { idPaciente = patient.idPaciente}, pacienteDTO);
         }
+
 
         public async Task<Paciente> getPacienteById(Int64 idPaciente)
         {

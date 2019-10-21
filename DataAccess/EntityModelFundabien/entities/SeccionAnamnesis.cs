@@ -12,6 +12,6 @@ namespace EntityModelFundabien.entities
         public string nombre { get; set; }
         public string descripcion { get; set; }
 
-        public IList<ItemAnamnesis> itemsAnamnesis { get; set; }
+        public IEnumerable<ItemAnamnesis> itemsAnamnesis { get; set; }
     }
 }

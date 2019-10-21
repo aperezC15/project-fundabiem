@@ -54,6 +54,17 @@ namespace fundabiemAPI.Controllers
             return Ok(munis);
         }
 
+        // obtiene las secciones con sus items de anamnesis
+        [HttpGet("/anamnesis/secciones")]
+        public ActionResult<IEnumerable<SeccionAnamnesisDTO>> getSeccioneseItemsAnamnesis()
+        {
+            string user = getUser();
+            logger.LogInformation("Searching list of sections and items of anamnesis");
+            var secciones = fundabiem.getSeccionesconItemsAnamnesis();
+            if (secciones.Count() == 0) { return NotFound(); }
+            return Ok(secciones);
+        }
+
         //obtiene los tipos de direccion
         [HttpGet("/direcciones/tipos")]
         public ActionResult<IEnumerable<TipoDirecciones>> getTipoDirecciones()

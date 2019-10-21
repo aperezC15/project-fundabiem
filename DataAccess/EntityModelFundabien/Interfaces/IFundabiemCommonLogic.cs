@@ -23,6 +23,9 @@ namespace EntityModelFundabien.Interfaces
         IEnumerable<departamentosDTO> getDepartamentosByIdPais(double idPais);
         IEnumerable<municipiosDTO> MunicipiosByIdDepartamento(double idDepartamento);
         IEnumerable<TipoDirecciones> getTipoDirecciones();
+
+        IEnumerable<SeccionAnamnesisDTO> getSeccionesconItemsAnamnesis();
+
         //Task<ActionResult> CreateNewRegistroMedico(CreateRegistroMedicoDTO RegistroMedico);
         Task<Persona> getPersona(Int64 idPersona);
         Task<IActionResult> newPersona(CreatePersonaDTO persona);

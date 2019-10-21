@@ -10,6 +10,7 @@ namespace EntityModelFundabien.entities
     {
         [Key]
         public Int64 idPersona { get; set; }
+        public string dpi { get; set; }
         public string primerNombre { get; set; }
         public string segundoNombre { get; set; }
         public string primerApellido { get; set; }
