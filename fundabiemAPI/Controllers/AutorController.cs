@@ -51,7 +51,5 @@ namespace fundabiemAPI.Controllers
             var autorDTO = mapper.Map<AutorDTO>(autor);
             return new CreatedAtRouteResult("ObtenerAutor", new { id = autor.AutorId }, autorDTO);
         }
-
-
     }
 }

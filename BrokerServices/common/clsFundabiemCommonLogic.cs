@@ -114,5 +114,20 @@ namespace EntityModelFundabien.common
             var paciente = await context.Pacientes.FirstOrDefaultAsync(x => x.idPaciente == idPaciente);
             return paciente;
         }
+
+        //crea un registro medico
+        public async Task newRegistroMedico(RegistroMedico model)
+        {
+            logger.Information("Create a new Registro Medico to paciente id = ", model.idPaciente);
+            await context.AddAsync(model);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task newPersonaEncargada(PersonaEncargada encargado)
+        {
+            logger.Information("Create a new Persona encargado to paciente id = ", encargado.idPaciente);
+            await context.AddAsync(encargado);
+            await context.SaveChangesAsync();
+        }
     }
-}
+}   
