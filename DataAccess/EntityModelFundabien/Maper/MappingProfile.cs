@@ -24,6 +24,16 @@ namespace EntityModelFundabien.mapper
             CreateMap<SeccionAnamnesis, SeccionAnamnesisDTO>();
             CreateMap<SeccionAnamnesisDTO, SeccionAnamnesis>();
             CreateMap<Persona, CreatePersonaDTO>();
+            CreateMap<CreatePersonaDTO, Persona>();
+            CreateMap<Direccion, DireccionDTO>();
+            CreateMap<DireccionDTO, Direccion>();
+            CreateMap<Paciente, CreatePacienteDTO>();
+            CreateMap<CreatePacienteDTO, Paciente>();
+            CreateMap<RegistroMedico, CreatePacienteDTO>();
+            CreateMap<CreatePacienteDTO, RegistroMedico>();
+            CreateMap<CreatePersonaDTO, FamiliarDTO>();
+            CreateMap<FamiliarDTO, CreatePersonaDTO>();
+            
         }
     }
 }

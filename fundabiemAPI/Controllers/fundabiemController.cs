@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using BrokerServices.common;
 using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
 using EntityModelFundabien.ModelsDTO;
@@ -19,10 +21,14 @@ namespace fundabiemAPI.Controllers
     public class FundabiemController : coreControllerFundabiem<FundabiemController>
     {
         private readonly IFundabiemCommonLogic<int, int> fundabiem;
+        private readonly IMapper mapper;
+        private readonly dbContext context;
         public FundabiemController(ILogger<FundabiemController> logger,
-        IFundabiemCommonLogic<int,int> fundabiem ) : base(logger)
+        IFundabiemCommonLogic<int,int> fundabiem, IMapper mapper, dbContext context ) : base(logger)
         {
             this.fundabiem = fundabiem;
+            this.mapper = mapper;
+            this.context = context;
         }
         //obtiene todos los paises
         [HttpGet("paises")]
@@ -80,9 +86,61 @@ namespace fundabiemAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> newRegistroMedico([FromBody] CreateRegistroMedicoDTO model)
         {
-            getUser();
-            //var RegistroMedico = await fundabiem.CreateNewRegistroMedico(model);
-            return Ok();
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                logger.LogInformation("BeginTransaction  create registro medico");
+                try
+                {
+                    getUser();
+                    logger.LogInformation("Creating a new Registro Medico");
+                    var PersonaPaciente = await fundabiem.newPersona(model.paciente);
+                    //crea la direccion del paciente
+                    await fundabiem.newDirection(model.direccionPaciente, PersonaPaciente.idPersona);
+                    //crea el paciente
+                    CreatePacienteDTO paciente = new CreatePacienteDTO();
+                    paciente.estaActivo = true;
+                    paciente.historialClinico = model.HistorialClinico;
+                    paciente.idPersona = PersonaPaciente.idPersona;
+                    var pacienteR = await fundabiem.newPatient(paciente);
+                    //agrega el registro medico
+                    RegistroMedico rg = new RegistroMedico();
+                    rg.idPaciente = pacienteR.idPaciente;
+                    rg.fechaAdmision = new DateTime();
+                    rg.estaFirmado = true;
+                    await fundabiem.newRegistroMedico(rg);
+                    //creamos todos los familiares del paciente, hago un forEach para saber quien es el encargado
+                    foreach (var familiar in model.familiaresPaciente)
+                    {   //agrega la persona
+                        var fm = mapper.Map<CreatePersonaDTO>(familiar);
+                        var prsona = await fundabiem.newPersona(fm);
+                        //agrega el familiar
+                        FamiliaresPaciente fmr = new FamiliaresPaciente();
+                        fmr.idPersona = prsona.idPersona;
+                        fmr.idPaciente = pacienteR.idPaciente;
+                        fmr.parentezco = familiar.parentezco;
+                        await fundabiem.newFamiliar(fmr);
+                        //si es encargado, hacemos el registro
+                        if (familiar.isManager)
+                        {
+                            //registramos la direccion del encargado
+                            await fundabiem.newDirection(model.direccionEncargado, prsona.idPersona);
+                            PersonaEncargada prsonEncargada = new PersonaEncargada();
+                            prsonEncargada.idPersona = prsona.idPersona;
+                            prsonEncargada.idPaciente = pacienteR.idPaciente;
+                            prsonEncargada.estaActivo = true;
+                            await fundabiem.newPersonaEncargada(prsonEncargada);
+                        }
+                    }
+                    transaction.Commit();
+                    logger.LogInformation("Commit transaction create registro medico");
+                    return Ok();
+                } catch (Exception ex)
+                {
+                    logger.LogInformation("RollBack transaction create registro medico");
+                    logger.LogError(ex.ToString());
+                    return BadRequest();
+                }
+            }
         }
     }
 }

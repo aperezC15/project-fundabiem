@@ -28,9 +28,12 @@ namespace EntityModelFundabien.Interfaces
 
         //Task<ActionResult> CreateNewRegistroMedico(CreateRegistroMedicoDTO RegistroMedico);
         Task<Persona> getPersona(Int64 idPersona);
-        Task<IActionResult> newPersona(CreatePersonaDTO persona);
-        Task<IActionResult> newPatient(createPacienteDTO paciente);
+        Task<Persona> newPersona(CreatePersonaDTO persona);
+        Task<Paciente> newPatient(CreatePacienteDTO paciente);
         Task<Paciente> getPacienteById(Int64 idPaciente);
         Task newPersonaEncargada(PersonaEncargada encargado);
+        Task newRegistroMedico(RegistroMedico model);
+        Task newDirection(DireccionDTO model, Int64 idPersona);
+        Task newFamiliar(FamiliaresPaciente familiar);
     }
 }

@@ -37,6 +37,7 @@ namespace BrokerServices.common
         public DbSet<TipoDirecciones> tipoDirecciones { get; set; }
         public DbSet<SeccionAnamnesis> SeccionesAnamnesis { get; set; }
         public DbSet<ItemAnamnesis> ItemsAnamnesis { get; set; }
+        public DbSet<FamiliaresPaciente> familiaresPacientes { get; set; }
         //public DbSet<DetalleFormularioAnamnesis> DetalleFormularioAnamnesis { get; set; }
         //public DbSet<FormularioAnamnesis> FormularioAnamnesis { get; set; }
         //public DbSet<Personal> Personal { get; set; }

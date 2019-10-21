@@ -92,14 +92,14 @@ namespace EntityModelFundabien.common
         }
     
 
-        public async Task<IActionResult> newPersona(CreatePersonaDTO persona)
+        public async Task<Persona> newPersona(CreatePersonaDTO persona)
         {
             logger.Information("Create a new persona");
             var pe = mapper.Map<Persona>(persona);
             await context.Personas.AddAsync(pe);
             await context.SaveChangesAsync();
             var personaDTO = mapper.Map<CreatePersonaDTO>(pe);
-            return new CreatedAtRouteResult("getPersona", new { idpersona = pe.idPersona }, personaDTO);
+            return await getPersona(pe.idPersona);
         }
 
         //obtiene una persona segun idPersona
@@ -110,14 +110,14 @@ namespace EntityModelFundabien.common
         }
 
         //crea un nuevo paciente
-        public async Task<IActionResult> newPatient(createPacienteDTO paciente)
+        public async Task<Paciente> newPatient(CreatePacienteDTO paciente)
         {
             logger.Information("create a new Paciente");
             var patient = mapper.Map<Paciente>(paciente);
             await context.Pacientes.AddAsync(patient);
             await context.SaveChangesAsync();
-            var pacienteDTO = mapper.Map<createPacienteDTO>(patient);
-            return new CreatedAtRouteResult("getPacienteById", new { idPaciente = patient.idPaciente}, pacienteDTO);
+            var pacienteDTO = mapper.Map<CreatePacienteDTO>(patient);
+            return await getPacienteById(patient.idPaciente);
         }
 
 
@@ -132,14 +132,32 @@ namespace EntityModelFundabien.common
         public async Task newRegistroMedico(RegistroMedico model)
         {
             logger.Information("Create a new Registro Medico to paciente id = ", model.idPaciente);
-            await context.AddAsync(model);
+            await context.RegistrosMedicos.AddAsync(model);
             await context.SaveChangesAsync();
         }
 
         public async Task newPersonaEncargada(PersonaEncargada encargado)
         {
             logger.Information("Create a new Persona encargado to paciente id = ", encargado.idPaciente);
-            await context.AddAsync(encargado);
+            await context.PersonasEncargadas.AddAsync(encargado);
+            await context.SaveChangesAsync();
+        }
+
+        //guarda la direccion de una persona
+        public async Task newDirection(DireccionDTO model, Int64 idPersona)
+        {
+            logger.Information("Creating a new direction");
+            var direction = mapper.Map<Direccion>(model);
+            direction.idPersona = idPersona;
+            await context.Direcciones.AddAsync(direction);
+            await context.SaveChangesAsync();
+        }
+
+        //crea un familiar de un paciente
+        public async Task newFamiliar(FamiliaresPaciente familiar)
+        {
+            logger.Information("Creating a new familiar to pacienteId = ", familiar.idPaciente);
+            await context.familiaresPacientes.AddAsync(familiar);
             await context.SaveChangesAsync();
         }
     }

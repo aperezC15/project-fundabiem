@@ -3,15 +3,17 @@ using System;
 using BrokerServices.common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BrokerServices.Migrations
 {
     [DbContext(typeof(dbContext))]
-    partial class dbContextModelSnapshot : ModelSnapshot
+    [Migration("20191021161936_DPI")]
+    partial class DPI
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,24 +226,6 @@ namespace BrokerServices.Migrations
                     b.HasIndex("idTipoDireccion");
 
                     b.ToTable("Direcciones");
-                });
-
-            modelBuilder.Entity("EntityModelFundabien.entities.FamiliaresPaciente", b =>
-                {
-                    b.Property<long>("id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<long>("idPaciente");
-
-                    b.Property<long>("idPersona");
-
-                    b.Property<string>("parentezco");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("idPersona");
-
-                    b.ToTable("familiaresPacientes");
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.ItemAnamnesis", b =>
@@ -2589,6 +2573,8 @@ namespace BrokerServices.Migrations
 
                     b.Property<long>("idPersona");
 
+                    b.Property<string>("parentezco");
+
                     b.HasKey("idPersonaEncargada");
 
                     b.HasIndex("idPaciente");
@@ -2753,14 +2739,6 @@ namespace BrokerServices.Migrations
                     b.HasOne("EntityModelFundabien.entities.TipoDirecciones", "tipoDirecciones")
                         .WithMany()
                         .HasForeignKey("idTipoDireccion")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("EntityModelFundabien.entities.FamiliaresPaciente", b =>
-                {
-                    b.HasOne("EntityModelFundabien.entities.Persona", "persona")
-                        .WithMany()
-                        .HasForeignKey("idPersona")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

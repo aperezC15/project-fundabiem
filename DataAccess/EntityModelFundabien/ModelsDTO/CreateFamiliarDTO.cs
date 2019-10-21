@@ -4,10 +4,10 @@ using System.Text;
 
 namespace EntityModelFundabien.ModelsDTO
 {
-    public class CreatePacienteDTO
+    public class CreateFamiliarDTO
     {
-        public Int64 historialClinico { get; set; }
         public Int64 idPersona { get; set; }
-        public bool estaActivo { get; set; }
+        public Int64 idPaciente { get; set; }
+        public string parentezco { get; set; }
     }
 }
