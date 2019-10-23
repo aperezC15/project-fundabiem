@@ -24,7 +24,7 @@ namespace fundabiemAPI.Controllers
         private readonly IMapper mapper;
         private readonly dbContext context;
         public FundabiemController(ILogger<FundabiemController> logger,
-        IFundabiemCommonLogic<int,int> fundabiem, IMapper mapper, dbContext context ) : base(logger)
+        IFundabiemCommonLogic<int, int> fundabiem, IMapper mapper, dbContext context) : base(logger)
         {
             this.fundabiem = fundabiem;
             this.mapper = mapper;
@@ -32,7 +32,7 @@ namespace fundabiemAPI.Controllers
         }
         //obtiene todos los paises
         [HttpGet("paises")]
-        public  ActionResult<IEnumerable<DTOPaises>> getAllPaises()
+        public ActionResult<IEnumerable<DTOPaises>> getAllPaises()
         {
             string user = getUser();
             logger.LogInformation("Searching all paises");
@@ -46,7 +46,7 @@ namespace fundabiemAPI.Controllers
             string user = getUser();
             logger.LogInformation("Searching all departamentos idPais = {0}", id);
             var departamentos = fundabiem.getDepartamentosByIdPais(id);
-            if(departamentos.Count() == 0) { return NotFound(); }
+            if (departamentos.Count() == 0) { return NotFound(); }
             return Ok(departamentos);
         }
         //optine todos los municipios segun idDepartaento
@@ -106,14 +106,14 @@ namespace fundabiemAPI.Controllers
                         var fm = mapper.Map<CreatePersonaDTO>(familiar);
                         var prsona = await fundabiem.newPersona(fm);
                         //agrega el familiar
-                        await fundabiem.newFamiliar(prsona.idPersona,pacienteR.idPersona,familiar.parentezco);
+                        await fundabiem.newFamiliar(prsona.idPersona, pacienteR.idPersona, familiar.parentezco);
                         //si es encargado, hacemos el registro
                         if (familiar.isManager)
                         {
                             //registramos la direccion del encargado
                             await fundabiem.newDirection(model.direccionEncargado, prsona.idPersona);
                             //agregamos el registro a la tabla de personas encargadas
-                            await fundabiem.newPersonaEncargada(prsona.idPersona,pacienteR.idPaciente);
+                            await fundabiem.newPersonaEncargada(prsona.idPersona, pacienteR.idPaciente);
                         }
                     }
                     transaction.Commit();
@@ -126,6 +126,14 @@ namespace fundabiemAPI.Controllers
                     return BadRequest();
                 }
             }
+        }
+        
+        [HttpGet("RegistroMedico")]
+        public  ActionResult<IEnumerable<RegistroMedico>> getRegistroMedico()
+        {
+            getUser();
+            var rgMedicos = fundabiem.getAllRegistrosMedicos();
+            return Ok(rgMedicos);
         }
     }
 }

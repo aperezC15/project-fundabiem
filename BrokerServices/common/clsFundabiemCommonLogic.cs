@@ -81,6 +81,12 @@ namespace EntityModelFundabien.common
             return tipos;
         }
 
+        //obtiene todos los registros medicos
+        public  IEnumerable<RegistroMedico> getAllRegistrosMedicos()
+        {
+            return context.RegistrosMedicos.Include(paciente => paciente.paciente.persona).ToList();
+        }
+
 
         public IEnumerable<SeccionAnamnesisDTO> getSeccionesconItemsAnamnesis()
         {
