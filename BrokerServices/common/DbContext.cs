@@ -41,10 +41,10 @@ namespace BrokerServices.common
         //public DbSet<DetalleFormularioAnamnesis> DetalleFormularioAnamnesis { get; set; }
         //public DbSet<FormularioAnamnesis> FormularioAnamnesis { get; set; }
         //public DbSet<Personal> Personal { get; set; }
-        //public DbSet<Anamnesis> Anamnesis { get; set; }
-        //public DbSet<HistoriaClinica> HistoriaClinicas { get; set; }
-        //public DbSet<Tratamiento> Tratamientos { get; set; }
-        //public DbSet<DetalleTratamiento> DetallesTratamientos { get; set; }
+        public DbSet<DetalleTratamiento> DetallesTratamientos { get; set; }
+        public DbSet<Tratamiento> Tratamientos { get; set; }
+        public DbSet<Anamnesis> Anamnesis { get; set; }
+        public DbSet<HistoriaClinica> HistoriasClinicas { get; set; }
 
         //to seeds
         protected override void OnModelCreating(ModelBuilder modelBuilder)

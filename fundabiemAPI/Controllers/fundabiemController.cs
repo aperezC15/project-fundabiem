@@ -119,7 +119,8 @@ namespace fundabiemAPI.Controllers
                     transaction.Commit();
                     logger.LogInformation("Commit transaction create registro medico");
                     return Ok();
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     logger.LogInformation("RollBack transaction create registro medico");
                     logger.LogError(ex.ToString());
@@ -127,13 +128,37 @@ namespace fundabiemAPI.Controllers
                 }
             }
         }
-        
+
         [HttpGet("RegistroMedico")]
-        public  ActionResult<IEnumerable<RegistroMedico>> getRegistroMedico()
+        public ActionResult<IEnumerable<RegistroMedico>> getRegistroMedico()
         {
             getUser();
             var rgMedicos = fundabiem.getAllRegistrosMedicos();
             return Ok(rgMedicos);
+        }
+
+        // HistoriaClinica
+        [HttpPost("historiaclinica")]
+        public async Task<ActionResult> newHistoriaClinica([FromBody] CrearHistoriaClinicaDTO model)
+        {
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                logger.LogInformation("BeginTransaction  Crear Historia Clinica");
+                try
+                {
+                    await fundabiem.newHistoriaClinica(model);
+
+                    transaction.Commit();
+                    logger.LogInformation("Commit transaction Crear Historia Clinica");
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    logger.LogInformation("RollBack transaction Crear Historia Clinica");
+                    logger.LogError(ex.ToString());
+                    return BadRequest();
+                }
+            }
         }
     }
 }
