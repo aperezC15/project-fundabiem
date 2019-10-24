@@ -45,6 +45,18 @@ namespace IdentityServer
             }).AddEntityFrameworkStores<ApplicationDbContext>()
                .AddDefaultTokenProviders();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsFundabiemRules",
+                cors =>
+                {
+                    cors.WithOrigins("http://localhost:8080")
+                                        .AllowAnyHeader()
+                                        .AllowAnyOrigin()
+                                        .AllowAnyMethod();
+                });
+            });
+
             var builder = services.AddIdentityServer()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApis())
@@ -70,6 +82,7 @@ namespace IdentityServer
             }
 
             // uncomment if you want to support static files
+            app.UseCors("CorsFundabiemRules");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseIdentityServer();
