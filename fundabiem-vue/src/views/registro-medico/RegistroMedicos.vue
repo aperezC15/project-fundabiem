@@ -67,13 +67,6 @@
       @saveRehabilitacion="saveRehabilitacion"
     />
 
-    <edit-ciclo-rehabilitacion 
-      :showEditCiclo="showEditCiclo"
-      :cicloEdit="cicloEdit"
-      @closeEditModalRehabilitation="closeEditModalRehabilitation"
-      @saveEditRehabilitacion="saveEditRehabilitacion"
-    />
-
     <v-dialog v-model="loading" width="300px">
       <v-card height="100px" class="d-flex justify-center align-center">
       <v-card-text>
@@ -94,11 +87,9 @@
 
 <script>
 import RegistroMedico from '../../components/registro-medico/RegistroMedicoComponent.vue'
-import EditCicloRehabilitacion from '../../components/ciclo-rehabilitacion/EditCicloRehabilitacion.vue'
 export default {
   components: { 
     RegistroMedico,
-    EditCicloRehabilitacion
   },
   data() {
     return {
@@ -119,23 +110,22 @@ export default {
       dialogRegistroMedico: false,
       dialogRehabilitacion: false,
       loading: false,
-      cicloEdit: {},
-      showEditCiclo: false
 
     }
   },
   methods: {
     openDialogRegistroMedico() {
       this.dialogRegistroMedico = true
+      this.$store.dispatch('getPaises')
     },
     saveRehabilitacion(data) {
 
-       const { id, nombre,  edad , sexo , origen, diagnostico, fecha } = data 
-
-       this.cicloRehabilitacionCIF.push({id, nombre, edad, sexo, origen, diagnostico, fecha})
-       this.dialogRehabilitacion = false
-
+      this.dialogRegistroMedico = false
       this.loading = true
+
+      this.$store.dispatch('newMedicalRegister', data)
+
+      console.log(data)
 
        setTimeout( () => {
          this.loading = false
@@ -146,41 +136,12 @@ export default {
          );
        },2000)
 
-
-      // console.log(data);
     },
     closeModalRehabilitation() {
-      this.dialogRehabilitacion= false
+      this.dialogRegistroMedico= false
+       this.$store.commit('clearStore')
     },
-    editItem(item) {
-      this.showEditCiclo = true
 
-       this.cicloEdit = this.cicloRehabilitacionCIF.find( ciclo => ciclo.id === item.id)
-
-    },
-    saveEditRehabilitacion(data) {
-          const { id, nombre,  edad , sexo , origen, diagnostico, fecha } = data 
-
-          const editCiclo = {id, nombre, edad, sexo, origen, diagnostico, fecha}
-
-        this.cicloRehabilitacionCIF = this.cicloRehabilitacionCIF.map( ciclo => ciclo.id === data.id ? editCiclo : ciclo )
-
-       this.showEditCiclo = false
-
-      this.loading = true
-
-       setTimeout( () => {
-         this.loading = false
-         this.$swal.fire(
-          'Ciclo de rehabilitación editado con éxito!',
-          'Ciclo editado exitosamente',
-          'success'
-         );
-       },2000)
-    },
-    closeEditModalRehabilitation() {
-      this.showEditCiclo = false
-    }
   }
 };
 </script>

@@ -10,15 +10,9 @@
     >
       <v-card>
         <v-toolbar dark color="#2c2e3f">
-          <span class="headline text-uppercase">Nuevo ciclo de rehabilitación</span>
+          <span class="headline text-uppercase">Registro Médico</span>
           <div class="flex-grow-1"></div>
           <v-btn color="indigo" rounded @click="closeModalRehabilitation" class="mx-4">CERRAR</v-btn>
-          <v-btn
-            color="indigo"
-            rounded
-            :disabled="!formValid"
-            @click="saveRehabilitacion"
-          >GUARDAR REGISTRO</v-btn>
         </v-toolbar>
 
         <v-card-text>
@@ -37,7 +31,6 @@
 
               <v-divider></v-divider>
 
-              <v-stepper-step step="4">Diagnóstico final</v-stepper-step>
             </v-stepper-header>
 
             <v-stepper-items>
@@ -45,23 +38,27 @@
                 <v-card class="mb-12" >
                     <v-col  md="12">
                       <h2 class="text-uppercase text-center font-weight-bold">Datos personales</h2>
-                      <datos-persona :familiar="false"  :datosPersonas="datosPersonas" />
+                      <datos-persona :historialClinico="historialClinico" :familiar="1"  :paciente="paciente" />
+
+                      <alert-error-global v-if="disabledNextStepper" message="Por favor ingrese todos los campos requeridos del formulario" />
 
                       <h2 class="text-uppercase text-center font-weight-bold">Datos de residencia</h2>
-
                       <datos-residencia :datosResidencia="datosResidencia" />
                     </v-col>
 
                 </v-card>
 
-                  <v-btn color="primary" @click="e1 = 2">Continuar</v-btn>
+                  <v-btn color="primary" @click="stepper2" >Continuar</v-btn>
             
               </v-stepper-content>
-
+ 
               <v-stepper-content step="2">
                 <v-card class="mb-12" >
                    <h2 class="text-uppercase text-center font-weight-bold">Datos de los familiares</h2>
-                      <datos-persona  @agregarAlListado="agregarAlListado" :familiar="true"  :datosPersonas="datosDeFamiliares" />
+                      <datos-persona  @agregarAlListado="agregarAlListado" :familiar="2"  :paciente="datosDeFamiliares" />
+                      
+                      <alert-error-global v-if="disabledEncargada" message="Listado de familiares no puede ir vacio" />
+
                       <data-tables :btnEliminar="true" @eliminarDelListado="eliminarDelListado" title="Listado de familiares" :headers="headers" :data="data"/>
                 </v-card>
 
@@ -72,43 +69,23 @@
 
               <v-stepper-content step="3">
                 <v-card class="mb-12" >
-                   <v-col cols="12" sm="4" md="12">
-                     <h2 class="text-uppercase text-center font-weight-bold">Datos de la persona encargada</h2>
+                   <v-col cols="12" sm="12" md="12">
+                     <h2 class="text-uppercase text-center font-weight-bold">Datos de dirección de la persona encargada</h2>
+
+                   <alert-error-global v-if="disabledEncargadaDireccion" message="La dirección de la persona encargada no puede ir vacia" />
+
                     <v-select v-model="familiares" :items="arrayFamiliares" :rules="rulesInput" item-value="id" item-text="valor" label="Seleccione a persona encargado" hint="El campo es requerido"
                     ></v-select>
-                     <datos-residencia :encargado="true" :datosResidencia="datosResidenciaEncargado" />
+                     <datos-residencia :encargado="true" :datosResidencia="direccionEncargado" />
                   </v-col>
                 </v-card>
 
-                <v-btn color="primary" @click="e1 = 4">Continuar</v-btn>
+                <v-btn color="primary" @click="saveRehabilitacion">Guardar registro médico</v-btn>
 
                 <v-btn text  @click="e1 = 2">Regresar</v-btn>
               </v-stepper-content>
 
-              <v-stepper-content step="4">
-                <v-card class="mb-12" >
-                   <v-col cols="12" sm="4" md="12">
-                     
-                      <h2 class="text-uppercase text-center font-weight-bold">Datos personales</h2>
-                      <datos-persona  :datosPersonas="datosPersonas" />
-
-                      <h2 class="text-uppercase text-center font-weight-bold">Datos de residencia</h2>
-                      <datos-residencia :datosResidencia="datosResidencia" />
-
-                      <h2 class="text-uppercase text-center font-weight-bold">Datos de los familiares</h2>
-                      <!-- <datos-persona  @agregarAlListado="agregarAlListado" :familiar="true"  :datosPersonas="datosDeFamiliares" /> -->
-                      <data-tables class="mt-5"  :btnEliminar="false" title="Listado de familiares" :headers="headers" :data="data"/>
-
-                      <h2 class="text-uppercase text-center font-weight-bold mt-5">Datos de la persona encargada</h2>
-                     <datos-residencia :encargado="false" :datosResidencia="datosResidenciaEncargado" />
-
-                  </v-col>
-                </v-card>
-
-                <v-btn color="primary" @click="e1 = 1">Guardar</v-btn>
-
-                <v-btn text  @click="e1 = 3">Regresar</v-btn>
-              </v-stepper-content>
+      
             </v-stepper-items>
 
           </v-stepper>
@@ -120,15 +97,40 @@
     
 <script>
 
+let pacienteObject = {
+  primerNombre : "",
+  segundoNombre : "",
+  primerApellido : "",
+  segundoApellido : "",
+  sexo: "",
+  fechaNacimiento: new Date().toISOString().substr(0, 10),
+  menu2: false,
+  grupoEtnico: "",
+  escolaridad: "",
+  religion: "",
+  dpi: "",
+}
+
+let historialClinico = { nombre: ""}
+let datosResidencia = {
+  pais: "",
+  departamento: "",
+  idMunicipio: "",
+  descripcion : "",
+  idTipoDireccion: "",
+}
+
 import DatosPersona from  '../datos-personas/DatosPersonas.vue'
 import DatosResidencia from  '../datos-personas/DatosResidencia.vue'
-import DataTables from '../data-tables/DataTables.vue'
+import DataTables from '../data-tables/DataTables.vue' 
+import AlertErrorGlobal from '../alertas/alertErrorGlobal.vue'
 
 export default {
  components: {
      DatosPersona,
      DatosResidencia,
-     DataTables
+     DataTables,
+     AlertErrorGlobal
  },
   props: {
     dialogRegistroMedico: Boolean
@@ -138,103 +140,17 @@ export default {
       formValid: false,
       mostrarDatosResidencia: true,
       e1: 0,
-      datosPersonas: {
-        primerNombre : "",
-        segundoNombre : "",
-        tercerNombre : "",
-        primerApellido : "",
-        segundoApellido : "",
-        edad: "",
-        sexo: "",
-        date: new Date().toISOString().substr(0, 10),
-        menu2: false,
-        etnico: "",
-        hisClinica: "",
-        sexosArray: [
-          { id: 1, valor: "Masculino", },
-          { id: 2, valor: "Femenino"}
-        ],
-        grupoEtnico: [
-          { id: 1, valor: "Ladino", },
-          { id: 2, valor: "Maya"},
-          { id: 3, valor: "Garifuna"},
-          { id: 4, valor: "Xinca"}
-        ],
+      paciente: {
+       ...pacienteObject
       },
+      historialClinico: {...historialClinico} ,
+      datosResidencia: {...datosResidencia},
       datosDeFamiliares: {
-        id: "",
-        primerNombre : "",
-        segundoNombre : "",
-        tercerNombre : "",
-        primerApellido : "",
-        segundoApellido : "",
-        sexo: "",
-        etnico: "",
-        parentescoFamiliar:"",
-        sexosArray: [
-          { id: 1, valor: "Masculino", },
-          { id: 2, valor: "Femenino"}
-        ],
-        grupoEtnico: [
-          { id: 1, valor: "Ladino", },
-          { id: 2, valor: "Maya"},
-          { id: 3, valor: "Garifuna"},
-          { id: 4, valor: "Xinca"}
-        ],
+        ...pacienteObject,
+        isManager: false,
+        parentezco:""
       },
-      datosResidencia: {
-        pais:"",
-        departamento:"",
-        municipio: "",
-        direccion : "",
-        tipo: "",
-        paisesArray: [
-          { id: 1, valor: "Guatemala", },
-        ],
-        departametosArray: [
-          { id: 1, valor: "Retalhuleu", },
-          { id: 2, valor: "Mazatenango"},
-          { id: 3, valor: "Escuintla"},
-          { id: 4, valor: "Coatepeque"}
-        ],
-        municipioArray: [
-          { id: 1, valor: "San Felipe", },
-          { id: 2, valor: "San sebastián"},
-          { id: 3, valor: "Retalhulue"},
-          { id: 4, valor: "Champerico"}
-        ],
-        tipoDireccion:[
-          { id: 1, valor: "Residencia habitual", },
-          { id: 2, valor: "Domicilio"},
-        ],
-      },
-      datosResidenciaEncargado :{
-         pais:"",
-        departamento:"",
-        municipio: "",
-        direccion : "",
-        tipo: "",
-        telefono: "",
-        paisesArray: [
-          { id: 1, valor: "Guatemala", },
-        ],
-        departametosArray: [
-          { id: 1, valor: "Retalhuleu", },
-          { id: 2, valor: "Mazatenango"},
-          { id: 3, valor: "Escuintla"},
-          { id: 4, valor: "Coatepeque"}
-        ],
-        municipioArray: [
-          { id: 1, valor: "San Felipe", },
-          { id: 2, valor: "San sebastián"},
-          { id: 3, valor: "Retalhulue"},
-          { id: 4, valor: "Champerico"}
-        ],
-        tipoDireccion:[
-          { id: 1, valor: "Residencia habitual", },
-          { id: 2, valor: "Domicilio"},
-        ],
-      },
+      direccionEncargado :{ ...datosResidencia },
       headers: [
         { text: "Primer Nombre", align: "left", sortable: false, value: "primerNombre" },
         { text: "Segundo Nombre", align: "left", sortable: false, value: "segundoNombre" },
@@ -246,72 +162,181 @@ export default {
          { text: "Acciones", value: "action" }
       ],
       data: [],
-      datosFinalPersonal: {},
-      datosFinalFamiliares: [],
       arrayFamiliares: [],
       familiares: "",
       rulesInput: [
           v => !! v || "El campo es obligatorio"
       ],
+      disabledNextStepper: false,
+      disabledEncargada:false,
+      disabledEncargadaDireccion: false
     }
   },
   methods: {
     closeModalRehabilitation() {
+      this.getCopyData()
+      this.e1 = 1
       this.$emit("closeModalRehabilitation");
-
-      this.$refs.formRef.reset();
     },
-    saveRehabilitacion() {
-      const data = {
-        id: Math.random()
-          .toString(36)
-          .substr(2, 9),
-        nombre: this.nombreCompleto,
-        edad: this.edad,
-        sexo: this.sexo,
-        origen: this.origen,
-        diagnostico: this.diagnostico,
-        cie: this.cie,
-        otros: this.otros,
-        fecha: this.date,
-        estructurasCorporales: this.estructurasCorporales,
-        actividad: this.actividad,
-        participacion: this.participacion
-      };
+    stepper2() {
 
-      if (this.$refs.formRef.validate()) {
-        this.$emit("saveRehabilitacion", data);
+      const { primerNombre, primerApellido, historialClinico,
+      fechaNacimiento, edad, grupoEtnico, escolaridad, religion, dpi, sexo } = this.paciente
+
+      const  { idMunicipio, descripcion , idTipoDireccion } = this.datosResidencia
+
+      if(primerNombre === "" || primerApellido === "" || historialClinico === "" || fechaNacimiento === "" || edad === "" || grupoEtnico === "" || escolaridad === "" || religion === "" || dpi === "" || sexo === "" || idMunicipio === "" || descripcion  === "" || idTipoDireccion === "") {
+        this.disabledNextStepper = true
+
+        setTimeout(() => {
+          this.disabledNextStepper = false
+        }, 2000);
+        return
+      } else {
+        this.disabledNextStepper = false
+        this.e1 = 2 
       }
 
-      this.$refs.formRef.reset();
+    },
+    saveRehabilitacion() {
+      
+      const { idMunicipio, descripcion , idTipoDireccion }  = this.direccionEncargado
+
+      if( idMunicipio === "" || descripcion  === "" || idTipoDireccion === "" ) {
+        this.disabledEncargadaDireccion = true
+        setTimeout(() => {
+          this.disabledEncargadaDireccion = false
+        }, 2000);
+        return
+      }
+
+      const familiaresPaciente = this.data.map( familiar => {
+
+        const { dpi, escolaridad, fechaNacimiento, grupoEtnico, parentezco ,primerApellido ,primerNombre, religion ,segundoApellido, segundoNombre} = familiar
+
+        let isManager;
+        let sexo;
+
+        if(familiar.id === this.familiares) {
+          isManager = true
+        } else {
+          isManager = false
+        }
+
+        if(familiar.sexo === 1) {
+          sexo = true
+        } else {
+          sexo = false
+        }
+        return {
+         dpi, escolaridad, fechaNacimiento, grupoEtnico, 
+         parentezco ,primerApellido ,primerNombre, 
+         religion ,segundoApellido, segundoNombre, sexo,
+          isManager
+        }
+
+      })
+
+      let sexoValida;
+
+      if(this.paciente.sexo === 1) {
+        sexoValida = true
+      } else {
+        sexoValida =false
+      }
+
+
+      const { dpi, escolaridad, fechaNacimiento, grupoEtnico, primerApellido, primerNombre, 
+              religion, segundoApellido, segundoNombre } = this.paciente
+
+      const paciente = {  
+        dpi,  escolaridad,  
+        fechaNacimiento,  
+        grupoEtnico,  primerApellido,  primerNombre,  
+        religion,  segundoApellido,  segundoNombre,  
+        sexo: sexoValida
+      }
+
+      const direccionPaciente = { 
+        idMunicipio: this.datosResidencia.idMunicipio, 
+        descripcion: this.datosResidencia.descripcion, 
+        idTipoDireccion: this.datosResidencia.idTipoDireccion 
+      } 
+
+      // const familiaresPacientes = { 
+      //   dpi : familiaresPaciente.dpi, 
+      //   escolaridad : familiaresPaciente.escolaridad, 
+      //   fechaNacimiento : familiaresPaciente.fechaNacimiento, 
+      //   grupoEtnico : familiaresPaciente.grupoEtnico, 
+      //   isManager : familiaresPaciente.isManager,
+      //   parentezco : familiaresPaciente.parentezco, 
+      //   primerApellido : familiaresPaciente.primerApellido, 
+      //   primerNombre : familiaresPaciente.primerNombre, 
+      //   religion : familiaresPaciente.religion, 
+      //   segundoApellido : familiaresPaciente.segundoApellido, 
+      //   segundoNombre : familiaresPaciente.segundoNombre, 
+      //   sexo : familiaresPaciente.sexo 
+      // }
+
+      const direccionEncargado = {  idMunicipio,  descripcion,  idTipoDireccion  } 
+
+      const data = {
+        paciente,
+        historialClinico: this.historialClinico.nombre,
+        direccionPaciente,
+        familiaresPaciente,
+        direccionEncargado
+      }
+      
+      this.getCopyData()
+      this.e1 = 1
+      this.$emit("saveRehabilitacion", data);
     },
     // eventos en datos de familiares
     agregarAlListado(datosFamiliares) {
 
-      console.log(datosFamiliares)
-      
-      const { id, primerNombre, segundoNombre, tercerNombre, primerApellido, segundoApellido, edad, sexo, etnico, parentescoFamiliar } = datosFamiliares
+      const { id, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, sexo, grupoEtnico, religion, parentezco, escolaridad, dpi, isManager } = datosFamiliares
 
-      const dataAgregar = {id, primerNombre, segundoNombre, tercerNombre, primerApellido, segundoApellido, edad, sexo, etnico, parentescoFamiliar }
+      const dataAgregar = { id, primerNombre, segundoNombre, primerApellido, segundoApellido, fechaNacimiento, sexo, grupoEtnico, religion, parentezco, escolaridad, dpi, isManager }
 
       this.data.push(dataAgregar)
+
     },
     eliminarDelListado(id) {
       this.data = this.data.filter( item => item.id !== id)
     },
     // continue step 3
     continueStep3() {
+
+      if(this.data.length <= 0) {
+        this.disabledEncargada = true
+        setTimeout( () => {
+          this.disabledEncargada = false
+        }, 2000)
+        return
+      } 
       this.data.map( item => {
-          this.arrayFamiliares.push({
+        this.arrayFamiliares.push({
           id: item.id,
-          valor: item.parentescoFamiliar
+          valor: item.parentezco
         })
       })
-  
+     this.disabledEncargada = false
       this.e1 = 3
+    },
+
+    getCopyData() {
+      this.paciente = {...pacienteObject}
+      this.historialClinico = {...historialClinico}
+      this.datosResidencia = {...datosResidencia}
+      this.direccionEncargado = {...datosResidencia}
+      this.data = []
+      this.arrayFamiliares = []
     }
+
   },
 
-};
+
+}
 </script>
 
