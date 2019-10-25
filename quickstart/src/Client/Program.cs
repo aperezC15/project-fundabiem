@@ -14,7 +14,7 @@ namespace Client
             // discover endpoints from metadata
             var client = new HttpClient();
 
-            var disco = await client.GetDiscoveryDocumentAsync("https://localhost:5001");
+            var disco = await client.GetDiscoveryDocumentAsync("https://librosalariosqa.mintrabajo.gob.gt:5001");
             if (disco.IsError)
             {
                 Console.WriteLine(disco.Error);
@@ -26,10 +26,10 @@ namespace Client
             var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
             {
                 Address = disco.TokenEndpoint,
-                ClientId = "skyfront",
-                ClientSecret = "Secreto@3#2!2019",
+                ClientId = "clientPruebas",
+                ClientSecret = "secretParaPruebas2019@",
 
-                Scope = ""
+                Scope = "api2"
             });
 
             if (tokenResponse.IsError)

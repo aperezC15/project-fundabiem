@@ -182,5 +182,41 @@ namespace EntityModelFundabien.common
             await context.familiaresPacientes.AddAsync(fmr);
             await context.SaveChangesAsync();
         }
+
+        public async Task newAnamnesis(Int64 idHistoriaClinica,  CrearAnamnesisDTO modelo)
+        {
+            logger.Information("Creating a new history");
+
+            var anamnesis = new Anamnesis
+            {
+                idHistoriaClinica = idHistoriaClinica,
+                idItemAnamnesis = modelo.idItemAnamnesis,
+                diagnostico = modelo.diagnostico
+            };
+
+            await context.Anamnesis.AddAsync(anamnesis);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task newHistoriaClinica(CrearHistoriaClinicaDTO modelo)
+        {
+            logger.Information("Creating a new clinic history");
+
+            var historiaClinica = new HistoriaClinica
+            {
+                idPaciente = modelo.idPaciente,
+                fechaDeRegistro = DateTime.Today,
+                motivoDeConsulta = modelo.motivoConsulta,
+                diagnosticoFinal = modelo.diagnosticoFinal
+            };
+
+            await context.HistoriasClinicas.AddAsync(historiaClinica);
+            await context.SaveChangesAsync();
+
+            foreach(var anamnesis in modelo.anamnesis)
+            {
+                await newAnamnesis(historiaClinica.idHistoriaClinica, anamnesis);
+            }
+        }
     }
 }   

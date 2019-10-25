@@ -20,6 +20,8 @@
     <Compile Remove="Migrations\20191017050005_actualizacion.Designer.cs" />
     <Compile Remove="Migrations\20191019183112_AgregarTablaSeccionEItemAnamnesis.cs" />
     <Compile Remove="Migrations\20191019183112_AgregarTablaSeccionEItemAnamnesis.Designer.cs" />
+    <Compile Remove="Migrations\20191024135228_CrearHistoriaClinica.cs" />
+    <Compile Remove="Migrations\20191024135228_CrearHistoriaClinica.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

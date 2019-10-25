@@ -72,10 +72,10 @@ namespace IdentityServer
                 {
                     ClientId = "mvc",
                     ClientName = "MVC Client",
-                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets=
                     {
-                        new Secret("secret".Sha256())
+                        new Secret("secret")
                     },
                     // where to redirect to after login
                     RedirectUris = { "http://localhost:5002/signin-oidc" },
@@ -96,7 +96,7 @@ namespace IdentityServer
                     ClientId = "client",
 
                     // no interactive user, use the clientid/secret for authentication
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
 
                     // secret for authentication
                     ClientSecrets =
