@@ -83,7 +83,7 @@ namespace fundabiemAPI.Controllers
             return Ok(tipos);
         }
         //crer un registro medico
-        [HttpPost]
+        [HttpPost("newRegistroMedico")]
         public async Task<ActionResult> newRegistroMedico([FromBody] CreateRegistroMedicoDTO model)
         {
             using (var transaction = context.Database.BeginTransaction())
