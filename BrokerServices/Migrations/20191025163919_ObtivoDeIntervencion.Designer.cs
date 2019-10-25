@@ -3,15 +3,17 @@ using System;
 using BrokerServices.common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BrokerServices.Migrations
 {
     [DbContext(typeof(dbContext))]
-    partial class dbContextModelSnapshot : ModelSnapshot
+    [Migration("20191025163919_ObtivoDeIntervencion")]
+    partial class ObtivoDeIntervencion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,40 +52,6 @@ namespace BrokerServices.Migrations
                     b.HasKey("AutorId");
 
                     b.ToTable("Autores");
-                });
-
-            modelBuilder.Entity("EntityModelFundabien.entities.CicloDeRehabilitacion", b =>
-                {
-                    b.Property<long>("idcicloRehabilitacion")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("actividad");
-
-                    b.Property<string>("cie_10");
-
-                    b.Property<string>("dignostico");
-
-                    b.Property<string>("factoresAmbientales");
-
-                    b.Property<string>("factoresPersonales");
-
-                    b.Property<DateTime>("fecha");
-
-                    b.Property<string>("funcionEstrucCorporales");
-
-                    b.Property<long>("idPaciente");
-
-                    b.Property<string>("origen");
-
-                    b.Property<string>("otros");
-
-                    b.Property<string>("participacion");
-
-                    b.HasKey("idcicloRehabilitacion");
-
-                    b.HasIndex("idPaciente");
-
-                    b.ToTable("CicloDeRehabilitaciones");
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.Correo", b =>
@@ -254,44 +222,6 @@ namespace BrokerServices.Migrations
                             idPais = 1L,
                             nombre = "Jalapa"
                         });
-                });
-
-            modelBuilder.Entity("EntityModelFundabien.entities.DetalleCicloDeRehabilitacion", b =>
-                {
-                    b.Property<long>("idDetalle")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("EE");
-
-                    b.Property<bool>("PS");
-
-                    b.Property<bool>("TF");
-
-                    b.Property<bool>("TL");
-
-                    b.Property<bool>("TO");
-
-                    b.Property<bool>("TS");
-
-                    b.Property<long>("idObjetivo");
-
-                    b.Property<long>("idcicloRehabilitacion");
-
-                    b.Property<bool>("intervencion");
-
-                    b.Property<bool>("valoracionFinal");
-
-                    b.Property<bool>("valoracionInicial");
-
-                    b.Property<bool>("valoracionObjetivo");
-
-                    b.HasKey("idDetalle");
-
-                    b.HasIndex("idObjetivo");
-
-                    b.HasIndex("idcicloRehabilitacion");
-
-                    b.ToTable("DetalleCicloDeRehabilitaciones");
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.DetalleTratamiento", b =>
@@ -2917,14 +2847,6 @@ namespace BrokerServices.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EntityModelFundabien.entities.CicloDeRehabilitacion", b =>
-                {
-                    b.HasOne("EntityModelFundabien.entities.Paciente", "paciente")
-                        .WithMany()
-                        .HasForeignKey("idPaciente")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("EntityModelFundabien.entities.Correo", b =>
                 {
                     b.HasOne("EntityModelFundabien.entities.Persona", "persona")
@@ -2937,19 +2859,6 @@ namespace BrokerServices.Migrations
                     b.HasOne("EntityModelFundabien.entities.Pais", "pais")
                         .WithMany("departamentos")
                         .HasForeignKey("idPais")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("EntityModelFundabien.entities.DetalleCicloDeRehabilitacion", b =>
-                {
-                    b.HasOne("EntityModelFundabien.entities.ObjetivoDeIntervencion", "objetivo")
-                        .WithMany()
-                        .HasForeignKey("idObjetivo")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("EntityModelFundabien.entities.CicloDeRehabilitacion", "ciclo")
-                        .WithMany()
-                        .HasForeignKey("idcicloRehabilitacion")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

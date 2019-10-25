@@ -22,6 +22,8 @@
     <Compile Remove="Migrations\20191019183112_AgregarTablaSeccionEItemAnamnesis.Designer.cs" />
     <Compile Remove="Migrations\20191024135228_CrearHistoriaClinica.cs" />
     <Compile Remove="Migrations\20191024135228_CrearHistoriaClinica.Designer.cs" />
+    <Compile Remove="Migrations\20191025163800_ObtivoDeIntervencion.cs" />
+    <Compile Remove="Migrations\20191025163800_ObtivoDeIntervencion.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
