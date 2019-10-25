@@ -82,28 +82,6 @@ namespace fundabiemAPI.Controllers
                 return BadRequest();
             return Ok(tipos);
         }
-
-        //obtiene paciente segun id
-        [HttpGet("paciente/searchById")]
-        public ActionResult<IEnumerable<Paciente>> searchPacienteId(int idPaciente)
-        {
-            getUser();
-            var paciente = fundabiem.searchPacienteById(idPaciente);
-            if (paciente.Count() == 0)
-                return NotFound();
-            return Ok(paciente);
-        }
-
-        [HttpGet("paciente/searchByHistorialClinico")]
-        //obtiene paciente segun su numero de historialClinico
-        public ActionResult<IEnumerable<Paciente>> serachByNoHistorialClinico(int NumeroHistoriakClinico)
-        {
-            getUser();
-            var paciente = fundabiem.searchPacienteByHistorialClinico(NumeroHistoriakClinico);
-            if (paciente.Count() == 0)
-                return NotFound();
-            return Ok(paciente);
-        }
         
         // HistoriaClinica
         [HttpPost("historiaclinica")]
