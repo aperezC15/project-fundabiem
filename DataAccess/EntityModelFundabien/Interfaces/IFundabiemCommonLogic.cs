@@ -42,5 +42,6 @@ namespace EntityModelFundabien.Interfaces
         // Historia Clinica
         Task newAnamnesis(Int64 idHistoriaClinica, CrearAnamnesisDTO modelo);
         Task newHistoriaClinica(CrearHistoriaClinicaDTO modelo);
+        IEnumerable<ObjetivoDeIntervencion> getAllObjetivos();
     }
 }

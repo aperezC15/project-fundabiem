@@ -58,6 +58,13 @@ namespace EntityModelFundabien.common
             return paisDTO;
                 
         }
+
+        //obtiene todos los objetivos de intervencion
+        public IEnumerable<ObjetivoDeIntervencion> getAllObjetivos()
+        {
+           return context.ObjetivosDeIntervenciones.ToList();
+        }
+
         //obtiene los departamento de un pais
         public  IEnumerable<departamentosDTO> getDepartamentosByIdPais(double id)
         {
