@@ -60,17 +60,6 @@ namespace fundabiemAPI.Controllers
             return Ok(munis);
         }
 
-        // obtiene las secciones con sus items de anamnesis
-        [HttpGet("anamnesis/secciones")]
-        public ActionResult<IEnumerable<SeccionAnamnesisDTO>> getSeccioneseItemsAnamnesis()
-        {
-            string user = getUser();
-            logger.LogInformation("Searching list of sections and items of anamnesis");
-            var secciones = fundabiem.getSeccionesconItemsAnamnesis();
-            if (secciones.Count() == 0) { return NotFound(); }
-            return Ok(secciones);
-        }
-
         //obtiene los tipos de direccion
         [HttpGet("tipoDirecciones")]
         public ActionResult<IEnumerable<TipoDirecciones>> getTipoDirecciones()
@@ -81,30 +70,6 @@ namespace fundabiemAPI.Controllers
             if (tipos.Count() == 0)
                 return BadRequest();
             return Ok(tipos);
-        }
-        
-        // HistoriaClinica
-        [HttpPost("historiaclinica")]
-        public async Task<ActionResult> newHistoriaClinica([FromBody] CrearHistoriaClinicaDTO model)
-        {
-            using (var transaction = context.Database.BeginTransaction())
-            {
-                logger.LogInformation("BeginTransaction  Crear Historia Clinica");
-                try
-                {
-                    await fundabiem.newHistoriaClinica(model);
-
-                    transaction.Commit();
-                    logger.LogInformation("Commit transaction Crear Historia Clinica");
-                    return Ok();
-                }
-                catch (Exception ex)
-                {
-                    logger.LogInformation("RollBack transaction Crear Historia Clinica");
-                    logger.LogError(ex.ToString());
-                    return BadRequest();
-                }
-            }
         }
     }
 }
