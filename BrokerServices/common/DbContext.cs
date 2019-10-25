@@ -1,5 +1,6 @@
 ﻿
 using EntityModelFundabien.entities;
+using EntityModelFundabien.EntitySettings;
 using EntityModelFundabien.Seeds;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -55,6 +56,8 @@ namespace BrokerServices.common
             modelBuilder.seedTipoDirecciones();
             modelBuilder.seddSeccionesAnamnesis();
             modelBuilder.seedItemsAnamnesis();
+
+            modelBuilder.PacienteConfig();
         }
     }
 }
