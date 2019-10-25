@@ -62,6 +62,7 @@ namespace BrokerServices.common
             modelBuilder.ObjetivoDeIntervencionSeed();
 
             modelBuilder.PacienteConfig();
+            modelBuilder.PersonaConfig();
         }
     }
 }
