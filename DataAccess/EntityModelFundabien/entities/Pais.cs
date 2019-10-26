@@ -9,6 +9,8 @@ namespace EntityModelFundabien.entities
     {
         [Key]
         public Int64 idPais { get; set; }
+        [Required]
+        [MaxLength(100, ErrorMessage = "El campo 'nombre' de 'Pais' no debe exceder 100 caracteres.")]
         public string nombre { get; set; }
         public List<Departamento> departamentos { get; set; }
     }

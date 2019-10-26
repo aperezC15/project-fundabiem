@@ -60,17 +60,6 @@ namespace fundabiemAPI.Controllers
             return Ok(munis);
         }
 
-        // obtiene las secciones con sus items de anamnesis
-        [HttpGet("anamnesis/secciones")]
-        public ActionResult<IEnumerable<SeccionAnamnesisDTO>> getSeccioneseItemsAnamnesis()
-        {
-            string user = getUser();
-            logger.LogInformation("Searching list of sections and items of anamnesis");
-            var secciones = fundabiem.getSeccionesconItemsAnamnesis();
-            if (secciones.Count() == 0) { return NotFound(); }
-            return Ok(secciones);
-        }
-
         //obtiene los tipos de direccion
         [HttpGet("tipoDirecciones")]
         public ActionResult<IEnumerable<TipoDirecciones>> getTipoDirecciones()
@@ -81,84 +70,6 @@ namespace fundabiemAPI.Controllers
             if (tipos.Count() == 0)
                 return BadRequest();
             return Ok(tipos);
-        }
-        //crer un registro medico
-        [HttpPost("newRegistroMedico")]
-        public async Task<ActionResult> newRegistroMedico([FromBody] CreateRegistroMedicoDTO model)
-        {
-            using (var transaction = context.Database.BeginTransaction())
-            {
-                logger.LogInformation("BeginTransaction  create registro medico");
-                try
-                {
-                    getUser();
-                    logger.LogInformation("Creating a new Registro Medico");
-                    var PersonaPaciente = await fundabiem.newPersona(model.paciente);
-                    //crea la direccion del paciente
-                    await fundabiem.newDirection(model.direccionPaciente, PersonaPaciente.idPersona);
-                    //crea el paciente
-                    var pacienteR = await fundabiem.newPatient(model.HistorialClinico, PersonaPaciente.idPersona);
-                    //agrega el registro medico
-                    await fundabiem.newRegistroMedico(pacienteR.idPaciente);
-                    //creamos todos los familiares del paciente, hago un forEach para saber quien es el encargado
-                    foreach (var familiar in model.familiaresPaciente)
-                    {   //agrega la persona
-                        var fm = mapper.Map<CreatePersonaDTO>(familiar);
-                        var prsona = await fundabiem.newPersona(fm);
-                        //agrega el familiar
-                        await fundabiem.newFamiliar(prsona.idPersona, pacienteR.idPersona, familiar.parentezco);
-                        //si es encargado, hacemos el registro
-                        if (familiar.isManager)
-                        {
-                            //registramos la direccion del encargado
-                            await fundabiem.newDirection(model.direccionEncargado, prsona.idPersona);
-                            //agregamos el registro a la tabla de personas encargadas
-                            await fundabiem.newPersonaEncargada(prsona.idPersona, pacienteR.idPaciente);
-                        }
-                    }
-                    transaction.Commit();
-                    logger.LogInformation("Commit transaction create registro medico");
-                    return Ok();
-                }
-                catch (Exception ex)
-                {
-                    logger.LogInformation("RollBack transaction create registro medico");
-                    logger.LogError(ex.ToString());
-                    return BadRequest();
-                }
-            }
-        }
-
-        [HttpGet("RegistroMedico")]
-        public ActionResult<IEnumerable<RegistroMedico>> getRegistroMedico()
-        {
-            getUser();
-            var rgMedicos = fundabiem.getAllRegistrosMedicos();
-            return Ok(rgMedicos);
-        }
-
-        // HistoriaClinica
-        [HttpPost("historiaclinica")]
-        public async Task<ActionResult> newHistoriaClinica([FromBody] CrearHistoriaClinicaDTO model)
-        {
-            using (var transaction = context.Database.BeginTransaction())
-            {
-                logger.LogInformation("BeginTransaction  Crear Historia Clinica");
-                try
-                {
-                    await fundabiem.newHistoriaClinica(model);
-
-                    transaction.Commit();
-                    logger.LogInformation("Commit transaction Crear Historia Clinica");
-                    return Ok();
-                }
-                catch (Exception ex)
-                {
-                    logger.LogInformation("RollBack transaction Crear Historia Clinica");
-                    logger.LogError(ex.ToString());
-                    return BadRequest();
-                }
-            }
         }
     }
 }

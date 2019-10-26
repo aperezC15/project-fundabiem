@@ -58,6 +58,13 @@ namespace EntityModelFundabien.common
             return paisDTO;
                 
         }
+
+        //obtiene todos los objetivos de intervencion
+        public IEnumerable<ObjetivoDeIntervencion> getAllObjetivos()
+        {
+           return context.ObjetivosDeIntervenciones.ToList();
+        }
+
         //obtiene los departamento de un pais
         public  IEnumerable<departamentosDTO> getDepartamentosByIdPais(double id)
         {
@@ -87,6 +94,23 @@ namespace EntityModelFundabien.common
             return context.RegistrosMedicos.Include(paciente => paciente.paciente.persona).ToList();
         }
 
+        //para obtener un registro medico segun id de paciente o HistorialClinico
+        public IEnumerable<RegistroMedico> searchRegistroMedicos(int idRegistro)
+        {
+            return context.RegistrosMedicos.Where(x=> x.idRegistroMedico == idRegistro).Include(paciente => paciente.paciente.persona).ToList();
+        }
+
+        //para obtener un paciente segun su id
+        public IEnumerable<Paciente> searchPacienteById(int IdPaciente)
+        {
+            return context.Pacientes.Where(x => x.idPaciente == IdPaciente).Include(x => x.persona).ToList();
+        }
+
+        //para obtener un paciente segun su numero de historialClinico
+        public IEnumerable<Paciente> searchPacienteByHistorialClinico(int historialClinico)
+        {
+            return context.Pacientes.Where(x => x.historialClinico == historialClinico).Include(x => x.persona).ToList();
+        }
 
         public IEnumerable<SeccionAnamnesisDTO> getSeccionesconItemsAnamnesis()
         {

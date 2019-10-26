@@ -1,5 +1,6 @@
 ﻿
 using EntityModelFundabien.entities;
+using EntityModelFundabien.EntitySettings;
 using EntityModelFundabien.Seeds;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -45,6 +46,9 @@ namespace BrokerServices.common
         public DbSet<Tratamiento> Tratamientos { get; set; }
         public DbSet<Anamnesis> Anamnesis { get; set; }
         public DbSet<HistoriaClinica> HistoriasClinicas { get; set; }
+        public DbSet<ObjetivoDeIntervencion> ObjetivosDeIntervenciones { get; set; }
+        public DbSet<CicloDeRehabilitacion> CicloDeRehabilitaciones { get; set; }
+        public DbSet<DetalleCicloDeRehabilitacion> DetalleCicloDeRehabilitaciones { get; set; }
 
         //to seeds
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -55,6 +59,10 @@ namespace BrokerServices.common
             modelBuilder.seedTipoDirecciones();
             modelBuilder.seddSeccionesAnamnesis();
             modelBuilder.seedItemsAnamnesis();
+            modelBuilder.ObjetivoDeIntervencionSeed();
+
+            modelBuilder.PacienteConfig();
+            modelBuilder.PersonaConfig();
         }
     }
 }

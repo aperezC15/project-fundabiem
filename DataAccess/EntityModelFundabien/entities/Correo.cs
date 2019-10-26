@@ -9,8 +9,12 @@ namespace EntityModelFundabien.entities
     {
         [Key]
         public Int64 idCorreo { get; set; }
+        [Required]
+        [MaxLength(50, ErrorMessage = "El campo 'correo' de 'Correo' no debe exceder 50 caracteres.")]
         public string  correo { get; set; }
+        [Required]
         public DateTime fechaRegistro { get; set; }
+        [Required]
         public bool estaHabilitado { get; set; }
 
         public Persona persona { get; set; }

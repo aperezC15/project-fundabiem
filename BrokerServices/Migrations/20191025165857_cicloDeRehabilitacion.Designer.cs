@@ -3,15 +3,17 @@ using System;
 using BrokerServices.common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BrokerServices.Migrations
 {
     [DbContext(typeof(dbContext))]
-    partial class dbContextModelSnapshot : ModelSnapshot
+    [Migration("20191025165857_cicloDeRehabilitacion")]
+    partial class cicloDeRehabilitacion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,9 +26,7 @@ namespace BrokerServices.Migrations
                     b.Property<long>("idAnamnesis")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("diagnostico")
-                        .IsRequired()
-                        .HasMaxLength(1000);
+                    b.Property<string>("diagnostico");
 
                     b.Property<long>("idHistoriaClinica");
 
@@ -93,9 +93,7 @@ namespace BrokerServices.Migrations
                     b.Property<long>("idCorreo")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("correo")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("correo");
 
                     b.Property<bool>("estaHabilitado");
 
@@ -117,9 +115,7 @@ namespace BrokerServices.Migrations
 
                     b.Property<long>("idPais");
 
-                    b.Property<string>("nombre")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("nombre");
 
                     b.HasKey("idDepartamento");
 
@@ -262,44 +258,6 @@ namespace BrokerServices.Migrations
                         });
                 });
 
-            modelBuilder.Entity("EntityModelFundabien.entities.DetalleCicloDeRehabilitacion", b =>
-                {
-                    b.Property<long>("idDetalle")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("EE");
-
-                    b.Property<bool>("PS");
-
-                    b.Property<bool>("TF");
-
-                    b.Property<bool>("TL");
-
-                    b.Property<bool>("TO");
-
-                    b.Property<bool>("TS");
-
-                    b.Property<long>("idObjetivo");
-
-                    b.Property<long>("idcicloRehabilitacion");
-
-                    b.Property<bool>("intervencion");
-
-                    b.Property<bool>("valoracionFinal");
-
-                    b.Property<bool>("valoracionInicial");
-
-                    b.Property<bool>("valoracionObjetivo");
-
-                    b.HasKey("idDetalle");
-
-                    b.HasIndex("idObjetivo");
-
-                    b.HasIndex("idcicloRehabilitacion");
-
-                    b.ToTable("DetalleCicloDeRehabilitaciones");
-                });
-
             modelBuilder.Entity("EntityModelFundabien.entities.DetalleTratamiento", b =>
                 {
                     b.Property<long>("idDetalleTratamiento")
@@ -323,9 +281,7 @@ namespace BrokerServices.Migrations
                     b.Property<long>("idDireccion")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("descripcion")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                    b.Property<string>("descripcion");
 
                     b.Property<long>("idMunicipio");
 
@@ -353,9 +309,7 @@ namespace BrokerServices.Migrations
 
                     b.Property<long>("idPersona");
 
-                    b.Property<string>("parentezco")
-                        .IsRequired()
-                        .HasMaxLength(150);
+                    b.Property<string>("parentezco");
 
                     b.HasKey("id");
 
@@ -369,15 +323,13 @@ namespace BrokerServices.Migrations
                     b.Property<long>("idHistoriaClinica")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("diagnosticoFinal")
-                        .IsRequired();
+                    b.Property<string>("diagnosticoFinal");
 
                     b.Property<DateTime>("fechaDeRegistro");
 
                     b.Property<long>("idPaciente");
 
-                    b.Property<string>("motivoDeConsulta")
-                        .IsRequired();
+                    b.Property<string>("motivoDeConsulta");
 
                     b.HasKey("idHistoriaClinica");
 
@@ -391,14 +343,11 @@ namespace BrokerServices.Migrations
                     b.Property<long>("idItemAnamnesis")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("descripcion")
-                        .HasMaxLength(255);
+                    b.Property<string>("descripcion");
 
                     b.Property<long>("idSeccionAnamnesis");
 
-                    b.Property<string>("nombre")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("nombre");
 
                     b.HasKey("idItemAnamnesis");
 
@@ -605,9 +554,7 @@ namespace BrokerServices.Migrations
 
                     b.Property<long>("idDepartamento");
 
-                    b.Property<string>("nombre")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("nombre");
 
                     b.HasKey("idMunicipio");
 
@@ -2705,8 +2652,6 @@ namespace BrokerServices.Migrations
 
                     b.HasKey("idPaciente");
 
-                    b.HasAlternateKey("historialClinico");
-
                     b.HasIndex("idPersona");
 
                     b.ToTable("Pacientes");
@@ -2717,9 +2662,7 @@ namespace BrokerServices.Migrations
                     b.Property<long>("idPais")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("nombre")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("nombre");
 
                     b.HasKey("idPais");
 
@@ -2738,43 +2681,27 @@ namespace BrokerServices.Migrations
                     b.Property<long>("idPersona")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("dpi")
-                        .IsRequired()
-                        .HasMaxLength(13);
+                    b.Property<string>("dpi");
 
-                    b.Property<string>("escolaridad")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("escolaridad");
 
                     b.Property<DateTime>("fechaNacimiento");
 
-                    b.Property<string>("grupoEtnico")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("grupoEtnico");
 
-                    b.Property<string>("primerApellido")
-                        .IsRequired()
-                        .HasMaxLength(25);
+                    b.Property<string>("primerApellido");
 
-                    b.Property<string>("primerNombre")
-                        .IsRequired()
-                        .HasMaxLength(25);
+                    b.Property<string>("primerNombre");
 
-                    b.Property<string>("religion")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("religion");
 
-                    b.Property<string>("segundoApellido")
-                        .HasMaxLength(25);
+                    b.Property<string>("segundoApellido");
 
-                    b.Property<string>("segundoNombre")
-                        .HasMaxLength(25);
+                    b.Property<string>("segundoNombre");
 
                     b.Property<bool>("sexo");
 
                     b.HasKey("idPersona");
-
-                    b.HasAlternateKey("dpi");
 
                     b.ToTable("Personas");
                 });
@@ -2840,12 +2767,9 @@ namespace BrokerServices.Migrations
                     b.Property<long>("idSeccionAnamnesis")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("descripcion")
-                        .HasMaxLength(255);
+                    b.Property<string>("descripcion");
 
-                    b.Property<string>("nombre")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("nombre");
 
                     b.HasKey("idSeccionAnamnesis");
 
@@ -2889,9 +2813,7 @@ namespace BrokerServices.Migrations
 
                     b.Property<long>("idPersona");
 
-                    b.Property<string>("telefono")
-                        .IsRequired()
-                        .HasMaxLength(8);
+                    b.Property<string>("telefono");
 
                     b.HasKey("idTelefono");
 
@@ -2905,9 +2827,7 @@ namespace BrokerServices.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("Descripcion");
 
                     b.HasKey("Id");
 
@@ -2981,19 +2901,6 @@ namespace BrokerServices.Migrations
                     b.HasOne("EntityModelFundabien.entities.Pais", "pais")
                         .WithMany("departamentos")
                         .HasForeignKey("idPais")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("EntityModelFundabien.entities.DetalleCicloDeRehabilitacion", b =>
-                {
-                    b.HasOne("EntityModelFundabien.entities.ObjetivoDeIntervencion", "objetivo")
-                        .WithMany()
-                        .HasForeignKey("idObjetivo")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("EntityModelFundabien.entities.CicloDeRehabilitacion", "ciclo")
-                        .WithMany()
-                        .HasForeignKey("idcicloRehabilitacion")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -11,8 +11,11 @@ namespace EntityModelFundabien.entities
         public Int64 idHistoriaClinica { get; set; }
         public Int64 idPaciente { get; set; }
         // public Int64 idPersonal { get; set; }
+        [Required]
         public DateTime fechaDeRegistro { get; set; }
+        [Required]
         public string motivoDeConsulta { get; set; }
+        [Required]
         public string diagnosticoFinal { get; set; }
 
         public Paciente paciente { get; set; }

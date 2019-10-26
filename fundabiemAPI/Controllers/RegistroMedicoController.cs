@@ -1,0 +1,96 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using BrokerServices.common;
+using EntityModelFundabien.entities;
+using EntityModelFundabien.Interfaces;
+using EntityModelFundabien.ModelsDTO;
+using fundabiemAPI.Middleware;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+
+namespace fundabiemAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class RegistroMedicoController : coreControllerFundabiem<RegistroMedicoController>
+    {
+        private readonly IFundabiemCommonLogic<int, int> fundabiem;
+        private readonly IMapper mapper;
+        private readonly dbContext context;
+        public RegistroMedicoController(ILogger<RegistroMedicoController> logger,
+        IFundabiemCommonLogic<int, int> fundabiem, IMapper mapper, dbContext context) : base(logger)
+        {
+            this.fundabiem = fundabiem;
+            this.mapper = mapper;
+            this.context = context;
+        }
+        //crer un registro medico
+        [HttpPost("new")]
+        public async Task<ActionResult> newRegistroMedico([FromBody] CreateRegistroMedicoDTO model)
+        {
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                logger.LogInformation("BeginTransaction  create registro medico");
+                try
+                {
+                    getUser();
+                    logger.LogInformation("Creating a new Registro Medico");
+                    var PersonaPaciente = await fundabiem.newPersona(model.paciente);
+                    //crea la direccion del paciente
+                    await fundabiem.newDirection(model.direccionPaciente, PersonaPaciente.idPersona);
+                    //crea el paciente
+                    var pacienteR = await fundabiem.newPatient(model.HistorialClinico, PersonaPaciente.idPersona);
+                    //agrega el registro medico
+                    await fundabiem.newRegistroMedico(pacienteR.idPaciente);
+                    //creamos todos los familiares del paciente, hago un forEach para saber quien es el encargado
+                    foreach (var familiar in model.familiaresPaciente)
+                    {   //agrega la persona
+                        var fm = mapper.Map<CreatePersonaDTO>(familiar);
+                        var prsona = await fundabiem.newPersona(fm);
+                        //agrega el familiar
+                        await fundabiem.newFamiliar(prsona.idPersona, pacienteR.idPersona, familiar.parentezco);
+                        //si es encargado, hacemos el registro
+                        if (familiar.isManager)
+                        {
+                            //registramos la direccion del encargado
+                            await fundabiem.newDirection(model.direccionEncargado, prsona.idPersona);
+                            //agregamos el registro a la tabla de personas encargadas
+                            await fundabiem.newPersonaEncargada(prsona.idPersona, pacienteR.idPaciente);
+                        }
+                    }
+                    transaction.Commit();
+                    logger.LogInformation("Commit transaction create registro medico");
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    logger.LogInformation("RollBack transaction create registro medico");
+                    logger.LogError(ex.ToString());
+                    return BadRequest();
+                }
+            }
+        }
+
+        [HttpGet("searchById")]
+        public ActionResult<IEnumerable<RegistroMedico>> searchRegistroMedico(int idRegistro)
+        {
+            getUser();
+            var rgMedicos = fundabiem.searchRegistroMedicos(idRegistro);
+            if (rgMedicos.Count() == 0)
+                return NotFound();
+            return Ok(rgMedicos);
+        }
+
+        [HttpGet("getAll")]
+        public ActionResult<IEnumerable<RegistroMedico>> getRegistroMedico()
+        {
+            getUser();
+            var rgMedicos = fundabiem.getAllRegistrosMedicos();
+            return Ok(rgMedicos);
+        }
+    }
+}
