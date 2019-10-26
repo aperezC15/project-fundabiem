@@ -32,8 +32,9 @@
             </v-btn>
           </v-toolbar>
 
-          <v-data-table :headers="headers" :items="cicloRehabilitacionCIF" :search="search" class="elevation-1">
-            <template v-slot:no-data v-if="cicloRehabilitacionCIF.length === 0">
+          <v-data-table :headers="headers" :items="dataRegistersMedicals" :search="search" class="elevation-1">
+         
+            <template v-slot:no-data v-if="dataRegistersMedicals.length === 0">
               <v-alert
                 class="text-xs-center"
                 :value="true"
@@ -95,18 +96,14 @@ export default {
     return {
       search: "",
       headers: [
-        { text: "Nombre completo", align: "left", sortable: false, value: "nombre" },
-        { text: "Edad", value: "edad" },
-        { text: "Sexo", value: "sexo" },
-        { text: "Origen", value: "origen" },
-        { text: "Diagnóstico", value: "diagnostico" },
-        { text: "fecha", value: "fecha" },
+        { text: "historial Clinico", value: "historialClinico" },
+        { text: "Nombre completo", align: "left", sortable: false, value: "nombreCompleto" },
+        { text: "DPI", value: "dpi" },
+        { text: "Grupo Étnico", value: "grupoEtnico" },
+        { text: "Fecha Admision", value: "fechaAdmision" },
         { text: "Acciones", value: "action" }
       ],
-      cicloRehabilitacionCIF: [
-        {id: 1, nombre: "Juan Gómez", edad: 62, sexo: "masculino", origen: "Guatemala", diagnostico: "Su diagnostico", fecha: "2019-08-12" },
-        { id: 2, nombre: "Benito Juarez", edad: 32, sexo: "masculino", origen: "Guatemala", diagnostico: "El diagnostico", fecha: "2016-02-10" },
-      ],
+      dataRegistersMedicals: [ ],
       dialogRegistroMedico: false,
       dialogRehabilitacion: false,
       loading: false,
@@ -118,30 +115,57 @@ export default {
       this.dialogRegistroMedico = true
       this.$store.dispatch('getPaises')
     },
-    saveRehabilitacion(data) {
+    async saveRehabilitacion(data) {
 
       this.dialogRegistroMedico = false
       this.loading = true
 
-      this.$store.dispatch('newMedicalRegister', data)
+      const response = await this.$store.dispatch('newMedicalRegister', data)
 
-      console.log(data)
+      this.loading = false
+      if(response.status === 200) {
+        const title = "Nuevo registro médico creado con éxito!"
+        const message = "Nuevo registro médico exitosamente"
+        this.showAlert(title, message, "success")
+      } else {
+        const title = "Nuevo registro médico creado sin éxito!"
+        const message = "Nuevo registro médico no se ha creado"
+        this.showAlert(title, message, "error")
+      }
+    },
 
-       setTimeout( () => {
-         this.loading = false
-         this.$swal.fire(
-          'Nuevo ciclo de rehabilitación creado con éxito!',
-          'Nuevo ciclo creado exitosamente',
-          'success'
-         );
-       },2000)
-
+    showAlert(title, message, type) {
+      this.$swal.fire(
+        title,
+        message,
+        type
+      );
     },
     closeModalRehabilitation() {
       this.dialogRegistroMedico= false
        this.$store.commit('clearStore')
     },
+    async getMedicalsRegisters() {
+      this.loading = true
+      const response = await this.$store.dispatch('getMedicalsRegistros')
+      this.loading = false
+      if(response.status === 200 && response.data.length >= 0) {
+        response.data.map( register => {
+              const { fechaAdmision } = register
+             const { estaActivo, historialClinico, idPaciente } = register.paciente
+             const { primerApellido, primerNombre, segundoApellido, segundoNombre, grupoEtnico, dpi, } = register.paciente.persona
 
+             const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`
+
+              this.dataRegistersMedicals.push({ estaActivo, historialClinico, idPaciente, fechaAdmision,
+                nombreCompleto, grupoEtnico, dpi,
+              })
+           })
+      }
+    }
+  },
+  mounted(){
+    this.getMedicalsRegisters()
   }
 };
 </script>

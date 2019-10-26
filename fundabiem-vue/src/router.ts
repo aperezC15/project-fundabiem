@@ -14,6 +14,7 @@ import HistoriaClinicaPsicologia from './components/Historia-Clinica-Psicologia/
 
 import CicloRehabilitacion from './views/Ciclo_Rehabilitacion/Ciclo_de_Rehabilitacion.vue'
 import RegistrosMedicos from './views/registro-medico/RegistroMedicos.vue'
+import HistoriasClinicas from './views/historia-clinica/HistoriaClinica.vue'
 
 
 //@ts-ignore
@@ -115,6 +116,11 @@ const router = new Router({
       path: "/registro-medico",
       name: "registroMedico",
       component: RegistrosMedicos
+    },
+    {
+      path: "/historia-clinica",
+      name: "HistoriasClinicas",
+      component: HistoriasClinicas
     }
   ]
 })

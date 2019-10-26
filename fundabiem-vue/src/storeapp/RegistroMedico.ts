@@ -3,12 +3,23 @@ import api from '../api'
 const store = {
     actions: {
         newMedicalRegister: async({}, data : any) => {
-            console.log(data)
             try {
-                const response = await api.post('/Fundabiem', data)
-                console.log(response)
+                const response = await api.post('/newRegistroMedico', data)
+                if(response.status === 200) {
+                    return response
+                }
             }catch(e) {
-                console.log(e.response)
+                return e.response
+            }
+        },
+        getMedicalsRegistros : async ({}) => {
+            try{
+                const response = await api.get('/RegistroMedico')
+                if( response.status === 200) {
+                    return response
+                }
+            } catch(e) {
+                return e.response
             }
         }
     }
