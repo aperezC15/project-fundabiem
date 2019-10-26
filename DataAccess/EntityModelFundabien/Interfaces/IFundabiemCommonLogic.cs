@@ -43,5 +43,9 @@ namespace EntityModelFundabien.Interfaces
         Task newAnamnesis(Int64 idHistoriaClinica, CrearAnamnesisDTO modelo);
         Task newHistoriaClinica(CrearHistoriaClinicaDTO modelo);
         IEnumerable<ObjetivoDeIntervencion> getAllObjetivos();
+        Task<Int64> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo);
+        Task<CicloDeRehabilitacion> getCicloById(Int64 idCiclo);
+        Task<DetalleCicloDeRehabilitacion> newDetalleCicloRehabilitacion(DetalleCicloRehabilitcionDTO detalle);
+
     }
 }

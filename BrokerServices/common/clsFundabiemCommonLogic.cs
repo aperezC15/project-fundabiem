@@ -121,6 +121,25 @@ namespace EntityModelFundabien.common
             return seccionesDTO;
         }
     
+        //crea un ciclo de rehabilitcion
+        public async Task<Int64> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo)
+        {
+            logger.Information("create a new ciclo de rehabilitacion ");
+            var cl = mapper.Map<CicloDeRehabilitacion>(ciclo);
+            await context.CicloDeRehabilitaciones.AddAsync(cl);
+            await context.SaveChangesAsync();
+            return cl.idcicloRehabilitacion;
+        }
+
+        //crea el detalle del ciclo de rehabilitacion
+        public async Task<DetalleCicloDeRehabilitacion> newDetalleCicloRehabilitacion(DetalleCicloRehabilitcionDTO detalle)
+        {
+            logger.Information("Create a new detalle ciclo de rehabilitacion");
+            var dt = mapper.Map<DetalleCicloDeRehabilitacion>(detalle);
+            await context.DetalleCicloDeRehabilitaciones.AddRangeAsync(dt);
+            await context.SaveChangesAsync();
+            return dt;
+        }
 
         public async Task<Persona> newPersona(CreatePersonaDTO persona)
         {
@@ -130,6 +149,12 @@ namespace EntityModelFundabien.common
             await context.SaveChangesAsync();
             var personaDTO = mapper.Map<CreatePersonaDTO>(pe);
             return await getPersona(pe.idPersona);
+        }
+
+        //obtiene un ciclo de rehabilitacion segun su id
+        public async Task<CicloDeRehabilitacion> getCicloById(Int64 idCiclo)
+        {
+            return await context.CicloDeRehabilitaciones.FirstOrDefaultAsync(x => x.idcicloRehabilitacion == idCiclo);
         }
 
         //obtiene una persona segun idPersona
