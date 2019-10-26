@@ -91,12 +91,14 @@ namespace EntityModelFundabien.common
         //obtiene todos los registros medicos
         public  IEnumerable<RegistroMedico> getAllRegistrosMedicos()
         {
+            logger.Information("Get all REgistros Medicos");
             return context.RegistrosMedicos.Include(paciente => paciente.paciente.persona).ToList();
         }
 
         //para obtener un registro medico segun id de paciente o HistorialClinico
         public IEnumerable<RegistroMedico> searchRegistroMedicos(int idRegistro)
         {
+            logger.Information("Search Registro Medico by Id");
             return context.RegistrosMedicos.Where(x=> x.idRegistroMedico == idRegistro).Include(paciente => paciente.paciente.persona).ToList();
         }
 
