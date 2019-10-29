@@ -49,6 +49,7 @@ namespace BrokerServices.common
         public DbSet<ObjetivoDeIntervencion> ObjetivosDeIntervenciones { get; set; }
         public DbSet<CicloDeRehabilitacion> CicloDeRehabilitaciones { get; set; }
         public DbSet<DetalleCicloDeRehabilitacion> DetalleCicloDeRehabilitaciones { get; set; }
+        public DbSet<EvolucionMedica> EvolucionesMedicas { get; set; }
 
         //to seeds
         protected override void OnModelCreating(ModelBuilder modelBuilder)

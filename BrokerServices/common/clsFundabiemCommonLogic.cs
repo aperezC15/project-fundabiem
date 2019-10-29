@@ -235,5 +235,19 @@ namespace EntityModelFundabien.common
                 await newAnamnesis(historiaClinica.idHistoriaClinica, anamnesis);
             }
         }
+
+        //obtiene una evolucion medica segun su id
+        public async Task<EvolucionMedica> getEvolucionMedica(Int64 idEvolucionMedica) =>
+            await context.EvolucionesMedicas.FirstOrDefaultAsync(e => e.idEvolucionMedica == idEvolucionMedica);
+        
+
+        public async Task<EvolucionMedica> newEvolucionMedica(CreateEvolucionMedicaDTO modelo)
+        {
+            var evolucionMedica = mapper.Map<EvolucionMedica>(modelo);
+            await context.EvolucionesMedicas.AddAsync(evolucionMedica);
+            await context.SaveChangesAsync();
+            
+            return await getEvolucionMedica(evolucionMedica.idEvolucionMedica);
+        }
     }
 }   
