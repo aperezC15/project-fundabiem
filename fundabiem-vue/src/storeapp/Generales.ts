@@ -47,7 +47,7 @@ const store = {
         getPaises: async ({commit} : any) => {
 
             try {
-                const response = await api.get('Fundabiem/paises');
+                const response = await api.get('/Fundabiem/paises');
                 if(response.status === 200) {
                     commit('getPaises', response.data)
                 }
@@ -57,7 +57,7 @@ const store = {
         },
         getDepartamento : async({commit}: any, idPais: number) => {
             try {
-                const response = await api.get(`Fundabiem/departamentos/${idPais}`)
+                const response = await api.get(`/Fundabiem/departamentos/${idPais}`)
                 if(response.status === 200) {
                     commit('getDepartamento', response.data)
                 }
@@ -68,7 +68,7 @@ const store = {
         getMunicipio: async ({commit}: any, idDepartamento: number) => {
 
             try {
-                const response = await api.get(`Fundabiem/municipios/${idDepartamento}`)
+                const response = await api.get(`/Fundabiem/municipios/${idDepartamento}`)
                 if(response.status === 200) {
                     commit('getMunicipio', response.data)
                 }

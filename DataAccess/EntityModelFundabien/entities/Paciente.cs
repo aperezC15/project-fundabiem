@@ -18,6 +18,8 @@ namespace EntityModelFundabien.entities
 
         public Persona persona { get; set; }
         public IList<RegistroMedico> registrosMedicos { get; set; }
+
         public IList<EvolucionMedica> evolucionesMedicas { get; set; }
+        public IList<CicloDeRehabilitacion> cicloDeRehabilitaciones { get; set; }
     }
 }

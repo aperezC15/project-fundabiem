@@ -24,6 +24,12 @@
     <Compile Remove="Migrations\20191024135228_CrearHistoriaClinica.Designer.cs" />
     <Compile Remove="Migrations\20191025163800_ObtivoDeIntervencion.cs" />
     <Compile Remove="Migrations\20191025163800_ObtivoDeIntervencion.Designer.cs" />
+    <Compile Remove="Migrations\20191026141807_listaDetalle.cs" />
+    <Compile Remove="Migrations\20191026141807_listaDetalle.Designer.cs" />
+    <Compile Remove="Migrations\20191026162043_listaDetalle.cs" />
+    <Compile Remove="Migrations\20191026162043_listaDetalle.Designer.cs" />
+    <Compile Remove="Migrations\20191026162123_listaDetalle.cs" />
+    <Compile Remove="Migrations\20191026162123_listaDetalle.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

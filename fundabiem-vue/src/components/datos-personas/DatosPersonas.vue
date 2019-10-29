@@ -50,23 +50,29 @@
       </v-col>
 
       <v-col cols="12" sm="4" md="3">
-        <v-select v-model="paciente.grupoEtnico" :items="grupoEtnicos" :rules="rulesInput" item-value="id" item-text="valor" label="Grupo Étnico" hint="El campo es requerido"
+        <v-select v-model="paciente.grupoEtnico" :items="grupoEtnicos" :rules="rulesInput" item-value="valor" item-text="valor" label="Grupo Étnico" hint="El campo es requerido"
         ></v-select>
       </v-col>
 
       <v-col cols="12" sm="4" md="3" >
-        <v-text-field v-model="paciente.escolaridad" :rules="rulesInput" type="text" label="Escolaridad" hint="El campo es requerido"
+        <v-text-field v-model="paciente.escolaridad" type="text" label="Escolaridad" hint="El campo es opcional"
         ></v-text-field>
       </v-col>
 
       <v-col cols="12" sm="4" md="3" >
-        <v-text-field v-model="paciente.religion" :rules="rulesInput" type="text" label="Religión" hint="El campo es requerido"
+        <v-text-field v-model="paciente.religion" type="text" label="Religión" hint="El campo es opcional"
         ></v-text-field>
       </v-col>
 
       <v-col cols="12" sm="4" md="3" v-if="familiar === 2">
-        <v-text-field v-model="paciente.parentezco" :rules="rulesInput" type="text" label="Parentesco familiar" hint="El campo es requerido"
-        ></v-text-field>
+           <v-select
+           :rules="rulesInput"
+            :items="items"
+            :menu-props="{ top: true, offsetY: true }"
+           label="Parentesco familiar" hint="El campo es requerido"
+            v-model="paciente.parentezco"
+          ></v-select>
+
       </v-col>
 
 
@@ -103,6 +109,7 @@ export default {
           { id: 1, valor: "Masculino", },
           { id: 2, valor: "Femenino"}
       ],
+      items: ['Papá', 'Mamá', 'Encargada', 'Hermano', 'Hermana', 'Tío', 'Tía', 'Primo', 'Prima', 'Abuelo', 'Abuela'],
     };
   },
   methods: {

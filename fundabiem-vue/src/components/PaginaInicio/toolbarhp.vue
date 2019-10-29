@@ -90,6 +90,7 @@ export default class tool extends Vue{
         { title: 'Ciclo de Rehabilitacion', icon: "far fa-address-card", path:'/ciclo-rehabilitacion'},
         { title: 'Historia Clínica Psicologia', icon: "far fa-address-card", path:'/Psicologia-clinica'},
         { title: 'Registros Médicos', icon: "far fa-folder", path:'/registro-medico'},
+        { title: 'hHistoria Clínica', icon: "far fa-folder", path:'/historia-clinica'},
     ]
 
     // mounted() {

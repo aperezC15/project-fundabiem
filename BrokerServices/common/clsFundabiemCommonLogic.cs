@@ -58,6 +58,13 @@ namespace EntityModelFundabien.common
             return paisDTO;
                 
         }
+
+        //obtiene todos los objetivos de intervencion
+        public IEnumerable<ObjetivoDeIntervencion> getAllObjetivos()
+        {
+           return context.ObjetivosDeIntervenciones.ToList();
+        }
+
         //obtiene los departamento de un pais
         public  IEnumerable<departamentosDTO> getDepartamentosByIdPais(double id)
         {
@@ -84,19 +91,42 @@ namespace EntityModelFundabien.common
         //obtiene todos los registros medicos
         public  IEnumerable<RegistroMedico> getAllRegistrosMedicos()
         {
+            logger.Information("Get all REgistros Medicos");
             return context.RegistrosMedicos.Include(paciente => paciente.paciente.persona).ToList();
         }
 
         //para obtener un registro medico segun id de paciente o HistorialClinico
         public IEnumerable<RegistroMedico> searchRegistroMedicos(int idRegistro)
         {
+            logger.Information("Search Registro Medico by Id");
             return context.RegistrosMedicos.Where(x=> x.idRegistroMedico == idRegistro).Include(paciente => paciente.paciente.persona).ToList();
         }
 
         //para obtener un paciente segun su id
-        public IEnumerable<Paciente> searchPacienteById(int IdPaciente)
+        public IEnumerable<Paciente> searchPaciente(string valor, string criterio)
         {
-            return context.Pacientes.Where(x => x.idPaciente == IdPaciente).Include(x => x.persona).ToList();
+            var resultado  = new List<Paciente>();
+            switch (criterio)
+            {
+                case "id":
+                     resultado = context.Pacientes.Where(x => x.idPaciente == Convert.ToInt64(valor)).Include(x => x.persona).ToList();
+                    break;
+
+                case "nombre":
+                    resultado = context.Pacientes.Where(x => (x.persona.primerNombre +" "+ x.persona.segundoNombre +" "+ x.persona.primerApellido +" "+ x.persona.segundoApellido).Contains(valor) ).Include(x => x.persona).ToList();
+                    break;
+
+                case "historialClinico":
+                    resultado = context.Pacientes.Where(x => x.historialClinico == Convert.ToInt64(valor)).Include(x => x.persona).ToList();
+                    break;
+
+                case "DPI":
+                    resultado = context.Pacientes.Where(x => x.persona.dpi == valor).Include(x => x.persona).ToList();
+                    break;
+                    
+            }
+            return resultado;
+            
         }
 
         //para obtener un paciente segun su numero de historialClinico
@@ -114,6 +144,25 @@ namespace EntityModelFundabien.common
             return seccionesDTO;
         }
     
+        //crea un ciclo de rehabilitcion
+        public async Task<Int64> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo)
+        {
+            logger.Information("create a new ciclo de rehabilitacion ");
+            var cl = mapper.Map<CicloDeRehabilitacion>(ciclo);
+            await context.CicloDeRehabilitaciones.AddAsync(cl);
+            await context.SaveChangesAsync();
+            return cl.idcicloRehabilitacion;
+        }
+
+        //crea el detalle del ciclo de rehabilitacion
+        public async Task<DetalleCicloDeRehabilitacion> newDetalleCicloRehabilitacion(DetalleCicloRehabilitcionDTO detalle)
+        {
+            logger.Information("Create a new detalle ciclo de rehabilitacion");
+            var dt = mapper.Map<DetalleCicloDeRehabilitacion>(detalle);
+            await context.DetalleCicloDeRehabilitaciones.AddRangeAsync(dt);
+            await context.SaveChangesAsync();
+            return dt;
+        }
 
         public async Task<Persona> newPersona(CreatePersonaDTO persona)
         {
@@ -125,11 +174,23 @@ namespace EntityModelFundabien.common
             return await getPersona(pe.idPersona);
         }
 
+        //obtiene un ciclo de rehabilitacion segun su id
+        public async Task<CicloDeRehabilitacion> getCicloById(Int64 idCiclo)
+        {
+            return await context.CicloDeRehabilitaciones.FirstOrDefaultAsync(x => x.idcicloRehabilitacion == idCiclo);
+        }
+
         //obtiene una persona segun idPersona
         public async Task<Persona> getPersona(Int64 idPersona)
         {
             var persona = await context.Personas.FirstOrDefaultAsync(x => x.idPersona == idPersona);
             return persona;
+        }
+        //busca el diagnotico
+        public async Task<IEnumerable<RegistroMedicoDiagnostico>> getDianostico(int idRegistroMedico)
+        {
+            var dg = await context.RegistrosMedicosDiagnostico.Where(x => x.idRegistroMedico == idRegistroMedico).ToListAsync();
+            return dg;
         }
 
         //crea un nuevo paciente
@@ -147,7 +208,12 @@ namespace EntityModelFundabien.common
             return await getPacienteById(patient.idPaciente);
         }
 
-
+        //obtener todos los pacientes
+        public IEnumerable<Paciente> getAllPacientes()
+        {
+            return context.Pacientes.Include(x=>x.registrosMedicos).Include(x => x.cicloDeRehabilitaciones).ToList();
+        }
+        //buscar paciente por id
         public async Task<Paciente> getPacienteById(Int64 idPaciente)
         {
             logger.Information("reading paciente with id = ", idPaciente);
@@ -165,6 +231,16 @@ namespace EntityModelFundabien.common
             rg.estaFirmado = true;
             await context.RegistrosMedicos.AddAsync(rg);
             await context.SaveChangesAsync();
+        }
+
+        //completar un registro medico
+        public async Task<RegistroMedicoDiagnostico> completRegistroMedico(RegistroMedicoDiagnosticoDTO model)
+        {
+            logger.Information("completar registro medico");
+            var cp = mapper.Map<RegistroMedicoDiagnostico>(model);
+            await context.RegistrosMedicosDiagnostico.AddAsync(cp);
+            await context.SaveChangesAsync();
+            return cp;
         }
 
         public async Task newPersonaEncargada(Int64 idPersona, Int64 idPaciente)
