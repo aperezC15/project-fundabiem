@@ -49,5 +49,14 @@ namespace fundabiemAPI.Controllers
                 return NotFound();
             return Ok(paciente);
         }
+
+        [HttpGet("getAll")]
+        public ActionResult<IEnumerable<Paciente>> getAll()
+        {
+            var pacientes = fundabiem.getAllPacientes();
+            if (pacientes.Count() == 0) { return BadRequest("No se encontraron pacientes"); }
+            return Ok(pacientes);
+        }
+
     }
 }

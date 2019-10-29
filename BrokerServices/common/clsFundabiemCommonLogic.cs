@@ -186,6 +186,12 @@ namespace EntityModelFundabien.common
             var persona = await context.Personas.FirstOrDefaultAsync(x => x.idPersona == idPersona);
             return persona;
         }
+        //busca el diagnotico
+        public async Task<IEnumerable<RegistroMedicoDiagnostico>> getDianostico(int idRegistroMedico)
+        {
+            var dg = await context.RegistrosMedicosDiagnostico.Where(x => x.idRegistroMedico == idRegistroMedico).ToListAsync();
+            return dg;
+        }
 
         //crea un nuevo paciente
         public async Task<Paciente> newPatient(int historialClinico, Int64 idPersona)
@@ -202,7 +208,12 @@ namespace EntityModelFundabien.common
             return await getPacienteById(patient.idPaciente);
         }
 
-
+        //obtener todos los pacientes
+        public IEnumerable<Paciente> getAllPacientes()
+        {
+            return context.Pacientes.Include(x=>x.registrosMedicos).Include(x => x.cicloDeRehabilitaciones).ToList();
+        }
+        //buscar paciente por id
         public async Task<Paciente> getPacienteById(Int64 idPaciente)
         {
             logger.Information("reading paciente with id = ", idPaciente);
@@ -220,6 +231,16 @@ namespace EntityModelFundabien.common
             rg.estaFirmado = true;
             await context.RegistrosMedicos.AddAsync(rg);
             await context.SaveChangesAsync();
+        }
+
+        //completar un registro medico
+        public async Task<RegistroMedicoDiagnostico> completRegistroMedico(RegistroMedicoDiagnosticoDTO model)
+        {
+            logger.Information("completar registro medico");
+            var cp = mapper.Map<RegistroMedicoDiagnostico>(model);
+            await context.RegistrosMedicosDiagnostico.AddAsync(cp);
+            await context.SaveChangesAsync();
+            return cp;
         }
 
         public async Task newPersonaEncargada(Int64 idPersona, Int64 idPaciente)

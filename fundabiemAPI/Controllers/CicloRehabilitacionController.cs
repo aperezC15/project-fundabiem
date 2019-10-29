@@ -57,6 +57,7 @@ namespace fundabiemAPI.Controllers
                 }
                 catch(Exception ex)
                 {
+                    transaction.Rollback();
                     logger.LogError("RollBack transaction {0}",txt);
                     logger.LogError(ex.ToString());
                     return BadRequest();
