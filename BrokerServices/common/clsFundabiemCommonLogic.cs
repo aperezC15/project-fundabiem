@@ -103,9 +103,30 @@ namespace EntityModelFundabien.common
         }
 
         //para obtener un paciente segun su id
-        public IEnumerable<Paciente> searchPacienteById(int IdPaciente)
+        public IEnumerable<Paciente> searchPaciente(string valor, string criterio)
         {
-            return context.Pacientes.Where(x => x.idPaciente == IdPaciente).Include(x => x.persona).ToList();
+            var resultado  = new List<Paciente>();
+            switch (criterio)
+            {
+                case "id":
+                     resultado = context.Pacientes.Where(x => x.idPaciente == Convert.ToInt64(valor)).Include(x => x.persona).ToList();
+                    break;
+
+                case "nombre":
+                    resultado = context.Pacientes.Where(x => (x.persona.primerNombre +" "+ x.persona.segundoNombre +" "+ x.persona.primerApellido +" "+ x.persona.segundoApellido).Contains(valor) ).Include(x => x.persona).ToList();
+                    break;
+
+                case "historialClinico":
+                    resultado = context.Pacientes.Where(x => x.historialClinico == Convert.ToInt64(valor)).Include(x => x.persona).ToList();
+                    break;
+
+                case "DPI":
+                    resultado = context.Pacientes.Where(x => x.persona.dpi == valor).Include(x => x.persona).ToList();
+                    break;
+                    
+            }
+            return resultado;
+            
         }
 
         //para obtener un paciente segun su numero de historialClinico
