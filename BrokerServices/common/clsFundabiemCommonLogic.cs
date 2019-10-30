@@ -19,11 +19,11 @@ namespace EntityModelFundabien.common
     where TI : struct, IEquatable<TI>
         where TC : struct
     {
-        private readonly Func<IFundabiemCommonLogic<TI, TC>> contratoEntityFactory;
+        //private readonly Func<IFundabiemCommonLogic<TI, TC>> contratoEntityFactory;
         private readonly dbContext context;
         private readonly IMapper mapper;
         private readonly ILogger logger;
-        private dbContext context1;
+        //private dbContext context1;
         
 
         public clsFundabiemCommonLogic(IMapper mapper, dbContext context, ILogger logger)
@@ -86,6 +86,12 @@ namespace EntityModelFundabien.common
         {
             var tipos = context.tipoDirecciones.ToList();
             return tipos;
+        }
+
+        //obtiene los estados de citas
+        public IEnumerable<EstadoCitas> getAllEstadoCitas()
+        {
+            return context.EstadoCitas.ToList();
         }
 
         //obtiene todos los registros medicos

@@ -71,5 +71,15 @@ namespace fundabiemAPI.Controllers
                 return BadRequest();
             return Ok(tipos);
         }
+
+        [HttpGet("EstadoCitas")]
+        public ActionResult<IEnumerable<EstadoCitas>> getEstadocitas()
+        {
+            getUser();
+            var estados = fundabiem.getAllEstadoCitas();
+            if (estados.Count() == 0)
+                return BadRequest("No se encontraron estados disponibles");
+            return Ok(estados);
+        }
     }
 }
