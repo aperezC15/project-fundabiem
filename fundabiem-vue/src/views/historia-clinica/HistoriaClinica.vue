@@ -23,7 +23,7 @@
             <v-btn
               color="indigo"
               fab
-              title="NUEVO REGISTRO MÉDICO"
+              title="NUEVA HISTORIA CLINICA"
               class="mx-2"
               @click="openDialogRegistroMedico"
             >
@@ -130,12 +130,12 @@ export default {
 
       this.loading = false;
       if (response.status === 200) {
-        const title = "Nuevo registro médico creado con éxito!";
-        const message = "Nuevo registro médico exitosamente";
+        const title = "Nueva historia clínica creado con éxito!";
+        const message = "Nueva historia clínica exitosamente";
         this.showAlert(title, message, "success");
       } else {
-        const title = "Nuevo registro médico creado sin éxito!";
-        const message = "Nuevo registro médico no se ha creado";
+        const title = "Nueva historia clínica creada sin éxito!";
+        const message = "Nueva historia clínica  no se ha creado";
         this.showAlert(title, message, "error");
       }
     },

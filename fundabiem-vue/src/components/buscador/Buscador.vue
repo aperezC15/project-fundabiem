@@ -7,7 +7,7 @@
             <v-select
               v-model="buscarPor"
               :items="opcionesBuscar"
-              item-value="id"
+              item-value="valor"
               item-text="valor"
               label="Seleccione búsqueda por"
               :rules="rulesInput"
@@ -40,9 +40,9 @@ export default {
       buscarPor: "",
       valorDeBusqueda: "",
       opcionesBuscar: [
-        { id: 1, valor: "Historia clínica" },
+        { id: 1, valor: "historialClínica" },
         { id: 2, valor: "DPI" },
-        { id: 3, valor: "Nombre" }
+        { id: 3, valor: "nombre" }
       ],
       rulesInput: [v => !!v || "El campo es requerido"],
       formValid: false

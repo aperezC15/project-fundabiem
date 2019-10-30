@@ -83,14 +83,14 @@ export default class tool extends Vue{
     userName:string = ''
     item:number=1
     items:any=[
-        { title: 'Registros Medicos' , icon: 'far fa-address-card', path: '/HomePageRM'},
+        // { title: 'Registros Medicos' , icon: 'far fa-address-card', path: '/HomePageRM'},
         { title: 'Estudio Socioeconomico' , icon: 'far fa-address-card', path: '/HomePageES'},
-        { title: 'Hoja Evolución Técnica ' , icon: 'far fa-address-card', path: '/HomePageET'},
-        { title: 'Hoja de Estadísticas Diarias' , icon: 'far fa-address-card', path: ''},
+        // { title: 'Hoja Evolución Técnica ' , icon: 'far fa-address-card', path: '/HomePageET'},
+        // { title: 'Hoja de Estadísticas Diarias' , icon: 'far fa-address-card', path: ''},
         { title: 'Ciclo de Rehabilitacion', icon: "far fa-address-card", path:'/ciclo-rehabilitacion'},
         { title: 'Historia Clínica Psicologia', icon: "far fa-address-card", path:'/Psicologia-clinica'},
         { title: 'Registros Médicos', icon: "far fa-folder", path:'/registro-medico'},
-        { title: 'hHistoria Clínica', icon: "far fa-folder", path:'/historia-clinica'},
+        { title: 'Historia Clínica', icon: "far fa-folder", path:'/historia-clinica'},
     ]
 
     // mounted() {
