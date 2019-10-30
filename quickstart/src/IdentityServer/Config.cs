@@ -5,6 +5,7 @@ using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using static IdentityModel.OidcConstants;
@@ -20,7 +21,7 @@ namespace IdentityServer
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
-                //new IdentityResource("roles", new List<string>{JwtClaimTypes.Role })
+                new IdentityResource("roles", new List<string>{JwtClaimTypes.Role })
             };
         }
 
@@ -130,6 +131,30 @@ namespace IdentityServer
                         "api1",
                     },
                     IdentityTokenLifetime = 3000
+                },
+                 new Client
+                {
+                    ClientId = "ethos",
+                    ClientName = "Identity",
+                    AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
+                    AlwaysIncludeUserClaimsInIdToken=true,
+                    AllowAccessTokensViaBrowser=true,
+                    RequireConsent = false,
+                    ClientSecrets =
+                    {
+                        new Secret("SECRETO#&".Sha256())
+                    },
+                    // where to redirect to after login
+                    RedirectUris = { Environment.GetEnvironmentVariable("LINK_ETHOS_LOGIN") },
+                    // where to redirect to after logout
+                    PostLogoutRedirectUris = { Environment.GetEnvironmentVariable("LINK_ETHOS_LOGOUT") },
+                    AllowedScopes = new List<string>
+                    {
+                        StandardScopes.OpenId,
+                        StandardScopes.Profile,
+                        "roles"
+                    },
+                    AllowOfflineAccess = true
                 },
             };
         }

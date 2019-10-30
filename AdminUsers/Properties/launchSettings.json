@@ -1,0 +1,35 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/Ethos",
+      "sslPort": 0
+    },
+    "iisExpress": {
+      "applicationUrl": "http://localhost:54193",
+      "sslPort": 44354
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IIS",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "STRING_CONNECTION": "Server=35.183.69.28;port=5432;Database=fundabien;User Id=postgres;Password=Fundabien@2019;Pooling=true;MinPoolSize=1;MaxPoolSize=20;",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "LINK_AUTHORITY": "https://localhost:5001"
+      }
+    },
+    "Ethos": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "STRING_CONNECTION": "Server=35.183.69.28;port=5432;Database=fundabien;User Id=postgres;Password=Fundabien@2019;Pooling=true;MinPoolSize=1;MaxPoolSize=20;",
+        "LINK_EXO_GUARDIAN": "https://localhost:5001",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:7001;http://localhost:7000"
+    }
+  }
+}

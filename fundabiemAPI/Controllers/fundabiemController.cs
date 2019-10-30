@@ -71,5 +71,25 @@ namespace fundabiemAPI.Controllers
                 return BadRequest();
             return Ok(tipos);
         }
+
+        [HttpGet("EstadoCitas")]
+        public ActionResult<IEnumerable<EstadoCitas>> getEstadocitas()
+        {
+            getUser();
+            var estados = fundabiem.getAllEstadoCitas();
+            if (estados.Count() == 0)
+                return BadRequest("No se encontraron estados disponibles");
+            return Ok(estados);
+        }
+
+        [HttpGet("Terapias")]
+        public ActionResult<IEnumerable<Terapias>> getTerapias()
+        {
+            getUser();
+            var terapias = fundabiem.getAllTerapias();
+            if (terapias.Count() == 0)
+                return BadRequest("No se encontraron Terapias");
+            return Ok(terapias);
+        }
     }
 }

@@ -12,7 +12,9 @@
       "commandName": "Project",
       "environmentVariables": {
         "STRING_CONNECTION": "Server=35.183.69.28;port=5432;Database=fundabien;User Id=postgres;Password=Fundabien@2019;Pooling=true;MinPoolSize=1;MaxPoolSize=20;",
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "LINK_ETHOS_LOGOUT": "https://localhost:7001/signout-callback-oidc",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "LINK_ETHOS_LOGIN": "https://localhost:7001/signin-oidc"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
     },

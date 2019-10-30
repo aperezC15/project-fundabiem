@@ -17,7 +17,7 @@ namespace EntityModelFundabien.Interfaces
     {
         //add all task
         Task RegistrarPAciente();
-        Task Saludar<TI>();
+        //Task Saludar<TI>();
         ActionResult<AutorDTO> obtenerAutor(int id);
         ActionResult<IEnumerable<DTOPaises>> getAllPaises();
         IEnumerable<departamentosDTO> getDepartamentosByIdPais(double idPais);
@@ -53,6 +53,8 @@ namespace EntityModelFundabien.Interfaces
         Task<RegistroMedicoDiagnostico> completRegistroMedico(RegistroMedicoDiagnosticoDTO model);
         IEnumerable<Paciente> getAllPacientes();
         Task<IEnumerable<RegistroMedicoDiagnostico>> getDianostico(int idRegistroMedico);
+        IEnumerable<EstadoCitas> getAllEstadoCitas();
+        IEnumerable<Terapias> getAllTerapias();
 
     }
 }

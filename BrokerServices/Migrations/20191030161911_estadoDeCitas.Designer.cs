@@ -3,15 +3,17 @@ using System;
 using BrokerServices.common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BrokerServices.Migrations
 {
     [DbContext(typeof(dbContext))]
-    partial class dbContextModelSnapshot : ModelSnapshot
+    [Migration("20191030161911_estadoDeCitas")]
+    partial class estadoDeCitas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2958,80 +2960,6 @@ namespace BrokerServices.Migrations
                     b.HasIndex("idPersona");
 
                     b.ToTable("Telefonos");
-                });
-
-            modelBuilder.Entity("EntityModelFundabien.entities.Terapias", b =>
-                {
-                    b.Property<long>("IdTerapia")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Descripcion");
-
-                    b.Property<string>("Encargado");
-
-                    b.Property<string>("Nombre");
-
-                    b.HasKey("IdTerapia");
-
-                    b.ToTable("Terapias");
-
-                    b.HasData(
-                        new
-                        {
-                            IdTerapia = 1L,
-                            Descripcion = "fisioterapia",
-                            Encargado = "16e7295d-662e-440e-9e55-bb0680f8e9a0",
-                            Nombre = "FT"
-                        },
-                        new
-                        {
-                            IdTerapia = 2L,
-                            Descripcion = "Terapia Ocupacional",
-                            Encargado = "21859333-eefc-4a3b-914e-0884df0d2ca0",
-                            Nombre = "TO"
-                        },
-                        new
-                        {
-                            IdTerapia = 3L,
-                            Descripcion = "Terapia de Lenguaje",
-                            Encargado = "7af9189d-e12f-4d9e-b4f0-44e4fdba0790",
-                            Nombre = "TL"
-                        },
-                        new
-                        {
-                            IdTerapia = 4L,
-                            Descripcion = "Terapia Social",
-                            Encargado = "332f07fc-0e28-4e9c-866c-d8ced8eba9a6",
-                            Nombre = "TS"
-                        },
-                        new
-                        {
-                            IdTerapia = 5L,
-                            Descripcion = "Terapia Psicologica",
-                            Encargado = "eb1794b8-42b4-4ede-bba2-2d7073671eea",
-                            Nombre = "PSCI"
-                        },
-                        new
-                        {
-                            IdTerapia = 6L,
-                            Descripcion = "Terapia Virtual",
-                            Encargado = "79c300f9-46da-476f-830b-a1f74e02ad27",
-                            Nombre = "IREX"
-                        },
-                        new
-                        {
-                            IdTerapia = 7L,
-                            Descripcion = "MecanoTerapia",
-                            Encargado = "6e3516cd-1688-45a7-b9ce-1e4e8cfe2c09",
-                            Nombre = "MT"
-                        },
-                        new
-                        {
-                            IdTerapia = 8L,
-                            Descripcion = "Cuarto de estimulación Sensorial",
-                            Encargado = "e1f3b398-54a7-493a-adfa-11329a459e91",
-                            Nombre = "CEMS"
-                        });
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.TipoDirecciones", b =>
