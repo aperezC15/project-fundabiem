@@ -50,6 +50,8 @@ namespace BrokerServices.common
         public DbSet<CicloDeRehabilitacion> CicloDeRehabilitaciones { get; set; }
         public DbSet<DetalleCicloDeRehabilitacion> DetalleCicloDeRehabilitaciones { get; set; }
         public DbSet<EvolucionMedica> EvolucionesMedicas { get; set; }
+        public DbSet<EstadoCitas> EstadoCitas { get; set; }
+        public DbSet<Terapias> Terapias { get; set; }
 
         //to seeds
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -64,6 +66,8 @@ namespace BrokerServices.common
 
             modelBuilder.PacienteConfig();
             modelBuilder.PersonaConfig();
+            modelBuilder.EstadoCitaSedds();
+            modelBuilder.TerapiasSeed();
         }
     }
 }

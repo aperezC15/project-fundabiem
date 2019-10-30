@@ -30,6 +30,14 @@
     <Compile Remove="Migrations\20191026162043_listaDetalle.Designer.cs" />
     <Compile Remove="Migrations\20191026162123_listaDetalle.cs" />
     <Compile Remove="Migrations\20191026162123_listaDetalle.Designer.cs" />
+    <Compile Remove="Migrations\20191030171943_pruebaPersonal.cs" />
+    <Compile Remove="Migrations\20191030171943_pruebaPersonal.Designer.cs" />
+    <Compile Remove="Migrations\20191030173641_terapias.cs" />
+    <Compile Remove="Migrations\20191030173641_terapias.Designer.cs" />
+    <Compile Remove="Migrations\20191030174449_pruebaTerapia.cs" />
+    <Compile Remove="Migrations\20191030174449_pruebaTerapia.Designer.cs" />
+    <Compile Remove="Migrations\20191030181126_pruebaTe.cs" />
+    <Compile Remove="Migrations\20191030181126_pruebaTe.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
