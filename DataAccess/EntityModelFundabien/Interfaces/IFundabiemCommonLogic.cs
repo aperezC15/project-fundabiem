@@ -54,6 +54,7 @@ namespace EntityModelFundabien.Interfaces
         IEnumerable<Paciente> getAllPacientes();
         Task<IEnumerable<RegistroMedicoDiagnostico>> getDianostico(int idRegistroMedico);
         IEnumerable<EstadoCitas> getAllEstadoCitas();
+        IEnumerable<Terapias> getAllTerapias();
 
     }
 }

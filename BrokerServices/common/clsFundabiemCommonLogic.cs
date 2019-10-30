@@ -94,6 +94,12 @@ namespace EntityModelFundabien.common
             return context.EstadoCitas.ToList();
         }
 
+        //obtiene las terapias disponibles
+        public IEnumerable<Terapias> getAllTerapias()
+        {
+            return context.Terapias.ToList();
+        }
+
         //obtiene todos los registros medicos
         public  IEnumerable<RegistroMedico> getAllRegistrosMedicos()
         {
