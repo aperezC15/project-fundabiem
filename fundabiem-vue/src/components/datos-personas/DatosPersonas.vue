@@ -45,7 +45,7 @@
 
 
       <v-col cols="12" sm="4" md="3" >
-        <v-text-field v-model="paciente.dpi" :rules="rulesInput" type="text" label="DPI" hint="El campo es requerido"
+        <v-text-field v-model="paciente.dpi" :counter="13" :rules="rulesInputDpi" type="text" label="DPI" hint="El campo es requerido"
         ></v-text-field>
       </v-col>
 
@@ -55,13 +55,24 @@
       </v-col>
 
       <v-col cols="12" sm="4" md="3" >
-        <v-text-field v-model="paciente.escolaridad" type="text" label="Escolaridad" hint="El campo es opcional"
-        ></v-text-field>
+           <v-select
+           :rules="rulesInput"
+            :items="escolaridad"
+            :menu-props="{ top: true, offsetY: true }"
+           label="Seleccione la escolaridad" hint="El campo es requerido"
+            v-model="paciente.escolaridad"
+          ></v-select>
       </v-col>
 
       <v-col cols="12" sm="4" md="3" >
-        <v-text-field v-model="paciente.religion" type="text" label="Religión" hint="El campo es opcional"
-        ></v-text-field>
+          <v-select
+           :rules="rulesInput"
+            :items="religion"
+            :menu-props="{ top: true, offsetY: true }"
+           label="Religión" hint="El campo es requerido"
+            v-model="paciente.religion"
+          ></v-select>
+
       </v-col>
 
       <v-col cols="12" sm="4" md="3" v-if="familiar === 2">
@@ -97,6 +108,10 @@ export default {
       rulesInput: [
           v => !! v || "El campo es obligatorio"
         ],
+      rulesInputDpi: [
+        v => !! v || "El campo es obligatorio",
+        v => v.length <= 13 || 'El DPI debe contener 13 digitos',
+      ],
     formDatosPersonales: false,
     id: 0,
       grupoEtnicos: [
@@ -110,6 +125,8 @@ export default {
           { id: 2, valor: "Femenino"}
       ],
       items: ['Papá', 'Mamá', 'Encargada', 'Hermano', 'Hermana', 'Tío', 'Tía', 'Primo', 'Prima', 'Abuelo', 'Abuela'],
+      religion: ['Cristiana', 'Mormon', 'Católico', 'Ateo', 'Testigo de Jehová'],
+      escolaridad: ['Pre-primaria', 'Kinder', 'Parvulos','Primaria', 'Básico', 'Diversificado', 'Universidad'],
     };
   },
   methods: {
