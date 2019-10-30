@@ -33,13 +33,17 @@
               <v-stepper-content step="1">
                 <v-card class="mb-12" >
                     <buscador @buscador="buscador" @cleanData="cleanData" />
-                    <v-container v-show="searchPatient">
-                        <datos-persona :familiar="1" :historialClinico="historialClinico" :paciente="paciente" />
+
+                    <alert-error-global v-if="showAlertError" message="No se encontraron resultados para el filtro ingresado" />
+                    <alert-error-global v-if="showBusquedaEmpty" message="Debe realizar una búsqueda para poder continuar " />
+
+                    <v-container v-if="searchPatient">
+                        <datos-persona :readonly="true" :familiar="1" :historialClinico="historialClinico" :paciente="paciente" />
                     </v-container>
 
                 </v-card>
 
-                  <v-btn color="primary ma-2" @click="e1 = 2" >Continuar</v-btn>
+                  <v-btn color="primary ma-2" @click="continuarStepper" >Continuar</v-btn>
                   <v-btn color="error"  @click="closeModalAnamnesis">Cerrar</v-btn>
             
               </v-stepper-content>
@@ -67,28 +71,14 @@
 import Buscador from '../buscador/Buscador.vue'
 import DatosPersona from "../datos-personas/DatosPersonas.vue";
 import Anamnesis from '../historia-clinica/AnamnesisComponent.vue'
-
-
-let pacienteObject = {
-  primerNombre: "Juan",
-  segundoNombre: "Pablo",
-  primerApellido: "Villa",
-  segundoApellido: "Gomez",
-  sexo: "Masculino",
-  fechaNacimiento: new Date().toISOString().substr(0, 10),
-  menu2: false,
-  grupoEtnico: "Ladino",
-  escolaridad: "Primaria",
-  religion: "Cristiano",
-  dpi: "82099393"
-};
-
+import AlertErrorGlobal from '../alertas/alertErrorGlobal.vue'
 
 export default {
   components: {
     Buscador,
     DatosPersona,
-    Anamnesis
+    Anamnesis,
+    AlertErrorGlobal
   },
   props: {
     dialogHistorialMedico: Boolean
@@ -96,22 +86,39 @@ export default {
   data() {
     return {
       e1: 1,
-      paciente: {
-        ...pacienteObject
-      },
+      paciente: {},
       idPaciente: "1",
       searchPatient: false,
-       historialClinico : { nombre: "" }
+       historialClinico : { nombre: "" },
+      showAlertError: false,
+      showBusquedaEmpty: false
+
     };
   },
   methods: {
     closeModalAnamnesis() {
-      this.getCopyData();
       this.$emit("closeModalAnamnesis");
-       this.e1 = 1
+      this.regresarStep1()
     },
-    saveRehabilitacion() {
-      this.$emit("saveRehabilitacion", data);
+
+    regresarStep1() {
+      this.e1 = 1
+      this.showAlertError = false
+      this.searchPatient = false
+      this.paciente = {}
+ 
+    },
+ 
+    continuarStepper() {
+      if( Object.keys(this.paciente).length === 0 ) {
+        this.showBusquedaEmpty = true
+
+        setTimeout( () => {
+          this.showBusquedaEmpty = false
+        },3000)
+        return
+      }
+      this.e1 = 2
     },
     goBack() {
       this.e1 = 1
@@ -119,22 +126,58 @@ export default {
     newHistory(data) {
 
       const newData = {
-        idPaciente: this.idPaciente,
+        idPaciente: this.paciente.idPaciente,
         ...data
       }
 
       this.$emit('newHistory',newData)
+      this.regresarStep1()
     },
-    buscador(search) {
-      console.log(search)
-      this.searchPatient = true
+    async buscador(search) {
+      const data = {
+        criterio : search.buscarPor,
+        valor : search.valorDeBusqueda
+      }
+
+      this.searchPatient = false
+      this.showAlertError = false
+      this.searchPatient = false
+
+      const response = await this.$store.dispatch('getPacient', data)
+
+      if(response.status === 200) {
+        this.searchPatient =true
+        const paciente = response.data[0]
+
+        const { persona} = paciente
+
+        this.paciente = {
+          idPaciente: paciente.idPaciente,
+          primerNombre: persona.primerNombre,
+          segundoNombre: persona.segundoNombre,
+          primerApellido: persona.primerApellido,
+          segundoApellido: persona.segundoApellido,
+          sexo: (persona.sexo) ? 1: 2,
+          fechaNacimiento: persona.fechaNacimiento,
+          menu2: false,
+          grupoEtnico: persona.grupoEtnico,
+          escolaridad: persona.escolaridad,
+          religion: persona.religion,
+          dpi: persona.dpi
+        }
+        this.historialClinico.nombre = paciente.historialClinico
+
+      } else {
+        this.searchPatient = false
+        this.showAlertError = true
+        setTimeout( () => {
+          this.showAlertError = false
+        },3000)
+      }
     },
     cleanData() {
       this.searchPatient = false
     },
-    getCopyData() {
-      this.paciente = { ...pacienteObject };
-    }
   }
 };
 </script>

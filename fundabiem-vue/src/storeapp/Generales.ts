@@ -75,6 +75,20 @@ const store = {
             }catch(e) {
                 commit('showError', e.response.status)
             }
+        },
+
+        getPacient: async ({}, data: any) => {
+
+            try {
+                const response = await api.get(`/Paciente/paciente/searchBy/${data.criterio}/valor/${data.valor}`)
+
+                if(response.status === 200) {
+                    return response
+                }
+
+            } catch (error) {
+                return error.response
+            }
         }
     }
 }

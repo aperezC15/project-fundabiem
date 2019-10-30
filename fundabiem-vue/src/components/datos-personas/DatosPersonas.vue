@@ -2,60 +2,66 @@
     <v-form v-model="formDatosPersonales" ref="formPersonas">
   <v-row>
       <v-col cols="12" sm="4" md="3">
-        <v-text-field v-model="paciente.primerNombre" :rules="rulesInput" label="1er. Nombre" hint="El campo es requerido" ></v-text-field>
+        <v-text-field :readonly="readonly" v-model="paciente.primerNombre" :rules="rulesInput" label="1er. Nombre" hint="El campo es requerido" ></v-text-field>
       </v-col>
       <v-col cols="12" sm="4" md="3">
-        <v-text-field v-model="paciente.segundoNombre" label="2do. Nombre" hint="El campo es opcional" ></v-text-field>
+        <v-text-field :readonly="readonly" v-model="paciente.segundoNombre" label="2do. Nombre" hint="El campo es opcional" ></v-text-field>
       </v-col>
 
       <v-col cols="12" sm="4" md="3">
-        <v-text-field v-model="paciente.primerApellido" :rules="rulesInput" label="1er Apellido" hint="El campo es requerido" ></v-text-field>
+        <v-text-field :readonly="readonly" v-model="paciente.primerApellido" :rules="rulesInput" label="1er Apellido" hint="El campo es requerido" ></v-text-field>
       </v-col>
       <v-col cols="12" sm="4" md="3">
-        <v-text-field v-model="paciente.segundoApellido"  label="2do. Apellido" hint="El campo es opcional" ></v-text-field>
+        <v-text-field :readonly="readonly" v-model="paciente.segundoApellido"  label="2do. Apellido" hint="El campo es opcional" ></v-text-field>
       </v-col>
       <v-col cols="12" sm="4" md="3" v-if="familiar === 1">
-        <v-text-field v-model="historialClinico.nombre" :rules="rulesInput" label="His. Clínica" hint="El campo es requerido" ></v-text-field>
+        <v-text-field :readonly="readonly" v-model="historialClinico.nombre" :rules="rulesInput" label="His. Clínica" hint="El campo es requerido" ></v-text-field>
       </v-col>
     
       <v-col cols="12" sm="4" md="3">
-        <v-select v-model="paciente.sexo" :items="sexosArray" :rules="rulesInput" item-value="id" item-text="valor" label="Sexo" hint="El campo es requerido"
+        <v-select :readonly="readonly" v-model="paciente.sexo" :items="sexosArray" :rules="rulesInput" item-value="id" item-text="valor" label="Sexo" hint="El campo es requerido"
         ></v-select>
       </v-col>
 
-      <v-col cols="12" sm="4" md="3"  v-if=" familiar === 1">
-          <v-menu  offset-y ref="paciente.menu2" v-model="paciente.menu2" :close-on-content-click="false"  transition="scale-transition"   min-width="290px" >
+      <v-col cols="12" sm="4" md="3"  v-if=" familiar === 1 && !readonly">
+          <v-menu offset-y ref="paciente.menu2" v-model="paciente.menu2" :close-on-content-click="false"  transition="scale-transition"   min-width="290px" >
               <template v-slot:activator="{ on }">
-                <v-text-field v-model="paciente.fechaNacimiento" label="Fecha de nacimiento" :rules="rulesInput" prepend-icon="event" readonly v-on="on" ></v-text-field>
+                <v-text-field :readonly="readonly" v-model="paciente.fechaNacimiento" label="Fecha de nacimiento" :rules="rulesInput" prepend-icon="event"  v-on="on" ></v-text-field>
               </template>
               <v-date-picker v-if=" familiar === 1" v-model="paciente.fechaNacimiento" no-title >
               </v-date-picker>
             </v-menu>
           </v-col>
 
-      <v-col cols="12" sm="4" md="3"  v-if="familiar === 2">
+      <v-col cols="12" sm="4" md="3"  v-if="familiar === 2 && !readonly">
           <v-menu  ref="menu" v-model="paciente.menu2" :close-on-content-click="false"   min-width="290px" >
               <template v-slot:activator="{ on }">
-                <v-text-field v-model="paciente.fechaNacimiento" label="Fecha de nacimiento" :rules="rulesInput" prepend-icon="event" readonly v-on="on" ></v-text-field>
+                <v-text-field :readonly="readonly" v-model="paciente.fechaNacimiento" label="Fecha de nacimiento" :rules="rulesInput" prepend-icon="event"  v-on="on" ></v-text-field>
               </template>
               <v-date-picker v-if="familiar === 2" v-model="paciente.fechaNacimiento" no-title >
               </v-date-picker>
             </v-menu>
-          </v-col>
+      </v-col>
+
+      <v-col cols="12" sm="4" md="3" v-if="readonly" >
+        <v-text-field :readonly="readonly" v-model="paciente.fechaNacimiento" :rules="rulesInput" type="text" label="DPI" hint="El campo es requerido"
+        ></v-text-field>
+      </v-col>
 
 
       <v-col cols="12" sm="4" md="3" >
-        <v-text-field v-model="paciente.dpi" :counter="13" :rules="rulesInputDpi" type="text" label="DPI" hint="El campo es requerido"
+        <v-text-field :readonly="readonly" v-model="paciente.dpi" :counter="13" :rules="rulesInputDpi" type="text" label="DPI" hint="El campo es requerido"
         ></v-text-field>
       </v-col>
 
       <v-col cols="12" sm="4" md="3">
-        <v-select v-model="paciente.grupoEtnico" :items="grupoEtnicos" :rules="rulesInput" item-value="valor" item-text="valor" label="Grupo Étnico" hint="El campo es requerido"
+        <v-select :readonly="readonly" v-model="paciente.grupoEtnico" :items="grupoEtnicos" :rules="rulesInput" item-value="valor" item-text="valor" label="Grupo Étnico" hint="El campo es requerido"
         ></v-select>
       </v-col>
 
       <v-col cols="12" sm="4" md="3" >
            <v-select
+           :readonly="readonly"
            :rules="rulesInput"
             :items="escolaridad"
             :menu-props="{ top: true, offsetY: true }"
@@ -66,6 +72,7 @@
 
       <v-col cols="12" sm="4" md="3" >
           <v-select
+          :readonly="readonly"
            :rules="rulesInput"
             :items="religion"
             :menu-props="{ top: true, offsetY: true }"
@@ -101,7 +108,8 @@ export default {
   props: {
     paciente: Object,
     familiar: Number,
-    historialClinico: Object
+    historialClinico: Object,
+    readonly: Boolean
   },
   data() {
     return {
