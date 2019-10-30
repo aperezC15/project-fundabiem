@@ -29,11 +29,11 @@ namespace fundabiemAPI.Controllers
         }
 
         //obtiene paciente segun id
-        [HttpGet("paciente/searchById")]
-        public ActionResult<IEnumerable<Paciente>> searchPacienteId(int idPaciente)
+        [HttpGet("paciente/searchBy/{criterio}/valor/{valor}")]
+        public ActionResult<IEnumerable<Paciente>> searchPacienteId(string valor , string criterio)
         {
             getUser();
-            var paciente = fundabiem.searchPacienteById(idPaciente);
+            var paciente = fundabiem.searchPaciente(valor, criterio);
             if (paciente.Count() == 0)
                 return NotFound();
             return Ok(paciente);
@@ -49,5 +49,14 @@ namespace fundabiemAPI.Controllers
                 return NotFound();
             return Ok(paciente);
         }
+
+        [HttpGet("getAll")]
+        public ActionResult<IEnumerable<Paciente>> getAll()
+        {
+            var pacientes = fundabiem.getAllPacientes();
+            if (pacientes.Count() == 0) { return BadRequest("No se encontraron pacientes"); }
+            return Ok(pacientes);
+        }
+
     }
 }

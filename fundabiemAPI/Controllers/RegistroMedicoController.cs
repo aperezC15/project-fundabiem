@@ -85,12 +85,48 @@ namespace fundabiemAPI.Controllers
             return Ok(rgMedicos);
         }
 
+        //busca un diagnostico por el id del registro medico
+        [HttpGet("diagnostico/search/")]
+        public ActionResult<IEnumerable<RegistroMedicoDiagnostico>> getDiagnostico(int IdRegistroMedico) 
+        {
+            getUser();
+            var diagnostico = fundabiem.getDianostico(IdRegistroMedico);
+            if (diagnostico.Result.Count() == 0)
+                return BadRequest("no se encontraron registros");
+            return Ok(diagnostico.Result);
+        }
+
         [HttpGet("getAll")]
         public ActionResult<IEnumerable<RegistroMedico>> getRegistroMedico()
         {
             getUser();
             var rgMedicos = fundabiem.getAllRegistrosMedicos();
             return Ok(rgMedicos);
+        }
+
+        [HttpPost("completar")]
+        public async Task<ActionResult> completarRegistroMedico([FromBody]RegistroMedicoDiagnosticoDTO model)
+        {
+            getUser();
+            string txt = "completa registro medico";
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                logger.LogInformation("BeginTransaction {0} ", txt);
+                try
+                {
+                    var cp = await fundabiem.completRegistroMedico(model);
+                    transaction.Commit();
+                    logger.LogInformation("Commit transaction");
+                    return Ok(cp);
+                }
+                catch(Exception ex)
+                {
+                    transaction.Rollback();
+                    logger.LogError("RoolBAck transaction {0} ", txt);
+                    logger.LogError(ex.ToString());
+                    return BadRequest("No se completo la operacion de completar registro medico");
+                }
+            }
         }
     }
 }

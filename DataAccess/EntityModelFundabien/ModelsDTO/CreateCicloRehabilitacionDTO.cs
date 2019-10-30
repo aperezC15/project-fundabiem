@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace EntityModelFundabien.entities
+namespace EntityModelFundabien.ModelsDTO
 {
-    public class CicloDeRehabilitacion
+    public class CreateCicloRehabilitacionDTO
     {
-        [Key]
-        public Int64 idcicloRehabilitacion { get; set; }
         public Int64 idPaciente { get; set; }
         public string dignostico { get; set; }
         public string origen { get; set; }
@@ -20,7 +17,6 @@ namespace EntityModelFundabien.entities
         public string participacion { get; set; }
         public string factoresAmbientales { get; set; }
         public string factoresPersonales { get; set; }
-        public Paciente paciente { get; set; }
-        public List<DetalleCicloDeRehabilitacion> detalleCicloRehabilitacion { get; set; }
+        public List<DetalleCicloRehabilitcionDTO> detalleCicloRehabilitacion { get; set; }
     }
 }

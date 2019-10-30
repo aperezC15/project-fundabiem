@@ -37,11 +37,22 @@ namespace EntityModelFundabien.Interfaces
         Task newFamiliar(Int64 idPersona, Int64 idPaciente, string parentezco);
         IEnumerable<RegistroMedico> getAllRegistrosMedicos();
         IEnumerable<RegistroMedico> searchRegistroMedicos(int idRegistro);
-        IEnumerable<Paciente> searchPacienteById(int IdPaciente);
+        IEnumerable<Paciente> searchPaciente(string valor, string criterio);
         IEnumerable<Paciente> searchPacienteByHistorialClinico(int historialClinico);
         // Historia Clinica
         Task newAnamnesis(Int64 idHistoriaClinica, CrearAnamnesisDTO modelo);
         Task newHistoriaClinica(CrearHistoriaClinicaDTO modelo);
+
+        Task<EvolucionMedica> getEvolucionMedica(Int64 idEvolucionMedica);
+        Task<EvolucionMedica> newEvolucionMedica(CreateEvolucionMedicaDTO modelo);
+
         IEnumerable<ObjetivoDeIntervencion> getAllObjetivos();
+        Task<Int64> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo);
+        Task<CicloDeRehabilitacion> getCicloById(Int64 idCiclo);
+        Task<DetalleCicloDeRehabilitacion> newDetalleCicloRehabilitacion(DetalleCicloRehabilitcionDTO detalle);
+        Task<RegistroMedicoDiagnostico> completRegistroMedico(RegistroMedicoDiagnosticoDTO model);
+        IEnumerable<Paciente> getAllPacientes();
+        Task<IEnumerable<RegistroMedicoDiagnostico>> getDianostico(int idRegistroMedico);
+
     }
 }
