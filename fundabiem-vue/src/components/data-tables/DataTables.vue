@@ -14,15 +14,6 @@
               single-line
               hide-details
             ></v-text-field>
-            <!-- <v-btn
-              color="indigo"
-              fab
-              title="NUEVO REGISTRO MÉDICO"
-              class="mx-2"
-              @click="openDialogRegistroMedico"
-            >
-              <v-icon>add</v-icon>
-            </v-btn> -->
           </v-toolbar>
 
           <v-data-table :headers="headers" :items="data" :search="search" class="elevation-1">
@@ -36,14 +27,6 @@
             </template>
 
             <template v-slot:item.action="{item}">
-              <!-- <v-btn
-                title="EDITAR REGISTRO"
-                fab
-                color="success"
-                dark
-              >
-                <v-icon>edit</v-icon>
-              </v-btn> -->
               <v-btn
                 v-if="btnEliminar"
                 title="ElIMINAR REGISTRO"

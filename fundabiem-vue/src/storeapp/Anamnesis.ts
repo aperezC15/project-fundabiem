@@ -24,6 +24,20 @@ const store = {
             }
         },
 
+        CicloRehabilitacion : async ({ }, data: any) => {
+            try {
+                const response = await api.post('/CicloRehabilitacion', data)
+
+                if(response.status === 200) {
+                    return response
+                }
+
+            } catch (error) {
+                console.log(error.response)
+                return error
+            }
+        }
+
         
     }
 }

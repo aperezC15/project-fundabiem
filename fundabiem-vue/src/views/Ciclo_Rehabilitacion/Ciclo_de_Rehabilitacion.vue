@@ -129,24 +129,28 @@ export default {
     },
     saveRehabilitacion(data) {
 
-       const { id, nombre,  edad , sexo , origen, diagnostico, fecha } = data 
+      this.cargando = true
+      this.dialogRehabilitacion = false
+      
+        const response = this.$store.dispatch('CicloRehabilitacion', data)
 
-       this.cicloRehabilitacionCIF.push({id, nombre, edad, sexo, origen, diagnostico, fecha})
-       this.dialogRehabilitacion = false
-
-      this.loading = true
-
-       setTimeout( () => {
-         this.loading = false
-         this.$swal.fire(
-          'Nuevo ciclo de rehabilitación creado con éxito!',
-          'Nuevo ciclo creado exitosamente',
-          'success'
-         );
-       },2000)
-
-
-      // console.log(data);
+      this.cargando = false
+        if(response.status === 200) {
+            const title = "Nuevo ciclo de rehabilitación con éxito!"
+            const message = "Nuevo ciclo de rehabilitación exitosamente"
+            this.showAlert(title, message, "success")
+        } else {
+            const title = "Nuevo ciclo de rehabilitación sin éxito!"
+            const message = "No se creó el nuevo ciclo de rehabilitación "
+            this.showAlert(title, message, "error")
+        }
+    },
+    showAlert(title, message, type) {
+      this.$swal.fire(
+        title,
+        message,
+        type
+      );
     },
     closeModalRehabilitation() {
       this.dialogRehabilitacion= false
