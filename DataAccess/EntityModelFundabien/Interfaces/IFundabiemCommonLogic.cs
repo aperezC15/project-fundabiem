@@ -55,6 +55,9 @@ namespace EntityModelFundabien.Interfaces
         Task<IEnumerable<RegistroMedicoDiagnostico>> getDianostico(int idRegistroMedico);
         IEnumerable<EstadoCitas> getAllEstadoCitas();
         IEnumerable<Terapias> getAllTerapias();
+        Task<Citas> NewCita(CreateCitaDTO model);
+        Task<string> searchPersonaByDPI(string dpi);
+        Task<citaDTO> getCitaById(int id);
 
     }
 }

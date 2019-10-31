@@ -24,7 +24,7 @@ namespace EntityModelFundabien.common
         private readonly IMapper mapper;
         private readonly ILogger logger;
         //private dbContext context1;
-        
+
 
         public clsFundabiemCommonLogic(IMapper mapper, dbContext context, ILogger logger)
         {
@@ -56,17 +56,17 @@ namespace EntityModelFundabien.common
             var paises = context.Paises.ToList();
             var paisDTO = mapper.Map<List<DTOPaises>>(paises);
             return paisDTO;
-                
+
         }
 
         //obtiene todos los objetivos de intervencion
         public IEnumerable<ObjetivoDeIntervencion> getAllObjetivos()
         {
-           return context.ObjetivosDeIntervenciones.ToList();
+            return context.ObjetivosDeIntervenciones.ToList();
         }
 
         //obtiene los departamento de un pais
-        public  IEnumerable<departamentosDTO> getDepartamentosByIdPais(double id)
+        public IEnumerable<departamentosDTO> getDepartamentosByIdPais(double id)
         {
             var departamentos = context.Departamentos.Where(x => x.idPais == id).ToList();
             var dep = mapper.Map<List<departamentosDTO>>(departamentos);
@@ -101,7 +101,7 @@ namespace EntityModelFundabien.common
         }
 
         //obtiene todos los registros medicos
-        public  IEnumerable<RegistroMedico> getAllRegistrosMedicos()
+        public IEnumerable<RegistroMedico> getAllRegistrosMedicos()
         {
             logger.Information("Get all REgistros Medicos");
             return context.RegistrosMedicos.Include(paciente => paciente.paciente.persona).ToList();
@@ -111,21 +111,21 @@ namespace EntityModelFundabien.common
         public IEnumerable<RegistroMedico> searchRegistroMedicos(int idRegistro)
         {
             logger.Information("Search Registro Medico by Id");
-            return context.RegistrosMedicos.Where(x=> x.idRegistroMedico == idRegistro).Include(paciente => paciente.paciente.persona).ToList();
+            return context.RegistrosMedicos.Where(x => x.idRegistroMedico == idRegistro).Include(paciente => paciente.paciente.persona).ToList();
         }
 
         //para obtener un paciente segun su id
         public IEnumerable<Paciente> searchPaciente(string valor, string criterio)
         {
-            var resultado  = new List<Paciente>();
+            var resultado = new List<Paciente>();
             switch (criterio)
             {
                 case "id":
-                     resultado = context.Pacientes.Where(x => x.idPaciente == Convert.ToInt64(valor)).Include(x => x.persona).ToList();
+                    resultado = context.Pacientes.Where(x => x.idPaciente == Convert.ToInt64(valor)).Include(x => x.persona).ToList();
                     break;
 
                 case "nombre":
-                    resultado = context.Pacientes.Where(x => (x.persona.primerNombre +" "+ x.persona.segundoNombre +" "+ x.persona.primerApellido +" "+ x.persona.segundoApellido).Contains(valor) ).Include(x => x.persona).ToList();
+                    resultado = context.Pacientes.Where(x => (x.persona.primerNombre + " " + x.persona.segundoNombre + " " + x.persona.primerApellido + " " + x.persona.segundoApellido).Contains(valor)).Include(x => x.persona).ToList();
                     break;
 
                 case "historialClinico":
@@ -135,10 +135,10 @@ namespace EntityModelFundabien.common
                 case "DPI":
                     resultado = context.Pacientes.Where(x => x.persona.dpi == valor).Include(x => x.persona).ToList();
                     break;
-                    
+
             }
             return resultado;
-            
+
         }
 
         //para obtener un paciente segun su numero de historialClinico
@@ -155,7 +155,7 @@ namespace EntityModelFundabien.common
 
             return seccionesDTO;
         }
-    
+
         //crea un ciclo de rehabilitcion
         public async Task<Int64> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo)
         {
@@ -191,6 +191,14 @@ namespace EntityModelFundabien.common
         {
             return await context.CicloDeRehabilitaciones.FirstOrDefaultAsync(x => x.idcicloRehabilitacion == idCiclo);
         }
+        
+        //obiene una cita por  su id
+        public async Task<citaDTO> getCitaById(int id)
+        {
+             var cita = await context.Citas.FirstOrDefaultAsync(x => x.IdCita == id);
+             var citaDTO = mapper.Map<citaDTO>(cita);
+            return citaDTO;
+        }
 
         //obtiene una persona segun idPersona
         public async Task<Persona> getPersona(Int64 idPersona)
@@ -223,7 +231,7 @@ namespace EntityModelFundabien.common
         //obtener todos los pacientes
         public IEnumerable<Paciente> getAllPacientes()
         {
-            return context.Pacientes.Include(x=>x.registrosMedicos).Include(x => x.cicloDeRehabilitaciones).ToList();
+            return context.Pacientes.Include(x => x.registrosMedicos).Include(x => x.cicloDeRehabilitaciones).ToList();
         }
         //buscar paciente por id
         public async Task<Paciente> getPacienteById(Int64 idPaciente)
@@ -243,6 +251,12 @@ namespace EntityModelFundabien.common
             rg.estaFirmado = true;
             await context.RegistrosMedicos.AddAsync(rg);
             await context.SaveChangesAsync();
+        }
+        //buscar persona por  DPI
+        public async Task<string> searchPersonaByDPI(string dpi) {
+            logger.Information("Search person by dpi = {0} ", dpi);
+            var persona = await context.Personas.FirstOrDefaultAsync(x => x.dpi == dpi);
+            return persona.dpi;
         }
 
         //completar un registro medico
@@ -301,6 +315,16 @@ namespace EntityModelFundabien.common
 
             await context.Anamnesis.AddAsync(anamnesis);
             await context.SaveChangesAsync();
+        }
+
+        //new cita
+        public async Task<Citas> NewCita(CreateCitaDTO model)
+        {
+            logger.Information("Creatin a new cita");
+            var cita = mapper.Map<Citas>(model);
+            await context.Citas.AddAsync(cita);
+            await context.SaveChangesAsync();
+            return cita;
         }
 
         public async Task newHistoriaClinica(CrearHistoriaClinicaDTO modelo)
