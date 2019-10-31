@@ -38,6 +38,10 @@ namespace fundabiemAPI.Controllers
                 try
                 {
                     getUser();
+                    var dpi = await fundabiem.searchPersonaByDPI(model.paciente.dpi);
+                    if (dpi == model.paciente.dpi)
+                        return BadRequest("El DPI ya existe");
+
                     logger.LogInformation("Creating a new Registro Medico");
                     var PersonaPaciente = await fundabiem.newPersona(model.paciente);
                     //crea la direccion del paciente

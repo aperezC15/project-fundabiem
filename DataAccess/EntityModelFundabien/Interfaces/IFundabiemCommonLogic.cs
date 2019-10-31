@@ -56,5 +56,7 @@ namespace EntityModelFundabien.Interfaces
         IEnumerable<EstadoCitas> getAllEstadoCitas();
         IEnumerable<Terapias> getAllTerapias();
 
+        Task<string> searchPersonaByDPI(string dpi);
+
     }
 }
