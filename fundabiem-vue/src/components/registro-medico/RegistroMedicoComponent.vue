@@ -158,7 +158,7 @@ export default {
         { text: "Primer Apellido", align: "left", sortable: false, value: "primerApellido" },
         { text: "Segundo Apellido", align: "left", sortable: false, value: "segundoApellido" },
          { text: "Edad", value: "edad" },
-         { text: "Parentesco", value: "parentescoFamiliar" },
+         { text: "Parentesco", value: "parentezco" },
          { text: "Acciones", value: "action" }
       ],
       data: [],
@@ -262,21 +262,6 @@ export default {
         descripcion: this.datosResidencia.descripcion, 
         idTipoDireccion: this.datosResidencia.idTipoDireccion 
       } 
-
-      // const familiaresPacientes = { 
-      //   dpi : familiaresPaciente.dpi, 
-      //   escolaridad : familiaresPaciente.escolaridad, 
-      //   fechaNacimiento : familiaresPaciente.fechaNacimiento, 
-      //   grupoEtnico : familiaresPaciente.grupoEtnico, 
-      //   isManager : familiaresPaciente.isManager,
-      //   parentezco : familiaresPaciente.parentezco, 
-      //   primerApellido : familiaresPaciente.primerApellido, 
-      //   primerNombre : familiaresPaciente.primerNombre, 
-      //   religion : familiaresPaciente.religion, 
-      //   segundoApellido : familiaresPaciente.segundoApellido, 
-      //   segundoNombre : familiaresPaciente.segundoNombre, 
-      //   sexo : familiaresPaciente.sexo 
-      // }
 
       const direccionEncargado = {  idMunicipio,  descripcion,  idTipoDireccion  } 
 

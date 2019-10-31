@@ -140,6 +140,7 @@ export default {
 
       this.loading = false
       if(response.status === 200) {
+        this.getMedicalsRegisters()
         const title = "Nuevo registro médico creado con éxito!"
         const message = "Nuevo registro médico exitosamente"
         this.showAlert(title, message, "success")
@@ -178,6 +179,7 @@ export default {
       console.log(response)
       this.loading = false
       if(response.status === 200) {
+        this.getMedicalsRegisters()
         const title = "Se completo el registro médico con éxito!"
         const message = "Se completo el registro médico  exitosamente"
         this.showAlert(title, message, "success")
