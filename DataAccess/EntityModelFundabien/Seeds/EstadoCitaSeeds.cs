@@ -34,6 +34,12 @@ namespace EntityModelFundabien.Seeds
                     idEstado = 4,
                     nombre = "Cancelada",
                     descripcion = "Para indicar que la cita fue cancelada"  
+                },
+                new EstadoCitas
+                {
+                    idEstado = 5,
+                    nombre = "Activa",
+                    descripcion = "Para indicar que la cita esta activa"
                 }
             );
         }

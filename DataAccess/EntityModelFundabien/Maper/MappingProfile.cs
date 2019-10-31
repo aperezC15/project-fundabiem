@@ -41,6 +41,8 @@ namespace EntityModelFundabien.mapper
             CreateMap<CicloDeRehabilitacion, CreateCicloRehabilitacionDTO>();
             CreateMap<RegistroMedicoDiagnostico, RegistroMedicoDiagnosticoDTO>();
             CreateMap<RegistroMedicoDiagnosticoDTO, RegistroMedicoDiagnostico>();
+            CreateMap<CreateCitaDTO, Citas>();
+            CreateMap<Citas, CreateCitaDTO>();
         }
     }
 }

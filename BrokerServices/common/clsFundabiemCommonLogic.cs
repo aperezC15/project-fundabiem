@@ -191,6 +191,14 @@ namespace EntityModelFundabien.common
         {
             return await context.CicloDeRehabilitaciones.FirstOrDefaultAsync(x => x.idcicloRehabilitacion == idCiclo);
         }
+        
+        //obiene una cita por  su id
+        public async Task<citaDTO> getCitaById(int id)
+        {
+             var cita = await context.Citas.FirstOrDefaultAsync(x => x.IdCita == id);
+             var citaDTO = mapper.Map<citaDTO>(cita);
+            return citaDTO;
+        }
 
         //obtiene una persona segun idPersona
         public async Task<Persona> getPersona(Int64 idPersona)
@@ -244,7 +252,7 @@ namespace EntityModelFundabien.common
             await context.RegistrosMedicos.AddAsync(rg);
             await context.SaveChangesAsync();
         }
-        //buscar DPI
+        //buscar persona por  DPI
         public async Task<string> searchPersonaByDPI(string dpi) {
             logger.Information("Search person by dpi = {0} ", dpi);
             var persona = await context.Personas.FirstOrDefaultAsync(x => x.dpi == dpi);
@@ -307,6 +315,16 @@ namespace EntityModelFundabien.common
 
             await context.Anamnesis.AddAsync(anamnesis);
             await context.SaveChangesAsync();
+        }
+
+        //new cita
+        public async Task<Citas> NewCita(CreateCitaDTO model)
+        {
+            logger.Information("Creatin a new cita");
+            var cita = mapper.Map<Citas>(model);
+            await context.Citas.AddAsync(cita);
+            await context.SaveChangesAsync();
+            return cita;
         }
 
         public async Task newHistoriaClinica(CrearHistoriaClinicaDTO modelo)
