@@ -23,6 +23,27 @@ const store = {
             } catch(e) {
                 return e.response
             }
+        },
+        getOneMedicalsRegisters : async ({}, idRegistro: any) => {
+            try{
+                const response = await api.get('/RegistroMedico/searchById', {params: {...idRegistro}})
+                if(response.status === 200) {
+                    return response
+                }
+            } catch(e) {
+                return e.response
+            }
+        },
+        completeRegister : async ({}, data: object) => {
+            try {
+                const response = await api.post('/RegistroMedico/completar', data)
+
+                if(response.status === 200) {
+                    return response 
+                }
+            } catch (error) {
+                return error.response
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ const store: StoreOptions<rootState> = {
           // Optional OIDC event listeners
           {
               userLoaded: (user: any) => {
-                //   console.log('OIDC user is loaded:', user.id_token)
+                  console.log('OIDC user is loaded:', user.id_token)
                   Vue.axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.id_token;
               },
               userUnloaded: () => console.log('OIDC user is unloaded'),

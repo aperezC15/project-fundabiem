@@ -10,7 +10,7 @@
     >
       <v-card>
         <v-toolbar dark color="#2c2e3f">
-          <span class="headline text-uppercase">Registro Médico</span>
+          <span class="headline text-uppercase">Historia Clínica</span>
           <div class="flex-grow-1"></div>
         </v-toolbar>
 

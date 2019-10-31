@@ -34,7 +34,7 @@
               </v-col>
             </v-row>
 
-            <v-col cols="12" md="6">
+            <v-col cols="12" >
               <v-textarea
                 :rules="rulesInput"
                 v-model="diagnosticoFinal"

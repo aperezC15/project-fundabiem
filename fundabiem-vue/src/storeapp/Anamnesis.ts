@@ -22,7 +22,9 @@ const store = {
                 console.log(error.response)
                 return error
             }
-        }
+        },
+
+        
     }
 }
 

@@ -45,11 +45,11 @@
 
             <template v-slot:item.action="{item}">
               <v-btn
-                title="EDITAR REGISTRO DE ESTUDIO SOCIOECONOMICO"
+                title="COMPLETAR EL REGISTRO MÉDICO"
                 fab
                 color="success"
                 dark
-                @click="editItem(item)"
+                @click="openDetailRegister(item)"
               >
                 <v-icon>edit</v-icon>
               </v-btn>
@@ -66,6 +66,15 @@
       :dialogRegistroMedico="dialogRegistroMedico"
       @closeModalRehabilitation="closeModalRehabilitation"
       @saveRehabilitacion="saveRehabilitacion"
+    />
+
+    <registro-medico-detalle 
+      :dialogRegistroMedicoDetalle="dialogRegistroMedicoDetalle"
+      :paciente="paciente"
+      :historialClinico="historialClinico"
+      :showAlertDetalle="showAlertDetalle"
+      @closeModalDetalle="closeModalDetalle"
+      @completarRegistro="completarRegistro"
     />
 
     <v-dialog v-model="loading" width="300px">
@@ -88,9 +97,12 @@
 
 <script>
 import RegistroMedico from '../../components/registro-medico/RegistroMedicoComponent.vue'
+import RegistroMedicoDetalle from '../../components/registro-medico/RegistroMedicoDetalle.vue'
+
 export default {
   components: { 
     RegistroMedico,
+    RegistroMedicoDetalle
   },
   data() {
     return {
@@ -107,7 +119,11 @@ export default {
       dialogRegistroMedico: false,
       dialogRehabilitacion: false,
       loading: false,
-
+      dialogRegistroMedicoDetalle: false,
+      historialClinico: {},
+      paciente: {},
+      idRegistroMedico: "",
+      showAlertDetalle: false
     }
   },
   methods: {
@@ -145,20 +161,78 @@ export default {
       this.dialogRegistroMedico= false
        this.$store.commit('clearStore')
     },
+
+    async completarRegistro(data) {
+
+      this.dialogRegistroMedicoDetalle = false
+      this.loading = true
+
+      const newData = {
+        idRegistroMedico: this.idRegistroMedico,
+        ...data
+      }
+
+      console.log(newData)
+      const response = await this.$store.dispatch('completeRegister', newData)
+
+      console.log(response)
+      this.loading = false
+      if(response.status === 200) {
+        const title = "Se completo el registro médico con éxito!"
+        const message = "Se completo el registro médico  exitosamente"
+        this.showAlert(title, message, "success")
+      } else {
+        const title = "No se completo el registro médico!"
+        const message = "No se ha completado el registro médico"
+        this.showAlert(title, message, "error")
+      }
+    },
+
+    async openDetailRegister(item) {
+      this.showAlertDetalle = false
+      this.idRegistroMedico = ""
+      const idRegistro = item.idRegistroMedico
+      this.idRegistroMedico = idRegistro
+
+      const response = await this.$store.dispatch('getOneMedicalsRegisters', {idRegistro})
+      this.dialogRegistroMedicoDetalle = true
+
+      if(response.status === 200) {
+
+        const { persona, historialClinico } = response.data[0].paciente
+
+        this.paciente = {
+          ...persona,
+          sexo: (persona.sexo) ? 1 : 2
+        }
+
+        this.historialClinico = {
+          nombre: historialClinico
+        }
+
+      } else {
+        this.showAlertDetalle = true
+      }
+
+    }, 
+    closeModalDetalle() {
+      this.dialogRegistroMedicoDetalle = false
+    },
     async getMedicalsRegisters() {
       this.loading = true
       const response = await this.$store.dispatch('getMedicalsRegistros')
+
       this.loading = false
       if(response.status === 200 && response.data.length >= 0) {
         response.data.map( register => {
-              const { fechaAdmision } = register
+              const { fechaAdmision, idRegistroMedico } = register
              const { estaActivo, historialClinico, idPaciente } = register.paciente
              const { primerApellido, primerNombre, segundoApellido, segundoNombre, grupoEtnico, dpi, } = register.paciente.persona
 
              const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`
 
               this.dataRegistersMedicals.push({ estaActivo, historialClinico, idPaciente, fechaAdmision,
-                nombreCompleto, grupoEtnico, dpi,
+                nombreCompleto, grupoEtnico, dpi, idRegistroMedico
               })
            })
       }
