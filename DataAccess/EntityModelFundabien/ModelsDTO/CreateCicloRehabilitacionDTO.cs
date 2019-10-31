@@ -17,6 +17,12 @@ namespace EntityModelFundabien.ModelsDTO
         public string participacion { get; set; }
         public string factoresAmbientales { get; set; }
         public string factoresPersonales { get; set; }
-        public List<DetalleCicloRehabilitcionDTO> detalleCicloRehabilitacion { get; set; }
+        public List<modelo> detalleCicloRehabilitacion { get; set; }
+    }
+
+    public class modelo
+    {
+        //public string clave { get; set; }
+        //public string valor { get; set; }
     }
 }
