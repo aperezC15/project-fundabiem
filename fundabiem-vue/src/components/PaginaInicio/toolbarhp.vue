@@ -87,6 +87,7 @@ export default class tool extends Vue{
         { title: 'Estudio Socioeconomico' , icon: 'far fa-address-card', path: '/HomePageES'},
         // { title: 'Hoja Evolución Técnica ' , icon: 'far fa-address-card', path: '/HomePageET'},
         // { title: 'Hoja de Estadísticas Diarias' , icon: 'far fa-address-card', path: ''},
+        { title: 'Evolución médica', icon: "far fa-folder", path:'/evolucion-medica'},
         { title: 'Ciclo de Rehabilitacion', icon: "far fa-address-card", path:'/ciclo-rehabilitacion'},
         { title: 'Historia Clínica Psicologia', icon: "far fa-address-card", path:'/Psicologia-clinica'},
         { title: 'Registros Médicos', icon: "far fa-folder", path:'/registro-medico'},

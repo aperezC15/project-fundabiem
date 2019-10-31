@@ -173,10 +173,8 @@ export default {
         ...data
       }
 
-      console.log(newData)
       const response = await this.$store.dispatch('completeRegister', newData)
 
-      console.log(response)
       this.loading = false
       if(response.status === 200) {
         this.getMedicalsRegisters()

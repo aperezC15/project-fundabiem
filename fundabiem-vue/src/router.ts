@@ -15,8 +15,7 @@ import HistoriaClinicaPsicologia from './components/Historia-Clinica-Psicologia/
 import CicloRehabilitacion from './views/Ciclo_Rehabilitacion/Ciclo_de_Rehabilitacion.vue'
 import RegistrosMedicos from './views/registro-medico/RegistroMedicos.vue'
 import HistoriasClinicas from './views/historia-clinica/HistoriaClinica.vue'
-
-
+import EvolucionMedica from './views/evolucion-medica/EvolucionMedica.vue'
 //@ts-ignore
 import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
 import axios, { AxiosResponse } from 'axios'
@@ -121,6 +120,11 @@ const router = new Router({
       path: "/historia-clinica",
       name: "HistoriasClinicas",
       component: HistoriasClinicas
+    },
+    {
+      path: "/evolucion-medica",
+      name: "Evolucion Medica",
+      component: EvolucionMedica
     }
   ]
 })

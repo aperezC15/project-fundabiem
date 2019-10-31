@@ -7,7 +7,7 @@ import { vuexOidcCreateStoreModule } from 'vuex-oidc'
 import { oidcSettings } from './config/oidc'
 
 // store app
-import { storeGenerales, storeMedicalRegister, storeAnamnesis } from './storeapp'
+import { storeGenerales, storeMedicalRegister, storeAnamnesis, storeEvolucionMedica } from './storeapp'
 Vue.use(Vuex)
 
 const store: StoreOptions<rootState> = {
@@ -18,6 +18,7 @@ const store: StoreOptions<rootState> = {
       storeGenerales,
       storeMedicalRegister,
       storeAnamnesis,
+      storeEvolucionMedica,
       oidcStore: vuexOidcCreateStoreModule(
           oidcSettings,
           // Optionlaly define the store module as namespaced

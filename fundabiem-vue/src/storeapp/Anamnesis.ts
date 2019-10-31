@@ -19,7 +19,6 @@ const store = {
                 const response = await api.post('/HistoriaClinica/new', data)
                 return response
             } catch (error) {
-                console.log(error.response)
                 return error
             }
         },
@@ -33,7 +32,6 @@ const store = {
                 }
 
             } catch (error) {
-                console.log(error.response)
                 return error
             }
         }

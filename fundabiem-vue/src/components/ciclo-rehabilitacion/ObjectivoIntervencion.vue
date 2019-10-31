@@ -37,7 +37,7 @@
                   <template v-slot:activator="{ on }">
                     <v-text-field
                       v-model="fecha"
-                      label="Picker in menu"
+                      label="Seleccione la fecha"
                       prepend-icon="event"
                       readonly
                       v-on="on"
