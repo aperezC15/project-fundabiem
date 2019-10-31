@@ -51,9 +51,7 @@ namespace fundabiemAPI.Controllers
                     var cita = await fundabiem.NewCita(model);
                     transaction.Commit();
                     logger.LogInformation("Commit Transaction {0} ",txt);
-                    //var DTO = mapper.Map<citaDTO>(cita);
                     return new CreatedAtRouteResult("ObtenerCita", new { id = cita.IdCita }, cita);
-                    //return Ok(cita);
                 }catch(Exception ex)
                 {
                     transaction.Rollback();
