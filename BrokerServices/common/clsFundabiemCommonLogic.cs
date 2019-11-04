@@ -157,13 +157,13 @@ namespace EntityModelFundabien.common
         }
 
         //crea un ciclo de rehabilitcion
-        public async Task<Int64> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo)
+        public async Task<CicloDeRehabilitacion> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo)
         {
             logger.Information("create a new ciclo de rehabilitacion ");
             var cl = mapper.Map<CicloDeRehabilitacion>(ciclo);
             await context.CicloDeRehabilitaciones.AddAsync(cl);
             await context.SaveChangesAsync();
-            return cl.idcicloRehabilitacion;
+            return cl;
         }
 
         //crea el detalle del ciclo de rehabilitacion

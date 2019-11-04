@@ -47,7 +47,7 @@ namespace EntityModelFundabien.Interfaces
         Task<EvolucionMedica> newEvolucionMedica(CreateEvolucionMedicaDTO modelo);
 
         IEnumerable<ObjetivoDeIntervencion> getAllObjetivos();
-        Task<Int64> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo);
+        Task<CicloDeRehabilitacion> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo);
         Task<CreateCicloRehabilitacionDTO> getCicloById(Int64 idCiclo);
         Task<DetalleCicloDeRehabilitacion> newDetalleCicloRehabilitacion(DetalleCicloRehabilitcionDTO detalle);
         Task<RegistroMedicoDiagnostico> completRegistroMedico(RegistroMedicoDiagnosticoDTO model);

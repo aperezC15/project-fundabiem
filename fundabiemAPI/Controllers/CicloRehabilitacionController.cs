@@ -53,7 +53,7 @@ namespace fundabiemAPI.Controllers
                     var cicloReha = await fundabiem.newCicloRehabilitacion(ciclo);
                     transaction.Commit();
                     logger.LogInformation("Commit transaction {0}",txt);
-                    return Ok();
+                    return new CreatedAtRouteResult("ObtenerCicloRehabilitacion", new { id = cicloReha.idcicloRehabilitacion}, cicloReha);
                 }
                 catch(Exception ex)
                 {
