@@ -203,9 +203,18 @@ namespace EntityModelFundabien.common
         }
 
         //obtiene cita por la fecha
-        public async Task<IEnumerable<citaDTO>> getCitaByDate(DateTime fecha)
+        public async Task<IEnumerable<citaDTO>> getCitaByDate(string DateType, DateTime fecha)
         {
-            var cita = await context.Citas.Where(x => x.fechaCita.Date == fecha.Date).ToListAsync();
+            var cita = new List<Citas>();
+
+            if(DateType == "fechaCita")
+            {
+                cita = await context.Citas.Where(x => x.fechaCita.Date == fecha.Date).ToListAsync();
+            }
+            else
+            {
+                cita = await context.Citas.Where(x => x.fechaAsignacion.Date == fecha.Date).ToListAsync();
+            }
             var ct = mapper.Map<List<citaDTO>>(cita);
             return ct;
         }

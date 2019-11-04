@@ -40,12 +40,12 @@ namespace fundabiemAPI.Controllers
         }
 
         //obtine citas por fecha
-        [HttpGet("searchByDate")]
-        public async Task<ActionResult<IEnumerable<citaDTO>>> GetCitaByDate(DateTime fecha)
+        [HttpGet("searchByDate/{DateType}/{date}")]
+        public async Task<ActionResult<IEnumerable<citaDTO>>> GetCitaByDate(string DateType, DateTime date)
         {
-            var cita = await fundabiem.getCitaByDate(fecha);
+            var cita = await fundabiem.getCitaByDate(DateType, date);
             if (cita.Count() == 0)
-                return NotFound("No se encontro la cita con fecha " + fecha);
+                return NotFound("No se encontro la cita con fecha " + date);
             return Ok(cita);
         }
 
