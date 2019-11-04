@@ -202,22 +202,32 @@ namespace EntityModelFundabien.common
             return citaDTO;
         }
 
-        //obtiene cita por la fecha
-        public async Task<IEnumerable<citaDTO>> getCitaByDate(string DateType, DateTime fecha)
+        //obtiene cita por la fecha, y por rango de fechas si range = true
+        public async Task<IEnumerable<citaDTO>> getCitaByDate(string DateType, DateTime fecha, bool range, DateTime dateEnd)
         {
             var cita = new List<Citas>();
 
-            if(DateType == "fechaCita")
+            if (DateType == "fechaCita")
             {
-                cita = await context.Citas.Where(x => x.fechaCita.Date == fecha.Date).ToListAsync();
+                if (range)
+                    cita = await context.Citas.Where(x => x.fechaCita.Date >= fecha.Date && x.fechaCita.Date <= dateEnd.Date).ToListAsync();
+                else
+                    cita = await context.Citas.Where(x => x.fechaCita.Date == fecha.Date).ToListAsync();
+            }
+            else if (DateType == "fechaAsignacion")
+            {
+                if (range)
+                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date >= fecha.Date && x.fechaAsignacion.Date <= dateEnd.Date).ToListAsync();
+                else
+                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date == fecha.Date).ToListAsync();
             }
             else
-            {
-                cita = await context.Citas.Where(x => x.fechaAsignacion.Date == fecha.Date).ToListAsync();
-            }
+                cita = null;
             var ct = mapper.Map<List<citaDTO>>(cita);
             return ct;
         }
+
+      
         //obtiene una persona segun idPersona
         public async Task<Persona> getPersona(Int64 idPersona)
         {
