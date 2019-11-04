@@ -34,9 +34,9 @@ namespace fundabiemAPI.Controllers
         public ActionResult<citaDTO> getCitaByID (int id)
         {
             var cita = fundabiem.getCitaById(id);
-            if (cita == null)
+            if (cita.Result == null)
                 return NotFound("No se encontro la cita con id  "+ id.ToString());
-            return Ok(cita);
+            return Ok(cita.Result);
         }
 
         [HttpPost("new")]
