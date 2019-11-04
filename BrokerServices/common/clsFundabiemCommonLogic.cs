@@ -322,6 +322,8 @@ namespace EntityModelFundabien.common
         //new cita
         public async Task<Citas> NewCita(CreateCitaDTO model)
         {
+            var paciente = context.Pacientes.Include(x => x.persona).FirstOrDefaultAsync(x => x.idPaciente == model.dPaciente);
+            model.edad = DateTime.Today.AddTicks(-paciente.Result.persona.fechaNacimiento.Ticks).Year -1;
             logger.Information("Creatin a new cita");
             var cita = mapper.Map<Citas>(model);
             await context.Citas.AddAsync(cita);
