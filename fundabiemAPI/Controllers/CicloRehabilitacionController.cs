@@ -65,5 +65,14 @@ namespace fundabiemAPI.Controllers
             }
         }
 
+        [HttpGet("{id}", Name = "ObtenerCicloRehabilitacion")]
+        public  ActionResult<CreateCicloRehabilitacionDTO> getCicloRehabilitacion(int id)
+        {
+            var ciclo =  fundabiem.getCicloById(id);
+            if (ciclo.Result == null)
+                return NotFound("No se encontro el ciclo de rehabilitacion con id "+id);
+            return Ok(ciclo.Result);
+        }
+
     }
 }

@@ -187,9 +187,11 @@ namespace EntityModelFundabien.common
         }
 
         //obtiene un ciclo de rehabilitacion segun su id
-        public async Task<CicloDeRehabilitacion> getCicloById(Int64 idCiclo)
+        public async Task<CreateCicloRehabilitacionDTO> getCicloById(Int64 idCiclo)
         {
-            return await context.CicloDeRehabilitaciones.FirstOrDefaultAsync(x => x.idcicloRehabilitacion == idCiclo);
+            var ciclo= await context.CicloDeRehabilitaciones.Include(x => x.detalleCicloRehabilitacion).FirstOrDefaultAsync(x => x.idcicloRehabilitacion == idCiclo);
+            var cicloDTO = mapper.Map<CreateCicloRehabilitacionDTO>(ciclo);
+            return cicloDTO;
         }
         
         //obiene una cita por  su id
