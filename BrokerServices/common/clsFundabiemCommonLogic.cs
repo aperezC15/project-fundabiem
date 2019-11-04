@@ -203,23 +203,23 @@ namespace EntityModelFundabien.common
         }
 
         //obtiene cita por la fecha, y por rango de fechas si range = true
-        public async Task<IEnumerable<citaDTO>> getCitaByDate(string DateType, DateTime fecha, bool range, DateTime dateEnd)
+        public async Task<IEnumerable<citaDTO>> getCitaByDate(string DateType, DateTime fecha, bool range, DateTime dateEnd, int idTerapia, int idEstado)
         {
             var cita = new List<Citas>();
 
             if (DateType == "fechaCita")
             {
                 if (range)
-                    cita = await context.Citas.Where(x => x.fechaCita.Date >= fecha.Date && x.fechaCita.Date <= dateEnd.Date).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaCita.Date >= fecha.Date && x.fechaCita.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
                 else
-                    cita = await context.Citas.Where(x => x.fechaCita.Date == fecha.Date).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaCita.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
             }
             else if (DateType == "fechaAsignacion")
             {
                 if (range)
-                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date >= fecha.Date && x.fechaAsignacion.Date <= dateEnd.Date).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date >= fecha.Date && x.fechaAsignacion.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
                 else
-                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date == fecha.Date).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
             }
             else
                 cita = null;
