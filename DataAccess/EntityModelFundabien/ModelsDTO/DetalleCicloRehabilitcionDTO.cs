@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace EntityModelFundabien.ModelsDTO
 {
     public class DetalleCicloRehabilitcionDTO
     {
+        [Required]
         public Int64 idObjetivo { get; set; }
         public bool intervencion { get; set; }
         public bool TF { get; set; }
