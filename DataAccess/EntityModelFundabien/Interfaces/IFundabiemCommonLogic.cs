@@ -58,6 +58,7 @@ namespace EntityModelFundabien.Interfaces
         Task<Citas> NewCita(CreateCitaDTO model);
         Task<string> searchPersonaByDPI(string dpi);
         Task<citaDTO> getCitaById(int id);
+        Task<IEnumerable<citaDTO>> getCitaByDate(DateTime fecha);
 
     }
 }

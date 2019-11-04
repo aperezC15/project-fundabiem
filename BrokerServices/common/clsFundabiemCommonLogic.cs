@@ -202,6 +202,13 @@ namespace EntityModelFundabien.common
             return citaDTO;
         }
 
+        //obtiene cita por la fecha
+        public async Task<IEnumerable<citaDTO>> getCitaByDate(DateTime fecha)
+        {
+            var cita = await context.Citas.Where(x => x.fechaCita.Date == fecha.Date).ToListAsync();
+            var ct = mapper.Map<List<citaDTO>>(cita);
+            return ct;
+        }
         //obtiene una persona segun idPersona
         public async Task<Persona> getPersona(Int64 idPersona)
         {
@@ -323,9 +330,9 @@ namespace EntityModelFundabien.common
         public async Task<Citas> NewCita(CreateCitaDTO model)
         {
             var paciente = context.Pacientes.Include(x => x.persona).FirstOrDefaultAsync(x => x.idPaciente == model.dPaciente);
-            model.edad = DateTime.Today.AddTicks(-paciente.Result.persona.fechaNacimiento.Ticks).Year -1;
             logger.Information("Creatin a new cita");
             var cita = mapper.Map<Citas>(model);
+            cita.edad = DateTime.Today.AddTicks(-paciente.Result.persona.fechaNacimiento.Ticks).Year - 1;
             await context.Citas.AddAsync(cita);
             await context.SaveChangesAsync();
             return cita;
