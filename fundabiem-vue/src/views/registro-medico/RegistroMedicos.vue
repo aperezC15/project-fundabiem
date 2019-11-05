@@ -32,7 +32,7 @@
             </v-btn>
           </v-toolbar>
 
-          <v-data-table :headers="headers" :items="dataRegistersMedicals" :search="search" class="elevation-1">
+          <v-data-table hide-default-footer :headers="headers" :items="dataRegistersMedicals" :search="search" class="elevation-1">
          
             <template v-slot:no-data v-if="dataRegistersMedicals.length === 0">
               <v-alert
@@ -58,6 +58,13 @@
               <v-alert type="error">EL REGISTRO "{{search}}" NO SE ENCUENTRA EN LA BASE DE DATOS</v-alert>
             </template>
           </v-data-table>
+          <div class="text-center">
+            <v-pagination
+              v-model="paginationPage"
+              :length="paginationLenght"
+              @change="alert('hola')"
+            ></v-pagination>
+          </div>
         </v-card>
       </v-flex>
     </v-layout>
@@ -107,6 +114,12 @@ export default {
   data() {
     return {
       search: "",
+      paginationPage:1,
+      paginationLenght:0,
+      pagination:{
+        pagina:1,
+        rowsPerPage:5
+      },
       headers: [
         { text: "historial Clinico", value: "historialClinico" },
         { text: "Nombre completo", align: "left", sortable: false, value: "nombreCompleto" },
@@ -124,6 +137,12 @@ export default {
       paciente: {},
       idRegistroMedico: "",
       showAlertDetalle: false
+    }
+  },
+  watch: {
+    paginationPage:function(){
+      this.dataRegistersMedicals=[]
+      this.getMedicalsRegisters()
     }
   },
   methods: {
@@ -221,14 +240,19 @@ export default {
     },
     async getMedicalsRegisters() {
       this.loading = true
-      const response = await this.$store.dispatch('getMedicalsRegistros')
+      
+      var pagination={
+        pagina:this.paginationPage,
+        rowsPerPage:5
+      }
+      const response = await this.$store.dispatch('getMedicalsRegistros',{pagination})
 
       console.log(response)
 
       this.loading = false
-      if(response.status === 200 && response.data.length >= 0) {
-        console.log('data ==> ',response.data)
-        response.data.map( register => {
+      if(response.status === 200 && response.data.registrosMedicos.length >= 0) {
+        this.paginationLenght=response.data.pages
+        response.data.registrosMedicos.map( register => {
               const { fechaAdmision, idRegistroMedico } = register
              const { estaActivo, historialClinico, idPaciente } = register.paciente
              const { primerApellido, primerNombre, segundoApellido, segundoNombre, grupoEtnico, dpi, } = register.paciente.persona
