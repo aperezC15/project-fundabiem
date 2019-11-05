@@ -275,16 +275,16 @@ namespace EntityModelFundabien.common
             logger.Information("Create a new Registro Medico to paciente id = {0}", idPaciente);
             RegistroMedico rg = new RegistroMedico();
             rg.idPaciente = idPaciente;
-            rg.fechaAdmision = new DateTime();
+            rg.fechaAdmision = DateTime.Today;
             rg.estaFirmado = true;
             await context.RegistrosMedicos.AddAsync(rg);
             await context.SaveChangesAsync();
         }
         //buscar persona por  DPI
-        public async Task<string> searchPersonaByDPI(string dpi) {
+        public async Task<IEnumerable<Persona>> searchPersonaByDPI(string dpi) {
             logger.Information("Search person by dpi = {0} ", dpi);
-            var persona = await context.Personas.FirstOrDefaultAsync(x => x.dpi == dpi);
-            return persona.dpi;
+            var persona = await context.Personas.Where(x => x.dpi == dpi).ToListAsync();
+            return persona;
         }
 
         //completar un registro medico

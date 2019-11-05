@@ -56,7 +56,7 @@ namespace EntityModelFundabien.Interfaces
         IEnumerable<EstadoCitas> getAllEstadoCitas();
         IEnumerable<Terapias> getAllTerapias();
         Task<Citas> NewCita(CreateCitaDTO model);
-        Task<string> searchPersonaByDPI(string dpi);
+        Task<IEnumerable<Persona>> searchPersonaByDPI(string dpi);
         Task<citaDTO> getCitaById(int id);
         Task<IEnumerable<citaDTO>> getCitaByDate(string DateType, DateTime fecha, bool range, DateTime dateEnd, int idTerapia, int idEstado);
 

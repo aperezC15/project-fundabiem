@@ -131,6 +131,7 @@ export default {
       this.dialogRegistroMedico = true
       this.$store.dispatch('getPaises')
     },
+
     async saveRehabilitacion(data) {
 
       this.dialogRegistroMedico = false
@@ -141,12 +142,12 @@ export default {
       this.loading = false
       if(response.status === 200) {
         this.getMedicalsRegisters()
-        const title = "Nuevo registro médico creado con éxito!"
-        const message = "Nuevo registro médico exitosamente"
+        const title = "Registro médico creado exitosamente!"
+        const message = "Registro médico creado exitosamente"
         this.showAlert(title, message, "success")
       } else {
-        const title = "Nuevo registro médico creado sin éxito!"
-        const message = "Nuevo registro médico no se ha creado"
+        const title = "El registro medico no fue registrado"
+        const message = "Intente de nuevo"
         this.showAlert(title, message, "error")
       }
     },
@@ -160,7 +161,7 @@ export default {
     },
     closeModalRehabilitation() {
       this.dialogRegistroMedico= false
-       this.$store.commit('clearStore')
+      this.$store.commit('clearStore')
     },
 
     async completarRegistro(data) {
