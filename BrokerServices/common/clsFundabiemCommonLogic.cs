@@ -111,6 +111,7 @@ namespace EntityModelFundabien.common
             var rgs = await query
                 .Skip(rowsPerPAge * (pagina - 1))
                 .Take(rowsPerPAge)
+                .Include(x => x.diagnostico)
                 .Include(paciente => paciente.paciente.persona)
                 .OrderBy(x => x.idRegistroMedico)
                 .ToListAsync();
@@ -126,7 +127,7 @@ namespace EntityModelFundabien.common
         public IEnumerable<RegistroMedico> searchRegistroMedicos(int idRegistro)
         {
             logger.Information("Search Registro Medico by Id");
-            return context.RegistrosMedicos.Where(x => x.idRegistroMedico == idRegistro).Include(paciente => paciente.paciente.persona).ToList();
+            return context.RegistrosMedicos.Where(x => x.idRegistroMedico == idRegistro).Include(paciente => paciente.diagnostico).Include(x=> x.paciente.persona).ToList();
         }
 
         //para obtener un paciente segun su id
