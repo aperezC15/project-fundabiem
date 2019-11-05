@@ -1,7 +1,8 @@
 <template>
     <div id="app">        
         <!-- start  of the toolbar -->
-        <v-app-bar color="#2c2e3f" dark app>
+        <v-app-bar color="#2c2e3f" dark clipped-left app>
+            <v-app-bar-nav-icon @click="drawer = !drawer" title="MENU"/>
             <div>
                 <v-avatar>
                   <v-img src="http://www.fundabiem.org.gt/wp-content/uploads/2017/08/favcon.jpg"> </v-img>
@@ -22,9 +23,8 @@
         </v-app-bar>        
         <!-- end of the toolbar -->
           
-          <v-navigation-drawer permanent expand-on-hover
+          <v-navigation-drawer expand-on-hover app clipped 
           hide-overlay
-          absolute
           width="300px"
           v-if="oidcIsAuthenticated"
           v-model="drawer"
