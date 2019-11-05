@@ -248,9 +248,9 @@ export default {
       const response = await this.$store.dispatch('getMedicalsRegistros',{pagination})
 
       this.loading = false
-      if(response.status === 200 && response.data.registrosMedicos.length >= 0) {
+      if(response.status === 200 && response.data.registrosFundabiem.length >= 0) {
         this.paginationLenght=response.data.pages
-        response.data.registrosMedicos.map( register => {
+        response.data.registrosFundabiem.map( register => {
               const { fechaAdmision, idRegistroMedico } = register
              const { estaActivo, historialClinico, idPaciente } = register.paciente
              const { primerApellido, primerNombre, segundoApellido, segundoNombre, grupoEtnico, dpi, } = register.paciente.persona

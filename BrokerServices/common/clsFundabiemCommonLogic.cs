@@ -4,6 +4,7 @@ using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
 using EntityModelFundabien.Models;
 using EntityModelFundabien.ModelsDTO;
+using fundabiemAPI.clssResponses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -101,7 +102,7 @@ namespace EntityModelFundabien.common
         }
 
         //obtiene todos los registros medicos
-        public async Task<response> getAllRegistrosMedicos(int pagina, int rowsPerPAge)
+        public async Task<clsResponse<RegistroMedico>> getAllRegistrosMedicos(int pagina, int rowsPerPAge)
         {
             var query = context.RegistrosMedicos.AsQueryable();
             var totalRegisters = query.Count();
@@ -115,9 +116,9 @@ namespace EntityModelFundabien.common
                 .Include(paciente => paciente.paciente.persona)
                 .OrderBy(x => x.idRegistroMedico)
                 .ToListAsync();
-            response rps = new response();
+            clsResponse<RegistroMedico> rps = new clsResponse<RegistroMedico>();
             rps.Error = false;
-            rps.RegistrosMedicos = rgs;
+            rps.RegistrosFundabiem = rgs;
             rps.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge));
             rps.totalRows = totalRegisters;
             return rps;
@@ -395,6 +396,12 @@ namespace EntityModelFundabien.common
                 await newAnamnesis(historiaClinica.idHistoriaClinica, anamnesis);
             }
         }
+
+        //optiene historias clinicas
+        //public async Task<response<HistoriaClinica>> getAllHistoriaClinicas()
+        //{
+        //    return await context.HistoriasClinicas.ToListAsync();
+        //}
 
         //obtiene una evolucion medica segun su id
         public async Task<EvolucionMedica> getEvolucionMedica(Int64 idEvolucionMedica) =>

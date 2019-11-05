@@ -7,6 +7,7 @@ using BrokerServices.common;
 using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
 using EntityModelFundabien.ModelsDTO;
+using fundabiemAPI.clssResponses;
 using fundabiemAPI.Middleware;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -101,7 +102,7 @@ namespace fundabiemAPI.Controllers
         }
 
         [HttpGet("getAll")]
-        public async  Task<ActionResult<response>> getRegistroMedico(int pagina, int rowsPerPage)
+        public async  Task<ActionResult<clsResponse<RegistroMedico>>> getRegistroMedico(int pagina, int rowsPerPage)
         {
             getUser();
             var rgMedicos = await fundabiem.getAllRegistrosMedicos(pagina, rowsPerPage);

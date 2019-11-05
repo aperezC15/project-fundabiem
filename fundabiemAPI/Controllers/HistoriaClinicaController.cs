@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BrokerServices.common;
+using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
 using EntityModelFundabien.ModelsDTO;
 using fundabiemAPI.Middleware;
@@ -50,5 +51,18 @@ namespace fundabiemAPI.Controllers
                 }
             }
         }
+
+        //[HttpGet]
+        //public async Task<ActionResult<HistoriaClinica>> get()
+        //{
+        //    try
+        //    {
+        //        var histo = fundabiem.newHistoriaClinica
+        //    }catch(Exception ex)
+        //    {
+
+        //    }
+
+        //}
     }
 }

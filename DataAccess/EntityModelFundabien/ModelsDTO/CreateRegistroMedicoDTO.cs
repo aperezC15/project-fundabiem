@@ -13,12 +13,4 @@ namespace EntityModelFundabien.ModelsDTO
         public IList<FamiliarDTO> familiaresPaciente { get; set; }
         public DireccionDTO direccionEncargado { get; set; }
     }
-
-    public class response
-    {
-        public bool Error { get; set; }
-        public List<RegistroMedico> RegistrosMedicos { get; set; }
-        public int pages { get; set; }
-        public int totalRows { get; set; }
-    }
 }
