@@ -89,6 +89,26 @@ const store = {
             } catch (error) {
                 return error.response
             }
+        },
+        getTerapias: async ({}) => {
+            try {
+                const response = await api.get('/Fundabiem/Terapias')
+                if(response.status === 200) {
+                    return response
+                }
+            } catch (e) {
+                return e.response
+            }
+        },
+        getEstados: async ({}) => {
+            try {
+                const response = await api.get("/Fundabiem/EstadoCitas");
+                if(response.status === 200) {
+                    return response
+                }
+            } catch (error) {
+                return error.response
+            }
         }
     }
 }

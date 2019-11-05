@@ -1,0 +1,93 @@
+<template>
+  <div class="text-center">
+    <v-dialog v-model="closeModalCitesC" width="800" persistent>
+      <v-card>
+        <v-card-title class="headline grey lighten-2" primary-title>Programación de citas</v-card-title>
+
+        <v-card-text>
+          <v-form>
+              <v-row>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-select
+                    v-model="idTerapia"
+                    :items="terapias"
+                    item-value="idTerapia"
+                    item-text="descripcion"
+                    label="Seleccione la terapia"
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4" v-if="showEstados">
+                    <v-select
+                    v-model="estado"
+                    :items="estados"
+                    item-value="idEstado"
+                    item-text="nombre"
+                    label="Seleccione el estado"
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4" >
+                    <v-text-field
+                    v-model="noOrden"
+                    label="Ingrese el no. de orden"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                   <v-menu
+                        v-model="menu2"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="290px"
+                    >
+                        <template v-slot:activator="{ on }">
+                        <v-text-field
+                            v-model="fechaCita"
+                            label="Seleccione la fecha de cita"
+                            prepend-icon="event"
+                            readonly
+                            v-on="on"
+                        ></v-text-field>
+                        </template>
+                        <v-date-picker locale="es" v-model="fechaCita" @input="menu2 = false"></v-date-picker>
+                    </v-menu>
+                    </v-col>
+              </v-row>
+          </v-form>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="dialog = false">Programar citas</v-btn>
+          <v-btn color="primary" text @click="closeModalCites">Cerrar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    closeModalCitesC: Boolean,
+    terapias: Array,
+    showEstados: Boolean,
+  },
+  data() {
+      return {
+        idTerapia: "",
+        estado:"",
+        noOrden: "",
+        fechaCita: new Date().toISOString().substr(0, 10),
+         menu2: false,
+    };
+  },
+  methods: {
+    closeModalCites() {
+      this.$emit("closeModalCites");
+    }
+  }
+};
+</script>

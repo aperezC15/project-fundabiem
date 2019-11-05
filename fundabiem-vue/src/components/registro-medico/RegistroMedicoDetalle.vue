@@ -35,10 +35,25 @@
             <v-form ref="formRef" v-model="formValid">
               <v-row class="pa-3">
                 <v-col cols="12" sm="6">
-                  <v-textarea :rules="rulesInput" v-model="diagnosticoFinal" solo label="Diagnóstico Final" auto-grow></v-textarea>
+                  <v-textarea
+                    :rules="rulesInput"
+                    v-model="diagnosticoFinal"
+                    solo
+                    label="Diagnóstico Final"
+                    auto-grow
+                  ></v-textarea>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-textarea :rules="rulesInput"  v-model="recomendaciones" solo label="Recomendaciones" auto-grow></v-textarea>
+                  <v-textarea
+                    :rules="rulesInput"
+                    v-model="recomendaciones"
+                    solo
+                    label="Recomendaciones"
+                    auto-grow
+                  ></v-textarea>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-btn large color="info" block @click="programarCitas">Programar citas</v-btn>
                 </v-col>
               </v-row>
             </v-form>
@@ -51,23 +66,31 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+
+    <new-cites-component
+      :terapias="terapias" 
+      :showEstados="false"
+      :closeModalCitesC="closeModalCitesC" @closeModalCites="closeModalCites" />
   </v-row>
 </template>
     
 <script>
 import DatosPersona from "../datos-personas/DatosPersonas.vue";
 import AlertErrorGlobal from "../alertas/alertErrorGlobal.vue";
+import NewCitesComponent from "../../components/citas/NewCites.vue";
+const namespace = "oidcStore/";
 
 export default {
   components: {
     DatosPersona,
-    AlertErrorGlobal
+    AlertErrorGlobal,
+    NewCitesComponent
   },
   props: {
     dialogRegistroMedicoDetalle: Boolean,
     historialClinico: Object,
     paciente: Object,
-    showAlertDetalle: Boolean
+    showAlertDetalle: Boolean,
   },
   data() {
     return {
@@ -75,24 +98,45 @@ export default {
       rulesInput: [v => !!v || "El campo es obligatorio"],
       diagnosticoFinal: "",
       recomendaciones: "",
-      formValid: false
+      formValid: false,
+      closeModalCitesC: false,
+      user: {},
+      terapias: [],
     };
   },
   methods: {
     closeModalDetalle() {
       this.$emit("closeModalDetalle");
-      this.$refs.formRef.reset()
+      this.$refs.formRef.reset();
     },
     completarRegistro() {
-
-      const data ={
+      const data = {
         diagnosticoFinal: this.diagnosticoFinal,
-        recomendaciones:  this.recomendaciones
-      }
+        recomendaciones: this.recomendaciones
+      };
 
       this.$emit("completarRegistro", data);
-      this.$refs.formRef.reset()
+      this.$refs.formRef.reset();
+    },
+    async programarCitas() {
+      this.closeModalCitesC = true;
+      const response = await this.$store.dispatch('getTerapias')
+      if(response.status === 200) {
+        const data = response.data.map( ({idTerapia, descripcion}) => ({idTerapia, descripcion}) )
+        this.terapias = data
+      }
+    },
+    closeModalCites() {
+      this.closeModalCitesC = false;
+    },
+    getSub() {
+      const user = this.$store.getters[namespace + "oidcUser"];
+      return user;
     }
+  },
+  mounted() {
+    this.user = this.getSub();
+    console.log(this.user)
   }
 };
 </script>
