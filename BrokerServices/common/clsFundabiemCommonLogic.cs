@@ -117,7 +117,7 @@ namespace EntityModelFundabien.common
             response rps = new response();
             rps.Error = false;
             rps.RegistrosMedicos = rgs;
-            rps.pages = totalRegisters / rowsPerPAge;
+            rps.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge));
             rps.totalRows = totalRegisters;
             return rps;
         }
