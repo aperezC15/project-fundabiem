@@ -12,7 +12,7 @@ namespace EntityModelFundabien.ModelsDTO
         //public int edad { get; set; }
         public string NoOrden { get; set; }
         public DateTime fechaCita { get; set; }
-        public DateTime fechaAsignacion { get; set; }
+       // public DateTime fechaAsignacion { get; set; }
         public string AsignadoPor { get; set; }
     }
 

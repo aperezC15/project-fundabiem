@@ -366,6 +366,7 @@ namespace EntityModelFundabien.common
             var paciente = context.Pacientes.Include(x => x.persona).FirstOrDefaultAsync(x => x.idPaciente == model.dPaciente);
             logger.Information("Creatin a new cita");
             var cita = mapper.Map<Citas>(model);
+            cita.fechaAsignacion = DateTime.Today;
             cita.edad = DateTime.Today.AddTicks(-paciente.Result.persona.fechaNacimiento.Ticks).Year - 1;
             await context.Citas.AddAsync(cita);
             await context.SaveChangesAsync();
