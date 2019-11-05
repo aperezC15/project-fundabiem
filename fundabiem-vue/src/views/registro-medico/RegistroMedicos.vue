@@ -225,6 +225,7 @@ export default {
 
       this.loading = false
       if(response.status === 200 && response.data.length >= 0) {
+        console.log('data ==> ',response.data)
         response.data.map( register => {
               const { fechaAdmision, idRegistroMedico } = register
              const { estaActivo, historialClinico, idPaciente } = register.paciente
@@ -235,6 +236,9 @@ export default {
               this.dataRegistersMedicals.push({ estaActivo, historialClinico, idPaciente, fechaAdmision,
                 nombreCompleto, grupoEtnico, dpi, idRegistroMedico
               })
+
+              //modificar aca
+              
            })
       }
     }
