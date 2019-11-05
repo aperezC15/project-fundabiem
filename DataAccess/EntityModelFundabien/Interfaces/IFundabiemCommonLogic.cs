@@ -35,7 +35,7 @@ namespace EntityModelFundabien.Interfaces
         Task newRegistroMedico(Int64 idPaciente);
         Task newDirection(DireccionDTO model, Int64 idPersona);
         Task newFamiliar(Int64 idPersona, Int64 idPaciente, string parentezco);
-        IEnumerable<RegistroMedico> getAllRegistrosMedicos();
+        Task<response> getAllRegistrosMedicos(int pagina, int rowsPerPage);
         IEnumerable<RegistroMedico> searchRegistroMedicos(int idRegistro);
         IEnumerable<Paciente> searchPaciente(string valor, string criterio);
         IEnumerable<Paciente> searchPacienteByHistorialClinico(int historialClinico);

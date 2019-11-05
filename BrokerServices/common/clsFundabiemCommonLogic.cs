@@ -101,10 +101,25 @@ namespace EntityModelFundabien.common
         }
 
         //obtiene todos los registros medicos
-        public IEnumerable<RegistroMedico> getAllRegistrosMedicos()
+        public async Task<response> getAllRegistrosMedicos(int pagina, int rowsPerPAge)
         {
+            var query = context.RegistrosMedicos.AsQueryable();
+            var totalRegisters = query.Count();
+
             logger.Information("Get all REgistros Medicos");
-            return context.RegistrosMedicos.Include(paciente => paciente.paciente.persona).ToList();
+           // var rg = context.RegistrosMedicos.Include(paciente => paciente.paciente.persona).ToList();
+            var rgs = await query
+                .Skip(rowsPerPAge * (pagina - 1))
+                .Take(rowsPerPAge)
+                .Include(paciente => paciente.paciente.persona)
+                .OrderBy(x => x.idRegistroMedico)
+                .ToListAsync();
+            response rps = new response();
+            rps.Error = false;
+            rps.RegistrosMedicos = rgs;
+            rps.pages = totalRegisters / rowsPerPAge;
+            rps.totalRows = totalRegisters;
+            return rps;
         }
 
         //para obtener un registro medico segun id de paciente o HistorialClinico
@@ -351,6 +366,8 @@ namespace EntityModelFundabien.common
             var paciente = context.Pacientes.Include(x => x.persona).FirstOrDefaultAsync(x => x.idPaciente == model.dPaciente);
             logger.Information("Creatin a new cita");
             var cita = mapper.Map<Citas>(model);
+            cita.idEstado = 5;
+            cita.fechaAsignacion = DateTime.Today;
             cita.edad = DateTime.Today.AddTicks(-paciente.Result.persona.fechaNacimiento.Ticks).Year - 1;
             await context.Citas.AddAsync(cita);
             await context.SaveChangesAsync();

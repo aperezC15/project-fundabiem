@@ -101,10 +101,10 @@ namespace fundabiemAPI.Controllers
         }
 
         [HttpGet("getAll")]
-        public ActionResult<IEnumerable<RegistroMedico>> getRegistroMedico()
+        public async  Task<ActionResult<response>> getRegistroMedico(int pagina, int rowsPerPage)
         {
             getUser();
-            var rgMedicos = fundabiem.getAllRegistrosMedicos();
+            var rgMedicos = await fundabiem.getAllRegistrosMedicos(pagina, rowsPerPage);
             return Ok(rgMedicos);
         }
 
