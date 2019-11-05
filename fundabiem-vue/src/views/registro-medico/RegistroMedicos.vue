@@ -223,6 +223,8 @@ export default {
       this.loading = true
       const response = await this.$store.dispatch('getMedicalsRegistros')
 
+      console.log(response)
+
       this.loading = false
       if(response.status === 200 && response.data.length >= 0) {
         console.log('data ==> ',response.data)

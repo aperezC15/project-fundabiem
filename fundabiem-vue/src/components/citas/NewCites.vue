@@ -5,7 +5,7 @@
         <v-card-title class="headline grey lighten-2" primary-title>Programación de citas</v-card-title>
 
         <v-card-text>
-          <v-form>
+          <v-form v-model="formValid" ref="formCites">
               <v-row>
                   <v-col cols="12" sm="6" md="4">
                     <v-select
@@ -82,11 +82,13 @@ export default {
         noOrden: "",
         fechaCita: new Date().toISOString().substr(0, 10),
          menu2: false,
+         formValid: false
     };
   },
   methods: {
     closeModalCites() {
       this.$emit("closeModalCites");
+      this.$refs.formCites.reset()
     }
   }
 };
