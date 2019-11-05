@@ -124,6 +124,24 @@ namespace EntityModelFundabien.common
             return rps;
         }
 
+        //optiene historias clinicas
+        public async Task<clsResponse<HistoriaClinica>> getAllHistoriaClinicas(int pagina, int rowsPerPAge)
+        {
+            var query = context.HistoriasClinicas.AsQueryable();
+            var totalRegisters = query.Count();
+            var historias = await query
+                .Skip(rowsPerPAge * (pagina - 1))
+                .Take(rowsPerPAge)
+                .OrderBy(x => x.idHistoriaClinica)
+                .ToListAsync();
+            clsResponse<HistoriaClinica> histClinicas = new clsResponse<HistoriaClinica>();
+            histClinicas.Error = false;
+            histClinicas.RegistrosFundabiem = historias;
+            histClinicas.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge));
+            histClinicas.totalRows = totalRegisters;
+            return histClinicas;
+        }
+
         //para obtener un registro medico segun id de paciente o HistorialClinico
         public IEnumerable<RegistroMedico> searchRegistroMedicos(int idRegistro)
         {
@@ -396,12 +414,6 @@ namespace EntityModelFundabien.common
                 await newAnamnesis(historiaClinica.idHistoriaClinica, anamnesis);
             }
         }
-
-        //optiene historias clinicas
-        //public async Task<response<HistoriaClinica>> getAllHistoriaClinicas()
-        //{
-        //    return await context.HistoriasClinicas.ToListAsync();
-        //}
 
         //obtiene una evolucion medica segun su id
         public async Task<EvolucionMedica> getEvolucionMedica(Int64 idEvolucionMedica) =>
