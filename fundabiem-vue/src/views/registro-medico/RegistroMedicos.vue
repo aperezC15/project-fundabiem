@@ -52,7 +52,7 @@
                 v-if="!item.diagnostico"
                 @click="openDetailRegister(item)"
               >
-                <v-icon>edit</v-icon>
+                <v-icon>how_to_reg</v-icon>
               </v-btn>
             </template>
             <template v-slot:no-results>
