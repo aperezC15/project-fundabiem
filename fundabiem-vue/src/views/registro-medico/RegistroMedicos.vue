@@ -9,7 +9,7 @@
                 </v-flex>
             </v-layout>
         <v-card>
-          <v-toolbar flat dark color="#2c2e3f">
+          <v-toolbar flat dark color="#616161">
             <v-toolbar-title>REGISTROS</v-toolbar-title>
             <v-divider class="mx-4" vertical></v-divider>
             <div class="flex-grow-1"></div>
@@ -21,15 +21,15 @@
               single-line
               hide-details
             ></v-text-field>
-            <v-btn
-              color="indigo"
-              fab
-              title="NUEVO REGISTRO MÉDICO"
-              class="mx-2"
-              @click="openDialogRegistroMedico"
-            >
-              <v-icon>add</v-icon>
-            </v-btn>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn class="ma-2" outlined tile v-on="on" color="success"  @click="openDialogRegistroMedico">
+              <v-icon>add</v-icon>Nuevo
+            </v-btn >
+              </template>
+              <span>Nuevo registro Médico</span>
+            </v-tooltip>
+            
           </v-toolbar>
 
           <v-data-table hide-default-footer :headers="headers" :items="dataRegistersMedicals" :search="search" class="elevation-1">
