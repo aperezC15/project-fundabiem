@@ -53,7 +53,7 @@ namespace fundabiemAPI.Controllers
                     var cicloReha = await fundabiem.newCicloRehabilitacion(ciclo);
                     transaction.Commit();
                     logger.LogInformation("Commit transaction {0}",txt);
-                    return Ok();
+                    return new CreatedAtRouteResult("ObtenerCicloRehabilitacion", new { id = cicloReha.idcicloRehabilitacion}, cicloReha);
                 }
                 catch(Exception ex)
                 {
@@ -63,6 +63,15 @@ namespace fundabiemAPI.Controllers
                     return BadRequest();
                 }
             }
+        }
+
+        [HttpGet("{id}", Name = "ObtenerCicloRehabilitacion")]
+        public  ActionResult<CreateCicloRehabilitacionDTO> getCicloRehabilitacion(int id)
+        {
+            var ciclo =  fundabiem.getCicloById(id);
+            if (ciclo.Result == null)
+                return NotFound("No se encontro el ciclo de rehabilitacion con id "+id);
+            return Ok(ciclo.Result);
         }
 
     }

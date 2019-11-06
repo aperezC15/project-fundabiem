@@ -14,6 +14,7 @@ namespace EntityModelFundabien.entities
         public bool estaFirmado { get; set; }
 
         public Paciente paciente { get; set; }
+        public RegistroMedicoDiagnostico diagnostico { get; set; }
 
     }
 }

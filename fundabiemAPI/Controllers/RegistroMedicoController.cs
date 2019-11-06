@@ -7,6 +7,7 @@ using BrokerServices.common;
 using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
 using EntityModelFundabien.ModelsDTO;
+using fundabiemAPI.clssResponses;
 using fundabiemAPI.Middleware;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,8 +39,8 @@ namespace fundabiemAPI.Controllers
                 try
                 {
                     getUser();
-                    var dpi = await fundabiem.searchPersonaByDPI(model.paciente.dpi);
-                    if (dpi == model.paciente.dpi)
+                    var persona = await fundabiem.searchPersonaByDPI(model.paciente.dpi);
+                    if (persona.Count() > 0)
                         return BadRequest("El DPI ya existe");
 
                     logger.LogInformation("Creating a new Registro Medico");
@@ -101,10 +102,10 @@ namespace fundabiemAPI.Controllers
         }
 
         [HttpGet("getAll")]
-        public ActionResult<IEnumerable<RegistroMedico>> getRegistroMedico()
+        public async  Task<ActionResult<clsResponse<RegistroMedico>>> getRegistroMedico(int pagina, int rowsPerPage)
         {
             getUser();
-            var rgMedicos = fundabiem.getAllRegistrosMedicos();
+            var rgMedicos = await fundabiem.getAllRegistrosMedicos(pagina, rowsPerPage);
             return Ok(rgMedicos);
         }
 

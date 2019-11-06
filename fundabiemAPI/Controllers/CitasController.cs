@@ -34,9 +34,28 @@ namespace fundabiemAPI.Controllers
         public ActionResult<citaDTO> getCitaByID (int id)
         {
             var cita = fundabiem.getCitaById(id);
-            if (cita == null)
+            if (cita.Result == null)
                 return NotFound("No se encontro la cita con id  "+ id.ToString());
-            return Ok(cita);
+            return Ok(cita.Result);
+        }
+
+        ////obtine citas por fecha
+        //[HttpGet("searchByDate/{DateType}/{date}")]
+        //public async Task<ActionResult<IEnumerable<citaDTO>>> GetCitaByDate(string DateType, DateTime date)
+        //{
+        //    var cita = await fundabiem.getCitaByDate(DateType, date, false,date);
+        //    if (cita.Count() == 0)
+        //        return NotFound("No se encontro la cita con fecha " + date);
+        //    return Ok(cita);
+        //}
+
+        [HttpGet("searchByDates")]
+        public async Task<ActionResult<IEnumerable<citaDTO>>> getCitaRangeDtes(string DateType, DateTime dateStart, DateTime dateEnd, bool range, int idTerpia,int idEstado)
+        {
+            var citas = await fundabiem.getCitaByDate(DateType, dateStart, range, dateEnd, idTerpia, idEstado);
+            if (citas.Count() == 0)
+                return NotFound("No se econtraron citas entra la fecha "+dateStart.ToString() +" y "+dateEnd.ToString());
+            return Ok(citas);
         }
 
         [HttpPost("new")]

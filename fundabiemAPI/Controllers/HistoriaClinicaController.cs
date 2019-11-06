@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BrokerServices.common;
+using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
 using EntityModelFundabien.ModelsDTO;
+using fundabiemAPI.clssResponses;
 using fundabiemAPI.Middleware;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +51,23 @@ namespace fundabiemAPI.Controllers
                     return BadRequest();
                 }
             }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<clsResponse<HistoriaClinica>>> get(int pagina, int rowsPerPage)
+        {
+            try
+            {
+                getUser();
+                var histo = await fundabiem.getAllHistoriaClinicas(pagina, rowsPerPage);
+                return Ok(histo);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Ocurrio un error al leer las historias clinicas => {0}", ex.ToString());
+                return BadRequest("ocurrio un error al leer las historias clinicas");
+            }
+
         }
     }
 }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace EntityModelFundabien.ModelsDTO
 {
     public class CreateCicloRehabilitacionDTO
     {
+        [Required(ErrorMessage ="El idPaciente es requerido")]
         public Int64 idPaciente { get; set; }
         public string dignostico { get; set; }
         public string origen { get; set; }
@@ -17,12 +19,6 @@ namespace EntityModelFundabien.ModelsDTO
         public string participacion { get; set; }
         public string factoresAmbientales { get; set; }
         public string factoresPersonales { get; set; }
-        public List<modelo> detalleCicloRehabilitacion { get; set; }
-    }
-
-    public class modelo
-    {
-        //public string clave { get; set; }
-        //public string valor { get; set; }
+        public List<DetalleCicloRehabilitcionDTO> detalleCicloRehabilitacion { get; set; }
     }
 }

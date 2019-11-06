@@ -4,6 +4,7 @@ using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
 using EntityModelFundabien.Models;
 using EntityModelFundabien.ModelsDTO;
+using fundabiemAPI.clssResponses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -101,17 +102,51 @@ namespace EntityModelFundabien.common
         }
 
         //obtiene todos los registros medicos
-        public IEnumerable<RegistroMedico> getAllRegistrosMedicos()
+        public async Task<clsResponse<RegistroMedico>> getAllRegistrosMedicos(int pagina, int rowsPerPAge)
         {
+            var query = context.RegistrosMedicos.AsQueryable();
+            var totalRegisters = query.Count();
+
             logger.Information("Get all REgistros Medicos");
-            return context.RegistrosMedicos.Include(paciente => paciente.paciente.persona).ToList();
+           // var rg = context.RegistrosMedicos.Include(paciente => paciente.paciente.persona).ToList();
+            var rgs = await query
+                .Skip(rowsPerPAge * (pagina - 1))
+                .Take(rowsPerPAge)
+                .Include(x => x.diagnostico)
+                .Include(paciente => paciente.paciente.persona)
+                .OrderBy(x => x.idRegistroMedico)
+                .ToListAsync();
+            clsResponse<RegistroMedico> rps = new clsResponse<RegistroMedico>();
+            rps.Error = false;
+            rps.RegistrosFundabiem = rgs;
+            rps.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge));
+            rps.totalRows = totalRegisters;
+            return rps;
+        }
+
+        //optiene historias clinicas
+        public async Task<clsResponse<HistoriaClinica>> getAllHistoriaClinicas(int pagina, int rowsPerPAge)
+        {
+            var query = context.HistoriasClinicas.AsQueryable();
+            var totalRegisters = query.Count();
+            var historias = await query
+                .Skip(rowsPerPAge * (pagina - 1))
+                .Take(rowsPerPAge)
+                .OrderBy(x => x.idHistoriaClinica)
+                .ToListAsync();
+            clsResponse<HistoriaClinica> histClinicas = new clsResponse<HistoriaClinica>();
+            histClinicas.Error = false;
+            histClinicas.RegistrosFundabiem = historias;
+            histClinicas.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge));
+            histClinicas.totalRows = totalRegisters;
+            return histClinicas;
         }
 
         //para obtener un registro medico segun id de paciente o HistorialClinico
         public IEnumerable<RegistroMedico> searchRegistroMedicos(int idRegistro)
         {
             logger.Information("Search Registro Medico by Id");
-            return context.RegistrosMedicos.Where(x => x.idRegistroMedico == idRegistro).Include(paciente => paciente.paciente.persona).ToList();
+            return context.RegistrosMedicos.Where(x => x.idRegistroMedico == idRegistro).Include(paciente => paciente.diagnostico).Include(x=> x.paciente.persona).ToList();
         }
 
         //para obtener un paciente segun su id
@@ -157,13 +192,13 @@ namespace EntityModelFundabien.common
         }
 
         //crea un ciclo de rehabilitcion
-        public async Task<Int64> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo)
+        public async Task<CicloDeRehabilitacion> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo)
         {
             logger.Information("create a new ciclo de rehabilitacion ");
             var cl = mapper.Map<CicloDeRehabilitacion>(ciclo);
             await context.CicloDeRehabilitaciones.AddAsync(cl);
             await context.SaveChangesAsync();
-            return cl.idcicloRehabilitacion;
+            return cl;
         }
 
         //crea el detalle del ciclo de rehabilitacion
@@ -187,9 +222,11 @@ namespace EntityModelFundabien.common
         }
 
         //obtiene un ciclo de rehabilitacion segun su id
-        public async Task<CicloDeRehabilitacion> getCicloById(Int64 idCiclo)
+        public async Task<CreateCicloRehabilitacionDTO> getCicloById(Int64 idCiclo)
         {
-            return await context.CicloDeRehabilitaciones.FirstOrDefaultAsync(x => x.idcicloRehabilitacion == idCiclo);
+            var ciclo= await context.CicloDeRehabilitaciones.Include(x => x.detalleCicloRehabilitacion).FirstOrDefaultAsync(x => x.idcicloRehabilitacion == idCiclo);
+            var cicloDTO = mapper.Map<CreateCicloRehabilitacionDTO>(ciclo);
+            return cicloDTO;
         }
         
         //obiene una cita por  su id
@@ -200,6 +237,32 @@ namespace EntityModelFundabien.common
             return citaDTO;
         }
 
+        //obtiene cita por la fecha, y por rango de fechas si range = true
+        public async Task<IEnumerable<citaDTO>> getCitaByDate(string DateType, DateTime fecha, bool range, DateTime dateEnd, int idTerapia, int idEstado)
+        {
+            var cita = new List<Citas>();
+
+            if (DateType == "fechaCita")
+            {
+                if (range)
+                    cita = await context.Citas.Where(x => x.fechaCita.Date >= fecha.Date && x.fechaCita.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+                else
+                    cita = await context.Citas.Where(x => x.fechaCita.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+            }
+            else if (DateType == "fechaAsignacion")
+            {
+                if (range)
+                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date >= fecha.Date && x.fechaAsignacion.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+                else
+                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+            }
+            else
+                cita = null;
+            var ct = mapper.Map<List<citaDTO>>(cita);
+            return ct;
+        }
+
+      
         //obtiene una persona segun idPersona
         public async Task<Persona> getPersona(Int64 idPersona)
         {
@@ -247,16 +310,16 @@ namespace EntityModelFundabien.common
             logger.Information("Create a new Registro Medico to paciente id = {0}", idPaciente);
             RegistroMedico rg = new RegistroMedico();
             rg.idPaciente = idPaciente;
-            rg.fechaAdmision = new DateTime();
+            rg.fechaAdmision = DateTime.Today;
             rg.estaFirmado = true;
             await context.RegistrosMedicos.AddAsync(rg);
             await context.SaveChangesAsync();
         }
         //buscar persona por  DPI
-        public async Task<string> searchPersonaByDPI(string dpi) {
+        public async Task<IEnumerable<Persona>> searchPersonaByDPI(string dpi) {
             logger.Information("Search person by dpi = {0} ", dpi);
-            var persona = await context.Personas.FirstOrDefaultAsync(x => x.dpi == dpi);
-            return persona.dpi;
+            var persona = await context.Personas.Where(x => x.dpi == dpi).ToListAsync();
+            return persona;
         }
 
         //completar un registro medico
@@ -320,8 +383,12 @@ namespace EntityModelFundabien.common
         //new cita
         public async Task<Citas> NewCita(CreateCitaDTO model)
         {
+            var paciente = context.Pacientes.Include(x => x.persona).FirstOrDefaultAsync(x => x.idPaciente == model.dPaciente);
             logger.Information("Creatin a new cita");
             var cita = mapper.Map<Citas>(model);
+            cita.idEstado = 5;
+            cita.fechaAsignacion = DateTime.Today;
+            cita.edad = DateTime.Today.AddTicks(-paciente.Result.persona.fechaNacimiento.Ticks).Year - 1;
             await context.Citas.AddAsync(cita);
             await context.SaveChangesAsync();
             return cita;

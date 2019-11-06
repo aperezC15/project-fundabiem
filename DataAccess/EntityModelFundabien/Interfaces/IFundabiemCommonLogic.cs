@@ -2,6 +2,7 @@
 using EntityModelFundabien.entities;
 using EntityModelFundabien.Models;
 using EntityModelFundabien.ModelsDTO;
+using fundabiemAPI.clssResponses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -35,7 +36,7 @@ namespace EntityModelFundabien.Interfaces
         Task newRegistroMedico(Int64 idPaciente);
         Task newDirection(DireccionDTO model, Int64 idPersona);
         Task newFamiliar(Int64 idPersona, Int64 idPaciente, string parentezco);
-        IEnumerable<RegistroMedico> getAllRegistrosMedicos();
+        Task<clsResponse<RegistroMedico>> getAllRegistrosMedicos(int pagina, int rowsPerPage);
         IEnumerable<RegistroMedico> searchRegistroMedicos(int idRegistro);
         IEnumerable<Paciente> searchPaciente(string valor, string criterio);
         IEnumerable<Paciente> searchPacienteByHistorialClinico(int historialClinico);
@@ -47,8 +48,8 @@ namespace EntityModelFundabien.Interfaces
         Task<EvolucionMedica> newEvolucionMedica(CreateEvolucionMedicaDTO modelo);
 
         IEnumerable<ObjetivoDeIntervencion> getAllObjetivos();
-        Task<Int64> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo);
-        Task<CicloDeRehabilitacion> getCicloById(Int64 idCiclo);
+        Task<CicloDeRehabilitacion> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo);
+        Task<CreateCicloRehabilitacionDTO> getCicloById(Int64 idCiclo);
         Task<DetalleCicloDeRehabilitacion> newDetalleCicloRehabilitacion(DetalleCicloRehabilitcionDTO detalle);
         Task<RegistroMedicoDiagnostico> completRegistroMedico(RegistroMedicoDiagnosticoDTO model);
         IEnumerable<Paciente> getAllPacientes();
@@ -56,8 +57,10 @@ namespace EntityModelFundabien.Interfaces
         IEnumerable<EstadoCitas> getAllEstadoCitas();
         IEnumerable<Terapias> getAllTerapias();
         Task<Citas> NewCita(CreateCitaDTO model);
-        Task<string> searchPersonaByDPI(string dpi);
+        Task<IEnumerable<Persona>> searchPersonaByDPI(string dpi);
         Task<citaDTO> getCitaById(int id);
+        Task<IEnumerable<citaDTO>> getCitaByDate(string DateType, DateTime fecha, bool range, DateTime dateEnd, int idTerapia, int idEstado);
+        Task<clsResponse<HistoriaClinica>> getAllHistoriaClinicas(int pagina, int rowsPerPAge);
 
     }
 }
