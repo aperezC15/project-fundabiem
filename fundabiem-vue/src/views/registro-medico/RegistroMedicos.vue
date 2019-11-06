@@ -52,7 +52,7 @@
                     <v-icon>how_to_reg</v-icon>
                   </v-btn>
                 </template>
-                <span>COMPLETAR EL REGISTRO MÉDICO</span>
+                <span>Completar el registro médico</span>
               </v-tooltip>
 
               
@@ -65,7 +65,6 @@
             <v-pagination
               v-model="paginationPage"
               :length="paginationLenght"
-              @change="alert('hola')"
             ></v-pagination>
           </div>
         </v-card>
