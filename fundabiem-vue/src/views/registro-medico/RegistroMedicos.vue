@@ -44,16 +44,18 @@
             </template>
 
             <template v-slot:item.action="{item}">
-              <v-btn
-                title="COMPLETAR EL REGISTRO MÉDICO"
-                fab
-                color="success"
-                dark
-                v-if="!item.diagnostico"
-                @click="openDetailRegister(item)"
-              >
-                <v-icon>how_to_reg</v-icon>
-              </v-btn>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn fab color="success" dark
+                    v-if="!item.diagnostico"
+                    @click="openDetailRegister(item)" v-on="on" >
+                    <v-icon>how_to_reg</v-icon>
+                  </v-btn>
+                </template>
+                <span>COMPLETAR EL REGISTRO MÉDICO</span>
+              </v-tooltip>
+
+              
             </template>
             <template v-slot:no-results>
               <v-alert type="error">EL REGISTRO "{{search}}" NO SE ENCUENTRA EN LA BASE DE DATOS</v-alert>
