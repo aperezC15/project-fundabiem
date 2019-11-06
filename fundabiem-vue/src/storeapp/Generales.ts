@@ -1,4 +1,5 @@
-import api from '../api'
+import axios from 'axios'
+const api = axios
 
 const store = {
     state: {

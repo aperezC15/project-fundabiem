@@ -39,6 +39,7 @@ namespace fundabiemAPI.Middleware
             try
             {
                 var identity = (ClaimsIdentity)User.Identity;
+                //logger.LogInformation("Operatin whith user {0}",)
                 return identity.Claims.Where(x => x.Type.Equals(userTag)).First().Value;
             }
             catch (Exception ex)

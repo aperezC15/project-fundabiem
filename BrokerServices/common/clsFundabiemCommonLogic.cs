@@ -107,7 +107,6 @@ namespace EntityModelFundabien.common
             var query = context.RegistrosMedicos.AsQueryable();
             var totalRegisters = query.Count();
 
-            logger.Information("Get all REgistros Medicos");
            // var rg = context.RegistrosMedicos.Include(paciente => paciente.paciente.persona).ToList();
             var rgs = await query
                 .Skip(rowsPerPAge * (pagina - 1))

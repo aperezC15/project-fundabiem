@@ -1,6 +1,10 @@
 import axios from 'axios'
+import Vue from 'vue-axios'
+import vuetify from '@/plugins/vuetify';
 
-export default axios.create({
+
+
+const instance = axios.create({
     baseURL: process.env.VUE_APP_URL_API,
     withCredentials: false,
     headers: {
@@ -9,3 +13,7 @@ export default axios.create({
         'Content-Type':'application/json',
     }
 });
+
+console.log('axios desde el index.ts ==>' , instance.defaults.headers)
+
+export default instance

@@ -104,7 +104,7 @@ namespace fundabiemAPI.Controllers
         [HttpGet("getAll")]
         public async  Task<ActionResult<clsResponse<RegistroMedico>>> getRegistroMedico(int pagina, int rowsPerPage)
         {
-            getUser();
+            logger.LogInformation("Get all REgistros Medicos with user => {0}",getUser());
             var rgMedicos = await fundabiem.getAllRegistrosMedicos(pagina, rowsPerPage);
             return Ok(rgMedicos);
         }
@@ -112,7 +112,9 @@ namespace fundabiemAPI.Controllers
         [HttpPost("completar")]
         public async Task<ActionResult> completarRegistroMedico([FromBody]RegistroMedicoDiagnosticoDTO model)
         {
-            getUser();
+            var user = getUser();
+            var a =user.FirstOrDefault();
+            logger.LogInformation("usuario => {0} ", a);
             string txt = "completa registro medico";
             using (var transaction = context.Database.BeginTransaction())
             {
