@@ -94,7 +94,6 @@
             <v-pagination
               v-model="paginationPage"
               :length="paginationLenght"
-              @change="alert('hola')"
             ></v-pagination>
           </div>
         </v-card>
@@ -290,6 +289,7 @@ export default {
       const response = await this.$store.dispatch("getMedicalsRegistros", {
         pagination
       });
+
 
       this.loading = false;
       if (

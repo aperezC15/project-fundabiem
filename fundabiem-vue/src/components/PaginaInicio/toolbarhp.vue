@@ -13,10 +13,15 @@
             </v-toolbar-title>
 
             <v-spacer></v-spacer>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn v-on="on" class="mx-2"  fab color="indigo" @click="signOutOidc" v-if="oidcIsAuthenticated" >
+                  <v-icon>fas fa-power-off</v-icon>
+                </v-btn>
+              </template>
+              <span>Cerrar Sesión</span>
+            </v-tooltip>
             
-            <v-btn class="mx-2" title="SALIR DEL SISTEMA" fab color="indigo" @click="signOutOidc" v-if="oidcIsAuthenticated" >
-                <v-icon>fas fa-power-off</v-icon>
-            </v-btn>
             <v-btn class="mx-2" title="Iniciar Sesion" fab color="indigo" to="/dashboard" v-if="!oidcIsAuthenticated" >
                 <v-icon>fas fa-sign-in-alt</v-icon>
             </v-btn>
