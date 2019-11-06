@@ -32,7 +32,7 @@ namespace fundabiemAPI.Controllers
         [HttpGet("paciente/searchBy/{criterio}/valor/{valor}")]
         public ActionResult<IEnumerable<Paciente>> searchPacienteId(string valor , string criterio)
         {
-            getUser();
+            logger.LogInformation("Search paciente with valor {0} by user => {1}", valor, getUser());
             var paciente = fundabiem.searchPaciente(valor, criterio);
             if (paciente.Count() == 0)
                 return NotFound();
@@ -43,7 +43,7 @@ namespace fundabiemAPI.Controllers
         //obtiene paciente segun su numero de historialClinico
         public ActionResult<IEnumerable<Paciente>> serachByNoHistorialClinico(int NumeroHistoriakClinico)
         {
-            getUser();
+            logger.LogInformation("Search paciente with Numero historial clinico {0} by user {1}", NumeroHistoriakClinico, getUser());
             var paciente = fundabiem.searchPacienteByHistorialClinico(NumeroHistoriakClinico);
             if (paciente.Count() == 0)
                 return NotFound();
@@ -53,6 +53,7 @@ namespace fundabiemAPI.Controllers
         [HttpGet("getAll")]
         public ActionResult<IEnumerable<Paciente>> getAll()
         {
+            logger.LogInformation("Get all pacientes by user => {0}", getUser());
             var pacientes = fundabiem.getAllPacientes();
             if (pacientes.Count() == 0) { return BadRequest("No se encontraron pacientes"); }
             return Ok(pacientes);

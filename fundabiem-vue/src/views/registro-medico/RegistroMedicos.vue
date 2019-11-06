@@ -1,6 +1,6 @@
 <template>
-  <v-container grid-list-lg>
-    <v-layout row wrap>
+  <v-container grid-list-lg class="mb-5">
+    <v-layout row wrap class="mb-5">
       <v-flex xs12>
         <v-layout text-center wrap>
           <v-flex>
@@ -8,7 +8,7 @@
           </v-flex>
         </v-layout>
         <v-card>
-          <v-toolbar flat dark color="#2c2e3f">
+          <v-toolbar flat dark color="#616161">
             <v-toolbar-title>REGISTROS</v-toolbar-title>
             <v-divider class="mx-4" vertical></v-divider>
             <div class="flex-grow-1"></div>
@@ -20,15 +20,21 @@
               single-line
               hide-details
             ></v-text-field>
-            <v-btn
-              color="indigo"
-              fab
-              title="NUEVO REGISTRO MÉDICO"
-              class="mx-2"
-              @click="openDialogRegistroMedico"
-            >
-              <v-icon>add</v-icon>
-            </v-btn>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  class="ma-2"
+                  outlined
+                  tile
+                  v-on="on"
+                  color="success"
+                  @click="openDialogRegistroMedico"
+                >
+                  <v-icon>add</v-icon>Nuevo
+                </v-btn>
+              </template>
+              <span>Nuevo registro Médico</span>
+            </v-tooltip>
           </v-toolbar>
 
           <v-data-table
@@ -49,21 +55,28 @@
 
             <template v-slot:item.action="{item}">
               <v-row>
+                 <v-col cols="12" md="6">
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      fab
+                      color="success"
+                      dark
+                      v-if="!item.diagnostico"
+                      @click="openDetailRegister(item)"
+                      v-on="on"
+                    >
+                      <v-icon>how_to_reg</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>COMPLETAR EL REGISTRO MÉDICO</span>
+                </v-tooltip>
+                     </v-col>
                 <v-col cols="12" md="6">
                   <v-btn
-                    title="COMPLETAR EL REGISTRO MÉDICO"
-                    fab
-                    color="success"
-                    dark
-                    @click="openDetailRegister(item)"
-                  >
-                    <v-icon>edit</v-icon>
-                  </v-btn>
-                </v-col>
-                <v-col cols="12" md="6">
-                  <v-btn
                     fab
                     dark
+                     v-if="item.diagnostico"
                     title="PROGRAMACIÓN DE CITAS"
                     color="info"
                     @click="programarCitas(item)"
@@ -130,6 +143,7 @@ import RegistroMedicoDetalle from "../../components/registro-medico/RegistroMedi
 import NewCitesComponent from "../../components/citas/NewCites.vue";
 const namespace = "oidcStore/";
 
+import moment from "moment";
 export default {
   components: {
     RegistroMedico,
@@ -155,7 +169,7 @@ export default {
         },
         { text: "DPI", value: "dpi" },
         { text: "Grupo Étnico", value: "grupoEtnico" },
-        { text: "Fecha Admision", value: "fechaAdmision" },
+        { text: "Fecha Admision", value: "dateAdmision" },
         { text: "Acciones", value: "action" }
       ],
       dataRegistersMedicals: [],
@@ -266,6 +280,7 @@ export default {
       this.dialogRegistroMedicoDetalle = false;
     },
     async getMedicalsRegisters() {
+      this.dataRegistersMedicals = [];
       this.loading = true;
 
       var pagination = {
@@ -276,15 +291,13 @@ export default {
         pagination
       });
 
-      console.log(response);
-
       this.loading = false;
       if (
         response.status === 200 &&
-        response.data.registrosMedicos.length >= 0
+        response.data.registrosFundabiem.length >= 0
       ) {
         this.paginationLenght = response.data.pages;
-        response.data.registrosMedicos.map(register => {
+        response.data.registrosFundabiem.map(register => {
           const { fechaAdmision, idRegistroMedico } = register;
           const {
             estaActivo,
@@ -299,36 +312,28 @@ export default {
             grupoEtnico,
             dpi
           } = register.paciente.persona;
-
+          const diagnostico = register.diagnostico;
           const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`;
-
+          var dateAdmision = moment(fechaAdmision).format("L");
           this.dataRegistersMedicals.push({
             estaActivo,
             historialClinico,
             idPaciente,
-            fechaAdmision,
+            dateAdmision,
             nombreCompleto,
             grupoEtnico,
             dpi,
-            idRegistroMedico
+            idRegistroMedico,
+            diagnostico
           });
 
           //modificar aca
         });
       }
     },
-    //citas
-    async programarCitas(item) {
-      this.idPaciente = item.idPaciente;
-      this.closeModalCitesC = true;
-      const response = await this.$store.dispatch("getTerapias");
-      if (response.status === 200) {
-        const data = response.data.map(({ idTerapia, descripcion }) => ({
-          idTerapia,
-          descripcion
-        }));
-        this.terapias = data;
-      }
+    programarCitas(item) {
+      console.log(item)
+      this.closeModalCitesC = true
     },
     closeModalCites() {
       this.closeModalCitesC = false;

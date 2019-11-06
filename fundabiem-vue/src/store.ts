@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex, { StoreOptions } from 'vuex'
+import axios from 'axios'
 import 'es6-promise/auto'
 import { rootState } from './models/vuex/rootState'
 //@ts-ignore
@@ -29,6 +30,7 @@ const store: StoreOptions<rootState> = {
               userLoaded: (user: any) => {
                 //   console.log('OIDC user is loaded:', user.id_token)
                   Vue.axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.id_token;
+                  Vue.axios.defaults.baseURL=process.env.VUE_APP_URL_API
               },
               userUnloaded: () => console.log('OIDC user is unloaded'),
               accessTokenExpiring: () => console.log('Access token will expire'),

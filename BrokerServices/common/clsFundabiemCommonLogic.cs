@@ -4,6 +4,7 @@ using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
 using EntityModelFundabien.Models;
 using EntityModelFundabien.ModelsDTO;
+using fundabiemAPI.clssResponses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -101,32 +102,49 @@ namespace EntityModelFundabien.common
         }
 
         //obtiene todos los registros medicos
-        public async Task<response> getAllRegistrosMedicos(int pagina, int rowsPerPAge)
+        public async Task<clsResponse<RegistroMedico>> getAllRegistrosMedicos(int pagina, int rowsPerPAge)
         {
             var query = context.RegistrosMedicos.AsQueryable();
             var totalRegisters = query.Count();
 
-            logger.Information("Get all REgistros Medicos");
            // var rg = context.RegistrosMedicos.Include(paciente => paciente.paciente.persona).ToList();
             var rgs = await query
                 .Skip(rowsPerPAge * (pagina - 1))
                 .Take(rowsPerPAge)
+                .Include(x => x.diagnostico)
                 .Include(paciente => paciente.paciente.persona)
                 .OrderBy(x => x.idRegistroMedico)
                 .ToListAsync();
-            response rps = new response();
+            clsResponse<RegistroMedico> rps = new clsResponse<RegistroMedico>();
             rps.Error = false;
-            rps.RegistrosMedicos = rgs;
+            rps.RegistrosFundabiem = rgs;
             rps.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge));
             rps.totalRows = totalRegisters;
             return rps;
         }
 
+        //optiene historias clinicas
+        public async Task<clsResponse<HistoriaClinica>> getAllHistoriaClinicas(int pagina, int rowsPerPAge)
+        {
+            var query = context.HistoriasClinicas.AsQueryable();
+            var totalRegisters = query.Count();
+            var historias = await query
+                .Skip(rowsPerPAge * (pagina - 1))
+                .Take(rowsPerPAge)
+                .OrderBy(x => x.idHistoriaClinica)
+                .ToListAsync();
+            clsResponse<HistoriaClinica> histClinicas = new clsResponse<HistoriaClinica>();
+            histClinicas.Error = false;
+            histClinicas.RegistrosFundabiem = historias;
+            histClinicas.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge));
+            histClinicas.totalRows = totalRegisters;
+            return histClinicas;
+        }
+
         //para obtener un registro medico segun id de paciente o HistorialClinico
         public IEnumerable<RegistroMedico> searchRegistroMedicos(int idRegistro)
         {
-            logger.Information("Search Registro Medico by Id");
-            return context.RegistrosMedicos.Where(x => x.idRegistroMedico == idRegistro).Include(paciente => paciente.paciente.persona).ToList();
+            return context.RegistrosMedicos.Where(x => x.idRegistroMedico == idRegistro).Include(paciente => paciente.diagnostico).Include(x=> x.paciente.persona).ToList();
         }
 
         //para obtener un paciente segun su id
@@ -174,7 +192,6 @@ namespace EntityModelFundabien.common
         //crea un ciclo de rehabilitcion
         public async Task<CicloDeRehabilitacion> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo)
         {
-            logger.Information("create a new ciclo de rehabilitacion ");
             var cl = mapper.Map<CicloDeRehabilitacion>(ciclo);
             await context.CicloDeRehabilitaciones.AddAsync(cl);
             await context.SaveChangesAsync();

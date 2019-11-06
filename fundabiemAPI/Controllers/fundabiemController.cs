@@ -34,8 +34,7 @@ namespace fundabiemAPI.Controllers
         [HttpGet("paises")]
         public ActionResult<IEnumerable<DTOPaises>> getAllPaises()
         {
-            string user = getUser();
-            logger.LogInformation("Searching all paises");
+            logger.LogInformation("Searching all paises by user => {0}", getUser());
             var autor = fundabiem.getAllPaises();
             return autor;
         }
@@ -43,8 +42,7 @@ namespace fundabiemAPI.Controllers
         [HttpGet("departamentos/{id}")]
         public ActionResult<IEnumerable<departamentosDTO>> getDepartamentoByIdPais(double id)
         {
-            string user = getUser();
-            logger.LogInformation("Searching all departamentos idPais = {0}", id);
+            logger.LogInformation("Searching all departamentos idPais = {0} by user => {1}", id,getUser());
             var departamentos = fundabiem.getDepartamentosByIdPais(id);
             if (departamentos.Count() == 0) { return NotFound(); }
             return Ok(departamentos);
@@ -53,8 +51,7 @@ namespace fundabiemAPI.Controllers
         [HttpGet("municipios/{idDepartamento}")]
         public ActionResult<IEnumerable<municipiosDTO>> getMunicipiosByIdDepartamento(double idDepartamento)
         {
-            string user = getUser();
-            logger.LogInformation("Searching all municipios idDepartamento = {0} ", idDepartamento);
+            logger.LogInformation("Searching all municipios idDepartamento = {0} by user {1}", idDepartamento,getUser());
             var munis = fundabiem.MunicipiosByIdDepartamento(idDepartamento);
             if (munis.Count() == 0) { return NotFound(); }
             return Ok(munis);
@@ -64,8 +61,7 @@ namespace fundabiemAPI.Controllers
         [HttpGet("tipoDirecciones")]
         public ActionResult<IEnumerable<TipoDirecciones>> getTipoDirecciones()
         {
-            getUser();
-            logger.LogInformation("Reading all tipoDirecciones");
+            logger.LogInformation("Reading all tipoDirecciones by user => {0}",getUser());
             var tipos = fundabiem.getTipoDirecciones();
             if (tipos.Count() == 0)
                 return BadRequest();
@@ -75,7 +71,7 @@ namespace fundabiemAPI.Controllers
         [HttpGet("EstadoCitas")]
         public ActionResult<IEnumerable<EstadoCitas>> getEstadocitas()
         {
-            getUser();
+            logger.LogInformation("get Estados citas by user => ", getUser());
             var estados = fundabiem.getAllEstadoCitas();
             if (estados.Count() == 0)
                 return BadRequest("No se encontraron estados disponibles");
@@ -85,7 +81,7 @@ namespace fundabiemAPI.Controllers
         [HttpGet("Terapias")]
         public ActionResult<IEnumerable<Terapias>> getTerapias()
         {
-            getUser();
+            logger.LogInformation("get all terapias by user => {0}", getUser());
             var terapias = fundabiem.getAllTerapias();
             if (terapias.Count() == 0)
                 return BadRequest("No se encontraron Terapias");

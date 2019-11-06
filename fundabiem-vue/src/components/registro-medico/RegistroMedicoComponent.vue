@@ -154,12 +154,10 @@ export default {
       headers: [
         { text: "Primer Nombre", align: "left", sortable: false, value: "primerNombre" },
         { text: "Segundo Nombre", align: "left", sortable: false, value: "segundoNombre" },
-        { text: "Tercer Nombre", align: "left", sortable: false, value: "tercerNombre" },
         { text: "Primer Apellido", align: "left", sortable: false, value: "primerApellido" },
         { text: "Segundo Apellido", align: "left", sortable: false, value: "segundoApellido" },
-         { text: "Edad", value: "edad" },
-         { text: "Parentesco", value: "parentezco" },
-         { text: "Acciones", value: "action" }
+        { text: "Parentesco", value: "parentezco" },
+        { text: "Acciones", value: "action" }
       ],
       data: [],
       arrayFamiliares: [],
