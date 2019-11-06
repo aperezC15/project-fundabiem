@@ -14,6 +14,7 @@
                     item-value="idTerapia"
                     item-text="descripcion"
                     label="Seleccione la terapia"
+                    :rules="rulesInput"
                     ></v-select>
                   </v-col>
                   <v-col cols="12" sm="6" md="4" v-if="showEstados">
@@ -23,12 +24,14 @@
                     item-value="idEstado"
                     item-text="nombre"
                     label="Seleccione el estado"
+                     :rules="rulesInput"
                     ></v-select>
                   </v-col>
                   <v-col cols="12" sm="6" md="4" >
                     <v-text-field
                     v-model="noOrden"
                     label="Ingrese el no. de orden"
+                     :rules="rulesInput"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -46,6 +49,7 @@
                             label="Seleccione la fecha de cita"
                             prepend-icon="event"
                             readonly
+                             :rules="rulesInput"
                             v-on="on"
                         ></v-text-field>
                         </template>
@@ -60,7 +64,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="dialog = false">Programar citas</v-btn>
+          <v-btn color="primary" :disabled="!formValid" text @click="newCite">Programar citas</v-btn>
           <v-btn color="primary" text @click="closeModalCites">Cerrar</v-btn>
         </v-card-actions>
       </v-card>
@@ -82,10 +86,24 @@ export default {
         noOrden: "",
         fechaCita: new Date().toISOString().substr(0, 10),
          menu2: false,
-         formValid: false
+         formValid: false,
+         rulesInput: [
+            v => !! v || "El campo es obligatorio"
+         ]
     };
   },
   methods: {
+      newCite() {
+
+          const data ={
+              idTerapia : this.idTerapia,
+              noOrden : this.noOrden,
+              fechaCita : this.fechaCita,
+          }
+
+          this.$emit('newCite', data)
+          this.$refs.formCites.reset()
+      },
     closeModalCites() {
       this.$emit("closeModalCites");
       this.$refs.formCites.reset()

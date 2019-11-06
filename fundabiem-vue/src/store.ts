@@ -7,7 +7,7 @@ import { vuexOidcCreateStoreModule } from 'vuex-oidc'
 import { oidcSettings } from './config/oidc'
 
 // store app
-import { storeGenerales, storeMedicalRegister, storeAnamnesis, storeEvolucionMedica } from './storeapp'
+import { storeGenerales, storeMedicalRegister, storeAnamnesis, storeEvolucionMedica, storeCites } from './storeapp'
 Vue.use(Vuex)
 
 const store: StoreOptions<rootState> = {
@@ -19,6 +19,7 @@ const store: StoreOptions<rootState> = {
       storeMedicalRegister,
       storeAnamnesis,
       storeEvolucionMedica,
+      storeCites,
       oidcStore: vuexOidcCreateStoreModule(
           oidcSettings,
           // Optionlaly define the store module as namespaced
@@ -26,7 +27,7 @@ const store: StoreOptions<rootState> = {
           // Optional OIDC event listeners
           {
               userLoaded: (user: any) => {
-                  console.log('OIDC user is loaded:', user.id_token)
+                //   console.log('OIDC user is loaded:', user.id_token)
                   Vue.axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.id_token;
               },
               userUnloaded: () => console.log('OIDC user is unloaded'),

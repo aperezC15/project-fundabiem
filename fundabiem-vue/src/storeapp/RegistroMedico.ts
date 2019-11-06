@@ -15,7 +15,6 @@ const store = {
         getMedicalsRegistros : async ({}, pagination: any) => {
             try{
                 const response = await api.get('/RegistroMedico/getAll',{params: {pagina:pagination.pagination.pagina,rowsPerPage:pagination.pagination.rowsPerPage}})
-                console.log('response ==> ',response)
                 if( response.status === 200) {
                     return response
                 }
