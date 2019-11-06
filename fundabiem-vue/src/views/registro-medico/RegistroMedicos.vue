@@ -49,6 +49,7 @@
                 fab
                 color="success"
                 dark
+                v-if="!item.diagnostico"
                 @click="openDetailRegister(item)"
               >
                 <v-icon>edit</v-icon>
@@ -253,13 +254,13 @@ export default {
         this.paginationLenght=response.data.pages
         response.data.registrosFundabiem.map( register => {
               const { fechaAdmision, idRegistroMedico } = register
-             const { estaActivo, historialClinico, idPaciente } = register.paciente
-             const { primerApellido, primerNombre, segundoApellido, segundoNombre, grupoEtnico, dpi, } = register.paciente.persona
-
-             const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`
+              const { estaActivo, historialClinico, idPaciente } = register.paciente
+              const { primerApellido, primerNombre, segundoApellido, segundoNombre, grupoEtnico, dpi, } = register.paciente.persona
+              const diagnostico = register.diagnostico
+              const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`
 
               this.dataRegistersMedicals.push({ estaActivo, historialClinico, idPaciente, fechaAdmision,
-                nombreCompleto, grupoEtnico, dpi, idRegistroMedico
+                nombreCompleto, grupoEtnico, dpi, idRegistroMedico, diagnostico
               })
 
               //modificar aca
