@@ -106,7 +106,7 @@
 <script>
 import RegistroMedico from '../../components/registro-medico/RegistroMedicoComponent.vue'
 import RegistroMedicoDetalle from '../../components/registro-medico/RegistroMedicoDetalle.vue'
-
+import moment from 'moment'
 export default {
   components: { 
     RegistroMedico,
@@ -126,7 +126,7 @@ export default {
         { text: "Nombre completo", align: "left", sortable: false, value: "nombreCompleto" },
         { text: "DPI", value: "dpi" },
         { text: "Grupo Étnico", value: "grupoEtnico" },
-        { text: "Fecha Admision", value: "fechaAdmision" },
+        { text: "Fecha Admision", value: "dateAdmision" },
         { text: "Acciones", value: "action" }
       ],
       dataRegistersMedicals: [ ],
@@ -258,8 +258,8 @@ export default {
               const { primerApellido, primerNombre, segundoApellido, segundoNombre, grupoEtnico, dpi, } = register.paciente.persona
               const diagnostico = register.diagnostico
               const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`
-
-              this.dataRegistersMedicals.push({ estaActivo, historialClinico, idPaciente, fechaAdmision,
+              var dateAdmision = moment(fechaAdmision).format('L')
+              this.dataRegistersMedicals.push({ estaActivo, historialClinico, idPaciente, dateAdmision,
                 nombreCompleto, grupoEtnico, dpi, idRegistroMedico, diagnostico
               })
 
