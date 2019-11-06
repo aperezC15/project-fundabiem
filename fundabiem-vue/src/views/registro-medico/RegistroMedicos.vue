@@ -239,6 +239,7 @@ export default {
       this.dialogRegistroMedicoDetalle = false
     },
     async getMedicalsRegisters() {
+      this.dataRegistersMedicals=[]
       this.loading = true
       
       var pagination={
