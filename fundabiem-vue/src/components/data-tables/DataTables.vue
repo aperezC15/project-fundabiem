@@ -21,7 +21,7 @@
               <v-alert dark
                 class="text-xs-center"
                 :value="true"
-                color="#E7312D"
+                color="#FF605C"
                 icon="warning"
               >No existen registros en la tabla</v-alert>
             </template>
