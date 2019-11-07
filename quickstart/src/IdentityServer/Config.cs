@@ -129,6 +129,7 @@ namespace IdentityServer
                         StandardScopes.OpenId,
                         StandardScopes.Profile,
                         "api1",
+                        "roles"
                     },
                     IdentityTokenLifetime = 3000
                 },
