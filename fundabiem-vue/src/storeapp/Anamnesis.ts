@@ -24,6 +24,18 @@ const store = {
             }
         },
 
+        getAllHistory: async ({}, pagination: any) => {
+            try {
+                const response = await api.get('HistoriaClinica', {params: {pagina:pagination.pagination.pagina,rowsPerPage:pagination.pagination.rowsPerPage}})
+                
+                if(response.status === 200) {
+                    return response
+                }
+            } catch (e) {
+                return e.response
+            }
+        },
+
         CicloRehabilitacion : async ({ }, data: any) => {
             try {
                 const response = await api.post('/CicloRehabilitacion', data)

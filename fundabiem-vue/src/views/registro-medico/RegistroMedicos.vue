@@ -290,7 +290,6 @@ export default {
         pagination
       });
 
-
       this.loading = false;
       if (
         response.status === 200 &&
@@ -331,9 +330,15 @@ export default {
         });
       }
     },
-    programarCitas(item) {
-      console.log(item)
+    async programarCitas(item) {
+      this.idPaciente = item.idPaciente
       this.closeModalCitesC = true
+      const response = await this.$store.dispatch("getTerapias");
+      if(response.status === 200) {
+        const terapias = response.data.map( ({idTerapia, descripcion}) => ({idTerapia, descripcion}))
+
+        this.terapias = terapias
+      }
     },
     closeModalCites() {
       this.closeModalCitesC = false;

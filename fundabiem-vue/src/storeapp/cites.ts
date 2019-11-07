@@ -1,4 +1,5 @@
-import api from '../api'
+import axios from 'axios'
+const api = axios
 
 const store = {
     actions: {
@@ -12,6 +13,18 @@ const store = {
 
             } catch (e) {
                 return e.response
+            }
+        },
+
+        getAllCites: async ({}, data:any) => {
+
+            try {
+                const response = await api.get('Citas/searchByDates', {params: {...data}})
+                if(response.status === 200) {
+                    return response
+                }
+            } catch (error) {
+                return error.response
             }
         }
     }
