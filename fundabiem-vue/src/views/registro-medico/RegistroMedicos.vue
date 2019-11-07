@@ -8,7 +8,7 @@
           </v-flex>
         </v-layout>
         <v-card>
-          <v-toolbar flat dark color="#2c2e3f">
+          <v-toolbar flat dark color="#616161">
             <v-toolbar-title>REGISTROS</v-toolbar-title>
             <v-divider class="mx-4" vertical></v-divider>
             <div class="flex-grow-1"></div>
