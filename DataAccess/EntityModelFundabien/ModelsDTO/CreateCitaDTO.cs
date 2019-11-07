@@ -6,7 +6,7 @@ namespace EntityModelFundabien.ModelsDTO
 {
     public class CreateCitaDTO
     {
-        public Int64 dPaciente { get; set; }
+        public Int64 idPaciente { get; set; }
         public Int64 IdTerapia { get; set; }
         //public Int64 idEstado { get; set; }
         //public int edad { get; set; }
@@ -19,7 +19,7 @@ namespace EntityModelFundabien.ModelsDTO
     public class citaDTO
     {
        public Int64 IdCita { get; set; }
-        public Int64 dPaciente { get; set; }
+        public Int64 idPaciente { get; set; }
         public Int64 IdTerapia { get; set; }
         public Int64 idEstado { get; set; }
         public int edad { get; set; }

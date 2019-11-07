@@ -412,7 +412,7 @@ namespace EntityModelFundabien.common
         //new cita
         public async Task<Citas> NewCita(CreateCitaDTO model)
         {
-            var paciente = context.Pacientes.Include(x => x.persona).FirstOrDefaultAsync(x => x.idPaciente == model.dPaciente);
+            var paciente = context.Pacientes.Include(x => x.persona).FirstOrDefaultAsync(x => x.idPaciente == model.idPaciente);
             logger.Information("Creatin a new cita");
             var cita = mapper.Map<Citas>(model);
             cita.idEstado = 5;
