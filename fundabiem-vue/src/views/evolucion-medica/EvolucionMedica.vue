@@ -36,8 +36,8 @@
             </v-tooltip>
           </v-toolbar>
 
-          <v-data-table hide-default-footer :headers="headers" :items="cicloRehabilitacionCIF" :search="search" class="elevation-1">
-            <template v-slot:no-data v-if="cicloRehabilitacionCIF.length === 0">
+          <v-data-table hide-default-footer :headers="headers" :items="evolucionMedica" :search="search" class="elevation-1">
+            <template v-slot:no-data v-if="evolucionMedica.length === 0">
               <v-alert
                 class="text-xs-center"
                 :value="true"
@@ -103,7 +103,7 @@
 <script>
 
 import EvolucionMedica from '../../components/evolucion-medica/EvolucionMedica.vue'
-
+import moment from 'moment'
 export default {
   components: { 
     EvolucionMedica,
@@ -119,14 +119,12 @@ export default {
       },
       headers: [
         { text: "Nombre completo", align: "left", sortable: false, value: "nombre" },
-        { text: "Edad", value: "edad" },
-        { text: "Sexo", value: "sexo" },
-        { text: "Origen", value: "origen" },
+        { text: "Sexo", value: "_sexo" },
         { text: "Diagnóstico", value: "diagnostico" },
-        { text: "fecha", value: "fecha" },
+        { text: "fecha", value: "_fecha" },
         { text: "Acciones", value: "action" }
       ],
-      cicloRehabilitacionCIF: [
+      evolucionMedica: [
         {id: 1, nombre: "Juan Gómez", edad: 62, sexo: "masculino", origen: "Guatemala", diagnostico: "Su diagnostico", fecha: "2019-08-12" },
         { id: 2, nombre: "Benito Juarez", edad: 32, sexo: "masculino", origen: "Guatemala", diagnostico: "El diagnostico", fecha: "2016-02-10" },
       ],
@@ -137,14 +135,14 @@ export default {
   },
   watch: {
     paginationPage: function() {
-      this.cicloRehabilitacionCIF = [];
+      this.evolucionMedica = [];
       this.getMedicalsRegisters();
     }
   },
   methods: {
     //obtiene todos los registros de evolucion medica, paginados.
     async getAllEvolucionesMedicas(){
-      this.cicloRehabilitacionCIF=[]
+      this.evolucionMedica=[]
       this.loading=true
       //control de paginacion
       var pagination = {
@@ -153,11 +151,21 @@ export default {
       };
       const response = await this.$store.dispatch("getAllEvolucionesMedicas",{pagination})
       this.loading =false
+      console.log('datos ==> ',response.data)
       //verica que se encuentren registros para mostrar
-      if(response.data.registrosFundabien.length > 0){
+      if(response.data.registrosFundabiem.length > 0){
         this.paginationLenght = response.data.pages
-        response.data.registrosFundabien.map(register => {
-         
+        response.data.registrosFundabiem.map(register => {
+          const {diagnostico,fecha} = register
+          const { primerApellido,primerNombre, segundoApellido, segundoNombre, grupoEtnico, dpi,sexo} = register.paciente.persona;
+          const nombre = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`;
+          //agrega los datos a la tabla de regisros
+          if(sexo)
+            var _sexo = 'Masculino'
+          else 
+            var _sexo = 'Feminio'
+          var _fecha = moment(fecha).format("L")
+          this.evolucionMedica.push({nombre,diagnostico,_fecha,_sexo})
         });
       }
     },
@@ -197,7 +205,10 @@ export default {
         message,
         type
       );
-    },
+    }
+  },
+  mounted(){
+    this.getAllEvolucionesMedicas();
   }
 };
 </script>
