@@ -203,7 +203,15 @@
                           </v-btn>
                         </v-toolbar>
                         <v-card-text>
-                          <span v-html="selectedEvent.details"></span>
+                          <p class="text-uppercase font-weight-bold" >
+                            No de Orden: <span v-html="selectedEvent.details"></span>
+                          </p> 
+                          <p class="text-uppercase font-weight-bold">
+                            Fecha de Nacimiento:  <span  v-html="selectedEvent.fechaNc"></span> 
+                          </p> 
+                          <p class="text-uppercase font-weight-bold">
+                            DPI: <span v-html="selectedEvent.dpi"></span> 
+                          </p> 
                         </v-card-text>
                         <v-card-actions>
                           <v-btn text color="secondary" @click="selectedOpen = false">Cancel</v-btn>
@@ -234,6 +242,8 @@
 
 <script>
 import AlertErrorGlobal from "../alertas/alertErrorGlobal.vue";
+
+import moment from "moment";
 export default {
   components: {
     AlertErrorGlobal
@@ -338,6 +348,7 @@ export default {
       };
 
       const response = await this.$store.dispatch("getAllCites", data);
+
       this.loading = false
 
       if (response.status === 200) {
@@ -345,7 +356,13 @@ export default {
         this.mesIr = this.dateStart
         this.showCalendar = true
         response.data.map(cita => {
-          const { idTerapia, dPaciente, fechaCita, noOrden, idCita } = cita;
+          const { idTerapia, dPaciente, fechaCita, noOrden, idCita, paciente,  } = cita;
+          const { primerNombre, segundoNombre, primerApellido, segundoApellido, dpi, fechaNacimiento } = paciente.persona
+
+           var fechaNc = moment(fechaNacimiento).format("L");
+
+
+          const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`
           const fecha = fechaCita.split("T")[0];
 
           this.events.push({
@@ -353,9 +370,11 @@ export default {
             dPaciente,
             start: fecha,
             end: this.dateEnd ? this.fecha : null,
-            name: noOrden,
+            name: nombreCompleto,
+            fechaNc,
             details: noOrden,
             idCita,
+            dpi,
             color: "#4285F4"
           });
         });

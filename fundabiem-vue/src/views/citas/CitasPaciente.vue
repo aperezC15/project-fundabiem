@@ -13,7 +13,7 @@
           color="info"
           title="PROGRAMAR NUEVA CITA"
           class="mx-2"
-          
+          @click="programmingNewCite"
         >
           Programar nueva cita
           <v-icon>add</v-icon>
@@ -41,21 +41,29 @@
         :errorDB="errorDB"
         @closeModal="closeModal"
     />
+
+    <programar-cita 
+      :dialogProgramarCita="dialogProgramarCita"
+      @CloseProgrammingNewCiteModal="CloseProgrammingNewCiteModal"
+    />
   </v-container>
 </template>
 
 <script>
 import ShowAllCites from '../../components/citas/ShowAllCites.vue'
+import ProgramarCita from '../../components/citas/ProgramarCita.vue'
 export default {
     components: {
-        ShowAllCites
+        ShowAllCites,
+        ProgramarCita
     },
   data() {
     return {
         showCitesModal: false,
         terapias: [],
         estados: [],
-        errorDB: false
+        errorDB: false,
+        dialogProgramarCita: false
     };
   },
   methods: {
@@ -76,6 +84,13 @@ export default {
       },
       closeModal() {
           this.showCitesModal = false
+      },
+      // nueva cita
+      programmingNewCite() {
+        this.dialogProgramarCita = true
+      },
+      CloseProgrammingNewCiteModal() {
+        this.dialogProgramarCita = false
       }
   },
 };
