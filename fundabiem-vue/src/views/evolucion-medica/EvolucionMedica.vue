@@ -65,6 +65,12 @@
               <v-alert type="error">EL REGISTRO "{{search}}" NO SE ENCUENTRA EN LA BASE DE DATOS</v-alert>
             </template>
           </v-data-table>
+          <div class="text-center">
+            <v-pagination
+              v-model="paginationPage"
+              :length="paginationLenght"
+            ></v-pagination>
+          </div>
         </v-card>
       </v-flex>
     </v-layout>
@@ -105,6 +111,12 @@ export default {
   data() {
     return {
       search: "",
+       paginationPage: 1,
+      paginationLenght: 0,
+      pagination: {
+        pagina: 1,
+        rowsPerPage: 5
+      },
       headers: [
         { text: "Nombre completo", align: "left", sortable: false, value: "nombre" },
         { text: "Edad", value: "edad" },
@@ -121,6 +133,12 @@ export default {
       dialogEvolucionMedica: false,
       loading: false,
 
+    }
+  },
+  watch: {
+    paginationPage: function() {
+      this.cicloRehabilitacionCIF = [];
+      this.getMedicalsRegisters();
     }
   },
   methods: {
