@@ -136,7 +136,7 @@ export default {
   watch: {
     paginationPage: function() {
       this.evolucionMedica = [];
-      this.getMedicalsRegisters();
+      this.getAllEvolucionesMedicas();
     }
   },
   methods: {
