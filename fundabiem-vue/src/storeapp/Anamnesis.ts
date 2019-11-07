@@ -39,8 +39,7 @@ const store = {
         CicloRehabilitacion : async ({ }, data: any) => {
             try {
                 const response = await api.post('/CicloRehabilitacion', data)
-
-                if(response.status === 200) {
+                if(response.status === 201) {
                     return response
                 }
 

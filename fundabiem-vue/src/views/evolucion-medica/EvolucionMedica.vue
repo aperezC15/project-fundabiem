@@ -142,6 +142,26 @@ export default {
     }
   },
   methods: {
+    //obtiene todos los registros de evolucion medica, paginados.
+    async getAllEvolucionesMedicas(){
+      this.cicloRehabilitacionCIF=[]
+      this.loading=true
+      //control de paginacion
+      var pagination = {
+        pagina: this.paginationPage,
+        rowsPerPage: 5
+      };
+      const response = await this.$store.dispatch("getAllEvolucionesMedicas",{pagination})
+      this.loading =false
+      //verica que se encuentren registros para mostrar
+      if(response.data.registrosFundabien.length > 0){
+        this.paginationLenght = response.data.pages
+        response.data.registrosFundabien.map(register => {
+         
+        });
+      }
+    },
+
     openDialogRehabilitation() {
       this.dialogEvolucionMedica = true
     },

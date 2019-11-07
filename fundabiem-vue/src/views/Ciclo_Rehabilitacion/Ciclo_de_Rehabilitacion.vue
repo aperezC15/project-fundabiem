@@ -125,17 +125,17 @@ export default {
   },
   methods: {
     openDialogRehabilitation() {
-      this.dialogRehabilitacion = true
+      this.dialogRehabilitacion = true;
     },
-    saveRehabilitacion(data) {
+    async saveRehabilitacion(data) {
 
-      this.cargando = true
-      this.dialogRehabilitacion = false
+      this.cargando = true;
+      this.dialogRehabilitacion = false;
       
-        const response = this.$store.dispatch('CicloRehabilitacion', data)
+        const response = await this.$store.dispatch('CicloRehabilitacion', data);
 
       this.cargando = false
-        if(response.status === 200) {
+        if(response.status === 201) {
             const title = "Nuevo ciclo de rehabilitación con éxito!"
             const message = "Nuevo ciclo de rehabilitación exitosamente"
             this.showAlert(title, message, "success")
