@@ -3,6 +3,7 @@ using BrokerServices.common;
 using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
 using EntityModelFundabien.ModelsDTO;
+using fundabiemAPI.clssResponses;
 using fundabiemAPI.Middleware;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -47,6 +48,14 @@ namespace fundabiemAPI.Controllers
                 logger.LogError(ex.ToString());
                 return BadRequest();
             }
+        }
+
+        [HttpGet("getAll")]
+        public async Task<ActionResult<clsResponse<EvolucionMedica>>> getEvolucionMedica(int pagina, int rowsPerPage)
+        {
+            getUser();
+            var evolucionesMedicas = await fundabiem.getAllEvolucionesMedicas(pagina, rowsPerPage);
+            return Ok(evolucionesMedicas);
         }
     }
 }
