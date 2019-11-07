@@ -443,8 +443,12 @@ namespace EntityModelFundabien.common
         }
 
         //obtiene una evolucion medica segun su id
-        public async Task<EvolucionMedica> getEvolucionMedica(Int64 idEvolucionMedica) =>
-            await context.EvolucionesMedicas.FirstOrDefaultAsync(e => e.idEvolucionMedica == idEvolucionMedica);
+        public async Task<DTOEvolucionMedica> getEvolucionMedica(Int64 idEvolucionMedica)
+        {
+            var evolucion = await context.EvolucionesMedicas.Include(x => x.paciente.persona).FirstOrDefaultAsync(e => e.idEvolucionMedica == idEvolucionMedica);
+            return mapper.Map<DTOEvolucionMedica>(evolucion);
+        }
+            
         
 
         public async Task<EvolucionMedica> newEvolucionMedica(CreateEvolucionMedicaDTO modelo)
@@ -452,26 +456,26 @@ namespace EntityModelFundabien.common
             var evolucionMedica = mapper.Map<EvolucionMedica>(modelo);
             await context.EvolucionesMedicas.AddAsync(evolucionMedica);
             await context.SaveChangesAsync();
-            
-            return await getEvolucionMedica(evolucionMedica.idEvolucionMedica);
+            return evolucionMedica;
         }
 
-        public async Task<clsResponse<EvolucionMedica>> getAllEvolucionesMedicas(int pagina, int rowsPerPAge)
+        public async Task<clsResponse<DTOEvolucionMedica>> getAllEvolucionesMedicas(int pagina, int rowsPerPAge)
         {
             var query = context.EvolucionesMedicas.AsQueryable();
             var totalRegisters = query.Count();
-            var historias = await query
+            var evoluciones = await query
                 .Skip(rowsPerPAge * (pagina - 1))
                 .Take(rowsPerPAge)
                 .OrderBy(x => x.idEvolucionMedica)
                 .ToListAsync();
 
-            clsResponse<EvolucionMedica> histClinicas = new clsResponse<EvolucionMedica>();
-            histClinicas.Error = false;
-            histClinicas.RegistrosFundabiem = historias;
-            histClinicas.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge));
-            histClinicas.totalRows = totalRegisters;
-            return histClinicas;
+            clsResponse<DTOEvolucionMedica> evoluMedicas = new clsResponse<DTOEvolucionMedica>();
+            var dto = mapper.Map<List<DTOEvolucionMedica>>(evoluciones);
+            evoluMedicas.Error = false;
+            evoluMedicas.RegistrosFundabiem = dto;
+            evoluMedicas.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge));
+            evoluMedicas.totalRows = totalRegisters;
+            return evoluMedicas;
         }
     }
 }   

@@ -33,14 +33,13 @@ namespace fundabiemAPI.Controllers
 
         // ingresa la evolucion medica
         [HttpPost]
-        public async Task<ActionResult<EvolucionMedica>> newEvolucionMedica(CreateEvolucionMedicaDTO model)
+        public async Task<ActionResult> newEvolucionMedica(CreateEvolucionMedicaDTO model)
         {
-            logger.LogInformation("Creating resource: EvolucionMedica");
-
+            logger.LogInformation("Creating resource: EvolucionMedica by user {0}",getUser());
             try
             {
                 var evolucionMedica = await fundabiem.newEvolucionMedica(model);
-                return Ok(evolucionMedica);
+                return new CreatedAtRouteResult("ObtenerEvolucion", new { id = evolucionMedica.idEvolucionMedica }, evolucionMedica);
             }
             catch (Exception ex)
             {
@@ -50,10 +49,20 @@ namespace fundabiemAPI.Controllers
             }
         }
 
-        [HttpGet("getAll")]
-        public async Task<ActionResult<clsResponse<EvolucionMedica>>> getEvolucionMedica(int pagina, int rowsPerPage)
+        //obtener citas
+        [HttpGet("{id}", Name ="ObtenerEvolucion")]
+        public ActionResult<DTOEvolucionMedica> getEvolucion(int id)
         {
-            getUser();
+            var evolucion = fundabiem.getEvolucionMedica(id);
+            if (evolucion.Result == null)
+                return NotFound("No se encontro la evolucion con id => " + id.ToString());
+            return Ok(evolucion.Result);
+        }
+
+        [HttpGet("getAll")]
+        public async Task<ActionResult<clsResponse<DTOEvolucionMedica>>> getEvolucionMedica(int pagina, int rowsPerPage)
+        {
+            logger.LogInformation("searching all evoluciones medias by user => {0}", getUser());
             var evolucionesMedicas = await fundabiem.getAllEvolucionesMedicas(pagina, rowsPerPage);
             return Ok(evolucionesMedicas);
         }

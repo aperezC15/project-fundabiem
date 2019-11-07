@@ -47,8 +47,20 @@ const store = {
             } catch (error) {
                 return error
             }
-        }
+        },
 
+        getAllCicloRehabilitacion : async ({}, data: any ) => {
+            console.log(data)
+            try {
+                const response = await api.get('/CicloRehabilitacion', {params: {...data}})
+                console.log(response)
+                // if(response.status === 200) {
+                //     return response
+                // }
+            } catch (error) {
+                return error.response
+            }
+        }
         
     }
 }
