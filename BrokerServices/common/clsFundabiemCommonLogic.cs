@@ -100,7 +100,28 @@ namespace EntityModelFundabien.common
         {
             return context.Terapias.ToList();
         }
+        //obtiene todos los ciclos de rehabilitacion paginados
+        public async Task<clsResponse<CicloDeRehabilitacionDTO>> getAllCiclosRehabilitacion(int pagina, int rowsPerPage)
+        {
+            var query = context.CicloDeRehabilitaciones.AsQueryable();
+            var totalRegisters = query.Count();
 
+            var ciclos = await query
+                .Skip(rowsPerPage * (pagina - 1))
+                .Take(rowsPerPage)
+                .Include(x => x.paciente.persona)
+                //.Include(x => x.detalleCicloRehabilitacion)
+                .OrderBy(x => x.idcicloRehabilitacion)
+                .ToListAsync();
+            
+            var dto = mapper.Map<List<CicloDeRehabilitacionDTO>>(ciclos);
+            clsResponse<CicloDeRehabilitacionDTO> hist = new clsResponse<CicloDeRehabilitacionDTO>();
+            hist.Error = false;
+            hist.RegistrosFundabiem = dto;
+            hist.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPage));
+            hist.totalRows = totalRegisters;
+            return hist;
+        }
         //obtiene todos los registros medicos
         public async Task<clsResponse<RegistroMedico>> getAllRegistrosMedicos(int pagina, int rowsPerPAge)
         {

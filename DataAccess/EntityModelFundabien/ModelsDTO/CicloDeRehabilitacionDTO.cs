@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntityModelFundabien.entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -17,5 +18,6 @@ namespace EntityModelFundabien.ModelsDTO
         public string participacion { get; set; }
         public string factoresAmbientales { get; set; }
         public string factoresPersonales { get; set; }
+        public pacienteDTO paciente { get; set; }
     }
 }

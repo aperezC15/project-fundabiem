@@ -61,6 +61,7 @@ namespace EntityModelFundabien.Interfaces
         Task<citaDTO> getCitaById(int id);
         Task<IEnumerable<citaDTO>> getCitaByDate(string DateType, DateTime fecha, bool range, DateTime dateEnd, int idTerapia, int idEstado);
         Task<clsResponse<HistoriaClinica>> getAllHistoriaClinicas(int pagina, int rowsPerPAge);
+        Task<clsResponse<CicloDeRehabilitacionDTO>> getAllCiclosRehabilitacion(int pagina, int rowsPerPage);
 
     }
 }

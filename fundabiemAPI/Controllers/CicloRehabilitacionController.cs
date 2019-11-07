@@ -3,6 +3,7 @@ using BrokerServices.common;
 using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
 using EntityModelFundabien.ModelsDTO;
+using fundabiemAPI.clssResponses;
 using fundabiemAPI.Middleware;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -72,6 +73,15 @@ namespace fundabiemAPI.Controllers
             if (ciclo.Result == null)
                 return NotFound("No se encontro el ciclo de rehabilitacion con id "+id);
             return Ok(ciclo.Result);
+        }
+
+        //get all
+        [HttpGet]
+        public async Task<ActionResult<clsResponse<CicloDeRehabilitacionDTO>>> getAll(int pagina, int rowsPerPage)
+        {
+            logger.LogInformation("Get all ciclo de rehabilitacion page {0} rowsPerPage {1} by user => {2}", pagina,rowsPerPage,getUser());
+            var ciclos = await fundabiem.getAllCiclosRehabilitacion(pagina,rowsPerPage);
+            return Ok(ciclos);
         }
 
     }
