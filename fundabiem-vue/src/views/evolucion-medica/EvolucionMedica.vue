@@ -181,15 +181,15 @@ export default {
         this.dialogEvolucionMedica = false
     },
 
-    saveEvolucionMedica(data) {
+    async saveEvolucionMedica(data) {
 
       this.cargando = true
       this.dialogEvolucionMedica = false
       
-        const response = this.$store.dispatch('newEvolutionMedical', data)
+        const response = await this.$store.dispatch('newEvolutionMedical', data)
 
       this.cargando = false
-        if(response.status === 200) {
+        if(response.status === 201) {
             const title = "Nueva evolución médica con éxito!"
             const message = "Nueva evolución médica exitosamente"
             this.showAlert(title, message, "success")
