@@ -126,81 +126,107 @@
               </v-row>
             </v-form>
             <template>
-                 <v-menu bottom right>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                outlined
-                v-on="on"
-              >
-                <span>{{ typeToLabel[type] }}</span>
-                <v-icon right>mdi-menu-down</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item @click="type = 'day'">
-                <v-list-item-title>Day</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = 'week'">
-                <v-list-item-title>Week</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = 'month'">
-                <v-list-item-title>Month</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = '4day'">
-                <v-list-item-title>4 days</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-              <v-sheet height="600">
-                           {{events}}
-                <v-calendar
-                  ref="calendar"
-                  color="primary"
-                  :events="events"
-                  :event-color="getEventColor"
-                  :event-margin-bottom="3"
-                  :now="today"
-                  :type="type"
-                  @click:event="showEvent"
-                  @click:more="viewDay"
-                  @click:date="viewDay"
-                  @change="updateRange"
-                ></v-calendar>
- 
-                <v-menu
-                  v-model="selectedOpen"
-                  :close-on-content-click="false"
-                  :activator="selectedElement"
-                  offset-x
-                >
-                
 
-                  <v-card color="grey lighten-4" min-width="350px" flat>
-                    <v-toolbar :color="selectedEvent.color" dark>
-                      <v-btn icon>
-                        <v-icon>mdi-pencil</v-icon>
+             <alert-error-global v-if="showAlertError" message="No se econtraron citas de la fecha buscada" />
+    
+              <v-row class="fill-height" v-if="showCalendar">
+                <v-col>
+                  <v-sheet height="64">
+                    <v-toolbar flat color="white">
+                    
+                      <v-btn fab text small @click="prev">
+                        <v-icon small>keyboard_arrow_left</v-icon>
                       </v-btn>
-                      <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+                      <v-btn fab text small @click="next">
+                        <v-icon small>keyboard_arrow_right</v-icon>
+                      </v-btn>
+                      <v-toolbar-title>{{ title }}</v-toolbar-title>
                       <v-spacer></v-spacer>
-                      <v-btn icon>
-                        <v-icon>mdi-heart</v-icon>
-                      </v-btn>
-                      <v-btn icon>
-                        <v-icon>mdi-dots-vertical</v-icon>
-                      </v-btn>
+                      <v-menu bottom right>
+                        <template v-slot:activator="{ on }">
+                          <v-btn outlined v-on="on">
+                            <span>{{ typeToLabel[type] }}</span>
+                            <v-icon right>mdi-menu-down</v-icon>
+                          </v-btn>
+                        </template>
+                        <v-list>
+                          <v-list-item @click="type = 'day'">
+                            <v-list-item-title>Day</v-list-item-title>
+                          </v-list-item>
+                          <v-list-item @click="type = 'week'">
+                            <v-list-item-title>Week</v-list-item-title>
+                          </v-list-item>
+                          <v-list-item @click="type = 'month'">
+                            <v-list-item-title>Month</v-list-item-title>
+                          </v-list-item>
+                          <v-list-item @click="type = '4day'">
+                            <v-list-item-title>4 days</v-list-item-title>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
                     </v-toolbar>
-                    <v-card-text>
-                      <span v-html="selectedEvent.details"></span>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-btn text color="secondary" @click="selectedOpen = false">Cancel</v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-menu>
-              </v-sheet>
+                  </v-sheet>
+                  <v-sheet height="600">
+                    <v-calendar
+                      ref="calendar"
+                      v-model="mesIr"
+                      color="primary"
+                      :events="events"
+                      :event-color="getEventColor"
+                      :event-margin-bottom="3"
+                      :now="today"
+                      :type="type"
+                      locale="es"
+                      @click:event="showEvent"
+                      @click:more="viewDay"
+                      @click:date="viewDay"
+                      @change="updateRange"
+                    ></v-calendar>
+                    <v-menu
+                      v-model="selectedOpen"
+                      :close-on-content-click="false"
+                      :activator="selectedElement"
+                      offset-x
+                    >
+                      <v-card color="grey lighten-4" min-width="350px" flat>
+                        <v-toolbar :color="selectedEvent.color" dark>
+                          <v-btn icon>
+                            <v-icon>mdi-pencil</v-icon>
+                          </v-btn>
+                          <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+                          <v-spacer></v-spacer>
+                          <v-btn icon>
+                            <v-icon>mdi-heart</v-icon>
+                          </v-btn>
+                          <v-btn icon>
+                            <v-icon>mdi-dots-vertical</v-icon>
+                          </v-btn>
+                        </v-toolbar>
+                        <v-card-text>
+                          <span v-html="selectedEvent.details"></span>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-btn text color="secondary" @click="selectedOpen = false">Cancel</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-menu>
+                  </v-sheet>
+                </v-col>
+              </v-row>
             </template>
           </v-card-text>
         </v-card>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="loading" width="300px">
+      <v-card height="100px" class="d-flex justify-center align-center">
+        <v-card-text>
+          <span class="title font-weight-bold">Cargando...</span>
+          <div class="text-center">
+            <v-progress-linear height="8" indeterminate color="green"></v-progress-linear>
+          </div>
+        </v-card-text>
       </v-card>
     </v-dialog>
   </v-row>
@@ -224,14 +250,6 @@ export default {
       notifications: false,
       sound: true,
       widgets: false,
-      // events: [
-      //   { name: "Vacation", start: "2018-12-30", end: "2019-01-02" },
-      //   { name: "Meeting", start: "2019-01-07" },
-      //   { name: "30th Birthday", start: "2019-01-03" },
-      //   { name: "New Year", start: "2019-01-01" },
-      //   { name: "Conference", start: "2019-01-21" },
-      //   { name: "Hackathon", start: "2019-01-30", end: "2019-02-01" }
-      // ],
       DateType: "",
       dateStart: new Date().toISOString().substr(0, 10),
       dateEnd: new Date().toISOString().substr(0, 10),
@@ -250,13 +268,14 @@ export default {
       formCitesValue: false,
 
       // data nueva
-        today: '2019-01-01',
-      type: 'month',
+      today: "2019-01-01",
+      focus: "2019-01-01",
+      type: "month",
       typeToLabel: {
-        month: 'Month',
-        week: 'Week',
-        day: 'Day',
-        '4day': '4 Days',
+        month: "Month",
+        week: "Week",
+        day: "Day",
+        "4day": "4 Days"
       },
       start: null,
       end: null,
@@ -264,68 +283,51 @@ export default {
       selectedElement: null,
       selectedOpen: false,
       events: [],
-      // events: [
-      //   { name: 'Vacation', details: 'Going to the beach!', start: '2018-12-29', color: 'blue', },
-      //   { name: 'Meeting', details: 'Spending time on how we do not have enough time', start: '2019-01-07 09:00', color: 'indigo',  },
-      //   { name: 'Large Event', details: 'This starts in the middle of an event and spans over multiple events', start: '2018-12-31', color: 'deep-purple',  },
-      //   { name: '3rd to 7th', details: 'Testing', start: '2019-01-03',color: 'cyan',  },
-      //   { name: 'Big Meeting', details: 'A very important meeting about nothing', start: '2019-01-07 08:00',   color: 'red', },
-      //   { name: 'Another Meeting', details: 'Another important meeting about nothing', start: '2019-01-07 10:00',   color: 'brown', },
-      //   { name: '7th to 8th', start: '2019-01-07', color: 'blue', },
-      //   { name: 'Lunch', details: 'Time to feed', start: '2019-01-07 12:00',color: 'deep-orange', },
-      //   { name: '30th Birthday', details: 'Celebrate responsibly', start: '2019-01-03', color: 'teal', },
-      //   { name: 'New Year', details: 'Eat chocolate until you pass out', start: '2019-01-01',    color: 'green',  },
-      //   { name: 'Conference', details: 'The best time of my life', start: '2019-01-21',   color: 'grey darken-1', },
-      //   { name: 'Hackathon', details: 'Code like there is no tommorrow', start: '2019-01-30 23:00',   color: 'black', },
-      //   { name: 'event 1', start: '2019-01-14 18:00',  color: '#4285F4', },
-      //   { name: 'event 2', start: '2019-01-14 18:00',  color: '#4285F4', },
-      //   { name: 'event 5', start: '2019-01-14 18:00',  color: '#4285F4', },
-      //   { name: 'event 3', start: '2019-01-14 18:30',  color: '#4285F4', },
-      //   { name: 'event 4', start: '2019-01-14 19:00',  color: '#4285F4', },
-      //   { name: 'event 6', start: '2019-01-14 21:00',  color: '#4285F4', },
-      //   { name: 'event 7', start: '2019-01-14 22:00',  color: '#4285F4', },
-      // ],
+      mesIr:"",
+      showCalendar: false,
+      loading: false,
+      showAlertError: false
     };
   },
 
-     computed: {
-    //   title () {
-    //     const { start, end } = this
-    //     if (!start || !end) {
-    //       return ''
-    //     }
-
-    //     const startMonth = this.monthFormatter(start)
-    //     const endMonth = this.monthFormatter(end)
-    //     const suffixMonth = startMonth === endMonth ? '' : endMonth
-
-    //     const startYear = start.year
-    //     const endYear = end.year
-    //     const suffixYear = startYear === endYear ? '' : endYear
-
-    //     const startDay = start.day + this.nth(start.day)
-    //     const endDay = end.day + this.nth(end.day)
-
-    //     switch (this.type) {
-    //       case 'month':
-    //         return `${startMonth} ${startYear}`
-    //       case 'week':
-    //       case '4day':
-    //         return `${startMonth} ${startDay} ${startYear} - ${suffixMonth} ${endDay} ${suffixYear}`
-    //       case 'day':
-    //         return `${startMonth} ${startDay} ${startYear}`
-    //     }
-    //     return ''
-    //   },
-    //   monthFormatter () {
-    //     return this.$refs.calendar.getFormatter({
-    //       timeZone: 'UTC', month: 'long',
-    //     })
-    //   },
+  computed: {
+    title() {
+      const { start, end } = this;
+      if (!start || !end) {
+        return "";
+      }
+      const startMonth = this.monthFormatter(start);
+      const endMonth = this.monthFormatter(end);
+      const suffixMonth = startMonth === endMonth ? "" : endMonth;
+      const startYear = start.year;
+      const endYear = end.year;
+      const suffixYear = startYear === endYear ? "" : endYear;
+      const startDay = start.day + this.nth(start.day);
+      const endDay = end.day + this.nth(end.day);
+      switch (this.type) {
+        case "month":
+          return `${startMonth} ${startYear}`;
+        case "week":
+        case "4day":
+          return `${startMonth} ${startDay} ${startYear} - ${suffixMonth} ${endDay} ${suffixYear}`;
+        case "day":
+          return `${startMonth} ${startDay} ${startYear}`;
+      }
+      return "";
     },
+    monthFormatter() {
+      return this.$refs.calendar.getFormatter({
+        timeZone: "UTC",
+        month: "long"
+      });
+    }
+  },
   methods: {
     async searchFilter() {
-      
+      this.loading = true
+      this.showAlertError= false
+      this.mesIr = ""
+
       const data = {
         DateType: this.DateType,
         dateStart: this.dateStart,
@@ -335,34 +337,38 @@ export default {
         idEstado: this.idEstado
       };
 
-      console.log(data);
       const response = await this.$store.dispatch("getAllCites", data);
+      this.loading = false
 
-      console.log(response.data)
-
-      if(response.status === 200) {
-
-        response.data.map( cita => {
-          const { idTerapia, dPaciente, fechaCita, noOrden, idCita } = cita
-          const fecha = fechaCita.split("T")[0]
-          console.log(fecha)
+      if (response.status === 200) {
+        this.events = [];
+        this.mesIr = this.dateStart
+        this.showCalendar = true
+        response.data.map(cita => {
+          const { idTerapia, dPaciente, fechaCita, noOrden, idCita } = cita;
+          const fecha = fechaCita.split("T")[0];
 
           this.events.push({
-            idTerapia, 
-            dPaciente, 
-            start: fecha, 
-            name: noOrden, 
+            idTerapia,
+            dPaciente,
+            start: fecha,
+            end: this.dateEnd ? this.fecha : null,
+            name: noOrden,
             details: noOrden,
-            idCita ,
-            color: "black"
-          })
-        })
-            // { "idTerapia": 1, "dPaciente": 2, "start": "2019-11-07", "name": "1111", "idCita": 20, "color": "#000" }
+            idCita,
+            color: "#4285F4"
+          });
+        });
+        // { "idTerapia": 1, "dPaciente": 2, "start": "2019-11-07", "name": "1111", "idCita": 20, "color": "#000" }
         //  { name: 'Hackathon', details: 'Code like there is no tommorrow', start: '2019-01-30 23:00',   color: 'black', },
 
-        console.log(this.events)
+      } else {
+        this.loading = false
+        this.showAlertError= true
+         this.events = [];
+        this.mesIr = ""
+        this.showCalendar = false
       }
-       
 
       this.$refs.citeRef.reset();
       this.showInput = false;
@@ -375,49 +381,49 @@ export default {
     filtroBusqueda() {
       this.showInput = true;
     },
-   
-     viewDay ({ date }) {
-        this.focus = date
-        this.type = 'day'
-      },
-      getEventColor (event) {
-        return event.color
-      },
-      setToday () {
-        this.focus = this.today
-      },
-      prev () {
-        this.$refs.calendar.prev()
-      },
-      next () {
-        this.$refs.calendar.next()
-      },
-      showEvent ({ nativeEvent, event }) {
-        const open = () => {
-          this.selectedEvent = event
-          this.selectedElement = nativeEvent.target
-          setTimeout(() => this.selectedOpen = true, 10)
-        }
 
-        if (this.selectedOpen) {
-          this.selectedOpen = false
-          setTimeout(open, 10)
-        } else {
-          open()
-        }
+    viewDay({ date }) {
+      this.focus = date;
+      this.type = "day";
+    },
+    getEventColor(event) {
+      return event.color;
+    },
+    setToday() {
+      this.focus = this.today;
+    },
+    prev() {
+      this.$refs.calendar.prev();
+    },
+    next() {
+      this.$refs.calendar.next();
+    },
+    showEvent({ nativeEvent, event }) {
+      const open = () => {
+        this.selectedEvent = event;
+        this.selectedElement = nativeEvent.target;
+        setTimeout(() => (this.selectedOpen = true), 10);
+      };
 
-        nativeEvent.stopPropagation()
-      },
-      updateRange ({ start, end }) {
-        // You could load events from an outside source (like database) now that we have the start and end dates on the calendar
-        this.start = start
-        this.end = end
-      },
-      nth (d) {
-        return d > 3 && d < 21
-          ? 'th'
-          : ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'][d % 10]
-      },
+      if (this.selectedOpen) {
+        this.selectedOpen = false;
+        setTimeout(open, 10);
+      } else {
+        open();
+      }
+
+      nativeEvent.stopPropagation();
+    },
+    updateRange({ start, end }) {
+      // You could load events from an outside source (like database) now that we have the start and end dates on the calendar
+      this.start = start;
+      this.end = end;
+    },
+    nth(d) {
+      return d > 3 && d < 21
+        ? "th"
+        : ["th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"][d % 10];
+    }
   },
 
 };
