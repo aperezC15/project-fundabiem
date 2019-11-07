@@ -33,13 +33,13 @@ namespace fundabiemAPI.Controllers
 
         // ingresa la evolucion medica
         [HttpPost]
-        public async Task<ActionResult<EvolucionMedica>> newEvolucionMedica(CreateEvolucionMedicaDTO model)
+        public async Task<ActionResult> newEvolucionMedica(CreateEvolucionMedicaDTO model)
         {
             logger.LogInformation("Creating resource: EvolucionMedica by user {0}",getUser());
             try
             {
                 var evolucionMedica = await fundabiem.newEvolucionMedica(model);
-                return Ok(evolucionMedica);
+                return new CreatedAtRouteResult("ObtenerEvolucion", new { id = evolucionMedica.idEvolucionMedica }, evolucionMedica);
             }
             catch (Exception ex)
             {
@@ -47,6 +47,16 @@ namespace fundabiemAPI.Controllers
                 logger.LogError(ex.ToString());
                 return BadRequest();
             }
+        }
+
+        //obtener citas
+        [HttpGet("{id}", Name ="ObtenerEvolucion")]
+        public ActionResult<DTOEvolucionMedica> getEvolucion(int id)
+        {
+            var evolucion = fundabiem.getEvolucionMedica(id);
+            if (evolucion.Result == null)
+                return NotFound("No se encontro la evolucion con id => " + id.ToString());
+            return Ok(evolucion.Result);
         }
 
         [HttpGet("getAll")]
