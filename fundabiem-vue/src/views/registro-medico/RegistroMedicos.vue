@@ -348,7 +348,7 @@ export default {
       this.closeModalCitesC = false;
 
       const nuevaCita = {
-        dPaciente: this.idPaciente,
+        idPaciente: this.idPaciente,
         ...data,
         asignadoPor: this.user.sub
       };

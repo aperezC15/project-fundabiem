@@ -32,6 +32,7 @@
           </v-toolbar>
 
           <v-data-table
+            hide-default-footer
             :headers="headers"
             :items="dataRegistersMedicals"
             :search="search"
@@ -119,7 +120,7 @@ export default {
   watch: {
     paginationPage: function() {
       this.dataRegistersMedicals = [];
-      this.getMedicalsRegisters();
+      this.getHistoriaClinica();
     }
   },
   methods: {
@@ -171,6 +172,7 @@ export default {
 
       this.loading = false;
       if (response.status === 200 ) {
+        this.paginationLenght=response.data.pages
         response.data.registrosFundabiem.map(register => {
           
           const { fechaDeRegistro, motivoDeConsulta, diagnosticoFinal,} = register;
