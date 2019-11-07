@@ -36,7 +36,7 @@ namespace fundabiemAPI.Controllers
         {
             using (var transaction = context.Database.BeginTransaction())
             {
-                logger.LogInformation("BeginTransaction  Crear Historia Clinica");
+                logger.LogInformation("BeginTransaction  Crear Historia Clinica by user => {0}",getUser());
                 try
                 {
                     await fundabiem.newHistoriaClinica(model);
@@ -58,7 +58,7 @@ namespace fundabiemAPI.Controllers
         {
             try
             {
-                getUser();
+                logger.LogInformation("Seach Historias clinicas pagina {0} rowsPerPage {1}", pagina, rowsPerPage);
                 var histo = await fundabiem.getAllHistoriaClinicas(pagina, rowsPerPage);
                 return Ok(histo);
             }

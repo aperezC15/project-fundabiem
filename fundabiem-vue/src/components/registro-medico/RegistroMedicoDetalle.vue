@@ -35,10 +35,22 @@
             <v-form ref="formRef" v-model="formValid">
               <v-row class="pa-3">
                 <v-col cols="12" sm="6">
-                  <v-textarea :rules="rulesInput" v-model="diagnosticoFinal" solo label="Diagnóstico Final" auto-grow></v-textarea>
+                  <v-textarea
+                    :rules="rulesInput"
+                    v-model="diagnosticoFinal"
+                    solo
+                    label="Diagnóstico Final"
+                    auto-grow
+                  ></v-textarea>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-textarea :rules="rulesInput"  v-model="recomendaciones" solo label="Recomendaciones" auto-grow></v-textarea>
+                  <v-textarea
+                    :rules="rulesInput"
+                    v-model="recomendaciones"
+                    solo
+                    label="Recomendaciones"
+                    auto-grow
+                  ></v-textarea>
                 </v-col>
               </v-row>
             </v-form>
@@ -51,6 +63,8 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+
+
   </v-row>
 </template>
     
@@ -61,13 +75,13 @@ import AlertErrorGlobal from "../alertas/alertErrorGlobal.vue";
 export default {
   components: {
     DatosPersona,
-    AlertErrorGlobal
+    AlertErrorGlobal,
   },
   props: {
     dialogRegistroMedicoDetalle: Boolean,
     historialClinico: Object,
     paciente: Object,
-    showAlertDetalle: Boolean
+    showAlertDetalle: Boolean,
   },
   data() {
     return {
@@ -75,25 +89,25 @@ export default {
       rulesInput: [v => !!v || "El campo es obligatorio"],
       diagnosticoFinal: "",
       recomendaciones: "",
-      formValid: false
+      formValid: false,
     };
   },
   methods: {
     closeModalDetalle() {
       this.$emit("closeModalDetalle");
-      this.$refs.formRef.reset()
+      this.$refs.formRef.reset();
     },
     completarRegistro() {
-
-      const data ={
+      const data = {
         diagnosticoFinal: this.diagnosticoFinal,
-        recomendaciones:  this.recomendaciones
-      }
+        recomendaciones: this.recomendaciones
+      };
 
       this.$emit("completarRegistro", data);
-      this.$refs.formRef.reset()
-    }
-  }
+      this.$refs.formRef.reset();
+    },
+  },
+
 };
 </script>
 

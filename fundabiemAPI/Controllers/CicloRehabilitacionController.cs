@@ -32,8 +32,7 @@ namespace fundabiemAPI.Controllers
         [HttpGet("ObjetivosIntervencion")]
         public ActionResult<IEnumerable<ObjetivoDeIntervencion>> getObjetivos()
         {
-            getUser();
-            logger.LogInformation("Reading all ObjetivosIntervencion");
+            logger.LogInformation("Reading all ObjetivosIntervencion by user {0}",getUser());
             var objetivos = fundabiem.getAllObjetivos();
             if (objetivos.Count() == 0)
                 return NotFound();
@@ -44,7 +43,7 @@ namespace fundabiemAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> newCiclo([FromBody] CreateCicloRehabilitacionDTO ciclo)
         {
-            string txt = "create ciclo de rehabilitacion";
+            string txt = "create ciclo de rehabilitacion {0} "+getUser();
             using (var transaction = context.Database.BeginTransaction())
             {
                 logger.LogInformation("BeginTransaction {0}",txt);
@@ -68,6 +67,7 @@ namespace fundabiemAPI.Controllers
         [HttpGet("{id}", Name = "ObtenerCicloRehabilitacion")]
         public  ActionResult<CreateCicloRehabilitacionDTO> getCicloRehabilitacion(int id)
         {
+            logger.LogInformation("Searching ciclo de rehabilitacion by user => ", getUser());
             var ciclo =  fundabiem.getCicloById(id);
             if (ciclo.Result == null)
                 return NotFound("No se encontro el ciclo de rehabilitacion con id "+id);

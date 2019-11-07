@@ -35,15 +35,13 @@ namespace fundabiemAPI.Controllers
         {
             using (var transaction = context.Database.BeginTransaction())
             {
-                logger.LogInformation("BeginTransaction  create registro medico");
+                logger.LogInformation("BeginTransaction  create registro medico by user {0}",getUser());
                 try
                 {
                     getUser();
                     var persona = await fundabiem.searchPersonaByDPI(model.paciente.dpi);
                     if (persona.Count() > 0)
                         return BadRequest("El DPI ya existe");
-
-                    logger.LogInformation("Creating a new Registro Medico");
                     var PersonaPaciente = await fundabiem.newPersona(model.paciente);
                     //crea la direccion del paciente
                     await fundabiem.newDirection(model.direccionPaciente, PersonaPaciente.idPersona);
@@ -83,7 +81,7 @@ namespace fundabiemAPI.Controllers
         [HttpGet("searchById")]
         public ActionResult<IEnumerable<RegistroMedico>> searchRegistroMedico(int idRegistro)
         {
-            getUser();
+            logger.LogInformation("seraching registro medico with idRegistroMedico {0} by user {1}", idRegistro,getUser());
             var rgMedicos = fundabiem.searchRegistroMedicos(idRegistro);
             if (rgMedicos.Count() == 0)
                 return NotFound();
@@ -94,7 +92,7 @@ namespace fundabiemAPI.Controllers
         [HttpGet("diagnostico/search/")]
         public ActionResult<IEnumerable<RegistroMedicoDiagnostico>> getDiagnostico(int IdRegistroMedico) 
         {
-            getUser();
+            logger.LogInformation("Seraching diagnotico registro medico with idRegistroMedico {0} by user => {1}",IdRegistroMedico, getUser());
             var diagnostico = fundabiem.getDianostico(IdRegistroMedico);
             if (diagnostico.Result.Count() == 0)
                 return BadRequest("no se encontraron registros");
@@ -104,7 +102,7 @@ namespace fundabiemAPI.Controllers
         [HttpGet("getAll")]
         public async  Task<ActionResult<clsResponse<RegistroMedico>>> getRegistroMedico(int pagina, int rowsPerPage)
         {
-            getUser();
+            logger.LogInformation("Get all REgistros Medicos by user => {0}",getUser());
             var rgMedicos = await fundabiem.getAllRegistrosMedicos(pagina, rowsPerPage);
             return Ok(rgMedicos);
         }
@@ -112,8 +110,7 @@ namespace fundabiemAPI.Controllers
         [HttpPost("completar")]
         public async Task<ActionResult> completarRegistroMedico([FromBody]RegistroMedicoDiagnosticoDTO model)
         {
-            getUser();
-            string txt = "completa registro medico";
+            string txt = "completa registro medico by user => "+getUser();
             using (var transaction = context.Database.BeginTransaction())
             {
                 logger.LogInformation("BeginTransaction {0} ", txt);

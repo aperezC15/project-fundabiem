@@ -107,7 +107,6 @@ namespace EntityModelFundabien.common
             var query = context.RegistrosMedicos.AsQueryable();
             var totalRegisters = query.Count();
 
-            logger.Information("Get all REgistros Medicos");
            // var rg = context.RegistrosMedicos.Include(paciente => paciente.paciente.persona).ToList();
             var rgs = await query
                 .Skip(rowsPerPAge * (pagina - 1))
@@ -145,7 +144,6 @@ namespace EntityModelFundabien.common
         //para obtener un registro medico segun id de paciente o HistorialClinico
         public IEnumerable<RegistroMedico> searchRegistroMedicos(int idRegistro)
         {
-            logger.Information("Search Registro Medico by Id");
             return context.RegistrosMedicos.Where(x => x.idRegistroMedico == idRegistro).Include(paciente => paciente.diagnostico).Include(x=> x.paciente.persona).ToList();
         }
 
@@ -194,7 +192,6 @@ namespace EntityModelFundabien.common
         //crea un ciclo de rehabilitcion
         public async Task<CicloDeRehabilitacion> newCicloRehabilitacion(CreateCicloRehabilitacionDTO ciclo)
         {
-            logger.Information("create a new ciclo de rehabilitacion ");
             var cl = mapper.Map<CicloDeRehabilitacion>(ciclo);
             await context.CicloDeRehabilitaciones.AddAsync(cl);
             await context.SaveChangesAsync();

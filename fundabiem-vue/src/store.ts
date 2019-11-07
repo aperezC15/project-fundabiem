@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex, { StoreOptions } from 'vuex'
+import axios from 'axios'
 import 'es6-promise/auto'
 import { rootState } from './models/vuex/rootState'
 //@ts-ignore
@@ -7,7 +8,7 @@ import { vuexOidcCreateStoreModule } from 'vuex-oidc'
 import { oidcSettings } from './config/oidc'
 
 // store app
-import { storeGenerales, storeMedicalRegister, storeAnamnesis, storeEvolucionMedica } from './storeapp'
+import { storeGenerales, storeMedicalRegister, storeAnamnesis, storeEvolucionMedica, storeCites } from './storeapp'
 Vue.use(Vuex)
 
 const store: StoreOptions<rootState> = {
@@ -19,6 +20,7 @@ const store: StoreOptions<rootState> = {
       storeMedicalRegister,
       storeAnamnesis,
       storeEvolucionMedica,
+      storeCites,
       oidcStore: vuexOidcCreateStoreModule(
           oidcSettings,
           // Optionlaly define the store module as namespaced
@@ -26,8 +28,9 @@ const store: StoreOptions<rootState> = {
           // Optional OIDC event listeners
           {
               userLoaded: (user: any) => {
-                  console.log('OIDC user is loaded:', user.id_token)
+                //   console.log('OIDC user is loaded:', user.id_token)
                   Vue.axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.id_token;
+                  Vue.axios.defaults.baseURL=process.env.VUE_APP_URL_API
               },
               userUnloaded: () => console.log('OIDC user is unloaded'),
               accessTokenExpiring: () => console.log('Access token will expire'),
