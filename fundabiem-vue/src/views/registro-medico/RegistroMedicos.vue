@@ -8,7 +8,7 @@
           </v-flex>
         </v-layout>
         <v-card>
-          <v-toolbar flat dark color="#616161">
+          <v-toolbar flat dark color="#2c2e3f">
             <v-toolbar-title>REGISTROS</v-toolbar-title>
             <v-divider class="mx-4" vertical></v-divider>
             <div class="flex-grow-1"></div>
@@ -20,14 +20,14 @@
               single-line
               hide-details
             ></v-text-field>
-            <v-tooltip bottom>
+            <v-tooltip bottom color="#0277BD">
               <template v-slot:activator="{ on }">
                 <v-btn
                   class="ma-2"
-                  outlined
-                  tile
+                  rounded
+                  text-color="#000000"                  
                   v-on="on"
-                  color="success"
+                  color="#039BE5"
                   @click="openDialogRegistroMedico"
                 >
                   <v-icon>add</v-icon>Nuevo
@@ -45,10 +45,10 @@
             class="elevation-1"
           >
             <template v-slot:no-data v-if="dataRegistersMedicals.length === 0">
-              <v-alert
+              <v-alert dark
                 class="text-xs-center"
                 :value="true"
-                color="warning"
+                color="#FF0000"
                 icon="warning"
               >No existen registros en la tabla</v-alert>
             </template>
@@ -56,11 +56,11 @@
             <template v-slot:item.action="{item}">
               <v-row>
                  <v-col cols="12" md="6">
-                <v-tooltip bottom>
+                <v-tooltip bottom color="#FF6600">
                   <template v-slot:activator="{ on }">
                     <v-btn
                       fab
-                      color="success"
+                      color="#FF6600"
                       dark
                       v-if="!item.diagnostico"
                       @click="openDetailRegister(item)"
@@ -73,16 +73,21 @@
                 </v-tooltip>
                      </v-col>
                 <v-col cols="12" md="6">
-                  <v-btn
-                    fab
-                    dark
-                     v-if="item.diagnostico"
-                    title="PROGRAMACIÓN DE CITAS"
-                    color="info"
-                    @click="programarCitas(item)"
-                  >
-                    <v-icon>notes</v-icon>
-                  </v-btn>
+                  <v-tooltip bottom color="#009933">
+                    <template  v-slot:activator="{ on }">
+                      <v-btn
+                        fab
+                        dark
+                        v-if="item.diagnostico"
+                        color="#009933"
+                        @click="programarCitas(item)"
+                        v-on="on"
+                      >
+                        <v-icon>notes</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>PROGRAMACIÓN DE CITAS</span>
+                  </v-tooltip>
                 </v-col>
               </v-row>
             </template>
@@ -91,7 +96,7 @@
             </template>
           </v-data-table>
           <div class="text-center">
-            <v-pagination
+            <v-pagination color="#3949AB"
               v-model="paginationPage"
               :length="paginationLenght"
             ></v-pagination>

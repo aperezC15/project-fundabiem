@@ -13,7 +13,7 @@
             </v-toolbar-title>
 
             <v-spacer></v-spacer>
-            <v-tooltip bottom>
+            <v-tooltip bottom color="indigo">
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" class="mx-2"  fab color="indigo" @click="signOutOidc" v-if="oidcIsAuthenticated" >
                   <v-icon>fas fa-power-off</v-icon>

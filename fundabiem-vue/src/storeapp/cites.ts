@@ -19,7 +19,7 @@ const store = {
         getAllCites: async ({}, data:any) => {
 
             try {
-                const response = await api.get('Citas/searchByDates', {params: {...data}})
+                const response = await api.get('/Citas/searchByDates', {params: {...data}})
                 if(response.status === 200) {
                     return response
                 }

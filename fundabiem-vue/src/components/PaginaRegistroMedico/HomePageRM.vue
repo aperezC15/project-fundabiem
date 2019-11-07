@@ -12,7 +12,7 @@
                     <span class="headline">{{ formtitle}}</span>
                     <div class="flex-grow-1"></div>
 
-                    <v-btn color="indigo" rounded  @click="cerrarmodalNuevoRM()" class="mx-4">CERRAR</v-btn>
+                    <v-btn color="indigo" rounded  @click="cerrarmodalNuevoRM()" class="mx-4">CANCELAR</v-btn>
                     <v-btn color="indigo" rounded  @click="guardarNuevoRM()">GUARDAR REGISTRO</v-btn>
                 </v-toolbar>
                 <v-card-text >

@@ -188,12 +188,12 @@
                       :activator="selectedElement"
                       offset-x
                     >
-                      <v-card color="grey lighten-4" min-width="350px" flat>
+                      <v-card color="grey lighten-4" max-width="330px" flat>
                         <v-toolbar :color="selectedEvent.color" dark>
                           <v-btn icon>
                             <v-icon>mdi-pencil</v-icon>
                           </v-btn>
-                          <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+                          <v-toolbar-title v-html="selectedEvent.details"></v-toolbar-title>
                           <v-spacer></v-spacer>
                           <v-btn icon>
                             <v-icon>mdi-heart</v-icon>
@@ -203,6 +203,9 @@
                           </v-btn>
                         </v-toolbar>
                         <v-card-text>
+                          <p class="text-uppercase font-weight-bold" >
+                            Nombre: <span v-html="selectedEvent.name"></span>
+                          </p> 
                           <p class="text-uppercase font-weight-bold" >
                             No de Orden: <span v-html="selectedEvent.details"></span>
                           </p> 

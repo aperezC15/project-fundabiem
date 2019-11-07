@@ -57,6 +57,12 @@
               <v-alert type="error">EL REGISTRO "{{search}}" NO SE ENCUENTRA EN LA BASE DE DATOS</v-alert>
             </template>
           </v-data-table>
+          <div class="text-center">
+            <v-pagination
+              v-model="paginationPage"
+              :length="paginationLenght"
+            ></v-pagination>
+          </div>
         </v-card>
       </v-flex>
     </v-layout>
@@ -119,11 +125,76 @@ export default {
       dialogRehabilitacion: false,
       loading: false,
       cicloEdit: {},
-      showEditCiclo: false
+      showEditCiclo: false,
+       paginationPage: 1,
+      paginationLenght: 0,
+      pagination: {
+        pagina: 1,
+        rowsPerPage: 5
+      },
 
     }
   },
+   paginationPage: function() {
+      this.cicloRehabilitacionCIF = [];
+      this.getDataCicloRehabilitacion();
+    },
   methods: {
+      async getDataCicloRehabilitacion() {
+      this.cicloRehabilitacionCIF = [];
+      this.loading = true;
+
+      var pagination = {
+        pagina: this.paginationPage,
+        rowsPerPage: 5
+      };
+      console.log(pagination)
+      const response = await this.$store.dispatch("getAllCicloRehabilitacion", {
+        pagination
+      });
+
+      console.log(response)
+
+      this.loading = false;
+      // if (
+      //   response.status === 200 &&
+      //   response.data.registrosFundabiem.length >= 0
+      // ) {
+      //   this.paginationLenght = response.data.pages;
+      //   response.data.registrosFundabiem.map(register => {
+      //     const { fechaAdmision, idRegistroMedico } = register;
+      //     const {
+      //       estaActivo,
+      //       historialClinico,
+      //       idPaciente
+      //     } = register.paciente;
+      //     const {
+      //       primerApellido,
+      //       primerNombre,
+      //       segundoApellido,
+      //       segundoNombre,
+      //       grupoEtnico,
+      //       dpi
+      //     } = register.paciente.persona;
+      //     const diagnostico = register.diagnostico;
+      //     const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`;
+      //     var dateAdmision = moment(fechaAdmision).format("L");
+      //     this.cicloRehabilitacionCIF.push({
+      //       estaActivo,
+      //       historialClinico,
+      //       idPaciente,
+      //       dateAdmision,
+      //       nombreCompleto,
+      //       grupoEtnico,
+      //       dpi,
+      //       idRegistroMedico,
+      //       diagnostico
+      //     });
+
+      //     //modificar aca
+      //   });
+      // }
+    },
     openDialogRehabilitation() {
       this.dialogRehabilitacion = true;
     },
@@ -184,6 +255,9 @@ export default {
     closeEditModalRehabilitation() {
       this.showEditCiclo = false
     }
-  }
+  },
+  mounted() {
+    this.getDataCicloRehabilitacion()
+  },
 };
 </script>
