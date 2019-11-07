@@ -396,8 +396,6 @@ namespace EntityModelFundabien.common
 
         public async Task newAnamnesis(Int64 idHistoriaClinica,  CrearAnamnesisDTO modelo)
         {
-            logger.Information("Creating a new history");
-
             var anamnesis = new Anamnesis
             {
                 idHistoriaClinica = idHistoriaClinica,
