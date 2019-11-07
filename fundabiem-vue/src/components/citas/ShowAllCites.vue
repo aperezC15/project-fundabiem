@@ -377,6 +377,11 @@ export default {
       this.$emit("closeModal");
       this.$refs.citeRef.reset();
       this.showInput = false;
+        this.loading = false
+        this.showAlertError= false
+         this.events = [];
+        this.mesIr = ""
+        this.showCalendar = false
     },
     filtroBusqueda() {
       this.showInput = true;
