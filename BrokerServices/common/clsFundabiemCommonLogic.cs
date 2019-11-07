@@ -100,7 +100,28 @@ namespace EntityModelFundabien.common
         {
             return context.Terapias.ToList();
         }
+        //obtiene todos los ciclos de rehabilitacion paginados
+        public async Task<clsResponse<CicloDeRehabilitacionDTO>> getAllCiclosRehabilitacion(int pagina, int rowsPerPage)
+        {
+            var query = context.CicloDeRehabilitaciones.AsQueryable();
+            var totalRegisters = query.Count();
 
+            var ciclos = await query
+                .Skip(rowsPerPage * (pagina - 1))
+                .Take(rowsPerPage)
+                .Include(x => x.paciente.persona)
+                //.Include(x => x.detalleCicloRehabilitacion)
+                .OrderBy(x => x.idcicloRehabilitacion)
+                .ToListAsync();
+            
+            var dto = mapper.Map<List<CicloDeRehabilitacionDTO>>(ciclos);
+            clsResponse<CicloDeRehabilitacionDTO> hist = new clsResponse<CicloDeRehabilitacionDTO>();
+            hist.Error = false;
+            hist.RegistrosFundabiem = dto;
+            hist.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPage));
+            hist.totalRows = totalRegisters;
+            return hist;
+        }
         //obtiene todos los registros medicos
         public async Task<clsResponse<RegistroMedico>> getAllRegistrosMedicos(int pagina, int rowsPerPAge)
         {
@@ -229,7 +250,9 @@ namespace EntityModelFundabien.common
         //obiene una cita por  su id
         public async Task<citaDTO> getCitaById(int id)
         {
-             var cita = await context.Citas.FirstOrDefaultAsync(x => x.IdCita == id);
+             var cita = await context.Citas
+                .Include(x => x.paciente.persona)
+                .FirstOrDefaultAsync(x => x.IdCita == id);
              var citaDTO = mapper.Map<citaDTO>(cita);
             return citaDTO;
         }
@@ -242,16 +265,25 @@ namespace EntityModelFundabien.common
             if (DateType == "fechaCita")
             {
                 if (range)
-                    cita = await context.Citas.Where(x => x.fechaCita.Date >= fecha.Date && x.fechaCita.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaCita.Date >= fecha.Date && x.fechaCita.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado)
+                        .Include(x => x.paciente.persona)
+                        .ToListAsync();
                 else
-                    cita = await context.Citas.Where(x => x.fechaCita.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaCita.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado)
+                        .Include(x => x.paciente.persona)
+                        .OrderBy(x => x.IdCita)
+                        .ToListAsync();
             }
             else if (DateType == "fechaAsignacion")
             {
                 if (range)
-                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date >= fecha.Date && x.fechaAsignacion.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date >= fecha.Date && x.fechaAsignacion.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado)
+                        .Include(x => x.paciente.persona)
+                        .ToListAsync();
                 else
-                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado)
+                        .Include(x => x.paciente.persona)
+                        .ToListAsync();
             }
             else
                 cita = null;
@@ -424,6 +456,24 @@ namespace EntityModelFundabien.common
             await context.SaveChangesAsync();
             
             return await getEvolucionMedica(evolucionMedica.idEvolucionMedica);
+        }
+
+        public async Task<clsResponse<EvolucionMedica>> getAllEvolucionesMedicas(int pagina, int rowsPerPAge)
+        {
+            var query = context.EvolucionesMedicas.AsQueryable();
+            var totalRegisters = query.Count();
+            var historias = await query
+                .Skip(rowsPerPAge * (pagina - 1))
+                .Take(rowsPerPAge)
+                .OrderBy(x => x.idEvolucionMedica)
+                .ToListAsync();
+
+            clsResponse<EvolucionMedica> histClinicas = new clsResponse<EvolucionMedica>();
+            histClinicas.Error = false;
+            histClinicas.RegistrosFundabiem = historias;
+            histClinicas.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge));
+            histClinicas.totalRows = totalRegisters;
+            return histClinicas;
         }
     }
 }   

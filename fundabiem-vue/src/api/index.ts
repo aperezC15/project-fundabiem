@@ -14,6 +14,4 @@ const instance = axios.create({
     }
 });
 
-console.log('axios desde el index.ts ==>' , instance.defaults.headers)
-
 export default instance
