@@ -32,7 +32,7 @@
             </v-btn>
           </v-toolbar>
 
-          <v-data-table :headers="headers" :items="cicloRehabilitacionCIF" :search="search" class="elevation-1">
+          <v-data-table hide-default-footer :headers="headers" :items="cicloRehabilitacionCIF" :search="search" class="elevation-1">
             <template v-slot:no-data v-if="cicloRehabilitacionCIF.length === 0">
               <v-alert
                 class="text-xs-center"
@@ -101,6 +101,7 @@
 <script>
 import CicloRehabilitacion from '../../components/ciclo-rehabilitacion/CicloRehabilitacion.vue'
 import EditCicloRehabilitacion from '../../components/ciclo-rehabilitacion/EditCicloRehabilitacion.vue'
+import moment from 'moment'
 export default {
   components: { 
     CicloRehabilitacion,
@@ -111,17 +112,14 @@ export default {
       search: "",
       headers: [
         { text: "Nombre completo", align: "left", sortable: false, value: "nombre" },
-        { text: "Edad", value: "edad" },
-        { text: "Sexo", value: "sexo" },
+        { text: "CIE-10", value: "cie_10" },
+        { text: "Sexo", value: "_sexo" },
         { text: "Origen", value: "origen" },
-        { text: "Diagnóstico", value: "diagnostico" },
-        { text: "fecha", value: "fecha" },
+        { text: "Diagnóstico", value: "dignostico" },
+        { text: "fecha", value: "_fecha" },
         { text: "Acciones", value: "action" }
       ],
-      cicloRehabilitacionCIF: [
-        {id: 1, nombre: "Juan Gómez", edad: 62, sexo: "masculino", origen: "Guatemala", diagnostico: "Su diagnostico", fecha: "2019-08-12" },
-        { id: 2, nombre: "Benito Juarez", edad: 32, sexo: "masculino", origen: "Guatemala", diagnostico: "El diagnostico", fecha: "2016-02-10" },
-      ],
+      cicloRehabilitacionCIF: [],
       dialogRehabilitacion: false,
       loading: false,
       cicloEdit: {},
@@ -135,10 +133,12 @@ export default {
 
     }
   },
-   paginationPage: function() {
+  watch: {
+    paginationPage: function() {
       this.cicloRehabilitacionCIF = [];
       this.getDataCicloRehabilitacion();
-    },
+    }
+  },
   methods: {
       async getDataCicloRehabilitacion() {
       this.cicloRehabilitacionCIF = [];
@@ -148,52 +148,50 @@ export default {
         pagina: this.paginationPage,
         rowsPerPage: 5
       };
-      console.log(pagination)
       const response = await this.$store.dispatch("getAllCicloRehabilitacion", {
         pagination
       });
 
-      console.log(response)
-
       this.loading = false;
-      // if (
-      //   response.status === 200 &&
-      //   response.data.registrosFundabiem.length >= 0
-      // ) {
-      //   this.paginationLenght = response.data.pages;
-      //   response.data.registrosFundabiem.map(register => {
-      //     const { fechaAdmision, idRegistroMedico } = register;
-      //     const {
-      //       estaActivo,
-      //       historialClinico,
-      //       idPaciente
-      //     } = register.paciente;
-      //     const {
-      //       primerApellido,
-      //       primerNombre,
-      //       segundoApellido,
-      //       segundoNombre,
-      //       grupoEtnico,
-      //       dpi
-      //     } = register.paciente.persona;
-      //     const diagnostico = register.diagnostico;
-      //     const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`;
-      //     var dateAdmision = moment(fechaAdmision).format("L");
-      //     this.cicloRehabilitacionCIF.push({
-      //       estaActivo,
-      //       historialClinico,
-      //       idPaciente,
-      //       dateAdmision,
-      //       nombreCompleto,
-      //       grupoEtnico,
-      //       dpi,
-      //       idRegistroMedico,
-      //       diagnostico
-      //     });
+       if (
+         response.status === 200 &&
+         response.data.registrosFundabiem.length >= 0
+       ) {
+         this.paginationLenght = response.data.pages;
+         response.data.registrosFundabiem.map(register => {
+           const { dignostico, fecha,origen,cie_10 } = register;
+           const {historialClinico  } = register.paciente.historialClinico
+           const {
+             primerApellido,
+             primerNombre,
+             segundoApellido,
+             segundoNombre,
+             grupoEtnico,
+             dpi,
+             sexo
+           } = register.paciente.persona;
 
-      //     //modificar aca
-      //   });
-      // }
+           const nombre = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`;
+           var _fecha = moment(fecha).format("L");
+           var _sexo
+          if(sexo)
+            _sexo='Masculino'
+          else
+            _sexo='Femenino'
+          
+
+           this.cicloRehabilitacionCIF.push({
+             nombre,
+             cie_10,
+             _sexo,
+             origen,
+             dignostico,
+             _fecha
+           });
+
+           //modificar aca
+         });
+       }
     },
     openDialogRehabilitation() {
       this.dialogRehabilitacion = true;
