@@ -18,10 +18,10 @@
 
           <v-data-table :headers="headers" :items="data" :search="search" class="elevation-1">
             <template v-slot:no-data v-if="data.length === 0">
-              <v-alert
+              <v-alert dark
                 class="text-xs-center"
                 :value="true"
-                color="warning"
+                color="#E7312D"
                 icon="warning"
               >No existen registros en la tabla</v-alert>
             </template>
