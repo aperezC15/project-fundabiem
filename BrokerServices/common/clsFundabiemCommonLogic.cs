@@ -250,7 +250,9 @@ namespace EntityModelFundabien.common
         //obiene una cita por  su id
         public async Task<citaDTO> getCitaById(int id)
         {
-             var cita = await context.Citas.FirstOrDefaultAsync(x => x.IdCita == id);
+             var cita = await context.Citas
+                .Include(x => x.paciente.persona)
+                .FirstOrDefaultAsync(x => x.IdCita == id);
              var citaDTO = mapper.Map<citaDTO>(cita);
             return citaDTO;
         }
@@ -263,16 +265,25 @@ namespace EntityModelFundabien.common
             if (DateType == "fechaCita")
             {
                 if (range)
-                    cita = await context.Citas.Where(x => x.fechaCita.Date >= fecha.Date && x.fechaCita.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaCita.Date >= fecha.Date && x.fechaCita.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado)
+                        .Include(x => x.paciente.persona)
+                        .ToListAsync();
                 else
-                    cita = await context.Citas.Where(x => x.fechaCita.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaCita.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado)
+                        .Include(x => x.paciente.persona)
+                        .OrderBy(x => x.IdCita)
+                        .ToListAsync();
             }
             else if (DateType == "fechaAsignacion")
             {
                 if (range)
-                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date >= fecha.Date && x.fechaAsignacion.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date >= fecha.Date && x.fechaAsignacion.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado)
+                        .Include(x => x.paciente.persona)
+                        .ToListAsync();
                 else
-                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado)
+                        .Include(x => x.paciente.persona)
+                        .ToListAsync();
             }
             else
                 cita = null;

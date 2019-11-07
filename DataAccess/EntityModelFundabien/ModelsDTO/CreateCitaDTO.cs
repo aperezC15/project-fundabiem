@@ -27,5 +27,6 @@ namespace EntityModelFundabien.ModelsDTO
         public DateTime fechaCita { get; set; }
         public DateTime fechaAsignacion { get; set; }
         public string AsignadoPor { get; set; }
+        public pacienteDTO paciente { get; set; }
     }
 }
