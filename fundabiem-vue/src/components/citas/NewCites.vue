@@ -64,8 +64,8 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" :disabled="!formValid" text @click="newCite">Programar citas</v-btn>
-          <v-btn color="primary" text @click="closeModalCites">Cerrar</v-btn>
+          <v-btn color="#FF6F00" dark rounded :disabled="!formValid" @click="newCite">Programar citas</v-btn>
+          <v-btn color="indigo" dark rounded @click="closeModalCites">Cerrar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
