@@ -140,79 +140,47 @@ export default {
     }
   },
   methods: {
-      async getDataCicloRehabilitacion() {
+    async getDataCicloRehabilitacion() {
       this.cicloRehabilitacionCIF = [];
       this.loading = true;
-
-      var pagination = {
-        pagina: this.paginationPage,
-        rowsPerPage: 5
-      };
-      const response = await this.$store.dispatch("getAllCicloRehabilitacion", {
-        pagination
-      });
-
+      var pagination = { pagina: this.paginationPage, rowsPerPage: 5 }
+      const response = await this.$store.dispatch("getAllCicloRehabilitacion", { pagination })
       this.loading = false;
-       if (
-         response.status === 200 &&
-         response.data.registrosFundabiem.length >= 0
-       ) {
-         this.paginationLenght = response.data.pages;
-         response.data.registrosFundabiem.map(register => {
-           const { dignostico, fecha,origen,cie_10 } = register;
-           const {historialClinico  } = register.paciente.historialClinico
-           const {
-             primerApellido,
-             primerNombre,
-             segundoApellido,
-             segundoNombre,
-             grupoEtnico,
-             dpi,
-             sexo
-           } = register.paciente.persona;
-
-           const nombre = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`;
-           var _fecha = moment(fecha).format("L");
-           var _sexo
+      if (response.status === 200 && response.data.registrosFundabiem.length >= 0) {
+        this.paginationLenght = response.data.pages;
+        response.data.registrosFundabiem.map(register => {
+          const { dignostico, fecha,origen,cie_10 } = register;
+          const {historialClinico  } = register.paciente.historialClinico
+          const { primerApellido, primerNombre, segundoApellido, segundoNombre, grupoEtnico, dpi, sexo} = register.paciente.persona;
+          const nombre = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`;
+          var _fecha = moment(fecha).format("L");
+          var _sexo
           if(sexo)
             _sexo='Masculino'
           else
             _sexo='Femenino'
-          
-
-           this.cicloRehabilitacionCIF.push({
-             nombre,
-             cie_10,
-             _sexo,
-             origen,
-             dignostico,
-             _fecha
-           });
-
-           //modificar aca
-         });
-       }
+          this.cicloRehabilitacionCIF.push({ nombre, cie_10, _sexo, origen, dignostico, _fecha});
+        });
+      }
     },
     openDialogRehabilitation() {
       this.dialogRehabilitacion = true;
     },
     async saveRehabilitacion(data) {
-
       this.cargando = true;
       this.dialogRehabilitacion = false;
-      
-        const response = await this.$store.dispatch('CicloRehabilitacion', data);
-
+      const response = await this.$store.dispatch('CicloRehabilitacion', data);
       this.cargando = false
-        if(response.status === 201) {
-            const title = "Nuevo ciclo de rehabilitación con éxito!"
-            const message = "Nuevo ciclo de rehabilitación exitosamente"
-            this.showAlert(title, message, "success")
-        } else {
-            const title = "Nuevo ciclo de rehabilitación sin éxito!"
-            const message = "No se creó el nuevo ciclo de rehabilitación "
-            this.showAlert(title, message, "error")
-        }
+      if(response.status === 201) {
+        this.getDataCicloRehabilitacion()
+        const title = "Nuevo ciclo de rehabilitación con éxito!"
+        const message = "Nuevo ciclo de rehabilitación exitosamente"
+        this.showAlert(title, message, "success")
+      } else {
+        const title = "Nuevo ciclo de rehabilitación sin éxito!"
+        const message = "No se creó el nuevo ciclo de rehabilitación "
+        this.showAlert(title, message, "error")
+      }
     },
     showAlert(title, message, type) {
       this.$swal.fire(
@@ -231,24 +199,19 @@ export default {
 
     },
     saveEditRehabilitacion(data) {
-          const { id, nombre,  edad , sexo , origen, diagnostico, fecha } = data 
-
-          const editCiclo = {id, nombre, edad, sexo, origen, diagnostico, fecha}
-
-        this.cicloRehabilitacionCIF = this.cicloRehabilitacionCIF.map( ciclo => ciclo.id === data.id ? editCiclo : ciclo )
-
-       this.showEditCiclo = false
-
+      const { id, nombre,  edad , sexo , origen, diagnostico, fecha } = data 
+      const editCiclo = {id, nombre, edad, sexo, origen, diagnostico, fecha}
+      this.cicloRehabilitacionCIF = this.cicloRehabilitacionCIF.map( ciclo => ciclo.id === data.id ? editCiclo : ciclo )
+      this.showEditCiclo = false
       this.loading = true
-
-       setTimeout( () => {
-         this.loading = false
-         this.$swal.fire(
-          'Ciclo de rehabilitación editado con éxito!',
-          'Ciclo editado exitosamente',
-          'success'
-         );
-       },2000)
+      setTimeout( () => {
+        this.loading = false
+        this.$swal.fire(
+        'Ciclo de rehabilitación editado con éxito!',
+        'Ciclo editado exitosamente',
+        'success'
+        );
+      },2000)
     },
     closeEditModalRehabilitation() {
       this.showEditCiclo = false
