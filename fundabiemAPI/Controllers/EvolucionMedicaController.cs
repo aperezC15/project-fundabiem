@@ -35,8 +35,7 @@ namespace fundabiemAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<EvolucionMedica>> newEvolucionMedica(CreateEvolucionMedicaDTO model)
         {
-            logger.LogInformation("Creating resource: EvolucionMedica");
-
+            logger.LogInformation("Creating resource: EvolucionMedica by user {0}",getUser());
             try
             {
                 var evolucionMedica = await fundabiem.newEvolucionMedica(model);
@@ -51,9 +50,9 @@ namespace fundabiemAPI.Controllers
         }
 
         [HttpGet("getAll")]
-        public async Task<ActionResult<clsResponse<EvolucionMedica>>> getEvolucionMedica(int pagina, int rowsPerPage)
+        public async Task<ActionResult<clsResponse<DTOEvolucionMedica>>> getEvolucionMedica(int pagina, int rowsPerPage)
         {
-            getUser();
+            logger.LogInformation("searching all evoluciones medias by user => {0}", getUser());
             var evolucionesMedicas = await fundabiem.getAllEvolucionesMedicas(pagina, rowsPerPage);
             return Ok(evolucionesMedicas);
         }

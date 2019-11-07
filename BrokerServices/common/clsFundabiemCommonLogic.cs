@@ -456,22 +456,23 @@ namespace EntityModelFundabien.common
             return await getEvolucionMedica(evolucionMedica.idEvolucionMedica);
         }
 
-        public async Task<clsResponse<EvolucionMedica>> getAllEvolucionesMedicas(int pagina, int rowsPerPAge)
+        public async Task<clsResponse<DTOEvolucionMedica>> getAllEvolucionesMedicas(int pagina, int rowsPerPAge)
         {
             var query = context.EvolucionesMedicas.AsQueryable();
             var totalRegisters = query.Count();
-            var historias = await query
+            var evoluciones = await query
                 .Skip(rowsPerPAge * (pagina - 1))
                 .Take(rowsPerPAge)
                 .OrderBy(x => x.idEvolucionMedica)
                 .ToListAsync();
 
-            clsResponse<EvolucionMedica> histClinicas = new clsResponse<EvolucionMedica>();
-            histClinicas.Error = false;
-            histClinicas.RegistrosFundabiem = historias;
-            histClinicas.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge));
-            histClinicas.totalRows = totalRegisters;
-            return histClinicas;
+            clsResponse<DTOEvolucionMedica> evoluMedicas = new clsResponse<DTOEvolucionMedica>();
+            var dto = mapper.Map<List<DTOEvolucionMedica>>(evoluciones);
+            evoluMedicas.Error = false;
+            evoluMedicas.RegistrosFundabiem = dto;
+            evoluMedicas.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge));
+            evoluMedicas.totalRows = totalRegisters;
+            return evoluMedicas;
         }
     }
 }   
