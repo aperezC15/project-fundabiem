@@ -183,21 +183,29 @@ export default {
 
     async saveEvolucionMedica(data) {
 
+        const { idPaciente, diagnostico} = data
+        console.log(data)
+        const newData = {
+          idPaciente,
+          diagnostico
+        }
+        console.log(newData)
+
       this.cargando = true
       this.dialogEvolucionMedica = false
       
-        const response = await this.$store.dispatch('newEvolutionMedical', data)
+        const response = await this.$store.dispatch('newTechnicalEvolution', newData)
 
       this.cargando = false
-        if(response.status === 201) {
-            const title = "Nueva evolución médica con éxito!"
-            const message = "Nueva evolución médica exitosamente"
-            this.showAlert(title, message, "success")
-        } else {
-            const title = "Nueva evolución médica sin éxito!"
-            const message = "No se creó la nueva evolución médica "
-            this.showAlert(title, message, "error")
-        }
+        // if(response.status === 201) {
+        //     const title = "Nueva evolución médica con éxito!"
+        //     const message = "Nueva evolución médica exitosamente"
+        //     this.showAlert(title, message, "success")
+        // } else {
+        //     const title = "Nueva evolución médica sin éxito!"
+        //     const message = "No se creó la nueva evolución médica "
+        //     this.showAlert(title, message, "error")
+        // }
     },
     showAlert(title, message, type) {
       this.$swal.fire(

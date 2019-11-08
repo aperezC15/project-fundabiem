@@ -44,7 +44,7 @@
       </v-col>
 
       <v-col cols="12" sm="4" md="3" v-if="readonly" >
-        <v-text-field :readonly="readonly" v-model="paciente.fechaNacimiento" :rules="rulesInput" type="text" label="DPI" hint="El campo es requerido"
+        <v-text-field :readonly="readonly" v-model="paciente.fechaNacimiento" :rules="rulesInput" type="text" label="Fecha de nacimiento" hint="El campo es requerido"
         ></v-text-field>
       </v-col>
 
