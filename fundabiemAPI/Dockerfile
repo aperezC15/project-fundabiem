@@ -7,6 +7,8 @@ FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
 COPY Eagle/ Eagle/
 #COPY Eagle/Eagle.csproj Eagle/
+COPY BrokerServices/BrokerServices.csproj BrokerServices/
+COPY DataAccess/EntityModelFundabien/EntityModelFundabien.csproj DataAccess/EntityModelFundabien/
 
 WORKDIR /src/fundabiemAPI
 RUN dotnet build fundabiemAPI.csproj -c Release -o /app
