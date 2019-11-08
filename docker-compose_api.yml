@@ -47,6 +47,18 @@ services:
     ports:
       - "6002:80"
       - "443:443"
+  
+  fundabiem-vue:
+      build:
+        context: fundabiem-vue/
+        dockerfile: Dockerfile
+      container_name: fundabien-vue
+      volumes:
+        - "./fundabiemAPI/certificado:/root/.dotnet/https"
+       # - "/home/disi/Libro_de_Salarios/Ipala/nginx_config:/etc/nginx/conf.d/"
+      ports:
+        - "8080:80"
+        - "4430:443" 
 
 #networks:
 #  backend:
