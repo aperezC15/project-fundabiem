@@ -151,6 +151,8 @@ export default {
         rowsPerPage: 5
       };
       const response = await this.$store.dispatch("getAllEvolucionesMedicas",{pagination})
+
+      console.log(response)
       this.loading =false
       //verica que se encuentren registros para mostrar
       if(response.data.registrosFundabiem.length > 0){
@@ -183,6 +185,8 @@ export default {
 
     async saveEvolucionMedica(data) {
 
+      console.log(data)
+
       this.cargando = true
       this.dialogEvolucionMedica = false
       
@@ -193,6 +197,7 @@ export default {
             const title = "Nueva evolución médica con éxito!"
             const message = "Nueva evolución médica exitosamente"
             this.showAlert(title, message, "success")
+            this.getAllEvolucionesMedicas();
         } else {
             const title = "Nueva evolución médica sin éxito!"
             const message = "No se creó la nueva evolución médica "

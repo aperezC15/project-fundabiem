@@ -78,7 +78,7 @@
                   color="primary ma-2"
                   :disabled="!formValidEvolucion"
                   @click="saveEvolucionMedica"
-                >nueva evolución médica</v-btn>
+                >nueva evolución {{ ruta === 'tecnica' ? "TÉCNICA": "MÉDICA"}}  </v-btn>
                 <v-btn color="error" @click="closeModalEvolucion">Cerrar</v-btn>
               </v-card-actions>
               </v-form>
