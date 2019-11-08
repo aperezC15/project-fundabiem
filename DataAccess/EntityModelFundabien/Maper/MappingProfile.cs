@@ -51,6 +51,10 @@ namespace EntityModelFundabien.mapper
             CreateMap<EvolucionMedica, CreateEvolucionMedicaDTO>();
             CreateMap<DTOEvolucionMedica, EvolucionMedica>();
             CreateMap<EvolucionMedica, DTOEvolucionMedica>();
+            CreateMap<EvolucionTecnica, EvolucionTecnicaDTO>();
+            CreateMap<EvolucionTecnicaDTO, EvolucionTecnica>();
+            CreateMap<CreateEvolucionTecnicaDTO, EvolucionTecnica>();
+            CreateMap<EvolucionTecnica, CreateEvolucionTecnicaDTO>();
         }
     }
 }

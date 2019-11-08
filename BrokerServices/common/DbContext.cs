@@ -55,6 +55,7 @@ namespace BrokerServices.common
         public DbSet<Citas> Citas { get; set; }
         public DbSet<SeccionEstudioSocioeconomico> SeccionesEstudioSocioeconomico { get; set; }
         public DbSet<ItemEstudioSocioeconomico> ItemsEstudioSocioeconomico { get; set; }
+        public DbSet<EvolucionTecnica> EvolucionTenica { get; set; }
 
         //to seeds
         protected override void OnModelCreating(ModelBuilder modelBuilder)

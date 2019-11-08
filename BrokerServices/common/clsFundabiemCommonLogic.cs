@@ -448,7 +448,13 @@ namespace EntityModelFundabien.common
             var evolucion = await context.EvolucionesMedicas.Include(x => x.paciente.persona).FirstOrDefaultAsync(e => e.idEvolucionMedica == idEvolucionMedica);
             return mapper.Map<DTOEvolucionMedica>(evolucion);
         }
-            
+        
+        //obtiene una evolucion tecnica
+        public async Task<EvolucionTecnicaDTO> getEvelucionTecnica(Int64 idEvolucionTecnica)
+        {
+            var evolucion = await context.EvolucionTenica.Include(x => x.paciente.persona).FirstOrDefaultAsync(x => x.idEvolucionMedica == idEvolucionTecnica);
+            return mapper.Map<EvolucionTecnicaDTO>(evolucion);
+        }
         
 
         public async Task<EvolucionMedica> newEvolucionMedica(CreateEvolucionMedicaDTO modelo)
@@ -457,6 +463,15 @@ namespace EntityModelFundabien.common
             await context.EvolucionesMedicas.AddAsync(evolucionMedica);
             await context.SaveChangesAsync();
             return evolucionMedica;
+        }
+
+        public async Task<EvolucionTecnica> newEvolucionTecnica(CreateEvolucionTecnicaDTO model)
+        {
+            var evolucion = mapper.Map<EvolucionTecnica>(model);
+            evolucion.fecha = DateTime.Today;
+            await context.AddAsync(evolucion);
+            await context.SaveChangesAsync();
+            return evolucion;
         }
 
         public async Task<clsResponse<DTOEvolucionMedica>> getAllEvolucionesMedicas(int pagina, int rowsPerPAge)
