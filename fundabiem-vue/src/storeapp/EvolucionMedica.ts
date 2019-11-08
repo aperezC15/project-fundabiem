@@ -21,7 +21,6 @@ const store = {
                     return response
                 }
             }catch(e){
-                console.log('error en leer evolucion medica')
                 return e.response
             }
         }
