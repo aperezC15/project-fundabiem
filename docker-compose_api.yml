@@ -3,7 +3,8 @@ version: '3.3'
 services:
   identity:
     build:
-      context: quickstart/src/
+      context: quickstart/src/IdentityServer
+      dockerfile: ./Dockerfile
     container_name: identity
     volumes:
       - "./fundabiemAPI/certificado:/root/.dotnet/https"
