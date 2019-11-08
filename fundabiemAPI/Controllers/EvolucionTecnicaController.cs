@@ -6,6 +6,7 @@ using AutoMapper;
 using BrokerServices.common;
 using EntityModelFundabien.Interfaces;
 using EntityModelFundabien.ModelsDTO;
+using fundabiemAPI.clssResponses;
 using fundabiemAPI.Middleware;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,8 @@ namespace fundabiemAPI.Controllers
             try
             {
                 var evolucionTecnica = await fundabiem.newEvolucionTecnica(model);
-                return new CreatedAtRouteResult("ObtenerEvolucionTecnica", new { id = evolucionTecnica.idEvolucionMedica }, evolucionTecnica);
+                var dto = mapper.Map<EvolucionTecnicaDTO>(evolucionTecnica);
+                return new CreatedAtRouteResult("ObtenerEvolucionTecnica", new { id = evolucionTecnica.idEvolucionTecnica }, dto);
             }
             catch (Exception ex)
             {
@@ -45,7 +47,7 @@ namespace fundabiemAPI.Controllers
                 return BadRequest();
             }
         }
-
+        //para obtener una evolucion tecnica
         [HttpGet("{id}", Name = "ObtenerEvolucionTecnica")]
         public ActionResult<CreateEvolucionTecnicaDTO> getEvolucion(int id)
         {
@@ -53,6 +55,15 @@ namespace fundabiemAPI.Controllers
             if (evolucion.Result == null)
                 return NotFound("No se encontro la evolucion con id => " + id.ToString());
             return Ok(evolucion.Result);
+        }
+
+        //para obtener evluciones tecnicas pagianados
+        [HttpGet]
+        public async Task<ActionResult<clsResponse<EvolucionTecnicaDTO>>> getAll(int pagina, int rowPerPage)
+        {
+            logger.LogInformation("Get all evolucion tecnicas page {0} rowPerPage {1} by user => {2}", pagina, rowPerPage, getUser());
+            var evoluciones = await fundabiem.getAllEvolucionesTecnicas(pagina,rowPerPage);
+            return Ok(evoluciones);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace EntityModelFundabien.entities
     public class EvolucionTecnica
     {
         [Key]
-        public Int64 idEvolucionMedica { get; set; }
+        public Int64 idEvolucionTecnica { get; set; }
         public Int64 idPaciente { get; set; }
         public string diagnostico { get; set; }
         public DateTime fecha { get; set; }

@@ -122,6 +122,24 @@ namespace EntityModelFundabien.common
             hist.totalRows = totalRegisters;
             return hist;
         }
+        //obtiene las evoluciones tecnicas paginados
+        public async Task<clsResponse<EvolucionTecnicaDTO>> getAllEvolucionesTecnicas(int pagina, int rowsPerPage)
+        {
+            var query = context.EvolucionTenica.AsQueryable();
+            var totalRegisters = query.Count();
+            var evoluciones = await query
+                .Skip(rowsPerPage * (pagina - 1))
+                .Take(rowsPerPage)
+                .Include(x => x.paciente.persona)
+                .OrderBy(x => x.idEvolucionTecnica)
+                .ToListAsync();
+            clsResponse<EvolucionTecnicaDTO> rps = new clsResponse<EvolucionTecnicaDTO>();
+            rps.Error = false;
+            rps.RegistrosFundabiem = mapper.Map<List<EvolucionTecnicaDTO>>(evoluciones);
+            rps.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPage));
+            rps.totalRows = totalRegisters;
+            return rps;
+        }
         //obtiene todos los registros medicos
         public async Task<clsResponse<RegistroMedico>> getAllRegistrosMedicos(int pagina, int rowsPerPAge)
         {
@@ -452,7 +470,7 @@ namespace EntityModelFundabien.common
         //obtiene una evolucion tecnica
         public async Task<EvolucionTecnicaDTO> getEvelucionTecnica(Int64 idEvolucionTecnica)
         {
-            var evolucion = await context.EvolucionTenica.Include(x => x.paciente.persona).FirstOrDefaultAsync(x => x.idEvolucionMedica == idEvolucionTecnica);
+            var evolucion = await context.EvolucionTenica.Include(x => x.paciente.persona).FirstOrDefaultAsync(x => x.idEvolucionTecnica == idEvolucionTecnica);
             return mapper.Map<EvolucionTecnicaDTO>(evolucion);
         }
         

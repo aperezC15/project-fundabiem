@@ -65,5 +65,6 @@ namespace EntityModelFundabien.Interfaces
         Task<clsResponse<DTOEvolucionMedica>> getAllEvolucionesMedicas(int pagina, int rowsPerPage);
         Task<EvolucionTecnica> newEvolucionTecnica(CreateEvolucionTecnicaDTO model);
         Task<EvolucionTecnicaDTO> getEvelucionTecnica(Int64 idEvolucionTecnica);
+        Task<clsResponse<EvolucionTecnicaDTO>> getAllEvolucionesTecnicas(int pagina, int rowsPerPage);
     }
 }
