@@ -1,6 +1,59 @@
 version: '3.3'
 
 services:
+  identity:
+    build:
+      context: quickstart/src/
+    container_name: identity
+    volumes:
+      - "/home/disi/Libro_de_Salarios/certificado:/root/.dotnet/https"
+    environment:
+      - STRING_CONNECTION=Server=postgres;Port=5432;Database=Aldebaran;User Id=postgres;Password=postgres2018;Pooling=true;MinPoolSize=1;MaxPoolSize=20;
+      - LINK_ETHOS_LOGOUT=https://librosalariosqa.mintrabajo.gob.gt:7003/signout-callback-oidc
+      - ASPNETCORE_ENVIRONMENT=Development
+      - LINK_ETHOS_LOGIN=https://librosalariosqa.mintrabajo.gob.gt:7003/signin-oidc
+      - LINK_LOGIN=https://librosalariosqa.mintrabajo.gob.gt:7003/#/users/list
+      - ASPNETCORE_HTTPS_PORT=443
+      - ASPNETCORE_URLS=https://+;http://+
+      - Kestrel__Certificates__Default__Path=/root/.dotnet/https/_mintrabajo.gob.gt.pfx
+      - Kestrel__Certificates__Default__Password=Altitud1998@
+      #FOR IPALA LIBRO DE SALARIOS
+      - CORS_ORIGIN=https://librosalariosqa.mintrabajo.gob.gt
+      - CORS_REDIRECT_URI1=https://librosalariosqa.mintrabajo.gob.gt/oidc-callback 
+      - CORS_REDIRECT_URI2=https://librosalariosqa.mintrabajo.gob.gt/silent-renew-oidc.html
+      - POST_LOGOUT=https://librosalariosqa.mintrabajo.gob.gt
+      - CORS_ORIGIN_SIAM=http://testlogin.test
+      - CORS_REDIRECT_URI1_DIARIO=https://diariodigital.mintrabajo.gob.gt/oidc-callback 
+      - CORS_REDIRECT_URI2_DIARIO=https://diariodigital.mintrabajo.gob.gt/silent-renew-oidc.html
+      - CORS_ORIGIN_DIARIO=https://diariodigital.mintrabajo.gob.gt
+      - POST_LOGOUT_DIARIO=https://diariodigital.mintrabajo.gob.gt/index.html
+      - CORS_REDIRECT_URI1_SIAM=http://testlogin.test/login_callback
+      - CORS_REDIRECT_URI2_SIAM=http://testlogin.test/login_callback
+      - POST_LOGOUT_SIAM=https://librosalariosqa.mintrabajo.gob.gt/index.html
+      - PASSWORD=T0M&J3R7Y
+      - EMAIL_ADDRESS=librosalarios@mintrabajo.gob.gt
+      - EMAIL_CONFIRMED=https://librosalariosqa.mintrabajo.gob.gt/Account/ConfirmarPendiente
+      - REGISTER_ERROR=https://librosalariosqa.mintrabajo.gob.gt/Account/Error
+      - PROTECTED=https://librosalariosqa.mintrabajo.gob.gt/protected
+      - PORT_SMTP=587
+      - HOST_SMTP_OUTLOOK=SMTP.Office365.com
+      #FOR HUMMINGBIRD CONTRATOS
+      - CORS_ORIGIN_HUMMINGBIRD=https://contratosdgt.mintrabajo.gob.gt:4430
+      - POST_LOGOUT_HUMMINGBIRD=https://contratosdgt.mintrabajo.gob.gt:4430
+      - CORS_REDIRECT_URI1_HUMMINGBIRD=https://contratosdgt.mintrabajo.gob.gt:4430/oidc-callback
+      - CORS_REDIRECT_URI2_HUMMINGBIRD=https://contratosdgt.mintrabajo.gob.gt:4430/silent-renew-oidc.html
+      #FOR VULTURE CONTRATOS
+      - CORS_ORIGIN_VULTURE=https://contratosdgt.mintrabajo.gob.gt:4431
+      - POST_LOGOUT_VULTURE=https://contratosdgt.mintrabajo.gob.gt:4431
+      - CORS_REDIRECT_URI1_VULTURE=https://contratosdgt.mintrabajo.gob.gt:4431/oidc-callback
+      - CORS_REDIRECT_URI2_VULTURE=https://contratosdgt.mintrabajo.gob.gt:4431/silent-renew-oidc.html
+    networks:
+      - backend
+      - frontend
+    ports:
+      - "5000:80"
+      - "5001:443"
+  
 
   fundabienapi:
     build:
