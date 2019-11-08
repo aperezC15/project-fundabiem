@@ -197,6 +197,7 @@ export default {
             const title = "Nueva evolución médica con éxito!"
             const message = "Nueva evolución médica exitosamente"
             this.showAlert(title, message, "success")
+            this.getAllEvolucionesMedicas();
         } else {
             const title = "Nueva evolución médica sin éxito!"
             const message = "No se creó la nueva evolución médica "

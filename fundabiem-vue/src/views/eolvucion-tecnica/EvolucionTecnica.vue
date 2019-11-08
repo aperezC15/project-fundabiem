@@ -137,12 +137,12 @@ export default {
   watch: {
     paginationPage: function() {
       this.evolucionMedica = [];
-      this.getAllEvolucionesMedicas();
+      this.getAllTechnicalEvolution();
     }
   },
   methods: {
     //obtiene todos los registros de evolucion medica, paginados.
-    async getAllEvolucionesMedicas(){
+    async getAllTechnicalEvolution(){
       this.evolucionMedica=[]
       this.loading=true
       //control de paginacion
@@ -150,7 +150,9 @@ export default {
         pagina: this.paginationPage,
         rowsPerPage: 5
       };
-      const response = await this.$store.dispatch("getAllEvolucionesMedicas",{pagination})
+      const response = await this.$store.dispatch("getAllTechnicalEvolution",{pagination})
+
+      console.log(response)
       this.loading =false
       //verica que se encuentren registros para mostrar
       if(response.data.registrosFundabiem.length > 0){
@@ -184,28 +186,28 @@ export default {
     async saveEvolucionMedica(data) {
 
         const { idPaciente, diagnostico} = data
-        console.log(data)
         const newData = {
           idPaciente,
           diagnostico
         }
-        console.log(newData)
 
       this.cargando = true
       this.dialogEvolucionMedica = false
       
         const response = await this.$store.dispatch('newTechnicalEvolution', newData)
 
+
       this.cargando = false
-        // if(response.status === 201) {
-        //     const title = "Nueva evolución médica con éxito!"
-        //     const message = "Nueva evolución médica exitosamente"
-        //     this.showAlert(title, message, "success")
-        // } else {
-        //     const title = "Nueva evolución médica sin éxito!"
-        //     const message = "No se creó la nueva evolución médica "
-        //     this.showAlert(title, message, "error")
-        // }
+        if(response.status === 201) {
+            const title = "Nueva evolución médica con éxito!"
+            const message = "Nueva evolución médica exitosamente"
+            this.showAlert(title, message, "success")
+            this.getAllTechnicalEvolution();
+        } else {
+            const title = "Nueva evolución médica sin éxito!"
+            const message = "No se creó la nueva evolución médica "
+            this.showAlert(title, message, "error")
+        }
     },
     showAlert(title, message, type) {
       this.$swal.fire(
@@ -216,7 +218,7 @@ export default {
     }
   },
   mounted(){
-    this.getAllEvolucionesMedicas();
+    this.getAllTechnicalEvolution();
   }
 };
 </script>
