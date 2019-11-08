@@ -2,7 +2,6 @@
     <div id="app">        
         <!-- start  of the toolbar -->
         <v-app-bar color="#2c2e3f" dark clipped-left app>
-            <v-app-bar-nav-icon @click="drawer = !drawer" title="MENU"/>
             <div>
                 <v-avatar>
                   <v-img src="http://www.fundabiem.org.gt/wp-content/uploads/2017/08/favcon.jpg"> </v-img>
