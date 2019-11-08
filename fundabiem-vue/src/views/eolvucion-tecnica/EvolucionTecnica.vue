@@ -5,7 +5,7 @@
 
                 <v-layout text-center wrap>
                 <v-flex>
-                    <h1  class="text-xs-center text-uppercase"> Evolución médica</h1>
+                    <h1  class="text-xs-center text-uppercase"> Evolución técnica</h1>
                 </v-flex>
             </v-layout>
         <v-card>
@@ -32,7 +32,7 @@
                   <v-icon>add</v-icon>
                 </v-btn>
               </template>
-              <span>Nueva evolución médica</span>
+              <span>Nueva evolución técnica</span>
             </v-tooltip>
           </v-toolbar>
 
@@ -76,7 +76,7 @@
     </v-layout>
 
     <evolucion-medica
-      ruta="medica"
+      ruta="tecnica"
       :dialogEvolucionMedica="dialogEvolucionMedica"
       @closeModalEvolucion="closeModalEvolucion"
       @closeDialog="closeDialog"

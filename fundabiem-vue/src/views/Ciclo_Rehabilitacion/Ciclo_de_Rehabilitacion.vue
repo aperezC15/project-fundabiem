@@ -41,7 +41,7 @@
                 icon="warning"
               >No existen registros en la tabla</v-alert>
             </template>
-
+<!-- 
             <template v-slot:item.action="{item}">
               <v-btn
                 title="EDITAR REGISTRO DE ESTUDIO SOCIOECONOMICO"
@@ -52,7 +52,7 @@
               >
                 <v-icon>edit</v-icon>
               </v-btn>
-            </template>
+            </template> -->
             <template v-slot:no-results>
               <v-alert type="error">EL REGISTRO "{{search}}" NO SE ENCUENTRA EN LA BASE DE DATOS</v-alert>
             </template>

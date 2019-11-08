@@ -10,7 +10,7 @@
     >
       <v-card>
         <v-toolbar dark color="#2c2e3f">
-          <span class="headline text-uppercase">NUEVA EVOLUCIÓN MÉDICA</span>
+          <span class="headline text-uppercase">NUEVA EVOLUCIÓN {{ ruta === 'tecnica' ? "TÉCNICA": "MÉDICA"}}  </span>
           <div class="flex-grow-1"></div>
           <v-btn color="indigo" rounded class="mx-4" @click="closeDialog">CERRAR</v-btn>
         </v-toolbar>
@@ -102,7 +102,8 @@ export default {
     AlertErrorGlobal
   },
   props: {
-    dialogEvolucionMedica: Boolean
+    dialogEvolucionMedica: Boolean,
+    ruta: String
   },
   data() {
     return {
