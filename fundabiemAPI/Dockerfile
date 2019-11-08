@@ -9,7 +9,7 @@ COPY fundabiemAPI/ fundabiemAPI/
 #COPY Eagle/Eagle.csproj Eagle/
 COPY BrokerServices/BrokerServices.csproj BrokerServices/
 COPY DataAccess/EntityModelFundabien/EntityModelFundabien.csproj DataAccess/EntityModelFundabien/
-
+COPY . .
 WORKDIR /src/fundabiemAPI
 RUN dotnet build fundabiemAPI.csproj -c Release -o /app
 
