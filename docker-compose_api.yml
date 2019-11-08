@@ -1,0 +1,30 @@
+version: '3.3'
+
+services:
+
+  fundabienapi:
+    build:
+      context: .
+      dockerfile: fundabiemAPI/Dockerfile
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - "TZ=CST"
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTPS_PORT=6003
+      - ASPNETCORE_URLS=https://+;http://+
+      #- Kestrel__Certificates__Default__Path=/root/.dotnet/https/_mintrabajo.gob.gt.pfx
+      #- Kestrel__Certificates__Default__Password=Altitud1998@
+    #networks:
+      #- backend
+    ports:
+      - "6002:80"
+      - "6003:443"
+
+#networks:
+#  backend:
+#    driver: bridge
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet: 192.168.6.0/24
