@@ -544,25 +544,22 @@ namespace EntityModelFundabien.common
             return estudioSocioeconomicoDTO;
         }
 
-        public async Task<clsResponse<EstudioSocioeconomicoDTO>> newEstudioSocioeconomico(CreateEstudioSocioeconomicoDTO modelo)
+        public async Task<EstudioSocioeconomicoDTO> newEstudioSocioeconomico(CreateEstudioSocioeconomicoDTO modelo)
         {
             var estudioSocioeconomico = mapper.Map<EstudioSocioeconomico>(modelo);
             await context.EstudioSocioeconomico.AddAsync(estudioSocioeconomico);
 
-            var respuesta = new clsResponse<EstudioSocioeconomicoDTO>();
-
             try
             {
                 await context.SaveChangesAsync();
-
-                var estudioSocioeconomicoDTO = getEstudioSocioeconomicoById(estudioSocioeconomico.Id);
             }
             catch
             {
-
+                throw new Exception("Ha ocurrido un error al comunicarse con la base de datos.");
             }
-            
-            return respuesta;
+
+            var estudioSocioeconomicoDTO = await getEstudioSocioeconomicoById(estudioSocioeconomico.Id);
+            return estudioSocioeconomicoDTO;
         }
     }
 }   
