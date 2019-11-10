@@ -99,7 +99,7 @@ namespace BrokerServices.Migrations
 
                     b.Property<string>("NoOrden");
 
-                    b.Property<long>("dPaciente");
+                    b.Property<long>("idPaciente");
 
                     b.Property<int>("edad");
 
@@ -109,7 +109,7 @@ namespace BrokerServices.Migrations
 
                     b.Property<long>("idEstado");
 
-                    b.Property<long?>("pacienteidPaciente");
+                    
 
                     b.HasKey("IdCita");
 
@@ -117,7 +117,7 @@ namespace BrokerServices.Migrations
 
                     b.HasIndex("idEstado");
 
-                    b.HasIndex("pacienteidPaciente");
+                    b.HasIndex("idPaciente");
 
                     b.ToTable("Citas");
                 });
