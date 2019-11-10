@@ -535,10 +535,12 @@ namespace EntityModelFundabien.common
         public async Task<EstudioSocioeconomicoDTO> getEstudioSocioeconomicoById(long id)
         {
             var estudioSocioeconomico = await context.EstudioSocioeconomico
-                .Include(e => e.grupoFamiliar)
                 .FirstOrDefaultAsync(e => e.Id == id);
 
-            var estudioSocioeconomicoDTO = new EstudioSocioeconomicoDTO();
+            if (estudioSocioeconomico == default) return null;
+
+            var estudioSocioeconomicoDTO = mapper.Map<EstudioSocioeconomicoDTO>(estudioSocioeconomico);
+
             return estudioSocioeconomicoDTO;
         }
 
@@ -553,7 +555,7 @@ namespace EntityModelFundabien.common
             {
                 await context.SaveChangesAsync();
 
-                //var estudioSocioeconomicoDTO = 
+                var estudioSocioeconomicoDTO = getEstudioSocioeconomicoById(estudioSocioeconomico.Id);
             }
             catch
             {
