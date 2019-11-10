@@ -53,8 +53,11 @@ namespace BrokerServices.common
         public DbSet<EstadoCitas> EstadoCitas { get; set; }
         public DbSet<Terapias> Terapias { get; set; }
         public DbSet<Citas> Citas { get; set; }
+        public DbSet<EstudioSocioeconomico> EstudioSocioeconomico { get; set; }
         public DbSet<SeccionEstudioSocioeconomico> SeccionesEstudioSocioeconomico { get; set; }
         public DbSet<ItemEstudioSocioeconomico> ItemsEstudioSocioeconomico { get; set; }
+        public DbSet<OpcionItemEstudioSocioeconomico> OpcionesItemsEstudioSocioeconomico { get; set; }
+        public DbSet<GrupoFamiliar> GrupoFamiliar { get; set; }
 
         //to seeds
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -66,6 +69,9 @@ namespace BrokerServices.common
             modelBuilder.seddSeccionesAnamnesis();
             modelBuilder.seedItemsAnamnesis();
             modelBuilder.ObjetivoDeIntervencionSeed();
+            modelBuilder.seedSeccionEstudioSocioeconomico();
+            modelBuilder.seedItemEstudioSocioeconomico();
+            modelBuilder.seedOpcionesItemEstudioSocioeconomico();
 
             modelBuilder.PacienteConfig();
             modelBuilder.PersonaConfig();

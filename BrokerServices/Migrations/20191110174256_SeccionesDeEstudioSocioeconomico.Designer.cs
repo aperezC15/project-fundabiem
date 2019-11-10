@@ -3,15 +3,17 @@ using System;
 using BrokerServices.common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BrokerServices.Migrations
 {
     [DbContext(typeof(dbContext))]
-    partial class dbContextModelSnapshot : ModelSnapshot
+    [Migration("20191110174256_SeccionesDeEstudioSocioeconomico")]
+    partial class SeccionesDeEstudioSocioeconomico
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -792,18 +794,20 @@ namespace BrokerServices.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<long>("SeccionEstudioSocioeconomicoId");
-
                     b.Property<string>("descripcion")
                         .HasMaxLength(255);
+
+                    b.Property<long>("idSeccionEstudioSocioeconomico");
 
                     b.Property<string>("nombre")
                         .IsRequired()
                         .HasMaxLength(100);
 
+                    b.Property<long?>("seccionId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("SeccionEstudioSocioeconomicoId");
+                    b.HasIndex("seccionId");
 
                     b.ToTable("ItemsEstudioSocioeconomico");
 
@@ -811,73 +815,73 @@ namespace BrokerServices.Migrations
                         new
                         {
                             Id = 1L,
-                            SeccionEstudioSocioeconomicoId = 1L,
+                            idSeccionEstudioSocioeconomico = 1L,
                             nombre = "Paredes"
                         },
                         new
                         {
                             Id = 2L,
-                            SeccionEstudioSocioeconomicoId = 1L,
+                            idSeccionEstudioSocioeconomico = 1L,
                             nombre = "Techo"
                         },
                         new
                         {
                             Id = 3L,
-                            SeccionEstudioSocioeconomicoId = 1L,
+                            idSeccionEstudioSocioeconomico = 1L,
                             nombre = "Pisos"
                         },
                         new
                         {
                             Id = 4L,
-                            SeccionEstudioSocioeconomicoId = 1L,
+                            idSeccionEstudioSocioeconomico = 1L,
                             nombre = "No. de habitaciones"
                         },
                         new
                         {
                             Id = 5L,
-                            SeccionEstudioSocioeconomicoId = 1L,
+                            idSeccionEstudioSocioeconomico = 1L,
                             nombre = "Agua"
                         },
                         new
                         {
                             Id = 6L,
-                            SeccionEstudioSocioeconomicoId = 1L,
+                            idSeccionEstudioSocioeconomico = 1L,
                             nombre = "Luz eléctrica"
                         },
                         new
                         {
                             Id = 7L,
-                            SeccionEstudioSocioeconomicoId = 1L,
+                            idSeccionEstudioSocioeconomico = 1L,
                             nombre = "Servicio sanitario"
                         },
                         new
                         {
                             Id = 8L,
-                            SeccionEstudioSocioeconomicoId = 1L,
+                            idSeccionEstudioSocioeconomico = 1L,
                             nombre = "Letrina"
                         },
                         new
                         {
                             Id = 9L,
-                            SeccionEstudioSocioeconomicoId = 1L,
+                            idSeccionEstudioSocioeconomico = 1L,
                             nombre = "Otros"
                         },
                         new
                         {
                             Id = 10L,
-                            SeccionEstudioSocioeconomicoId = 1L,
+                            idSeccionEstudioSocioeconomico = 1L,
                             nombre = "La cocina está fuera del dormitorio"
                         },
                         new
                         {
                             Id = 11L,
-                            SeccionEstudioSocioeconomicoId = 1L,
+                            idSeccionEstudioSocioeconomico = 1L,
                             nombre = "Vivienda"
                         },
                         new
                         {
                             Id = 12L,
-                            SeccionEstudioSocioeconomicoId = 1L,
+                            idSeccionEstudioSocioeconomico = 1L,
                             nombre = "Pago mensual de vivienda"
                         });
                 });
@@ -2991,7 +2995,7 @@ namespace BrokerServices.Migrations
 
                     b.HasIndex("ItemEstudioSocioeconomicoId");
 
-                    b.ToTable("OpcionesItemsEstudioSocioeconomico");
+                    b.ToTable("OpcionItemEstudioSocioeconomico");
 
                     b.HasData(
                         new
@@ -3523,8 +3527,7 @@ namespace BrokerServices.Migrations
                 {
                     b.HasOne("EntityModelFundabien.entities.SeccionEstudioSocioeconomico", "seccion")
                         .WithMany("items")
-                        .HasForeignKey("SeccionEstudioSocioeconomicoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("seccionId");
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.Municipio", b =>

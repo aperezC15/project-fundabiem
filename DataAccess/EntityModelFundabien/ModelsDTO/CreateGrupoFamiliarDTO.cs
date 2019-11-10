@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace EntityModelFundabien.entities
+namespace EntityModelFundabien.ModelsDTO
 {
-    public class GrupoFamiliar
+    public class CreateGrupoFamiliarDTO
     {
-        public long Id { get; set; }
-        [Required]
-        public long EstudioSocioeconomicoId { get; set; }
         [Required]
         [StringLength(100, ErrorMessage = "El campo 'Nombre' de 'GrupoFamiliar' no debe exceder de 100 caracteres.")]
         public string Nombre { get; set; }
@@ -29,8 +26,5 @@ namespace EntityModelFundabien.entities
         public string Ocupacion { get; set; }
         [Required]
         public float salario { get; set; }
-
-
-        public EstudioSocioeconomico estudioSocioeconomico { get; set; }
     }
 }

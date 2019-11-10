@@ -443,5 +443,25 @@ namespace EntityModelFundabien.common
             histClinicas.totalRows = totalRegisters;
             return histClinicas;
         }
+
+        // ESTUDIO SOCIOECONOMICO
+        public async Task<clsResponse<SeccionEstudioSocioeconomicoDTO>> getAllSeccionesDeEstudioSocioeconomico()
+        {
+            var secciones = await context.SeccionesEstudioSocioeconomico
+                .Include(s => s.items)
+                    .ThenInclude(i => i.opciones)
+                .ToListAsync();
+
+            var seccionesDTO = mapper.Map<List<SeccionEstudioSocioeconomicoDTO>>(secciones);
+
+            var respuesta = new clsResponse<SeccionEstudioSocioeconomicoDTO>()
+            {
+                Error = false,
+                RegistrosFundabiem = seccionesDTO,
+                totalRows = seccionesDTO.Count()
+            };
+
+            return respuesta;
+        }
     }
 }   

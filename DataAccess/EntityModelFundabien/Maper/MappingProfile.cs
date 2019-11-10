@@ -46,6 +46,9 @@ namespace EntityModelFundabien.mapper
             CreateMap<citaDTO, Citas>();
             CreateMap<Citas, citaDTO>();
 
+            CreateMap<SeccionEstudioSocioeconomico, SeccionEstudioSocioeconomicoDTO>();
+            CreateMap<ItemEstudioSocioeconomico, ItemEstudioSocioeconomicoDTO>();
+            CreateMap<OpcionItemEstudioSocioeconomico, OpcionItemEstudioSocioeconomicoDTO>();
         }
     }
 }
