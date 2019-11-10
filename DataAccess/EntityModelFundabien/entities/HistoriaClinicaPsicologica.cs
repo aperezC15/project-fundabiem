@@ -21,7 +21,8 @@ namespace EntityModelFundabien.entities
         public Paciente paciente { get; set; }
     }
 
-    public class antecedentesPaciente{
+    public class antecedentesPaciente {
+        [Key]
         public Int64 idAntecedente { get; set; }
         public Int64 idHistoriaClinicaPsicologica { get; set; }
         public string descripcion { get; set; }
