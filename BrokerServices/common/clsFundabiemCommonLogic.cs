@@ -530,5 +530,37 @@ namespace EntityModelFundabien.common
 
             return respuesta;
         }
+
+
+        public async Task<EstudioSocioeconomicoDTO> getEstudioSocioeconomicoById(long id)
+        {
+            var estudioSocioeconomico = await context.EstudioSocioeconomico
+                .Include(e => e.grupoFamiliar)
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+            var estudioSocioeconomicoDTO = new EstudioSocioeconomicoDTO();
+            return estudioSocioeconomicoDTO;
+        }
+
+        public async Task<clsResponse<EstudioSocioeconomicoDTO>> newEstudioSocioeconomico(CreateEstudioSocioeconomicoDTO modelo)
+        {
+            var estudioSocioeconomico = mapper.Map<EstudioSocioeconomico>(modelo);
+            await context.EstudioSocioeconomico.AddAsync(estudioSocioeconomico);
+
+            var respuesta = new clsResponse<EstudioSocioeconomicoDTO>();
+
+            try
+            {
+                await context.SaveChangesAsync();
+
+                //var estudioSocioeconomicoDTO = 
+            }
+            catch
+            {
+
+            }
+            
+            return respuesta;
+        }
     }
 }   

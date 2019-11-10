@@ -24,5 +24,7 @@ namespace EntityModelFundabien.ModelsDTO
         public string observaciones { get; set; }
         [Required]
         public ICollection<CreateGrupoFamiliarDTO> grupoFamiliar { get; set; }
+        [Required]
+        public ICollection<CreateEvaluacionEstudioSocioeconomicoDTO> evaluacion { get; set; }
     }
 }
