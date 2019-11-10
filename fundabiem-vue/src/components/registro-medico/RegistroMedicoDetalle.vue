@@ -56,8 +56,8 @@
             </v-form>
 
             <v-card-actions class="pa-3">
-              <v-btn :disabled="!formValid" color="success" @click="completarRegistro">Continuar</v-btn>
-              <v-btn color="error" @click="closeModalDetalle" class="mx-4">CERRAR</v-btn>
+              <v-btn dark :disabled="!formValid" color="#1A237E" @click="completarRegistro">Continuar</v-btn>
+              <v-btn dark color="#FF6F00" @click="closeModalDetalle" class="mx-4">CERRAR</v-btn>
             </v-card-actions>
           </v-card>
         </v-card-text>

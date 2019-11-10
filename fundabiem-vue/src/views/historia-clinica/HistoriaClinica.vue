@@ -32,6 +32,7 @@
           </v-toolbar>
 
           <v-data-table
+            hide-default-footer
             :headers="headers"
             :items="dataRegistersMedicals"
             :search="search"
@@ -46,21 +47,16 @@
               >No existen registros en la tabla</v-alert>
             </template>
 
-            <template v-slot:item.action="{item}">
-              <v-btn
-                title="EDITAR REGISTRO DE ESTUDIO SOCIOECONOMICO"
-                fab
-                color="success"
-                dark
-                @click="editItem(item)"
-              >
-                <v-icon>edit</v-icon>
-              </v-btn>
-            </template>
             <template v-slot:no-results>
               <v-alert type="error">EL REGISTRO "{{search}}" NO SE ENCUENTRA EN LA BASE DE DATOS</v-alert>
             </template>
           </v-data-table>
+             <div class="text-center">
+            <v-pagination
+              v-model="paginationPage"
+              :length="paginationLenght"
+            ></v-pagination>
+          </div>
         </v-card>
       </v-flex>
     </v-layout>
@@ -86,6 +82,7 @@
 
 <script>
 import HistorialClinica from '../../components/historia-clinica/HistoriaClinicaComponent.vue'
+import moment from "moment";
 export default {
   components: {
     HistorialClinica
@@ -94,7 +91,6 @@ export default {
     return {
       search: "",
       headers: [
-        { text: "historial Clinico", value: "historialClinico" },
         {
           text: "Nombre completo",
           align: "left",
@@ -103,16 +99,32 @@ export default {
         },
         { text: "DPI", value: "dpi" },
         { text: "Grupo Étnico", value: "grupoEtnico" },
-        { text: "Fecha Admision", value: "fechaAdmision" },
-        { text: "Acciones", value: "action" }
+        { text: "Motivo de Consulta", value: "motivoDeConsulta" },
+        { text: "Diagnóstico Final", value: "diagnosticoFinal" },
+        { text: "Fecha Admision", value: "dateAdmision" },
+        // { text: "Acciones", value: "action" }
       ],
       dataRegistersMedicals: [],
       dialogHistorialMedico: false,
       dialogRehabilitacion: false,
-      loading: false
+      loading: false,
+
+        paginationPage: 1,
+      paginationLenght: 0,
+      pagination: {
+        pagina: 1,
+        rowsPerPage: 5
+      },
     };
   },
+  watch: {
+    paginationPage: function() {
+      this.dataRegistersMedicals = [];
+      this.getHistoriaClinica();
+    }
+  },
   methods: {
+
     openDialogRegistroMedico() {
       this.dialogHistorialMedico = true;
  
@@ -130,9 +142,10 @@ export default {
 
       this.loading = false;
       if (response.status === 200) {
-        const title = "Nueva historia clínica creado con éxito!";
+        const title = "Nueva historia clínica creada con éxito!";
         const message = "Nueva historia clínica exitosamente";
         this.showAlert(title, message, "success");
+        this.getHistoriaClinica()
       } else {
         const title = "Nueva historia clínica creada sin éxito!";
         const message = "Nueva historia clínica  no se ha creado";
@@ -144,19 +157,29 @@ export default {
       this.$swal.fire(title, message, type);
     },
  
-    async getMedicalsRegisters() {
+    async getHistoriaClinica() {
+      this.dataRegistersMedicals = [];
       this.loading = true;
-      const response = await this.$store.dispatch("getMedicalsRegistros");
+      
+      var pagination = {
+        pagina: this.paginationPage,
+        rowsPerPage: 5
+      };
+
+      const response = await this.$store.dispatch("getAllHistory", {
+        pagination
+      });
+
       this.loading = false;
-      if (response.status === 200 && response.data.length >= 0) {
-        response.data.map(register => {
-          const { fechaAdmision } = register;
+      if (response.status === 200 ) {
+        this.paginationLenght=response.data.pages
+        response.data.registrosFundabiem.map(register => {
+          
+          const { fechaDeRegistro, motivoDeConsulta, diagnosticoFinal,} = register;
+          const dateAdmision = moment(fechaDeRegistro).format("L");
+
           const {
-            estaActivo,
-            historialClinico,
-            idPaciente
-          } = register.paciente;
-          const {
+            idPaciente,
             primerApellido,
             primerNombre,
             segundoApellido,
@@ -168,21 +191,22 @@ export default {
           const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`;
 
           this.dataRegistersMedicals.push({
-            estaActivo,
-            historialClinico,
+            motivoDeConsulta,
+            diagnosticoFinal,
             idPaciente,
-            fechaAdmision,
+            dateAdmision,
             nombreCompleto,
             grupoEtnico,
             dpi
           });
+
         });
       }
 
     }
   },
   mounted() {
-    this.getMedicalsRegisters();
+    this.getHistoriaClinica();
   }
 };
 </script>

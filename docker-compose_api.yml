@@ -1,0 +1,69 @@
+version: '3.3'
+
+services:
+  identity:
+    build:
+      context: quickstart/src/IdentityServer
+      dockerfile: ./Dockerfile
+    container_name: identity
+    volumes:
+      - "./fundabiemAPI/certificado:/root/.dotnet/https"
+    environment:
+      - STRING_CONNECTION=Server=35.183.69.28;port=5432;Database=fundabien;User Id=postgres;Password=Fundabien@2019;Pooling=true;MinPoolSize=1;MaxPoolSize=20;
+      - LINK_ETHOS_LOGOUT=https://35.183.69.28:7003/signout-callback-oidc
+      - ASPNETCORE_ENVIRONMENT=Development
+      - LINK_ETHOS_LOGIN=https://35.183.69.28:7003/signin-oidc
+      - LINK_LOGIN=https://35.183.69.28:7003/#/users/list
+      - ASPNETCORE_HTTPS_PORT=443
+      - ASPNETCORE_URLS=https://+;http://+
+      - Kestrel__Certificates__Default__Path=/root/.dotnet/https/cert-aspnetcore.pfx
+      - Kestrel__Certificates__Default__Password=fundabiem
+      #FOR FROM FUNDABIEM
+      - CORS_ORIGIN=https://35.183.69.28
+      - CORS_REDIRECT_URI1=https://35.183.69.28/oidc-callback 
+      - CORS_REDIRECT_URI2=https://35.183.69.28/silent-renew-oidc.html
+      - POST_LOGOUT=https://35.183.69.28
+    ports:
+      - "5000:80"
+      - "5001:443"
+  
+
+  fundabienapi:
+    build:
+      context: .
+      dockerfile: fundabiemAPI/Dockerfile
+    volumes:
+      - "./fundabiemAPI/certificado:/root/.dotnet/https"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - "TZ=CST"
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTPS_PORT=443
+      - ASPNETCORE_URLS=https://+;http://+
+      - Kestrel__Certificates__Default__Path=/root/.dotnet/https/cert-aspnetcore.pfx
+      - Kestrel__Certificates__Default__Password=fundabiem
+    #networks:
+      #- backend
+    ports:
+      - "6002:80"
+      - "443:443"
+  
+  fundabiem-vue:
+      build:
+        context: fundabiem-vue/
+        dockerfile: Dockerfile
+      container_name: fundabien-vue
+      volumes:
+        - "./fundabiemAPI/certificado:/root/.dotnet/https"
+       # - "/home/disi/Libro_de_Salarios/Ipala/nginx_config:/etc/nginx/conf.d/"
+      ports:
+        - "8080:80"
+        - "4430:443" 
+
+#networks:
+#  backend:
+#    driver: bridge
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet: 192.168.6.0/24

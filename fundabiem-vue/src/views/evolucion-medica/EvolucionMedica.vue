@@ -9,7 +9,7 @@
                 </v-flex>
             </v-layout>
         <v-card>
-          <v-toolbar flat dark color="#2c2e3f">
+          <v-toolbar flat dark color="#616161">
             <v-toolbar-title>REGISTROS</v-toolbar-title>
             <v-divider class="mx-4" vertical></v-divider>
             <div class="flex-grow-1"></div>
@@ -21,19 +21,23 @@
               single-line
               hide-details
             ></v-text-field>
-            <v-btn
-              color="indigo"
-              fab
-              title="NUEVA EVOLUCIÓN MÉDICA"
-              class="mx-2"
-              @click="openDialogRehabilitation"
-            >
-              <v-icon>add</v-icon>
-            </v-btn>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  color="indigo"
+                  fab
+                  class="mx-2"
+                  @click="openDialogRehabilitation"
+                  v-on="on">
+                  <v-icon>add</v-icon>
+                </v-btn>
+              </template>
+              <span>Nueva evolución médica</span>
+            </v-tooltip>
           </v-toolbar>
 
-          <v-data-table :headers="headers" :items="cicloRehabilitacionCIF" :search="search" class="elevation-1">
-            <template v-slot:no-data v-if="cicloRehabilitacionCIF.length === 0">
+          <v-data-table hide-default-footer :headers="headers" :items="evolucionMedica" :search="search" class="elevation-1">
+            <template v-slot:no-data v-if="evolucionMedica.length === 0">
               <v-alert
                 class="text-xs-center"
                 :value="true"
@@ -42,26 +46,37 @@
               >No existen registros en la tabla</v-alert>
             </template>
 
-            <template v-slot:item.action="{item}">
-              <v-btn
-                title="EDITAR REGISTRO DE ESTUDIO SOCIOECONOMICO"
-                fab
-                color="success"
-                dark
-                @click="editItem(item)"
-              >
-                <v-icon>edit</v-icon>
-              </v-btn>
-            </template>
+            <!-- <template v-slot:item.action="{item}">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    fab
+                    color="success"
+                    dark
+                    @click="editItem(item)"
+                    v-on="on">
+                    <v-icon>edit</v-icon>
+                  </v-btn>
+                </template>
+                <span>Editar evolución médica</span>
+              </v-tooltip>
+            </template> -->
             <template v-slot:no-results>
               <v-alert type="error">EL REGISTRO "{{search}}" NO SE ENCUENTRA EN LA BASE DE DATOS</v-alert>
             </template>
           </v-data-table>
+          <div class="text-center">
+            <v-pagination
+              v-model="paginationPage"
+              :length="paginationLenght"
+            ></v-pagination>
+          </div>
         </v-card>
       </v-flex>
     </v-layout>
 
     <evolucion-medica
+      ruta="medica"
       :dialogEvolucionMedica="dialogEvolucionMedica"
       @closeModalEvolucion="closeModalEvolucion"
       @closeDialog="closeDialog"
@@ -89,7 +104,7 @@
 <script>
 
 import EvolucionMedica from '../../components/evolucion-medica/EvolucionMedica.vue'
-
+import moment from 'moment'
 export default {
   components: { 
     EvolucionMedica,
@@ -97,16 +112,20 @@ export default {
   data() {
     return {
       search: "",
+       paginationPage: 1,
+      paginationLenght: 0,
+      pagination: {
+        pagina: 1,
+        rowsPerPage: 5
+      },
       headers: [
         { text: "Nombre completo", align: "left", sortable: false, value: "nombre" },
-        { text: "Edad", value: "edad" },
-        { text: "Sexo", value: "sexo" },
-        { text: "Origen", value: "origen" },
+        { text: "Sexo", value: "_sexo" },
         { text: "Diagnóstico", value: "diagnostico" },
-        { text: "fecha", value: "fecha" },
+        { text: "fecha", value: "_fecha" },
         { text: "Acciones", value: "action" }
       ],
-      cicloRehabilitacionCIF: [
+      evolucionMedica: [
         {id: 1, nombre: "Juan Gómez", edad: 62, sexo: "masculino", origen: "Guatemala", diagnostico: "Su diagnostico", fecha: "2019-08-12" },
         { id: 2, nombre: "Benito Juarez", edad: 32, sexo: "masculino", origen: "Guatemala", diagnostico: "El diagnostico", fecha: "2016-02-10" },
       ],
@@ -115,7 +134,44 @@ export default {
 
     }
   },
+  watch: {
+    paginationPage: function() {
+      this.evolucionMedica = [];
+      this.getAllEvolucionesMedicas();
+    }
+  },
   methods: {
+    //obtiene todos los registros de evolucion medica, paginados.
+    async getAllEvolucionesMedicas(){
+      this.evolucionMedica=[]
+      this.loading=true
+      //control de paginacion
+      var pagination = {
+        pagina: this.paginationPage,
+        rowsPerPage: 5
+      };
+      const response = await this.$store.dispatch("getAllEvolucionesMedicas",{pagination})
+
+      console.log(response)
+      this.loading =false
+      //verica que se encuentren registros para mostrar
+      if(response.data.registrosFundabiem.length > 0){
+        this.paginationLenght = response.data.pages
+        response.data.registrosFundabiem.map(register => {
+          const {diagnostico,fecha} = register
+          const { primerApellido,primerNombre, segundoApellido, segundoNombre, grupoEtnico, dpi,sexo} = register.paciente.persona;
+          const nombre = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`;
+          //agrega los datos a la tabla de regisros
+          if(sexo)
+            var _sexo = 'Masculino'
+          else 
+            var _sexo = 'Feminio'
+          var _fecha = moment(fecha).format("L")
+          this.evolucionMedica.push({nombre,diagnostico,_fecha,_sexo})
+        });
+      }
+    },
+
     openDialogRehabilitation() {
       this.dialogEvolucionMedica = true
     },
@@ -127,18 +183,21 @@ export default {
         this.dialogEvolucionMedica = false
     },
 
-    saveEvolucionMedica(data) {
+    async saveEvolucionMedica(data) {
+
+      console.log(data)
 
       this.cargando = true
       this.dialogEvolucionMedica = false
       
-        const response = this.$store.dispatch('newEvolutionMedical', data)
+        const response = await this.$store.dispatch('newEvolutionMedical', data)
 
       this.cargando = false
-        if(response.status === 200) {
+        if(response.status === 201) {
             const title = "Nueva evolución médica con éxito!"
             const message = "Nueva evolución médica exitosamente"
             this.showAlert(title, message, "success")
+            this.getAllEvolucionesMedicas();
         } else {
             const title = "Nueva evolución médica sin éxito!"
             const message = "No se creó la nueva evolución médica "
@@ -151,7 +210,10 @@ export default {
         message,
         type
       );
-    },
+    }
+  },
+  mounted(){
+    this.getAllEvolucionesMedicas();
   }
 };
 </script>

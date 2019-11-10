@@ -44,7 +44,7 @@ namespace EntityModelFundabien.Interfaces
         Task newAnamnesis(Int64 idHistoriaClinica, CrearAnamnesisDTO modelo);
         Task newHistoriaClinica(CrearHistoriaClinicaDTO modelo);
 
-        Task<EvolucionMedica> getEvolucionMedica(Int64 idEvolucionMedica);
+        Task<DTOEvolucionMedica> getEvolucionMedica(Int64 idEvolucionMedica);
         Task<EvolucionMedica> newEvolucionMedica(CreateEvolucionMedicaDTO modelo);
 
         IEnumerable<ObjetivoDeIntervencion> getAllObjetivos();
@@ -61,9 +61,17 @@ namespace EntityModelFundabien.Interfaces
         Task<citaDTO> getCitaById(int id);
         Task<IEnumerable<citaDTO>> getCitaByDate(string DateType, DateTime fecha, bool range, DateTime dateEnd, int idTerapia, int idEstado);
         Task<clsResponse<HistoriaClinica>> getAllHistoriaClinicas(int pagina, int rowsPerPAge);
-        Task<clsResponse<EvolucionMedica>> getAllEvolucionesMedicas(int pagina, int rowsPerPage);
+
+        
 
         // estudio socioeconomico
         Task<clsResponse<SeccionEstudioSocioeconomicoDTO>> getAllSeccionesDeEstudioSocioeconomico();
+
+        Task<clsResponse<CicloDeRehabilitacionDTO>> getAllCiclosRehabilitacion(int pagina, int rowsPerPage);
+        Task<clsResponse<DTOEvolucionMedica>> getAllEvolucionesMedicas(int pagina, int rowsPerPage);
+        Task<EvolucionTecnica> newEvolucionTecnica(CreateEvolucionTecnicaDTO model);
+        Task<EvolucionTecnicaDTO> getEvelucionTecnica(Int64 idEvolucionTecnica);
+        Task<clsResponse<EvolucionTecnicaDTO>> getAllEvolucionesTecnicas(int pagina, int rowsPerPage);
+
     }
 }

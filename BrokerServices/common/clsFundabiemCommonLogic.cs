@@ -100,7 +100,46 @@ namespace EntityModelFundabien.common
         {
             return context.Terapias.ToList();
         }
+        //obtiene todos los ciclos de rehabilitacion paginados
+        public async Task<clsResponse<CicloDeRehabilitacionDTO>> getAllCiclosRehabilitacion(int pagina, int rowsPerPage)
+        {
+            var query = context.CicloDeRehabilitaciones.AsQueryable();
+            var totalRegisters = query.Count();
 
+            var ciclos = await query
+                .Skip(rowsPerPage * (pagina - 1))
+                .Take(rowsPerPage)
+                .Include(x => x.paciente.persona)
+                //.Include(x => x.detalleCicloRehabilitacion)
+                .OrderBy(x => x.idcicloRehabilitacion)
+                .ToListAsync();
+            
+            var dto = mapper.Map<List<CicloDeRehabilitacionDTO>>(ciclos);
+            clsResponse<CicloDeRehabilitacionDTO> hist = new clsResponse<CicloDeRehabilitacionDTO>();
+            hist.Error = false;
+            hist.RegistrosFundabiem = dto;
+            hist.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPage));
+            hist.totalRows = totalRegisters;
+            return hist;
+        }
+        //obtiene las evoluciones tecnicas paginados
+        public async Task<clsResponse<EvolucionTecnicaDTO>> getAllEvolucionesTecnicas(int pagina, int rowsPerPage)
+        {
+            var query = context.EvolucionTenica.AsQueryable();
+            var totalRegisters = query.Count();
+            var evoluciones = await query
+                .Skip(rowsPerPage * (pagina - 1))
+                .Take(rowsPerPage)
+                .Include(x => x.paciente.persona)
+                .OrderBy(x => x.idEvolucionTecnica)
+                .ToListAsync();
+            clsResponse<EvolucionTecnicaDTO> rps = new clsResponse<EvolucionTecnicaDTO>();
+            rps.Error = false;
+            rps.RegistrosFundabiem = mapper.Map<List<EvolucionTecnicaDTO>>(evoluciones);
+            rps.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPage));
+            rps.totalRows = totalRegisters;
+            return rps;
+        }
         //obtiene todos los registros medicos
         public async Task<clsResponse<RegistroMedico>> getAllRegistrosMedicos(int pagina, int rowsPerPAge)
         {
@@ -229,7 +268,9 @@ namespace EntityModelFundabien.common
         //obiene una cita por  su id
         public async Task<citaDTO> getCitaById(int id)
         {
-             var cita = await context.Citas.FirstOrDefaultAsync(x => x.IdCita == id);
+             var cita = await context.Citas
+                .Include(x => x.paciente.persona)
+                .FirstOrDefaultAsync(x => x.IdCita == id);
              var citaDTO = mapper.Map<citaDTO>(cita);
             return citaDTO;
         }
@@ -242,16 +283,25 @@ namespace EntityModelFundabien.common
             if (DateType == "fechaCita")
             {
                 if (range)
-                    cita = await context.Citas.Where(x => x.fechaCita.Date >= fecha.Date && x.fechaCita.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaCita.Date >= fecha.Date && x.fechaCita.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado)
+                        .Include(x => x.paciente.persona)
+                        .ToListAsync();
                 else
-                    cita = await context.Citas.Where(x => x.fechaCita.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaCita.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado)
+                        .Include(x => x.paciente.persona)
+                        .OrderBy(x => x.IdCita)
+                        .ToListAsync();
             }
             else if (DateType == "fechaAsignacion")
             {
                 if (range)
-                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date >= fecha.Date && x.fechaAsignacion.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date >= fecha.Date && x.fechaAsignacion.Date <= dateEnd.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado)
+                        .Include(x => x.paciente.persona)
+                        .ToListAsync();
                 else
-                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado).ToListAsync();
+                    cita = await context.Citas.Where(x => x.fechaAsignacion.Date == fecha.Date && x.IdTerapia == idTerapia && x.idEstado == idEstado)
+                        .Include(x => x.paciente.persona)
+                        .ToListAsync();
             }
             else
                 cita = null;
@@ -364,8 +414,6 @@ namespace EntityModelFundabien.common
 
         public async Task newAnamnesis(Int64 idHistoriaClinica,  CrearAnamnesisDTO modelo)
         {
-            logger.Information("Creating a new history");
-
             var anamnesis = new Anamnesis
             {
                 idHistoriaClinica = idHistoriaClinica,
@@ -380,7 +428,7 @@ namespace EntityModelFundabien.common
         //new cita
         public async Task<Citas> NewCita(CreateCitaDTO model)
         {
-            var paciente = context.Pacientes.Include(x => x.persona).FirstOrDefaultAsync(x => x.idPaciente == model.dPaciente);
+            var paciente = context.Pacientes.Include(x => x.persona).FirstOrDefaultAsync(x => x.idPaciente == model.idPaciente);
             logger.Information("Creatin a new cita");
             var cita = mapper.Map<Citas>(model);
             cita.idEstado = 5;
@@ -413,8 +461,18 @@ namespace EntityModelFundabien.common
         }
 
         //obtiene una evolucion medica segun su id
-        public async Task<EvolucionMedica> getEvolucionMedica(Int64 idEvolucionMedica) =>
-            await context.EvolucionesMedicas.FirstOrDefaultAsync(e => e.idEvolucionMedica == idEvolucionMedica);
+        public async Task<DTOEvolucionMedica> getEvolucionMedica(Int64 idEvolucionMedica)
+        {
+            var evolucion = await context.EvolucionesMedicas.Include(x => x.paciente.persona).FirstOrDefaultAsync(e => e.idEvolucionMedica == idEvolucionMedica);
+            return mapper.Map<DTOEvolucionMedica>(evolucion);
+        }
+        
+        //obtiene una evolucion tecnica
+        public async Task<EvolucionTecnicaDTO> getEvelucionTecnica(Int64 idEvolucionTecnica)
+        {
+            var evolucion = await context.EvolucionTenica.Include(x => x.paciente.persona).FirstOrDefaultAsync(x => x.idEvolucionTecnica == idEvolucionTecnica);
+            return mapper.Map<EvolucionTecnicaDTO>(evolucion);
+        }
         
 
         public async Task<EvolucionMedica> newEvolucionMedica(CreateEvolucionMedicaDTO modelo)
@@ -422,26 +480,35 @@ namespace EntityModelFundabien.common
             var evolucionMedica = mapper.Map<EvolucionMedica>(modelo);
             await context.EvolucionesMedicas.AddAsync(evolucionMedica);
             await context.SaveChangesAsync();
-            
-            return await getEvolucionMedica(evolucionMedica.idEvolucionMedica);
+            return evolucionMedica;
         }
 
-        public async Task<clsResponse<EvolucionMedica>> getAllEvolucionesMedicas(int pagina, int rowsPerPAge)
+        public async Task<EvolucionTecnica> newEvolucionTecnica(CreateEvolucionTecnicaDTO model)
+        {
+            var evolucion = mapper.Map<EvolucionTecnica>(model);
+            evolucion.fecha = DateTime.Today;
+            await context.AddAsync(evolucion);
+            await context.SaveChangesAsync();
+            return evolucion;
+        }
+
+        public async Task<clsResponse<DTOEvolucionMedica>> getAllEvolucionesMedicas(int pagina, int rowsPerPAge)
         {
             var query = context.EvolucionesMedicas.AsQueryable();
             var totalRegisters = query.Count();
-            var historias = await query
+            var evoluciones = await query
                 .Skip(rowsPerPAge * (pagina - 1))
                 .Take(rowsPerPAge)
                 .OrderBy(x => x.idEvolucionMedica)
                 .ToListAsync();
 
-            clsResponse<EvolucionMedica> histClinicas = new clsResponse<EvolucionMedica>();
-            histClinicas.Error = false;
-            histClinicas.RegistrosFundabiem = historias;
-            histClinicas.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge));
-            histClinicas.totalRows = totalRegisters;
-            return histClinicas;
+            clsResponse<DTOEvolucionMedica> evoluMedicas = new clsResponse<DTOEvolucionMedica>();
+            var dto = mapper.Map<List<DTOEvolucionMedica>>(evoluciones);
+            evoluMedicas.Error = false;
+            evoluMedicas.RegistrosFundabiem = dto;
+            evoluMedicas.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge));
+            evoluMedicas.totalRows = totalRegisters;
+            return evoluMedicas;
         }
 
         // ESTUDIO SOCIOECONOMICO

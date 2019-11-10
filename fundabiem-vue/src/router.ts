@@ -17,6 +17,8 @@ import RegistrosMedicos from './views/registro-medico/RegistroMedicos.vue'
 import HistoriasClinicas from './views/historia-clinica/HistoriaClinica.vue'
 import EvolucionMedica from './views/evolucion-medica/EvolucionMedica.vue'
 import CitasPaciente from './views/citas/CitasPaciente.vue'
+import EvolucionTecnica from './views/eolvucion-tecnica/EvolucionTecnica.vue'
+
 //@ts-ignore
 import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
 import axios, { AxiosResponse } from 'axios'
@@ -126,6 +128,11 @@ const router = new Router({
       path: "/evolucion-medica",
       name: "Evolucion Medica",
       component: EvolucionMedica
+    },
+    {
+      path: "/evolucion-tecnica",
+      name:"Evolucion técnica",
+      component: EvolucionTecnica
     },
     {
       path: "/citas",

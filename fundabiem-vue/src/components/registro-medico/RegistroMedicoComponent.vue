@@ -18,16 +18,16 @@
         <v-card-text>
           <v-stepper v-model="e1">
             <v-stepper-header>
-              <v-stepper-step :complete="e1 > 1" step="1">Datos del paciente</v-stepper-step>
+              <v-stepper-step color="indigo" :complete="e1 > 1" step="1">Datos del paciente</v-stepper-step>
 
               <v-divider></v-divider>
               
 
-              <v-stepper-step :complete="e1 > 2" step="2">Datos de los familiares</v-stepper-step>
+              <v-stepper-step color="indigo" :complete="e1 > 2" step="2">Datos de los familiares</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step :complete="e1 > 3" step="3">Persona Encargada</v-stepper-step>
+              <v-stepper-step color="indigo" :complete="e1 > 3" step="3">Persona Encargada</v-stepper-step>
 
               <v-divider></v-divider>
 
@@ -48,7 +48,7 @@
 
                 </v-card>
 
-                  <v-btn color="primary" @click="stepper2" >Continuar</v-btn>
+                  <v-btn dark color="#1A237E" @click="stepper2" >Continuar</v-btn>
             
               </v-stepper-content>
  
@@ -62,9 +62,9 @@
                       <data-tables :btnEliminar="true" @eliminarDelListado="eliminarDelListado" title="Listado de familiares" :headers="headers" :data="data"/>
                 </v-card>
 
-                <v-btn color="primary" @click="continueStep3">Continuar</v-btn>
+                <v-btn class="mx-2"  dark color="#1A237E" @click="continueStep3">Continuar</v-btn>
 
-                <v-btn text  @click="e1 = 1">Regresar</v-btn>
+                <v-btn dark color="#FF6F00"  @click="e1 = 1">Regresar</v-btn>
               </v-stepper-content>
 
               <v-stepper-content step="3">
@@ -80,9 +80,9 @@
                   </v-col>
                 </v-card>
 
-                <v-btn color="primary" @click="saveRehabilitacion">Guardar registro médico</v-btn>
+                <v-btn class="mx-2" dark color="#1A237E" @click="saveRehabilitacion">Guardar registro médico</v-btn>
 
-                <v-btn text  @click="e1 = 2">Regresar</v-btn>
+                <v-btn dark color="#FF6F00"  @click="e1 = 2">Regresar</v-btn>
               </v-stepper-content>
 
       

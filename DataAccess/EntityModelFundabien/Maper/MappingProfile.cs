@@ -45,10 +45,19 @@ namespace EntityModelFundabien.mapper
             CreateMap<Citas, CreateCitaDTO>();
             CreateMap<citaDTO, Citas>();
             CreateMap<Citas, citaDTO>();
-
             CreateMap<SeccionEstudioSocioeconomico, SeccionEstudioSocioeconomicoDTO>();
             CreateMap<ItemEstudioSocioeconomico, ItemEstudioSocioeconomicoDTO>();
             CreateMap<OpcionItemEstudioSocioeconomico, OpcionItemEstudioSocioeconomicoDTO>();
+            CreateMap<pacienteDTO, Paciente>();
+            CreateMap<Paciente, pacienteDTO>();
+            CreateMap<CreateEvolucionMedicaDTO, EvolucionMedica>();
+            CreateMap<EvolucionMedica, CreateEvolucionMedicaDTO>();
+            CreateMap<DTOEvolucionMedica, EvolucionMedica>();
+            CreateMap<EvolucionMedica, DTOEvolucionMedica>();
+            CreateMap<EvolucionTecnica, EvolucionTecnicaDTO>();
+            CreateMap<EvolucionTecnicaDTO, EvolucionTecnica>();
+            CreateMap<CreateEvolucionTecnicaDTO, EvolucionTecnica>();
+            CreateMap<EvolucionTecnica, CreateEvolucionTecnicaDTO>();
         }
     }
 }
