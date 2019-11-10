@@ -99,6 +99,8 @@ namespace BrokerServices.Migrations
 
                     b.Property<string>("NoOrden");
 
+                    b.Property<long>("dPaciente");
+
                     b.Property<int>("edad");
 
                     b.Property<DateTime>("fechaAsignacion");
@@ -107,7 +109,7 @@ namespace BrokerServices.Migrations
 
                     b.Property<long>("idEstado");
 
-                    b.Property<long>("idPaciente");
+                    b.Property<long?>("pacienteidPaciente");
 
                     b.HasKey("IdCita");
 
@@ -115,7 +117,7 @@ namespace BrokerServices.Migrations
 
                     b.HasIndex("idEstado");
 
-                    b.HasIndex("idPaciente");
+                    b.HasIndex("pacienteidPaciente");
 
                     b.ToTable("Citas");
                 });
@@ -493,24 +495,6 @@ namespace BrokerServices.Migrations
                     b.ToTable("EvolucionesMedicas");
                 });
 
-            modelBuilder.Entity("EntityModelFundabien.entities.EvolucionTecnica", b =>
-                {
-                    b.Property<long>("idEvolucionTecnica")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("diagnostico");
-
-                    b.Property<DateTime>("fecha");
-
-                    b.Property<long>("idPaciente");
-
-                    b.HasKey("idEvolucionTecnica");
-
-                    b.HasIndex("idPaciente");
-
-                    b.ToTable("EvolucionTenica");
-                });
-
             modelBuilder.Entity("EntityModelFundabien.entities.FamiliaresPaciente", b =>
                 {
                     b.Property<long>("id")
@@ -808,23 +792,14 @@ namespace BrokerServices.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-
                     b.Property<long>("SeccionEstudioSocioeconomicoId");
 
                     b.Property<string>("descripcion")
                         .HasMaxLength(255);
 
-
-                    b.Property<string>("descripcion")
-                        .HasMaxLength(255);
-
-                    b.Property<long>("idSeccionEstudioSocioeconomico");
-
-
                     b.Property<string>("nombre")
                         .IsRequired()
                         .HasMaxLength(100);
-
 
                     b.HasKey("Id");
 
@@ -905,15 +880,6 @@ namespace BrokerServices.Migrations
                             SeccionEstudioSocioeconomicoId = 1L,
                             nombre = "Pago mensual de vivienda"
                         });
-
-                    b.Property<long?>("seccionId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("seccionId");
-
-                    b.ToTable("ItemsEstudioSocioeconomico");
-
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.Municipio", b =>
@@ -3251,7 +3217,6 @@ namespace BrokerServices.Migrations
 
                     b.ToTable("SeccionesEstudioSocioeconomico");
 
-
                     b.HasData(
                         new
                         {
@@ -3439,8 +3404,7 @@ namespace BrokerServices.Migrations
 
                     b.HasOne("EntityModelFundabien.entities.Paciente", "paciente")
                         .WithMany()
-                        .HasForeignKey("idPaciente")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("pacienteidPaciente");
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.Correo", b =>
@@ -3523,14 +3487,6 @@ namespace BrokerServices.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EntityModelFundabien.entities.EvolucionTecnica", b =>
-                {
-                    b.HasOne("EntityModelFundabien.entities.Paciente", "paciente")
-                        .WithMany()
-                        .HasForeignKey("idPaciente")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("EntityModelFundabien.entities.FamiliaresPaciente", b =>
                 {
                     b.HasOne("EntityModelFundabien.entities.Persona", "persona")
@@ -3567,7 +3523,6 @@ namespace BrokerServices.Migrations
                 {
                     b.HasOne("EntityModelFundabien.entities.SeccionEstudioSocioeconomico", "seccion")
                         .WithMany("items")
-
                         .HasForeignKey("SeccionEstudioSocioeconomicoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
