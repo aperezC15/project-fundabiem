@@ -568,6 +568,34 @@ namespace EntityModelFundabien.common
         }
 
 
+        public async Task<clsResponse<EstudioSocioeconomicoDTO>> getAllEstudioSocioeconomico(int pagina, int rowsPerPAge)
+        {
+            var query = context.EstudioSocioeconomico.AsQueryable();
+
+            var totalRegisters = query.Count();
+
+            var estudiosSocioeconomicos = await query
+                .Skip(rowsPerPAge * (pagina - 1))
+                .Take(rowsPerPAge)
+                .OrderBy(x => x.Id)
+                .ToListAsync();
+
+            if (estudiosSocioeconomicos == null) return null;
+
+            var estudiosSocioeconomicosDTO = mapper.Map<List<EstudioSocioeconomicoDTO>>(estudiosSocioeconomicos);
+
+
+            var respuesta = new clsResponse<EstudioSocioeconomicoDTO>()
+            {
+                Error = false,
+                RegistrosFundabiem = estudiosSocioeconomicosDTO,
+                pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge)),
+                totalRows = totalRegisters
+            };
+
+            return respuesta;
+        }
+
         public async Task<EstudioSocioeconomicoDTO> getEstudioSocioeconomicoById(long id)
         {
             var estudioSocioeconomico = await context.EstudioSocioeconomico
