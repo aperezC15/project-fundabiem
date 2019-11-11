@@ -8,6 +8,7 @@ namespace EntityModelFundabien.ModelsDTO
     {
         public Int64 idPaciente { get; set; }
         public string motivoDeConsulta { get; set; }
+        public string ocupacion { get; set; }
         public List<antecedntePacienteDTO> antecedentesDelPaciente { get; set; }
         public examenMentalDTO examenMental { get; set; }
         public string perfilSocial { get; set; }
@@ -21,6 +22,7 @@ namespace EntityModelFundabien.ModelsDTO
     {
         public Int64 idPaciente { get; set; }
         public string motivoDeConsulta { get; set; }
+        public string ocupacion { get; set; }
         public List<antecedntePacienteDTO> antecedentesDelPaciente { get; set; }
         public examenMentalDTO examenMental { get; set; }
         public string perfilSocial { get; set; }

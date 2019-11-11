@@ -61,8 +61,8 @@ namespace fundabiemAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<clsResponse<EvolucionTecnicaDTO>>> getAll(int pagina, int rowsPerPage)
         {
-            logger.LogInformation("Get all evolucion tecnicas page {0} rowPerPage {1} by user => {2}", pagina, rowPerPage, getUser());
-            var evoluciones = await fundabiem.getAllEvolucionesTecnicas(pagina,rowPerPage);
+            logger.LogInformation("Get all evolucion tecnicas page {0} rowPerPage {1} by user => {2}", pagina, rowsPerPage, getUser());
+            var evoluciones = await fundabiem.getAllEvolucionesTecnicas(pagina,rowsPerPage);
             return Ok(evoluciones);
         }
     }

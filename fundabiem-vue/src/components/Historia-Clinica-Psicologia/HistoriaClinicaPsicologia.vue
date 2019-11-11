@@ -73,7 +73,6 @@ export default {
         HeaderTablePsicologia: [
             {text: 'NOMBRE', value: 'NombreHP', align: 'center'},
             {text: 'SEXO', value: 'SexoHP', align: 'center'},
-            {text: 'EDAD', value: 'EdadHP', align: 'center'},
             {text: 'ESTUDIOS', value: 'EstudiosHP', align: 'center'},
             {text: 'ORIGEN Y PROCEDENCIA', value: 'OrigenHP', align: 'center'},
             {text: 'OCUPACION', value: 'OcupacionHP', align: 'center'},
