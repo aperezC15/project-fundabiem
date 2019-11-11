@@ -49,7 +49,22 @@ namespace fundabiemAPI.Controllers
                 logger.LogError("Ha ocurrido un error al leer las secciones de estudio socioeconómico", ex.Message);
                 return BadRequest("ocurrió un error al leer las secciones de estudio socioeconómico");
             }
+        }
 
+        [HttpPost]
+        public async Task<ActionResult<EstudioSocioeconomicoDTO>> newEstudioSocioeconomico(CreateEstudioSocioeconomicoDTO modelo)
+        {
+            try
+            {
+                logger.LogInformation("Creating: EstudioSocioeconomico.");
+                var respuesta = await fundabiem.newEstudioSocioeconomico(modelo);
+                return Ok(respuesta);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Ha ocurrido un error al crear un estudio socioeconómico.", ex.Message);
+                return BadRequest("Ha ocurrido un error al crear un estudio socioeconómico.");
+            }
         }
     }
 }
