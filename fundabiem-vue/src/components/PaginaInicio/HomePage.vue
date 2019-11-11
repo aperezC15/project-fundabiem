@@ -17,16 +17,27 @@
         </v-carousel>
       </v-col>
       <v-col cols="6">
-        <v-expansion-panels popout dark>
-          <v-expansion-panel
-            v-for="(info,i) in infofunda" :key="i"
-          >
-            <v-expansion-panel-header>{{info.title}}</v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <p>{{info.informacion}}</p> 
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
+        <v-row align="center" justify="center">
+          <v-img 
+            src="img/teleton.jpg"
+            class="grey lighten-2"
+            max-width="350"
+            max-height="300"          
+          >            
+          </v-img>
+        </v-row> <br>
+        <v-row>
+          <v-expansion-panels popout dark>
+            <v-expansion-panel
+              v-for="(info,i) in infofunda" :key="i"
+            >
+              <v-expansion-panel-header>{{info.title}}</v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <p>{{info.informacion}}</p> <br> 
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </v-row>
       </v-col>
     </v-row>
   </div>
