@@ -56,7 +56,7 @@
 
 <script>
 import { __values } from 'tslib';
-import ModalHistoriaClinicaPsicologia from './ModalHistoriaClinicaPsicologia.vue'
+import ModalHistoriaClinicaPsicologia from '../../components/Historia-Clinica-Psicologia/ModalHistoriaClinicaPsicologia.vue'
 
 export default {
     components: {

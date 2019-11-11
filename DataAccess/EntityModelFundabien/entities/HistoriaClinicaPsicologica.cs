@@ -12,6 +12,7 @@ namespace EntityModelFundabien.entities
         public Int64 idPaciente { get; set; }
         public string motivoDeConsulta { get; set; }
         public string ocupacion { get; set; }
+        public string origenProcedencia { get; set; }
         public List<antecedentesPaciente> antecedentesDelPaciente { get; set; }
         public string perfilSocial { get; set; }
         public string personalidad { get; set; }
