@@ -14,7 +14,7 @@ namespace EntityModelFundabien.entities
         public List<antecedentesPaciente> antecedentesDelPaciente { get; set; }
         public string perfilSocial { get; set; }
         public string personalidad { get; set; }
-        //public examenMental examenMental { get; set; }
+        public examenMental examenMental { get; set; }
         public string datosRelevantesFamiliaPaciente { get; set; }
         public string diagnostico { get; set; }
         public string planOrientacionPsicologica { get; set; }

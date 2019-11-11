@@ -76,5 +76,6 @@ namespace EntityModelFundabien.Interfaces
         Task<clsResponse<EvolucionTecnicaDTO>> getAllEvolucionesTecnicas(int pagina, int rowsPerPage);
         Task<HistoriaClinicaPsicologica> newHistoriaClinicaPsicologica(HistoriaClinicaPsicologicaDTO model);
         Task<HistoriaClinicaPsicologica> getHistoriaClinicaPsicologicaById(int id);
+        Task<clsResponse<HistoriaClinicaPsicologicaDTOResponse>> getallHistoriaClinicaPsicologicas(int pagina, int rowsPerPage);
     }
 }

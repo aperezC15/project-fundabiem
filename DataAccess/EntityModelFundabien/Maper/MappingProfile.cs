@@ -68,6 +68,8 @@ namespace EntityModelFundabien.mapper
             CreateMap<antecedntePacienteDTO, antecedentesPaciente>();
             CreateMap<examenMental, examenMentalDTO>();
             CreateMap<examenMentalDTO, examenMental>();
+            CreateMap<HistoriaClinicaPsicologicaDTOResponse, HistoriaClinicaPsicologica>();
+            CreateMap<HistoriaClinicaPsicologica, HistoriaClinicaPsicologicaDTOResponse>();
         }
     }
 }

@@ -100,6 +100,27 @@ namespace EntityModelFundabien.common
         {
             return context.Terapias.ToList();
         }
+        //obtiene todas las historias clinicas psicologicas paginadas
+        public async Task<clsResponse<HistoriaClinicaPsicologicaDTOResponse>> getallHistoriaClinicaPsicologicas(int pagina, int rowsPerPage)
+        {
+            var query = context.HistoriaClinicaPsicologicas.AsQueryable();
+            var totalRegisters = query.Count();
+            var psicologicas = await query
+                .Skip(rowsPerPage * (pagina - 1))
+                .Take(rowsPerPage)
+                .Include(x => x.examenMental)
+                .Include(x => x.antecedentesDelPaciente)
+                .Include(x => x.paciente.persona)
+                .OrderBy(x => x.idHistoriaclinicaPsicologica)
+                .ToListAsync();
+            var dto = mapper.Map<List<HistoriaClinicaPsicologicaDTOResponse>>(psicologicas);
+            clsResponse<HistoriaClinicaPsicologicaDTOResponse> hist = new clsResponse<HistoriaClinicaPsicologicaDTOResponse>();
+            hist.Error = false;
+            hist.RegistrosFundabiem = dto;
+            hist.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPage));
+            hist.totalRows = totalRegisters;
+            return hist;
+        }
         //obtiene todos los ciclos de rehabilitacion paginados
         public async Task<clsResponse<CicloDeRehabilitacionDTO>> getAllCiclosRehabilitacion(int pagina, int rowsPerPage)
         {
