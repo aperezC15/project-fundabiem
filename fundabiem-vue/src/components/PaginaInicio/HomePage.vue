@@ -20,7 +20,7 @@
     </v-row>
     <v-row>
       <v-col cols="6">
-        <v-card class="border-card">
+        <v-card class="border-card-carousel">
           <v-carousel cycle hide-delimiter-background show-arrows-on-hover height="430"
           >
               <v-carousel-item 
@@ -56,8 +56,13 @@
 </template>
 <style>
   .border-card{
-    border-top: 8px solid #0008C5 !important;
-    border-radius: 3px;
+    border-top: 8px solid #A6A6A6 !important;
+    border-radius:10px;
+  }
+
+  .border-card-carousel{
+    border-bottom: 8px solid #A6A6A6 !important;
+    border-radius:10px;
   }
 </style>
 <script>
