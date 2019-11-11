@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BrokerServices.common;
+using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
+using EntityModelFundabien.ModelsDTO;
 using fundabiemAPI.Middleware;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +27,41 @@ namespace fundabiemAPI.Controllers
             this.fundabiem = fundabiem;
             this.mapper = mapper;
             this.context = context;
+        }
+
+        //para crear una historia clinica psicologica nueva
+        [HttpPost]
+        public async Task<ActionResult> newHistoriaPsicologica([FromBody]HistoriaClinicaPsicologicaDTO model)
+        {
+            var txt = "Creating new HostoriaPsicologica by user => {0}"+ getUser();
+            using(var transaction = context.Database.BeginTransaction())
+            {
+                logger.LogInformation("Begin Transaction {0}", txt);
+                try
+                {
+                    var psicologica = await fundabiem.newHistoriaClinicaPsicologica(model);
+                    transaction.Commit();
+                    logger.LogInformation("Commit Transaction {0}", txt);
+                    return new CreatedAtRouteResult("ObtenerHistoriaPsicologica", new { id=psicologica.idHistoriaclinicaPsicologica}, psicologica);
+                }
+                catch(Exception ex)
+                {
+                    transaction.Rollback();
+                    logger.LogInformation("RollBack transaction {0}", txt);
+                    logger.LogError(ex.ToString());
+                    return BadRequest("No se completo la tarea de nuevo hisoriaclinicaPsicologica");
+                }
+            }
+        }
+
+        [HttpGet("{id}", Name = "ObtenerHistoriaPsicologica")]
+        public  ActionResult<HistoriaClinicaPsicologica> getHistoriaClinica(int id)
+        {
+            logger.LogInformation("Searhing historia clinica psicologica with id = {0} by user {1}", id, getUser());
+            var psicologica =  fundabiem.getHistoriaClinicaPsicologicaById(id);
+            if (psicologica.Result == null)
+                return NotFound("No se encontro la historia clinica Psicologica con id = "+ id);
+            return Ok(psicologica.Result);
         }
     }
 }

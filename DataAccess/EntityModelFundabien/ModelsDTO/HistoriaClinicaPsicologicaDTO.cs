@@ -1,39 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace EntityModelFundabien.entities
+namespace EntityModelFundabien.ModelsDTO
 {
-    public class HistoriaClinicaPsicologica
+    public class HistoriaClinicaPsicologicaDTO
     {
-        [Key]
-        public Int64 idHistoriaclinicaPsicologica { get; set; }
         public Int64 idPaciente { get; set; }
         public string motivoDeConsulta { get; set; }
-        public List<antecedentesPaciente> antecedentesDelPaciente { get; set; }
+        public List<antecedntePacienteDTO> antecedentesDelPaciente { get; set; }
+        public examenMentalDTO examenMental { get; set; }
         public string perfilSocial { get; set; }
         public string personalidad { get; set; }
-        //public examenMental examenMental { get; set; }
         public string datosRelevantesFamiliaPaciente { get; set; }
         public string diagnostico { get; set; }
         public string planOrientacionPsicologica { get; set; }
-        public Paciente paciente { get; set; }
-        public DateTime fechaDeRegistro { get; set; }
     }
 
-    public class antecedentesPaciente {
-        [Key]
-        public Int64 idAntecedente { get; set; }
-        public Int64 idHistoriaClinicaPsicologica { get; set; }
+    public class antecedntePacienteDTO
+    {
         public string descripcion { get; set; }
-        public HistoriaClinicaPsicologica HistoriaClinicaPsicologica { get; set; }
     }
 
-    public class examenMental {
-        [Key]
-        public Int64 idExamenMental { get;set;}
-        public Int64 idHistoriaClinicaPsicologica { get; set; }
+    public class examenMentalDTO
+    {
         public string aparecienciaGeneral { get; set; }
         public string estadoConciencia { get; set; }
         public string estadoAnimo { get; set; }
@@ -43,6 +33,5 @@ namespace EntityModelFundabien.entities
         public string memoria { get; set; }
         public string pensamiento { get; set; }
         public string resultadoExamen { get; set; }
-        public HistoriaClinicaPsicologica HistoriaClinicaPsicologica { get; set; }
     }
 }

@@ -264,6 +264,12 @@ namespace EntityModelFundabien.common
             var cicloDTO = mapper.Map<CreateCicloRehabilitacionDTO>(ciclo);
             return cicloDTO;
         }
+        //obtiene una historia clinica psicologica por id
+        public async Task<HistoriaClinicaPsicologica> getHistoriaClinicaPsicologicaById(int id)
+        {
+            var psicologica = await context.HistoriaClinicaPsicologicas.FirstOrDefaultAsync(x => x.idHistoriaclinicaPsicologica ==id );
+            return psicologica;
+        }
         
         //obiene una cita por  su id
         public async Task<citaDTO> getCitaById(int id)
@@ -423,6 +429,15 @@ namespace EntityModelFundabien.common
 
             await context.Anamnesis.AddAsync(anamnesis);
             await context.SaveChangesAsync();
+        }
+        //new historia clinica psicologica
+        public async Task<HistoriaClinicaPsicologica> newHistoriaClinicaPsicologica(HistoriaClinicaPsicologicaDTO model)
+        {
+            var psicologica = mapper.Map<HistoriaClinicaPsicologica>(model);
+            psicologica.fechaDeRegistro = DateTime.Today;
+            await context.HistoriaClinicaPsicologicas.AddAsync(psicologica);
+            await context.SaveChangesAsync();
+            return psicologica;
         }
 
         //new cita
