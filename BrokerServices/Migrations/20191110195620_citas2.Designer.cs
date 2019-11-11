@@ -3,15 +3,17 @@ using System;
 using BrokerServices.common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BrokerServices.Migrations
 {
     [DbContext(typeof(dbContext))]
-    partial class dbContextModelSnapshot : ModelSnapshot
+    [Migration("20191110195620_citas2")]
+    partial class citas2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -589,32 +591,6 @@ namespace BrokerServices.Migrations
                     b.HasIndex("idPaciente");
 
                     b.ToTable("HistoriasClinicas");
-                });
-
-            modelBuilder.Entity("EntityModelFundabien.entities.HistoriaClinicaPsicologica", b =>
-                {
-                    b.Property<long>("idHistoriaclinicaPsicologica")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("datosRelevantesFamiliaPaciente");
-
-                    b.Property<string>("diagnostico");
-
-                    b.Property<long>("idPaciente");
-
-                    b.Property<string>("motivoDeConsulta");
-
-                    b.Property<string>("perfilSocial");
-
-                    b.Property<string>("personalidad");
-
-                    b.Property<string>("planOrientacionPsicologica");
-
-                    b.HasKey("idHistoriaclinicaPsicologica");
-
-                    b.HasIndex("idPaciente");
-
-                    b.ToTable("HistoriaClinicaPsicologicas");
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.ItemAnamnesis", b =>
@@ -3411,54 +3387,6 @@ namespace BrokerServices.Migrations
                     b.ToTable("Tratamientos");
                 });
 
-            modelBuilder.Entity("EntityModelFundabien.entities.antecedentesPaciente", b =>
-                {
-                    b.Property<long>("idAntecedente")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("descripcion");
-
-                    b.Property<long>("idHistoriaClinicaPsicologica");
-
-                    b.HasKey("idAntecedente");
-
-                    b.HasIndex("idHistoriaClinicaPsicologica");
-
-                    b.ToTable("AntecedentesPacientes");
-                });
-
-            modelBuilder.Entity("EntityModelFundabien.entities.examenMental", b =>
-                {
-                    b.Property<long>("idExamenMental")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("activiadMotora");
-
-                    b.Property<string>("aparecienciaGeneral");
-
-                    b.Property<string>("asociacionIdeasYLenguaje");
-
-                    b.Property<string>("estadoAnimo");
-
-                    b.Property<string>("estadoConciencia");
-
-                    b.Property<long>("idHistoriaClinicaPsicologica");
-
-                    b.Property<string>("memoria");
-
-                    b.Property<string>("pensamiento");
-
-                    b.Property<string>("resultadoExamen");
-
-                    b.Property<string>("sensorium");
-
-                    b.HasKey("idExamenMental");
-
-                    b.HasIndex("idHistoriaClinicaPsicologica");
-
-                    b.ToTable("examenMental");
-                });
-
             modelBuilder.Entity("EntityModelFundabien.entities.Anamnesis", b =>
                 {
                     b.HasOne("EntityModelFundabien.entities.HistoriaClinica", "historiaClinica")
@@ -3610,14 +3538,6 @@ namespace BrokerServices.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EntityModelFundabien.entities.HistoriaClinicaPsicologica", b =>
-                {
-                    b.HasOne("EntityModelFundabien.entities.Paciente", "paciente")
-                        .WithMany()
-                        .HasForeignKey("idPaciente")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("EntityModelFundabien.entities.ItemAnamnesis", b =>
                 {
                     b.HasOne("EntityModelFundabien.entities.SeccionAnamnesis", "seccion")
@@ -3700,22 +3620,6 @@ namespace BrokerServices.Migrations
                     b.HasOne("EntityModelFundabien.entities.HistoriaClinica", "historiaClinica")
                         .WithOne("tratamiento")
                         .HasForeignKey("EntityModelFundabien.entities.Tratamiento", "idHistoriaClinica")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("EntityModelFundabien.entities.antecedentesPaciente", b =>
-                {
-                    b.HasOne("EntityModelFundabien.entities.HistoriaClinicaPsicologica", "HistoriaClinicaPsicologica")
-                        .WithMany("antecedentesDelPaciente")
-                        .HasForeignKey("idHistoriaClinicaPsicologica")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("EntityModelFundabien.entities.examenMental", b =>
-                {
-                    b.HasOne("EntityModelFundabien.entities.HistoriaClinicaPsicologica", "HistoriaClinicaPsicologica")
-                        .WithMany()
-                        .HasForeignKey("idHistoriaClinicaPsicologica")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

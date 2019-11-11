@@ -40,6 +40,8 @@
     <Compile Remove="Migrations\20191030181126_pruebaTe.Designer.cs" />
     <Compile Remove="Migrations\20191110185241_clinicaPsicologica.cs" />
     <Compile Remove="Migrations\20191110185241_clinicaPsicologica.Designer.cs" />
+    <Compile Remove="Migrations\20191110200253_psi.cs" />
+    <Compile Remove="Migrations\20191110200253_psi.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
