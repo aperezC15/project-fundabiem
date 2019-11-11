@@ -65,6 +65,7 @@ namespace EntityModelFundabien.Interfaces
 
 
         // estudio socioeconomico
+        Task<clsResponse<EstudioSocioeconomicoDTO>> getAllEstudioSocioeconomico(int pagina, int rowsPerPAge);
         Task<EstudioSocioeconomicoDTO> getEstudioSocioeconomicoById(long id);
         Task<clsResponse<SeccionEstudioSocioeconomicoDTO>> getAllSeccionesDeEstudioSocioeconomico();
         Task<EstudioSocioeconomicoDTO> newEstudioSocioeconomico(CreateEstudioSocioeconomicoDTO modelo);
@@ -76,5 +77,6 @@ namespace EntityModelFundabien.Interfaces
         Task<clsResponse<EvolucionTecnicaDTO>> getAllEvolucionesTecnicas(int pagina, int rowsPerPage);
         Task<HistoriaClinicaPsicologica> newHistoriaClinicaPsicologica(HistoriaClinicaPsicologicaDTO model);
         Task<HistoriaClinicaPsicologica> getHistoriaClinicaPsicologicaById(int id);
+        Task<clsResponse<HistoriaClinicaPsicologicaDTOResponse>> getallHistoriaClinicaPsicologicas(int pagina, int rowsPerPage);
     }
 }

@@ -17,6 +17,20 @@ namespace EntityModelFundabien.ModelsDTO
         public string planOrientacionPsicologica { get; set; }
     }
 
+    public class HistoriaClinicaPsicologicaDTOResponse
+    {
+        public Int64 idPaciente { get; set; }
+        public string motivoDeConsulta { get; set; }
+        public List<antecedntePacienteDTO> antecedentesDelPaciente { get; set; }
+        public examenMentalDTO examenMental { get; set; }
+        public string perfilSocial { get; set; }
+        public string personalidad { get; set; }
+        public string datosRelevantesFamiliaPaciente { get; set; }
+        public string diagnostico { get; set; }
+        public string planOrientacionPsicologica { get; set; }
+        public pacienteDTO paciente { get; set; }
+    }
+
     public class antecedntePacienteDTO
     {
         public string descripcion { get; set; }

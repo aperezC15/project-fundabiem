@@ -7,6 +7,7 @@ using BrokerServices.common;
 using EntityModelFundabien.entities;
 using EntityModelFundabien.Interfaces;
 using EntityModelFundabien.ModelsDTO;
+using fundabiemAPI.clssResponses;
 using fundabiemAPI.Middleware;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace fundabiemAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> newHistoriaPsicologica([FromBody]HistoriaClinicaPsicologicaDTO model)
         {
-            var txt = "Creating new HostoriaPsicologica by user => {0}"+ getUser();
+            var txt = "Creating new HistoriaPsicologica by user => "+getUser();
             using(var transaction = context.Database.BeginTransaction())
             {
                 logger.LogInformation("Begin Transaction {0}", txt);
@@ -62,6 +63,14 @@ namespace fundabiemAPI.Controllers
             if (psicologica.Result == null)
                 return NotFound("No se encontro la historia clinica Psicologica con id = "+ id);
             return Ok(psicologica.Result);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<clsResponse<HistoriaClinicaPsicologicaDTO>>> getAll(int pagina, int rowsPerPage)
+        {
+            logger.LogInformation("Get all ciclo de historia clinica psicologica page {0} rowsPerPage {1} by user => {2}", pagina, rowsPerPage, getUser());
+            var psicologicas = await fundabiem.getallHistoriaClinicaPsicologicas(pagina, rowsPerPage);
+            return Ok(psicologicas);
         }
     }
 }

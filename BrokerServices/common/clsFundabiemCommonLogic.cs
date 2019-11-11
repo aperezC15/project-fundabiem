@@ -100,6 +100,27 @@ namespace EntityModelFundabien.common
         {
             return context.Terapias.ToList();
         }
+        //obtiene todas las historias clinicas psicologicas paginadas
+        public async Task<clsResponse<HistoriaClinicaPsicologicaDTOResponse>> getallHistoriaClinicaPsicologicas(int pagina, int rowsPerPage)
+        {
+            var query = context.HistoriaClinicaPsicologicas.AsQueryable();
+            var totalRegisters = query.Count();
+            var psicologicas = await query
+                .Skip(rowsPerPage * (pagina - 1))
+                .Take(rowsPerPage)
+                .Include(x => x.examenMental)
+                .Include(x => x.antecedentesDelPaciente)
+                .Include(x => x.paciente.persona)
+                .OrderBy(x => x.idHistoriaclinicaPsicologica)
+                .ToListAsync();
+            var dto = mapper.Map<List<HistoriaClinicaPsicologicaDTOResponse>>(psicologicas);
+            clsResponse<HistoriaClinicaPsicologicaDTOResponse> hist = new clsResponse<HistoriaClinicaPsicologicaDTOResponse>();
+            hist.Error = false;
+            hist.RegistrosFundabiem = dto;
+            hist.pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPage));
+            hist.totalRows = totalRegisters;
+            return hist;
+        }
         //obtiene todos los ciclos de rehabilitacion paginados
         public async Task<clsResponse<CicloDeRehabilitacionDTO>> getAllCiclosRehabilitacion(int pagina, int rowsPerPage)
         {
@@ -546,6 +567,34 @@ namespace EntityModelFundabien.common
             return respuesta;
         }
 
+
+        public async Task<clsResponse<EstudioSocioeconomicoDTO>> getAllEstudioSocioeconomico(int pagina, int rowsPerPAge)
+        {
+            var query = context.EstudioSocioeconomico.AsQueryable();
+
+            var totalRegisters = query.Count();
+
+            var estudiosSocioeconomicos = await query
+                .Skip(rowsPerPAge * (pagina - 1))
+                .Take(rowsPerPAge)
+                .OrderBy(x => x.Id)
+                .ToListAsync();
+
+            if (estudiosSocioeconomicos == null) return null;
+
+            var estudiosSocioeconomicosDTO = mapper.Map<List<EstudioSocioeconomicoDTO>>(estudiosSocioeconomicos);
+
+
+            var respuesta = new clsResponse<EstudioSocioeconomicoDTO>()
+            {
+                Error = false,
+                RegistrosFundabiem = estudiosSocioeconomicosDTO,
+                pages = ((int)Math.Ceiling((double)totalRegisters / rowsPerPAge)),
+                totalRows = totalRegisters
+            };
+
+            return respuesta;
+        }
 
         public async Task<EstudioSocioeconomicoDTO> getEstudioSocioeconomicoById(long id)
         {
