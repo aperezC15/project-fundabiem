@@ -1,6 +1,5 @@
 <template>
-  <div id="app">
-    <br>
+  <v-container fluid>
     <v-row>
       <v-col cols="6">
         <v-carousel 
@@ -18,13 +17,24 @@
       </v-col>
       <v-col cols="6">
         <v-row align="center" justify="center">
-          <v-img 
-            src="img/teleton.jpg"
-            class="grey lighten-2"
-            max-width="350"
-            max-height="300"          
-          >            
-          </v-img>
+          <v-col cols="6">
+            <v-card class="elevation-10"> 
+              <v-img 
+                src="img/teleton.jpg"
+                max-width="355"
+                max-height="300"          
+              >            
+              </v-img>
+            </v-card>
+          </v-col>
+          <v-col cols="6">
+            <v-img 
+              src="https://get.mw.cr/c/aurens/content/images/colleges/logos/211.png"
+              max-width="300"
+              max-height="300"          
+            >            
+            </v-img>
+          </v-col>
         </v-row> <br>
         <v-row>
           <v-expansion-panels popout dark>
@@ -40,7 +50,7 @@
         </v-row>
       </v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>
