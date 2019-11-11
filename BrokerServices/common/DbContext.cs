@@ -61,7 +61,9 @@ namespace BrokerServices.common
         public DbSet<GrupoFamiliar> GrupoFamiliar { get; set; }
 
         public DbSet<EvolucionTecnica> EvolucionTenica { get; set; }
-
+        public DbSet<HistoriaClinicaPsicologica> HistoriaClinicaPsicologicas { get; set; }
+        public DbSet<antecedentesPaciente> AntecedentesPacientes { get; set; }
+        public DbSet<examenMental> examenMental { get; set; }
 
         //to seeds
         protected override void OnModelCreating(ModelBuilder modelBuilder)
