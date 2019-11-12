@@ -21,10 +21,10 @@
               single-line
               hide-details
             ></v-text-field>
-            <v-tooltip bottom>
+            <v-tooltip bottom color="#0277BD">
               <template v-slot:activator="{ on }">
                 <v-btn
-                  color="indigo"
+                  color="#039BE5"
                   fab
                   class="mx-2"
                   @click="openDialogRehabilitation"
@@ -38,10 +38,10 @@
 
           <v-data-table hide-default-footer :headers="headers" :items="evolucionMedica" :search="search" class="elevation-1">
             <template v-slot:no-data v-if="evolucionMedica.length === 0">
-              <v-alert
+              <v-alert dark
                 class="text-xs-center"
                 :value="true"
-                color="warning"
+                color="#FF0000"
                 icon="warning"
               >No existen registros en la tabla</v-alert>
             </template>
