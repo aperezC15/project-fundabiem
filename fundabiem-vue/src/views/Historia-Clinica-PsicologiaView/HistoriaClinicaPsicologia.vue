@@ -167,24 +167,30 @@ export default {
             )
         },
 
-        SaveHistoriaPsicologica () {
-            if (this.editedIndex > -1){
-                Object.assign(this.DataTablePsicologia[this.editedIndex], this.editedItem)
-            }
-            else
-            {
-                this.DataTablePsicologia.push(this.editedItem)
-            }
-            this.CerrarDialogoHistoriaPsicologica()
-         
+        SaveHistoriaPsicologica (data) {
+            console.log('recibi la info ==> ',data)
+            this.newHistoriaclinicaPsicologica(data)
         },
-        // FUNCION GUARDAR SI FUNCIONA
-        // SaveHistoriaPsicologica(data){
-        //     const {NombreHP, SexoHP, EdadHP} = data
-
-        //     this.DataTablePsicologia.push({NombreHP, EdadHP, SexoHP})
-        //     this.DialogoHistoriaPsicologicaHP =  false
-        // },
+        async newHistoriaclinicaPsicologica(data){
+            this.loading = true
+            const response = await this.$store.dispatch("newHistoriaClinicaPsicologica",data)
+            if(response.status === 201){
+                const title = "Nueva historia clínica psicologica creada con éxito!";
+                const message = "Nueva historia clínica  psicologica";
+                this.showAlert(title, message, "success");
+                this.getAllHistoriasPsicologicas()
+                this.DialogoHistoriaPsicologicaHP=false
+            }else{
+                const title = "No fue posible crear la historia clinica psicologica";
+                const message = "Intente de nuevo";
+                this.showAlert(title, message, "error");
+                this.loading=false
+            }
+        },
+        showAlert(title, message, type) {
+            this.$swal.fire(title, message, type);
+        },
+       
        
     },
     mounted(){
