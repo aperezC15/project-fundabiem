@@ -51,11 +51,11 @@
                                     <v-container>
                                         <v-row>
                                             <v-col cols="12" md="4" >
-                                                <v-text-field v-model="objetoGuardar.ocupacion" :rules="nameRules" :counter="10" label="Ocupacion" required></v-text-field>
+                                                <v-text-field v-model="objetoGuardar.ocupacion" :rules="nameRules"  label="Ocupacion" required></v-text-field>
                                             </v-col>
 
                                             <v-col cols="12" md="4">
-                                                <v-text-field v-model="objetoGuardar.origenProcedencia" :rules="nameRules" :counter="10" label="Origen o Procedencia" required></v-text-field>
+                                                <v-text-field v-model="objetoGuardar.origenProcedencia" :rules="nameRules"  label="Origen o Procedencia" required></v-text-field>
                                             </v-col>
                                         </v-row>
                                     </v-container>
@@ -70,7 +70,7 @@
                                         <v-textarea v-model="antecedente" label="ANTECEDENTE DEL PACIENTE" auto-grow outlined></v-textarea>
                                         <v-btn color="primary mt-3" :disabled="!antecedente"  @click="agregarAlListado">Agregar al listado</v-btn>
                                         <!--para los antecedentes-->
-                                        <v-data-table dense :headers="headers" :items="objetoGuardar.antecedentesDelPaciente"  class="elevation-1"></v-data-table>
+                                        <v-data-table hide-default-footer dense :headers="headers" :items="objetoGuardar.antecedentesDelPaciente"  class="elevation-1"></v-data-table>
                                         <!--para los antecedentes-->
                                     </v-col>
                                 </v-row>
@@ -178,6 +178,10 @@ export default {
     },    
 
     data: () => ({
+        nameRules: [
+            v => !!v || 'Este campo es requerido',
+            //v => v.length <= 10 || 'Name must be less than 10 characters',
+        ],
         antecedente:'',
         paciente: {},
         dataAntecedentes: [],
@@ -255,9 +259,6 @@ export default {
         },        
 
         // llamamos las varialbes que se usaran en el modal del formulario y se guardaran en la tabla
-        editedItem(){
-            this.$emit('variables')
-        },
         async buscador(search) {
             const data = {
                 criterio : search.buscarPor,

@@ -4,7 +4,6 @@
         <!--variables de datos del formulario @variables = "editedItem" -->
         <ModalHistoriaClinicaPsicologia
             @close-modal-historia-psicologica = "CerrarDialogoHistoriaPsicologica"
-            @variables = "editedItem"
             @Save_Historia_Psicologica = "SaveHistoriaPsicologica"
             :ModalHistoriaPsicologica = "DialogoHistoriaPsicologicaHP"
             :ModalTitle = "FormTitle"
@@ -79,6 +78,10 @@ export default {
     },
 
     data: () => ({
+        nameRules: [
+            v => !!v || 'Este campo es requerido',
+            //v => v.length <= 10 || 'Name must be less than 10 characters',
+        ],
         paginationPage: 1,
         paginationLenght: 0,
         loading:false,
@@ -148,11 +151,7 @@ export default {
             
         },
 
-        editItem (item) {
-            this.editedIndex = this.DataTablePsicologia.indexOf(item)
-            this.editedItem = Object.assign({}, item)
-            this.DialogoHistoriaPsicologicaHP = true
-        },         
+               
 
         OpenDialogoHistoriaPsicologica(){
             this.DialogoHistoriaPsicologicaHP = true
@@ -160,12 +159,6 @@ export default {
 
         CerrarDialogoHistoriaPsicologica(){     
             this.DialogoHistoriaPsicologicaHP = false
-            setTimeout(() => {
-                this.editedItem = Object.assign({}, this.defaultItem)
-                this.editedIndex = -1
-            }, 
-            300
-            )
         },
 
         SaveHistoriaPsicologica (data) {
