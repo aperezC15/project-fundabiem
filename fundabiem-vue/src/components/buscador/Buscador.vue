@@ -22,10 +22,10 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="2">
-            <v-btn large block color="primary" @click="buscador">Buscar</v-btn>
+            <v-btn large block dark color="#009933" @click="buscador">Buscar</v-btn>
           </v-col>
           <v-col cols="12" md="2">
-            <v-btn large block color="warning" @click="cleanData">Limpiar</v-btn>
+            <v-btn large block dark color="#039BE5" @click="cleanData">Limpiar</v-btn>
           </v-col>
         </v-row>
       </v-form>

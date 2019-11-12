@@ -24,13 +24,13 @@
               <template v-slot:activator="{ on }">
                 <v-btn
                   class="ma-2"
-                  rounded
+                  fab
                   text-color="#000000"                  
                   v-on="on"
                   color="#039BE5"
                   @click="openDialogRegistroMedico"
                 >
-                  <v-icon>add</v-icon>Nuevo
+                  <v-icon>add</v-icon>
                 </v-btn>
               </template>
               <span>Nuevo registro Médico</span>
