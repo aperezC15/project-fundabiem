@@ -48,13 +48,30 @@
                         <v-stepper-content step="2">
                             <v-form>
                                 <v-row>
+                                    <v-container>
+                                        <v-row>
+                                            <v-col cols="12" md="4" >
+                                                <v-text-field v-model="objetoGuardar.ocupacion" :rules="nameRules" :counter="10" label="Ocupacion" required></v-text-field>
+                                            </v-col>
+
+                                            <v-col cols="12" md="4">
+                                                <v-text-field v-model="objetoGuardar.origenProcedencia" :rules="nameRules" :counter="10" label="Origen o Procedencia" required></v-text-field>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
+                                </v-row>
+                                <v-row>
                                     <v-col>
                                         <v-textarea v-model="objetoGuardar.motivoDeConsulta" label="MOTIVO DE LA CONSULTA" auto-grow outlined ></v-textarea>
                                     </v-col>
                                 </v-row>
                                 <v-row>
-                                    <v-col>
-                                        <v-textarea v-model="objetoGuardar.antecedentesDelPaciente" label="ANTECEDENTES DEL PACIENTE" auto-grow outlined></v-textarea>
+                                    <v-col s2>
+                                        <v-textarea v-model="antecedente" label="ANTECEDENTE DEL PACIENTE" auto-grow outlined></v-textarea>
+                                        <v-btn color="primary mt-3" :disabled="!antecedente"  @click="agregarAlListado">Agregar al listado</v-btn>
+                                        <!--para los antecedentes-->
+                                        <v-data-table dense :headers="headers" :items="objetoGuardar.antecedentesDelPaciente"  class="elevation-1"></v-data-table>
+                                        <!--para los antecedentes-->
                                     </v-col>
                                 </v-row>
                             </v-form>
@@ -96,7 +113,7 @@
                                         <v-textarea v-model="objetoGuardar.examenMental.asociacionIdeasYLenguaje" label="ASOCIACION Y FLUJO DE IDEAS" hint="ASOCIACION Y FLUJO DE IDEAS Y CARACTERISTICAS DEL LENGUAJE" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="4">
-                                        <v-textarea v-model="editedItem.ContenidoIdeasHP" label="CONTENIDO DE IDEAS" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.contenidoDeIdeas" label="CONTENIDO DE IDEAS" auto-grow outlined></v-textarea>
                                     </v-col>                                        
                                 </v-row>
                                 <v-row>
@@ -147,6 +164,7 @@
 import Buscador from '../buscador/Buscador.vue'
 import DatosPersona from "../datos-personas/DatosPersonas.vue";
 import AlertErrorGlobal from '../alertas/alertErrorGlobal.vue'
+import DataTables from '../data-tables/DataTables.vue' 
 import moment from 'moment'
 export default {
     components: {
@@ -160,7 +178,13 @@ export default {
     },    
 
     data: () => ({
+        antecedente:'',
         paciente: {},
+        dataAntecedentes: [],
+        headers: [
+        { text: "Descripcion del antecedente", align: "left", sortable: false, value: "descripcion" },
+        //{ text: "Segundo Nombre", align: "left", sortable: false, value: "segundoNombre" }
+      ],
         searchPatient: false,
         showAlertError: false,
         showBusquedaEmpty: false,
@@ -170,34 +194,38 @@ export default {
         historialClinico : { nombre: "" },  
         objetoGuardar: {
                         "idPaciente": 0,
-                        "motivoDeConsulta": "string",
-                        "ocupacion": "string",
-                        "origenProcedencia": "string",
-                        "antecedentesDelPaciente": [
-                            {
-                            "descripcion": "string"
-                            }
-                        ],
+                        "motivoDeConsulta": "",
+                        "ocupacion": "",
+                        "origenProcedencia": "",
+                        "antecedentesDelPaciente": [],
                         "examenMental": {
-                            "aparecienciaGeneral": "string",
-                            "estadoConciencia": "string",
-                            "estadoAnimo": "string",
-                            "activiadMotora": "string",
-                            "asociacionIdeasYLenguaje": "string",
-                            "sensorium": "string",
-                            "memoria": "string",
-                            "pensamiento": "string",
-                            "resultadoExamen": "string"
+                            "aparecienciaGeneral": "",
+                            "estadoConciencia": "",
+                            "estadoAnimo": "",
+                            "activiadMotora": "",
+                            "asociacionIdeasYLenguaje": "",
+                            "contenidoDeIdeas":"",
+                            "sensorium": "",
+                            "memoria": "",
+                            "pensamiento": "",
+                            "resultadoExamen": ""
                         },
-                        "perfilSocial": "string",
-                        "personalidad": "string",
-                        "datosRelevantesFamiliaPaciente": "string",
-                        "diagnostico": "string",
-                        "planOrientacionPsicologica": "string"
+                        "perfilSocial": "",
+                        "personalidad": "",
+                        "datosRelevantesFamiliaPaciente": "",
+                        "diagnostico": "",
+                        "planOrientacionPsicologica": ""
                         }  
     }),
 
     methods: {
+        agregarAlListado(){
+            this.objetoGuardar.antecedentesDelPaciente.push({"descripcion":this.antecedente})
+            this.antecedente=''
+        },
+        eliminarDelListado(id) {
+            this.data = this.data.filter( item => item.id !== id)
+        },
         IrPaso2 (){
             if( Object.keys(this.paciente).length === 0 ) {
                 this.showBusquedaEmpty = true

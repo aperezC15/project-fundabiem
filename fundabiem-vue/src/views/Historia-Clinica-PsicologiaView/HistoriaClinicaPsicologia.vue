@@ -109,9 +109,10 @@ export default {
     },
 
     watch: {
-        DialogoHistoriaPsicologicaHP (val){
-            val || this.CerrarDialogoHistoriaPsicologica()
-        },
+        paginationPage: function() {
+        this.DataTablePsicologia = [];
+        this.getAllHistoriasPsicologicas();
+        }
     },
 
    
