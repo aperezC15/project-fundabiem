@@ -146,11 +146,13 @@
 <script>
 import Buscador from '../buscador/Buscador.vue'
 import DatosPersona from "../datos-personas/DatosPersonas.vue";
+import AlertErrorGlobal from '../alertas/alertErrorGlobal.vue'
 import moment from 'moment'
 export default {
     components: {
         DatosPersona,
-        Buscador
+        Buscador,
+        AlertErrorGlobal
     },
     props: {
         ModalHistoriaPsicologica: Boolean,
@@ -170,6 +172,14 @@ export default {
 
     methods: {
         IrPaso2 (){
+            if( Object.keys(this.paciente).length === 0 ) {
+                this.showBusquedaEmpty = true
+
+                setTimeout( () => {
+                this.showBusquedaEmpty = false
+                },3000)
+                return
+            }
             this.PasoAPaso = 2
         },
 
