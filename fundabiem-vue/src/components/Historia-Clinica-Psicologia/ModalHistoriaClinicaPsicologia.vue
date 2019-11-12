@@ -15,19 +15,19 @@
                 <v-stepper v-model="PasoAPaso">
                     <!-- ENCABEZADO DEL STEPPERS -->
                     <v-stepper-header>
-                        <v-stepper-step :complete="PasoAPaso > 1" editable edit-icon="check" step="1" color="#2c2e3f" title="DATOS GENERALES">DATOS GENERALES</v-stepper-step>
+                        <v-stepper-step :complete="PasoAPaso > 1" editable edit-icon="check" step="1" title="DATOS GENERALES">DATOS GENERALES</v-stepper-step>
                         <v-divider></v-divider>
 
-                        <v-stepper-step :complete="PasoAPaso > 2" editable edit-icon="check" step="2" color="#2c2e3f" title="MOTIVO DE LA CONSULTA Y ANTECEDENTES DEL PACIENTE">CONSULTA - ANTECEDENTES</v-stepper-step>
+                        <v-stepper-step :complete="PasoAPaso > 2" editable edit-icon="check" step="2"  title="MOTIVO DE LA CONSULTA Y ANTECEDENTES DEL PACIENTE">CONSULTA - ANTECEDENTES</v-stepper-step>
                         <v-divider></v-divider>
 
-                        <v-stepper-step :complete="PasoAPaso > 3" editable edit-icon="check" step="3" color="#2c2e3f" title="PERFIL SOCIAL Y PERSONALIDAD">PERFIL - PERSONALIDAD</v-stepper-step>
+                        <v-stepper-step :complete="PasoAPaso > 3" editable edit-icon="check" step="3" title="PERFIL SOCIAL Y PERSONALIDAD">PERFIL - PERSONALIDAD</v-stepper-step>
                         <v-divider></v-divider>
 
-                        <v-stepper-step :complete="PasoAPaso > 4" editable edit-icon="check" step="4" color="#2c2e3f" title="EXAMEN MENTAL">EXAMEN MENTAL</v-stepper-step>
+                        <v-stepper-step :complete="PasoAPaso > 4" editable edit-icon="check" step="4" title="EXAMEN MENTAL">EXAMEN MENTAL</v-stepper-step>
                         <v-divider></v-divider>
 
-                        <v-stepper-step :complete="PasoAPaso > 5" editable edit-icon="check" step="5" color="#2c2e3f" title="DATOS SOBRE LA FAMILIA, DIAGNOSTICO DEL PACIENTE Y PLAN PSICOLOGICO">FAMILIA - DIAGNOSTICO - PLAN PSICOLOGICO</v-stepper-step>                            
+                        <v-stepper-step :complete="PasoAPaso > 5" editable edit-icon="check" step="5"  title="DATOS SOBRE LA FAMILIA, DIAGNOSTICO DEL PACIENTE Y PLAN PSICOLOGICO">FAMILIA - DIAGNOSTICO - PLAN PSICOLOGICO</v-stepper-step>                            
 
                     </v-stepper-header>
                     <!-- CUERPO DE CADA STEPPERS -->
@@ -40,8 +40,10 @@
                                 <v-container v-if="searchPatient">
                                     <datos-persona :readonly="true" :familiar="1" :historialClinico="historialClinico" :paciente="paciente" />
                                 </v-container>
+                                <v-btn color="primary ma-2" @click="IrPaso2" >Continuar</v-btn>
+                                <v-btn color="error"   @click="CloseModalHistoriaPsicologica()">Cerrar</v-btn>
                             </v-form>
-                            <v-btn color="indigo" rounded dark @click="IrPaso2">SIGUIENTE</v-btn>
+                            
                         </v-stepper-content>
                         <v-stepper-content step="2">
                             <v-form>
@@ -144,6 +146,7 @@
 <script>
 import Buscador from '../buscador/Buscador.vue'
 import DatosPersona from "../datos-personas/DatosPersonas.vue";
+import moment from 'moment'
 export default {
     components: {
         DatosPersona,
@@ -207,7 +210,6 @@ export default {
                 const paciente = response.data[0]
 
                 const { persona} = paciente
-                console.log('escolaridad => ', persona.escolaridad)
                 this.paciente = {
                 idPaciente: paciente.idPaciente,
                 primerNombre: persona.primerNombre,
@@ -215,7 +217,7 @@ export default {
                 primerApellido: persona.primerApellido,
                 segundoApellido: persona.segundoApellido,
                 sexo: (persona.sexo) ? 1: 2,
-                fechaNacimiento: persona.fechaNacimiento,
+                fechaNacimiento: moment(persona.fechaNacimiento).format("L"),
                 menu2: false,
                 grupoEtnico: persona.grupoEtnico,
                 escolaridad: persona.escolaridad,
@@ -231,6 +233,9 @@ export default {
                 this.showAlertError = false
                 },3000)
             }
+        },
+        cleanData() {
+            this.searchPatient = false
         },
         SaveHistoriaPsicologica(){
             this.$emit('Save_Historia_Psicologica')
