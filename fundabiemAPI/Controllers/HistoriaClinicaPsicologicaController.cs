@@ -31,7 +31,7 @@ namespace fundabiemAPI.Controllers
         }
 
         //para crear una historia clinica psicologica nueva
-        [HttpPost]
+        [HttpPost("new")]
         public async Task<ActionResult> newHistoriaPsicologica([FromBody]HistoriaClinicaPsicologicaDTO model)
         {
             var txt = "Creating new HistoriaPsicologica by user => "+getUser();
@@ -65,7 +65,7 @@ namespace fundabiemAPI.Controllers
             return Ok(psicologica.Result);
         }
 
-        [HttpGet]
+        [HttpGet("getAll")]
         public async Task<ActionResult<clsResponse<HistoriaClinicaPsicologicaDTO>>> getAll(int pagina, int rowsPerPage)
         {
             logger.LogInformation("Get all ciclo de historia clinica psicologica page {0} rowsPerPage {1} by user => {2}", pagina, rowsPerPage, getUser());

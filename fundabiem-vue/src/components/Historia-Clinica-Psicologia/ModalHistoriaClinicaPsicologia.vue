@@ -49,12 +49,12 @@
                             <v-form>
                                 <v-row>
                                     <v-col>
-                                        <v-textarea v-model="editedItem.MotivoConsultaHP" label="MOTIVO DE LA CONSULTA" auto-grow outlined ></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.motivoDeConsulta" label="MOTIVO DE LA CONSULTA" auto-grow outlined ></v-textarea>
                                     </v-col>
                                 </v-row>
                                 <v-row>
                                     <v-col>
-                                        <v-textarea v-model="editedItem.AntecedentesPacienteHP" label="ANTECEDENTES DEL PACIENTE" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.antecedentesDelPaciente" label="ANTECEDENTES DEL PACIENTE" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row>
                             </v-form>
@@ -64,12 +64,12 @@
                             <v-form>
                                 <v-row>
                                     <v-col>
-                                        <v-textarea v-model="editedItem.PerfilSocialHP" label="PERFIL SOCIAL" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.perfilSocial" label="PERFIL SOCIAL" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row>
                                 <v-row>
                                     <v-col>
-                                        <v-textarea v-model="editedItem.PersonalidadHP" label="PERSONALIDAD" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.personalidad" label="PERSONALIDAD" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row>
                             </v-form>
@@ -79,21 +79,21 @@
                             <v-form>
                                 <v-row>
                                     <v-col md="4">
-                                        <v-textarea v-model="editedItem.AparienciaGeneralHP" label="APARIENCIA GENERAL Y ACTITUD" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.aparecienciaGeneral" label="APARIENCIA GENERAL Y ACTITUD" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="4">
-                                        <v-textarea v-model="editedItem.EstadoConcienciaHP" label="ESTADO DE CONCIENCIA" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.estadoConciencia" label="ESTADO DE CONCIENCIA" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="4">
-                                        <v-textarea v-model="editedItem.EstadoAnimoHP" label="ESTADO DE ANIMO" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.estadoAnimo" label="ESTADO DE ANIMO" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row>
                                 <v-row>
                                     <v-col md="4">
-                                        <v-textarea v-model="editedItem.ActividadMotoraHP" label="ACTIVIDAD MOTORA" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.activiadMotora" label="ACTIVIDAD MOTORA" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="4">
-                                        <v-textarea v-model="editedItem.AsociacionHP" label="ASOCIACION Y FLUJO DE IDEAS" hint="ASOCIACION Y FLUJO DE IDEAS Y CARACTERISTICAS DEL LENGUAJE" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.asociacionIdeasYLenguaje" label="ASOCIACION Y FLUJO DE IDEAS" hint="ASOCIACION Y FLUJO DE IDEAS Y CARACTERISTICAS DEL LENGUAJE" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="4">
                                         <v-textarea v-model="editedItem.ContenidoIdeasHP" label="CONTENIDO DE IDEAS" auto-grow outlined></v-textarea>
@@ -101,16 +101,16 @@
                                 </v-row>
                                 <v-row>
                                     <v-col md="3">
-                                        <v-textarea v-model="editedItem.SensoriumHP" label="SENSORIUM" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.sensorium" label="SENSORIUM" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="3">
-                                        <v-textarea v-model="editedItem.MemoriaHP" label="MEMORIA" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.memoria" label="MEMORIA" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="3">
-                                        <v-textarea v-model="editedItem.PensamientoHP" label="PENSAMIENTO" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.pensamiento" label="PENSAMIENTO" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="3">
-                                        <v-textarea v-model="editedItem.ResultadoHP" label="RESULTADO DEL EXAMEN" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.resultadoExamen" label="RESULTADO DEL EXAMEN" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row>
                                 <v-btn color="indigo" rounded dark @click="IrPaso5">SIGUIENTE</v-btn>
@@ -120,17 +120,17 @@
                             <v-form>
                                 <v-row>
                                     <v-col md="12">
-                                        <v-textarea v-model="editedItem.DatosRelevantesHP" label="DATOS RELEVANTES SOBRE LA FAMILIA DEL PACIENTE" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.datosRelevantesFamiliaPaciente" label="DATOS RELEVANTES SOBRE LA FAMILIA DEL PACIENTE" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row>
                                 <v-row>
                                     <v-col md="12">
-                                        <v-textarea v-model="editedItem.DiagnosticoHP" label="DIAGNOSTICO" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.diagnostico" label="DIAGNOSTICO" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row> 
                                 <v-row>
                                     <v-col md="12">
-                                        <v-textarea v-model="editedItem.PlanOrientacionHP" label="PLAN DE ORIENTACION PSICOLOGICA" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.planOrientacionPsicologica" label="PLAN DE ORIENTACION PSICOLOGICA" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row>
                             </v-form>
@@ -167,7 +167,34 @@ export default {
         PasoAPaso: 0,
         itemsexo: ['MASCULINO', 'FEMENINO'],
         itemEstadoCivil: ['Soltero/a','Comprometido/a', 'En Relacion', 'Casado/a', 'Separado/a', 'Divorciado/a', 'Viudo/a'],
-        historialClinico : { nombre: "" }     
+        historialClinico : { nombre: "" },  
+        objetoGuardar: {
+                        "idPaciente": 0,
+                        "motivoDeConsulta": "string",
+                        "ocupacion": "string",
+                        "origenProcedencia": "string",
+                        "antecedentesDelPaciente": [
+                            {
+                            "descripcion": "string"
+                            }
+                        ],
+                        "examenMental": {
+                            "aparecienciaGeneral": "string",
+                            "estadoConciencia": "string",
+                            "estadoAnimo": "string",
+                            "activiadMotora": "string",
+                            "asociacionIdeasYLenguaje": "string",
+                            "sensorium": "string",
+                            "memoria": "string",
+                            "pensamiento": "string",
+                            "resultadoExamen": "string"
+                        },
+                        "perfilSocial": "string",
+                        "personalidad": "string",
+                        "datosRelevantesFamiliaPaciente": "string",
+                        "diagnostico": "string",
+                        "planOrientacionPsicologica": "string"
+                        }  
     }),
 
     methods: {
@@ -248,7 +275,9 @@ export default {
             this.searchPatient = false
         },
         SaveHistoriaPsicologica(){
-            this.$emit('Save_Historia_Psicologica')
+            console.log('datos ==> ', this.objetoGuardar)
+            this.objetoGuardar.idPaciente= this.paciente.idPaciente
+            this.$emit('Save_Historia_Psicologica',this.objetoGuardar)
         },
 
     },
