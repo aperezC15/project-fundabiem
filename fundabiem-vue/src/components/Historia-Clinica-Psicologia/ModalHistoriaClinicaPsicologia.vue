@@ -34,42 +34,12 @@
                     <v-stepper-items>
                         <v-stepper-content step="1">
                             <v-form>
-                                <!-- DATOS GENERALES ---------------------------- -->
-                                <v-row>
-                                    <v-col cols="12" md="4">
-                                        <v-text-field v-model="editedItem.NombreHP" label="NOMBRE COMPLETO"></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" md="4">
-                                        <v-select v-model="editedItem.SexoHP" label="SEXO" :items="itemsexo"></v-select>
-                                    </v-col>
-                                    <v-col cols="12" md="4">
-                                        <v-text-field v-model="editedItem.EdadHP" label="EDAD" type="number"></v-text-field>
-                                    </v-col>                                            
-                                </v-row>
-                                <v-row>
-                                    <v-col cols="12" md="6">
-                                        <v-text-field v-model="editedItem.EstudiosHP" label="ESTUDIOS"></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" md="6">
-                                        <v-text-field v-model="editedItem.OrigenHP" label="ORIGEN Y PROCEDENCIA"></v-text-field>
-                                    </v-col>
-                                </v-row>
-                                <v-row>
-                                    <v-col cols="12" md="6">
-                                        <v-text-field v-model="editedItem.OcupacionHP" label="OCUPACION"></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" md="3">
-                                        <v-select v-model="editedItem.EstadoCivilHP" label="ESTADO CIVIL" :items="itemEstadoCivil"></v-select>
-                                    </v-col>
-                                    <v-col cols="12" md="3">
-                                        <v-select v-model="editedItem.ReligionHP" label="RELIGION"></v-select>
-                                    </v-col>
-                                </v-row>
-                                <v-row>
-                                    <v-col cols="12" md="12">
-                                        <v-text-field v-model="editedItem.ProgenitorHP" label="DATOS DE LOS PROGENITORES"></v-text-field>
-                                    </v-col>
-                                </v-row>
+                               <buscador @buscador="buscador" @cleanData="cleanData" />
+                               <alert-error-global v-if="showAlertError" message="No se encontraron resultados para el filtro ingresado" />
+                                <alert-error-global v-if="showBusquedaEmpty" message="Debe realizar una búsqueda para poder continuar " />
+                                <v-container v-if="searchPatient">
+                                    <datos-persona :readonly="true" :familiar="1" :historialClinico="historialClinico" :paciente="paciente" />
+                                </v-container>
                             </v-form>
                             <v-btn color="indigo" rounded dark @click="IrPaso2">SIGUIENTE</v-btn>
                         </v-stepper-content>
@@ -172,20 +142,27 @@
 </template>
 
 <script>
+import Buscador from '../buscador/Buscador.vue'
+import DatosPersona from "../datos-personas/DatosPersonas.vue";
 export default {
+    components: {
+        DatosPersona,
+        Buscador
+    },
     props: {
         ModalHistoriaPsicologica: Boolean,
         ModalTitle: String
     },    
 
     data: () => ({
+        paciente: {},
+        searchPatient: false,
+        showAlertError: false,
+        showBusquedaEmpty: false,
         PasoAPaso: 0,
         itemsexo: ['MASCULINO', 'FEMENINO'],
         itemEstadoCivil: ['Soltero/a','Comprometido/a', 'En Relacion', 'Casado/a', 'Separado/a', 'Divorciado/a', 'Viudo/a'],
-            // DATOS GENERALES
-            // NombreHP: '',
-            // SexoHP: '',
-            // EdadHP: '',           
+        historialClinico : { nombre: "" }     
     }),
 
     methods: {
@@ -213,15 +190,48 @@ export default {
         editedItem(){
             this.$emit('variables')
         },
-        // FUNCION GUARDAR SI FUNCIONA
-        // SaveHistoriaPsicologica(){
-        //     const data = {
-        //         NombreHP: this.NombreHP,
-        //         SexoHP: this.SexoHP,
-        //         EdadHP: this.EdadHP,
-        //     }
-        //     this.$emit('Save_Historia_Psicologica',data)
-        // },
+        async buscador(search) {
+            const data = {
+                criterio : search.buscarPor,
+                valor : search.valorDeBusqueda
+            }
+
+            this.searchPatient = false
+            this.showAlertError = false
+            this.searchPatient = false
+
+            const response = await this.$store.dispatch('getPacient', data)
+
+            if(response.status === 200) {
+                this.searchPatient =true
+                const paciente = response.data[0]
+
+                const { persona} = paciente
+                console.log('escolaridad => ', persona.escolaridad)
+                this.paciente = {
+                idPaciente: paciente.idPaciente,
+                primerNombre: persona.primerNombre,
+                segundoNombre: persona.segundoNombre,
+                primerApellido: persona.primerApellido,
+                segundoApellido: persona.segundoApellido,
+                sexo: (persona.sexo) ? 1: 2,
+                fechaNacimiento: persona.fechaNacimiento,
+                menu2: false,
+                grupoEtnico: persona.grupoEtnico,
+                escolaridad: persona.escolaridad,
+                religion: persona.religion,
+                dpi: persona.dpi
+                }
+                this.historialClinico.nombre = paciente.historialClinico
+
+            } else {
+                this.searchPatient = false
+                this.showAlertError = true
+                setTimeout( () => {
+                this.showAlertError = false
+                },3000)
+            }
+        },
         SaveHistoriaPsicologica(){
             this.$emit('Save_Historia_Psicologica')
         },

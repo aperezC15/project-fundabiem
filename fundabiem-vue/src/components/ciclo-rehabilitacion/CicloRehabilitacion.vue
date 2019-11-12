@@ -93,7 +93,7 @@ export default {
       e1: 1,
       paciente: {},
       searchPatient: false,
-       historialClinico : { nombre: "" },
+      historialClinico : { nombre: "" },
       showAlertError: false,
       showBusquedaEmpty: false,
       objetivosIdentificacion: {},
