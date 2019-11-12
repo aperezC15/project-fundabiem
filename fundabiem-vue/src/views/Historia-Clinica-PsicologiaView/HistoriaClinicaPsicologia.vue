@@ -204,6 +204,7 @@ export default {
 
             const response = await this.$store.dispatch("getAllHisotirasPsicologicas",{pagination});
             if(response.data.registrosFundabiem.length >0){
+                this.paginationLenght = response.data.pages
                 response.data.registrosFundabiem.map(register => {
                     const {origenProcedencia, ocupacion, fechaDeRegistro} = register;
                     const { idPaciente, primerApellido, primerNombre, segundoApellido, segundoNombre, grupoEtnico, dpi, sexo, escolaridad} = register.paciente.persona;
