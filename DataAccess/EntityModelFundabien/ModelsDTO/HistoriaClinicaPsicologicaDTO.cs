@@ -31,6 +31,7 @@ namespace EntityModelFundabien.ModelsDTO
         public string personalidad { get; set; }
         public string datosRelevantesFamiliaPaciente { get; set; }
         public string diagnostico { get; set; }
+        public DateTime fechaDeRegistro { get; set; }
         public string planOrientacionPsicologica { get; set; }
         public pacienteDTO paciente { get; set; }
     }

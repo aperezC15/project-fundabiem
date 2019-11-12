@@ -4,5 +4,6 @@ import storeAnamnesis from './Anamnesis'
 import storeEvolucionMedica from './EvolucionMedica'
 import storeCites from './cites'
 import storeEvolucionTecnica from './evolucionTecnica'
+import storeHistoriaClinicaPsicologica from './HistoriaClinicaPsicologica'
 
-export { storeGenerales, storeMedicalRegister, storeAnamnesis, storeEvolucionMedica, storeCites, storeEvolucionTecnica }
+export { storeHistoriaClinicaPsicologica,storeGenerales, storeMedicalRegister, storeAnamnesis, storeEvolucionMedica, storeCites, storeEvolucionTecnica }

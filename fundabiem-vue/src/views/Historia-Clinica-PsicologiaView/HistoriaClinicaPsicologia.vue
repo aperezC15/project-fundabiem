@@ -32,38 +32,56 @@
 
         <!-- INICIO DE LA TABLA PRINCIPAL -->
         <v-data-table 
+        hide-default-footer
         :headers= "HeaderTablePsicologia"
         :items= "DataTablePsicologia"
         :search= "Search_Historia_Psicologica"
-        class="elevation-10"
+        class="elevation-1"
         >
-            <!-- APARTADO PARA AGREGAR LAS ACCIONES DE CADA REGISTRO EN LA TABLA -->
-            <template v-slot:item.action="{ item }">
-                <div class="text-right">
-                    <v-btn class="mx-2" rounded dark color="#2c2e3f" title="EDITAR REGISTRO DE HISTORIA CLINICA PSICOLOGICA">
-                        <v-icon small left>edit</v-icon> EDITAR
-                    </v-btn>
-                </div>
+           <template v-slot:no-data v-if="DataTablePsicologia.length === 0">
+              <v-alert
+                class="text-xs-center"
+                :value="true"
+                color="warning"
+                icon="warning"
+              >No existen registros en la tabla</v-alert>
             </template>
-            <!-- MOSTRAMOS UN MENSAJE DE ERRROR CUANDO LA BUSQUEDA REALIZADA NO ESTE EN LA BASE DE DATOS -->
+
             <template v-slot:no-results>
-                <v-alert type="error">EL REGISTRO {{ Search_Historia_Psicologica }} NO SE ENCUENTRA REGISTRADO</v-alert>
+              <v-alert type="error">EL REGISTRO "{{search}}" NO SE ENCUENTRA EN LA BASE DE DATOS</v-alert>
             </template>
         </v-data-table>
+        <v-pagination
+            v-model="paginationPage"
+            :length="paginationLenght"
+        ></v-pagination>
         <!-- FIN DE LA TABLA PRINCIPAL -->
+        <v-dialog v-model="loading" width="300px">
+        <v-card height="100px" class="d-flex justify-center align-center">
+            <v-card-text>
+            <span class="title font-weight-bold">Cargando...</span>
+            <div class="text-center">
+                <v-progress-linear height="8" indeterminate color="green"></v-progress-linear>
+            </div>
+            </v-card-text>
+        </v-card>
+        </v-dialog>
     </v-container>
 </template>
 
 <script>
 import { __values } from 'tslib';
 import ModalHistoriaClinicaPsicologia from '../../components/Historia-Clinica-Psicologia/ModalHistoriaClinicaPsicologia.vue'
-
+import moment from 'moment'
 export default {
     components: {
         ModalHistoriaClinicaPsicologia
     },
 
     data: () => ({
+        paginationPage: 1,
+        paginationLenght: 0,
+        loading:false,
         DialogoHistoriaPsicologicaHP: false,
 
         // VARIABLE PARA LA BUSQUEDA DE UN REGISTRO DE HISTORIA CLINICA PSICOLOGICA
@@ -71,12 +89,13 @@ export default {
 
         // ENCABEZADO DEL CUERPO DE LA TABLA DE HISTORIA CLINICA PSICOLOGICA
         HeaderTablePsicologia: [
-            {text: 'NOMBRE', value: 'NombreHP', align: 'center'},
-            {text: 'SEXO', value: 'SexoHP', align: 'center'},
-            {text: 'ESTUDIOS', value: 'EstudiosHP', align: 'center'},
-            {text: 'ORIGEN Y PROCEDENCIA', value: 'OrigenHP', align: 'center'},
-            {text: 'OCUPACION', value: 'OcupacionHP', align: 'center'},
-            {text: 'ACCION', value: 'action', align: 'center', sortable: false},
+            {text: "NOMBRE", value: "nombreCompleto", align: "center"},
+            {text: 'SEXO', value: '_sexo', align: 'center'},
+            {text: 'ESTUDIOS', value: 'escolaridad', align: 'center'},
+            {text: 'ORIGEN Y PROCEDENCIA', value: 'origenProcedencia', align: 'center'},
+            {text: 'OCUPACION', value: 'ocupacion', align: 'center'},
+            {text:'Fecha',value:'_fechaDeRegistro',align:'center'},
+            {text: 'ACCION', value: 'action', align: 'center', sortable: false}
         ],
         // DECLARAMOS EL ARRAY QUE CONTENDRA LA INFORMACION DE LOS REGISTROS 
         DataTablePsicologia: [],
@@ -171,23 +190,36 @@ export default {
         },
     },
 
-    created() {
-        this.initialize()
-    },
+   
 
     // metodos de la pagina
     methods: {
-        initialize(){
-            this.DataTablePsicologia = [
-                {
-                    NombreHP: 'Yesli Alejandra Tepe',
-                    SexoHP: 'Femenino',
-                    EdadHP: '22',
-                    EstudiosHP: 'Profesorado en Educacion',
-                    OrigenHP: 'no se',
-                    OcupacionHP: 'no se',
-                }
-            ]
+        async getAllHistoriasPsicologicas(){
+            this.DataTablePsicologia=[]
+            this.loading = true;
+            var pagination = {
+                pagina: this.paginationPage,
+                rowsPerPage: 5
+            };
+
+            const response = await this.$store.dispatch("getAllHisotirasPsicologicas",{pagination});
+            if(response.data.registrosFundabiem.length >0){
+                response.data.registrosFundabiem.map(register => {
+                    const {origenProcedencia, ocupacion, fechaDeRegistro} = register;
+                    const { idPaciente, primerApellido, primerNombre, segundoApellido, segundoNombre, grupoEtnico, dpi, sexo, escolaridad} = register.paciente.persona;
+                    const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`;
+
+                    if(sexo)
+                        var _sexo = 'Masculino'
+                    else 
+                        var _sexo = 'Feminio'
+
+                    var _fechaDeRegistro = moment(fechaDeRegistro).format("L")
+                    this.DataTablePsicologia.push({nombreCompleto, _sexo, escolaridad,origenProcedencia,ocupacion,_fechaDeRegistro })
+                    this.loading = false;
+                });
+            }
+            
         },
 
         editItem (item) {
@@ -229,6 +261,9 @@ export default {
         //     this.DialogoHistoriaPsicologicaHP =  false
         // },
        
+    },
+    mounted(){
+        this.getAllHistoriasPsicologicas()
     }
 }
 </script>
