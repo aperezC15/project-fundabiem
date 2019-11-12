@@ -17,12 +17,12 @@
         <v-card-text>
                 <v-stepper v-model="e1">
             <v-stepper-header>
-              <v-stepper-step :complete="e1 > 1" step="1">Datos del paciente</v-stepper-step>
+              <v-stepper-step color="indigo" :complete="e1 > 1" step="1">Datos del paciente</v-stepper-step>
 
               <v-divider></v-divider>
               
 
-              <v-stepper-step :complete="e1 > 2" step="2">Datos de ANAMNESIS</v-stepper-step>
+              <v-stepper-step color="indigo" :complete="e1 > 2" step="2">Datos de ANAMNESIS</v-stepper-step>
 
 
               <v-divider></v-divider>
@@ -43,8 +43,8 @@
 
                 </v-card>
 
-                  <v-btn color="primary ma-2" @click="continuarStepper" >Continuar</v-btn>
-                  <v-btn color="error"  @click="closeModalAnamnesis">Cerrar</v-btn>
+                  <v-btn class="mx-2" dark color="#1A237E" @click="continuarStepper" >Continuar</v-btn>
+                  <v-btn class="mx-2" dark color="#FF6F00"  @click="closeModalAnamnesis">Cerrar</v-btn>
             
               </v-stepper-content>
  
