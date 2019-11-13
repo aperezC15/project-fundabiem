@@ -94,12 +94,16 @@ export default class tool extends Vue{
         { title: 'Ciclo de Rehabilitacion', icon: "fas fa-address-card", path:'/ciclo-rehabilitacion'},
         { title: 'Evolución médica', icon: "fas fa-user-md", path:'/evolucion-medica'},
         // { title: 'Registros Medicos' , icon: 'far fa-address-card', path: '/HomePageRM'},
-        { title: 'Estudio Socioeconomico' , icon: 'far fa-address-card', path: '/HomePageES'},
+        { title: 'Estudio Socioeconómico' , icon: 'far fa-address-card', path: '/estudio-socioeconomico'},
         // { title: 'Hoja Evolución Técnica ' , icon: 'far fa-address-card', path: '/HomePageET'},
         // { title: 'Hoja de Estadísticas Diarias' , icon: 'far fa-address-card', path: ''},
-        { title: 'Evolución técnica', icon: "fas fa-user-md", path:'/evolucion-tecnica'},
-        { title: 'Citas', icon: "fas fa-address-book", path:'/citas'},
-        { title: 'Historia Clínica Psicologica', icon: "fas fa-user-edit", path:'/Psicologia-clinica'},
+        { title: 'Evolución médica', icon: "far fa-folder", path:'/evolucion-medica'},
+        { title: 'Evolución técnica', icon: "far fa-address-card", path:'/evolucion-tecnica'},
+        { title: 'Citas', icon: "far fa-folder", path:'/citas'},
+        { title: 'Ciclo de Rehabilitación', icon: "far fa-address-card", path:'/ciclo-rehabilitacion'},
+        { title: 'Historia Clínica Psicologia', icon: "far fa-address-card", path:'/Psicologia-clinica'},
+        { title: 'Registros Médicos', icon: "far fa-folder", path:'/registro-medico'},
+        { title: 'Historia Clínica', icon: "far fa-folder", path:'/historia-clinica'},
     ]
 
     // mounted() {
