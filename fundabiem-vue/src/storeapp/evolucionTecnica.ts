@@ -17,10 +17,8 @@ const store = {
 
         getAllTechnicalEvolution : async({}, pagination: any) => {
 
-            console.log(pagination)
             try{
                 const response  = await api.get('EvolucionTecnica',{params: {pagina:pagination.pagination.pagina,rowsPerPage:pagination.pagination.rowsPerPage}})
-                console.log(response)
                 if(response.status === 200){
                     return response
                 }

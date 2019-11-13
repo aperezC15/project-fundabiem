@@ -152,10 +152,9 @@ export default {
       };
       const response = await this.$store.dispatch("getAllTechnicalEvolution",{pagination})
 
-      console.log(response)
       this.loading =false
       //verica que se encuentren registros para mostrar
-      if(response.data.registrosFundabiem.length > 0){
+      if(response.data.registrosFundabiem.length >= 0){
         this.paginationLenght = response.data.pages
         response.data.registrosFundabiem.map(register => {
           const {diagnostico,fecha} = register

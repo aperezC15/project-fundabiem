@@ -88,6 +88,7 @@ export default class tool extends Vue{
     userName:string = ''
     item:number=1
     items:any=[
+        { title: 'Consulta general', icon: "fas fa-hospital", path:'/consulta-general'},
         { title: 'Registros Médicos', icon: "fas fa-user-plus", path:'/registro-medico'},
         { title: 'Historia Clínica', icon: "fas fa-address-card", path:'/historia-clinica'},
         { title: 'Ciclo de Rehabilitacion', icon: "fas fa-address-card", path:'/ciclo-rehabilitacion'},

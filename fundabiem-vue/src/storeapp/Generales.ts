@@ -91,6 +91,19 @@ const store = {
                 return error.response
             }
         },
+
+        getPacientHistoryClinic : async ({}, NumeroHistoriakClinico : any) => {
+            try {
+                const response = await api.get(`Paciente/paciente/searchByHistorialClinico`, {params: {NumeroHistoriakClinico}})
+
+                if(response.status === 200) {
+                    return response
+                }
+
+            }catch(e) {
+                return e.response
+            }
+        },
         getTerapias: async ({}) => {
             try {
                 const response = await api.get('/Fundabiem/Terapias')

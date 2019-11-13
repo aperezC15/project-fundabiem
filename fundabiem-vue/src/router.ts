@@ -19,6 +19,8 @@ import EvolucionMedica from './views/evolucion-medica/EvolucionMedica.vue'
 import CitasPaciente from './views/citas/CitasPaciente.vue'
 import EvolucionTecnica from './views/eolvucion-tecnica/EvolucionTecnica.vue'
 
+import ConsultaGeneral from './views/paciente/Paciente.vue'
+
 //@ts-ignore
 import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
 import axios, { AxiosResponse } from 'axios'
@@ -138,6 +140,11 @@ const router = new Router({
       path: "/citas",
       name: "Citas",
       component: CitasPaciente
+    }, 
+    {
+      path: "/consulta-general",
+      name: "ConsultaGeneral",
+      component: ConsultaGeneral
     }
   ]
 })
