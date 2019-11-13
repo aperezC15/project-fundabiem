@@ -9,7 +9,7 @@ services:
     volumes:
       - "./fundabiemAPI/certificado:/root/.dotnet/https"
     environment:
-      - STRING_CONNECTION=Server=35.183.69.28;port=5432;Database=fundabien;User Id=postgres;Password=Fundabien@2019;Pooling=true;MinPoolSize=1;MaxPoolSize=20;
+      - STRING_CONNECTION=Server=35.183.98.195;port=5432;Database=fundabien;User Id=postgres;Password=Fundabien@2019;Pooling=true;MinPoolSize=1;MaxPoolSize=20;
       - LINK_ETHOS_LOGOUT=https://35.183.69.28:7003/signout-callback-oidc
       - ASPNETCORE_ENVIRONMENT=Development
       - LINK_ETHOS_LOGIN=https://35.183.69.28:7003/signin-oidc
@@ -19,9 +19,9 @@ services:
       - Kestrel__Certificates__Default__Path=/root/.dotnet/https/cert-aspnetcore.pfx
       - Kestrel__Certificates__Default__Password=fundabiem
       #FOR FROM FUNDABIEM
-      - CORS_ORIGIN=https://35.183.69.28:8080
-      - REDIRECT1_URI=https://35.183.69.28:8080/oidc-callback 
-      - REDIRECT2_URI=https://35.183.69.28:8080/silent-renew-oidc.html
+      - URL_FUNDABIEM=http://35.183.98.195:8080
+      - REDIREC1_FUNDABIEM=http://35.183.98.195:8080/oidc-callback 
+      - REDIREC2_FUNDABIEM=http://35.183.98.195:8080/silent-renew-oidc.html
       - POST_LOGOUT=https://35.183.69.28
     ports:
       - "5000:80"
@@ -45,8 +45,8 @@ services:
     #networks:
       #- backend
     ports:
-      - "6000:80"
-      - "6001:443"
+      - "7000:80"
+      - "7001:443"
   
   fundabiem-vue:
       build:
