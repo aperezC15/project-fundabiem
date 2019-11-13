@@ -51,7 +51,6 @@ const store = {
         getAllCicloRehabilitacion : async ({}, pagination: any ) => {
             try {
                 const response = await api.get('/CicloRehabilitacion', {params: {pagina:pagination.pagination.pagina,rowsPerPage:pagination.pagination.rowsPerPage}})
-                console.log(response)
                  if(response.status === 200) {
                      return response
                  }

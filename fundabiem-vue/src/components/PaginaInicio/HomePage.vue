@@ -1,111 +1,104 @@
 <template>
-  <body>
-    <v-carousel hide-delimiters>
-      <v-carousel-item
-        v-for="(item,i) in items"
-        :key="i"
-        :src="item.src"
-      ></v-carousel-item>
-    </v-carousel>
-      <v-content>
-        <div>
-        <section>
-          <v-layout>
-            <v-flex xs12>
-              <v-container grid-list-xl>
-                <v-layout row wrap align-center>
-                  <v-flex xs12 md4>
-                    <v-card flat class="transparent">
-                      <v-card-text class="text-center">
-                        <v-icon x-large class="blue--text text--lighten-2">fas fa-power-off</v-icon>
-                      </v-card-text>
-                      <v-card-title primary-title class="layout justify-center">
-                        <div class="headline text-center">MISION</div>
-                      </v-card-title>
-                      <v-card-text>
-                        Brindar de forma accesible y eficiente, servicios integrales de habilitación y 
-                        rehabilitación a nivel nacional a personas con discapacidad física neuromusculoesquelética, 
-                        para volverlas parte activa de una sociedad inclusiva, con una operación honesta y una 
-                        administración responsable.
-                      </v-card-text>
-                    </v-card>
-                  </v-flex>
-                  <v-flex xs12 md4>
-                    <v-card flat class="transparent">
-                      <v-card-text class="text-center">
-                        <v-icon x-large class="blue--text text--lighten-2">fas fa-power-off</v-icon>
-                      </v-card-text>
-                      <v-card-title primary-title class="layout justify-center">
-                        <div class="headline">VISION</div>
-                      </v-card-title>
-                      <v-card-text>
-                        Ser referente a nivel mundial en el campo de emprendimiento social, siendo 
-                        reconocidos por aplicar las mejores prácticas de gestión en el área médica, 
-                        psicológica, financiera, administrativa, operativa y de recaudación.
-
-                        Nuestras buenas prácticas nos permitirán atender para el 2030 a más de 30 mil
-                        personas con discapacidad física neuromusculoesquelética, quienes serán atendidas
-                        con los mismos estándares de calidad y tecnología en cualquiera de nuestros 
-                        centros de atención.
-                      </v-card-text>
-                    </v-card>
-                  </v-flex>
-                  <v-flex xs12 md4>
-                    <v-card flat class="transparent">
-                      <v-card-text class="text-center">
-                        <v-icon x-large class="blue--text text--lighten-2">fas fa-power-off</v-icon>
-                      </v-card-text>
-                      <v-card-title primary-title class="layout justify-center">
-                        <div class="headline">OBJETIVOS</div>
-                      </v-card-title>
-                      <v-card-text>
-                        Proporcionar servicios de habilitación y rehabilitación integral a personas
-                        con discapacidad física.
-
-                        >Brindar terapia para estimular, inhibir e incrementar la habilidad y 
-                         coordinación, manteniendo o mejorando sus amplitudes articulares y fuerza muscular.
-                        </v-card-text>
-                        <v-card-text>
-                        >Desarrollar la autonomía personal, a través del reforzamiento de área física, 
-                         cognitiva, emocional y laboral.
-                        </v-card-text>
-                      </v-card-text>
-                    </v-card>
-                  </v-flex>
-                </v-layout>
-              </v-container>
-            </v-flex>
-          </v-layout>
-        </section>
-        </div>
-      </v-content>
-  </body>
+  <v-container fluid>
+    <v-row>
+      <v-col cols="6" align="right" justify="right">
+        <v-img 
+          src="img/teleton.jpg"
+          max-width="100"
+          max-height="100"          
+        >    
+        </v-img>      
+      </v-col>
+      <v-col cols="6">
+        <v-img 
+          src="https://get.mw.cr/c/aurens/content/images/colleges/logos/211.png"
+          max-width="100"
+          max-height="100"          
+        >            
+        </v-img>        
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="6">
+        <v-card class="border-card-carousel">
+          <v-carousel cycle hide-delimiter-background show-arrows-on-hover height="430"
+          >
+              <v-carousel-item 
+                  v-for="(images, i) in imagefunda"
+                  :key="i"
+                  :src="images.src"
+                  transition="scale-transition" reverse-transition="scale-transition" origin="center center"
+              >
+              </v-carousel-item>
+          </v-carousel>
+        </v-card>
+      </v-col>
+      <v-col cols="6">
+        <v-container class="text-justify">
+          <v-row class="fill-height" align="center" justify="center">
+            <template v-for="(datos, i) in infofunda">
+              <v-col :key="i" cols="12" md="6"> 
+                <v-hover v-slot:default="{hover}">
+                  <v-card class="border-card" :height="datos.tamaño" :elevation="hover ? 12 : 2" :class="{'on-hover': hover}">
+                    <v-card-title class="headline">{{datos.title}}</v-card-title>
+                    <v-card-text>
+                      {{datos.informacion}}
+                    </v-card-text> 
+                  </v-card>
+                </v-hover>
+              </v-col>
+            </template>
+          </v-row>
+        </v-container>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
+<style>
+  .border-card{
+    border-top: 8px solid #A6A6A6 !important;
+    border-radius:10px;
+  }
 
+  .border-card-carousel{
+    border-bottom: 8px solid #A6A6A6 !important;
+    border-radius:10px;
+  }
+</style>
 <script>
   export default {
     data () {
       return {
-        colors: [
-          'indigo',
-          'warning',
-          'pink darken-2',
-          'red lighten-1',
-          'deep-purple accent-4',
+        showArrows: false,
+        infofunda: [
+          {
+            title: 'MISION',
+            informacion:  'Brindar de forma accesible y eficiente, servicios integrales de habilitación y rehabilitación a nivel nacional a personas con discapacidad física neuromusculoesquelética, para volverlas parte activa de una sociedad inclusiva, con una operación honesta y una administración responsable.',
+            tamaño: '220',
+          },
+          {
+            title:  'VISION',
+            informacion:  'Ser referente a nivel mundial en el campo de emprendimiento social, siendo reconocidos por aplicar las mejores prácticas de gestión en el área médica, psicológica, financiera, administrativa, operativa y de recaudación.',
+            tamaño: '220',
+          },
+          {
+            title:  'VALORES',
+            informacion: '1. Equidad - 2. Unión - 3. Coherencia - 4. Tolerancia - 5. Empatía - 6. Transparencia - 7. Vocación de Servicio y Compromiso al usuario - 8. Solidaridad - 9. Respeto',
+            tamaño: '150',
+          },
+          {
+            title:  'OBJETIVO',
+            informacion: 'Proporcionar servicios de habilitación y rehabilitación integral a personas con discapacidad física.',
+            tamaño: '150',
+          },
         ],
-        items: [
+        imagefunda: [
           {
-            src: 'https://www.yovivoaje.com/wp-content/uploads/2018/06/cielo-teleton-equipo.png',
+            src:"img/fundabiem1.jpeg",
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-          },
+            src:"img/fundabiem2.jpeg",
+          }
         ],
       }
     },

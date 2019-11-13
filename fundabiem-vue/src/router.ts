@@ -10,13 +10,15 @@ import HomePageRM from './components/PaginaRegistroMedico/HomePageRM.vue'
 import HomePageET from './components/EvolucionTecnica/HomePageET.vue'
 import HomePageES from './components/EstudioSocioeconomico/HomePageES.vue'
 import HomePageHC from './components/HistoriaClinica/PageHistoryClinic.vue'
-import HistoriaClinicaPsicologia from './components/Historia-Clinica-Psicologia/HistoriaClinicaPsicologia.vue'
+import HistoriaClinicaPsicologia from './views/Historia-Clinica-PsicologiaView/HistoriaClinicaPsicologia.vue'
 
 import CicloRehabilitacion from './views/Ciclo_Rehabilitacion/Ciclo_de_Rehabilitacion.vue'
 import RegistrosMedicos from './views/registro-medico/RegistroMedicos.vue'
 import HistoriasClinicas from './views/historia-clinica/HistoriaClinica.vue'
 import EvolucionMedica from './views/evolucion-medica/EvolucionMedica.vue'
 import CitasPaciente from './views/citas/CitasPaciente.vue'
+import EvolucionTecnica from './views/eolvucion-tecnica/EvolucionTecnica.vue'
+
 //@ts-ignore
 import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
 import axios, { AxiosResponse } from 'axios'
@@ -126,6 +128,11 @@ const router = new Router({
       path: "/evolucion-medica",
       name: "Evolucion Medica",
       component: EvolucionMedica
+    },
+    {
+      path: "/evolucion-tecnica",
+      name:"Evolucion técnica",
+      component: EvolucionTecnica
     },
     {
       path: "/citas",

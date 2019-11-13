@@ -422,6 +422,57 @@ namespace BrokerServices.Migrations
                         });
                 });
 
+            modelBuilder.Entity("EntityModelFundabien.entities.EstudioSocioeconomico", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("diagnosticoSocial")
+                        .IsRequired()
+                        .HasMaxLength(5000);
+
+                    b.Property<DateTime>("fechaEntrevista");
+
+                    b.Property<long>("idPaciente");
+
+                    b.Property<string>("motivoSolicitud")
+                        .IsRequired()
+                        .HasMaxLength(5000);
+
+                    b.Property<string>("observaciones")
+                        .HasMaxLength(5000);
+
+                    b.Property<string>("opinionTS")
+                        .IsRequired()
+                        .HasMaxLength(5000);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EstudioSocioeconomico");
+                });
+
+            modelBuilder.Entity("EntityModelFundabien.entities.EvaluacionEstudioSocioeconomico", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long>("EstudioSocioeconomicoId");
+
+                    b.Property<long>("ItemEstudioSocioeconomicoId");
+
+                    b.Property<long>("OpcionItemEstudioSocioeconomicoId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EstudioSocioeconomicoId");
+
+                    b.HasIndex("ItemEstudioSocioeconomicoId");
+
+                    b.HasIndex("OpcionItemEstudioSocioeconomicoId");
+
+                    b.ToTable("EvaluacionEstudioSocioeconomico");
+                });
+
             modelBuilder.Entity("EntityModelFundabien.entities.EvolucionMedica", b =>
                 {
                     b.Property<long>("idEvolucionMedica")
@@ -440,6 +491,24 @@ namespace BrokerServices.Migrations
                     b.HasIndex("idPaciente");
 
                     b.ToTable("EvolucionesMedicas");
+                });
+
+            modelBuilder.Entity("EntityModelFundabien.entities.EvolucionTecnica", b =>
+                {
+                    b.Property<long>("idEvolucionTecnica")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("diagnostico");
+
+                    b.Property<DateTime>("fecha");
+
+                    b.Property<long>("idPaciente");
+
+                    b.HasKey("idEvolucionTecnica");
+
+                    b.HasIndex("idPaciente");
+
+                    b.ToTable("EvolucionTenica");
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.FamiliaresPaciente", b =>
@@ -462,6 +531,44 @@ namespace BrokerServices.Migrations
                     b.ToTable("familiaresPacientes");
                 });
 
+            modelBuilder.Entity("EntityModelFundabien.entities.GrupoFamiliar", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Edad");
+
+                    b.Property<string>("Escolaridad")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("EstadoCivil")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<long>("EstudioSocioeconomicoId");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Ocupacion")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Parentezco")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<float>("salario");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EstudioSocioeconomicoId");
+
+                    b.ToTable("GrupoFamiliar");
+                });
+
             modelBuilder.Entity("EntityModelFundabien.entities.HistoriaClinica", b =>
                 {
                     b.Property<long>("idHistoriaClinica")
@@ -482,6 +589,38 @@ namespace BrokerServices.Migrations
                     b.HasIndex("idPaciente");
 
                     b.ToTable("HistoriasClinicas");
+                });
+
+            modelBuilder.Entity("EntityModelFundabien.entities.HistoriaClinicaPsicologica", b =>
+                {
+                    b.Property<long>("idHistoriaclinicaPsicologica")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("datosRelevantesFamiliaPaciente");
+
+                    b.Property<string>("diagnostico");
+
+                    b.Property<DateTime>("fechaDeRegistro");
+
+                    b.Property<long>("idPaciente");
+
+                    b.Property<string>("motivoDeConsulta");
+
+                    b.Property<string>("ocupacion");
+
+                    b.Property<string>("origenProcedencia");
+
+                    b.Property<string>("perfilSocial");
+
+                    b.Property<string>("personalidad");
+
+                    b.Property<string>("planOrientacionPsicologica");
+
+                    b.HasKey("idHistoriaclinicaPsicologica");
+
+                    b.HasIndex("idPaciente");
+
+                    b.ToTable("HistoriaClinicaPsicologicas");
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.ItemAnamnesis", b =>
@@ -701,22 +840,94 @@ namespace BrokerServices.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<long>("SeccionEstudioSocioeconomicoId");
+
                     b.Property<string>("descripcion")
                         .HasMaxLength(255);
-
-                    b.Property<long>("idSeccionEstudioSocioeconomico");
 
                     b.Property<string>("nombre")
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<long?>("seccionId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("seccionId");
+                    b.HasIndex("SeccionEstudioSocioeconomicoId");
 
                     b.ToTable("ItemsEstudioSocioeconomico");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            SeccionEstudioSocioeconomicoId = 1L,
+                            nombre = "Paredes"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            SeccionEstudioSocioeconomicoId = 1L,
+                            nombre = "Techo"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            SeccionEstudioSocioeconomicoId = 1L,
+                            nombre = "Pisos"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            SeccionEstudioSocioeconomicoId = 1L,
+                            nombre = "No. de habitaciones"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            SeccionEstudioSocioeconomicoId = 1L,
+                            nombre = "Agua"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            SeccionEstudioSocioeconomicoId = 1L,
+                            nombre = "Luz eléctrica"
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            SeccionEstudioSocioeconomicoId = 1L,
+                            nombre = "Servicio sanitario"
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            SeccionEstudioSocioeconomicoId = 1L,
+                            nombre = "Letrina"
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            SeccionEstudioSocioeconomicoId = 1L,
+                            nombre = "Otros"
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            SeccionEstudioSocioeconomicoId = 1L,
+                            nombre = "La cocina está fuera del dormitorio"
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            SeccionEstudioSocioeconomicoId = 1L,
+                            nombre = "Vivienda"
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            SeccionEstudioSocioeconomicoId = 1L,
+                            nombre = "Pago mensual de vivienda"
+                        });
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.Municipio", b =>
@@ -2813,6 +3024,44 @@ namespace BrokerServices.Migrations
                         });
                 });
 
+            modelBuilder.Entity("EntityModelFundabien.entities.OpcionItemEstudioSocioeconomico", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long>("ItemEstudioSocioeconomicoId");
+
+                    b.Property<string>("nombre")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemEstudioSocioeconomicoId");
+
+                    b.ToTable("OpcionesItemsEstudioSocioeconomico");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            ItemEstudioSocioeconomicoId = 1L,
+                            nombre = "Block"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            ItemEstudioSocioeconomicoId = 1L,
+                            nombre = "Madera"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            ItemEstudioSocioeconomicoId = 1L,
+                            nombre = "Nylon"
+                        });
+                });
+
             modelBuilder.Entity("EntityModelFundabien.entities.Paciente", b =>
                 {
                     b.Property<long>("idPaciente")
@@ -3015,6 +3264,13 @@ namespace BrokerServices.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SeccionesEstudioSocioeconomico");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            nombre = "Vivienda"
+                        });
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.Telefono", b =>
@@ -3161,6 +3417,57 @@ namespace BrokerServices.Migrations
                     b.ToTable("Tratamientos");
                 });
 
+            modelBuilder.Entity("EntityModelFundabien.entities.antecedentesPaciente", b =>
+                {
+                    b.Property<long>("idAntecedente")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("descripcion");
+
+                    b.Property<long>("idHistoriaClinicaPsicologica");
+
+                    b.HasKey("idAntecedente");
+
+                    b.HasIndex("idHistoriaClinicaPsicologica");
+
+                    b.ToTable("AntecedentesPacientes");
+                });
+
+            modelBuilder.Entity("EntityModelFundabien.entities.examenMental", b =>
+                {
+                    b.Property<long>("idExamenMental")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("activiadMotora");
+
+                    b.Property<string>("aparecienciaGeneral");
+
+                    b.Property<string>("asociacionIdeasYLenguaje");
+
+                    b.Property<string>("contenidoDeIdeas");
+
+                    b.Property<string>("estadoAnimo");
+
+                    b.Property<string>("estadoConciencia");
+
+                    b.Property<long>("idHistoriaClinicaPsicologica");
+
+                    b.Property<string>("memoria");
+
+                    b.Property<string>("pensamiento");
+
+                    b.Property<string>("resultadoExamen");
+
+                    b.Property<string>("sensorium");
+
+                    b.HasKey("idExamenMental");
+
+                    b.HasIndex("idHistoriaClinicaPsicologica")
+                        .IsUnique();
+
+                    b.ToTable("examenMental");
+                });
+
             modelBuilder.Entity("EntityModelFundabien.entities.Anamnesis", b =>
                 {
                     b.HasOne("EntityModelFundabien.entities.HistoriaClinica", "historiaClinica")
@@ -3254,10 +3561,36 @@ namespace BrokerServices.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("EntityModelFundabien.entities.EvaluacionEstudioSocioeconomico", b =>
+                {
+                    b.HasOne("EntityModelFundabien.entities.EstudioSocioeconomico", "estudioSocioeconomico")
+                        .WithMany("evaluacion")
+                        .HasForeignKey("EstudioSocioeconomicoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("EntityModelFundabien.entities.ItemEstudioSocioeconomico", "item")
+                        .WithMany("evaluaciones")
+                        .HasForeignKey("ItemEstudioSocioeconomicoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("EntityModelFundabien.entities.OpcionItemEstudioSocioeconomico", "opcion")
+                        .WithMany("evaluaciones")
+                        .HasForeignKey("OpcionItemEstudioSocioeconomicoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("EntityModelFundabien.entities.EvolucionMedica", b =>
                 {
                     b.HasOne("EntityModelFundabien.entities.Paciente", "paciente")
                         .WithMany("evolucionesMedicas")
+                        .HasForeignKey("idPaciente")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EntityModelFundabien.entities.EvolucionTecnica", b =>
+                {
+                    b.HasOne("EntityModelFundabien.entities.Paciente", "paciente")
+                        .WithMany()
                         .HasForeignKey("idPaciente")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -3270,7 +3603,23 @@ namespace BrokerServices.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("EntityModelFundabien.entities.GrupoFamiliar", b =>
+                {
+                    b.HasOne("EntityModelFundabien.entities.EstudioSocioeconomico", "estudioSocioeconomico")
+                        .WithMany("grupoFamiliar")
+                        .HasForeignKey("EstudioSocioeconomicoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("EntityModelFundabien.entities.HistoriaClinica", b =>
+                {
+                    b.HasOne("EntityModelFundabien.entities.Paciente", "paciente")
+                        .WithMany()
+                        .HasForeignKey("idPaciente")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EntityModelFundabien.entities.HistoriaClinicaPsicologica", b =>
                 {
                     b.HasOne("EntityModelFundabien.entities.Paciente", "paciente")
                         .WithMany()
@@ -3290,7 +3639,8 @@ namespace BrokerServices.Migrations
                 {
                     b.HasOne("EntityModelFundabien.entities.SeccionEstudioSocioeconomico", "seccion")
                         .WithMany("items")
-                        .HasForeignKey("seccionId");
+                        .HasForeignKey("SeccionEstudioSocioeconomicoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("EntityModelFundabien.entities.Municipio", b =>
@@ -3298,6 +3648,14 @@ namespace BrokerServices.Migrations
                     b.HasOne("EntityModelFundabien.entities.Departamento")
                         .WithMany("municipios")
                         .HasForeignKey("idDepartamento")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EntityModelFundabien.entities.OpcionItemEstudioSocioeconomico", b =>
+                {
+                    b.HasOne("EntityModelFundabien.entities.ItemEstudioSocioeconomico", "item")
+                        .WithMany("opciones")
+                        .HasForeignKey("ItemEstudioSocioeconomicoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -3351,6 +3709,22 @@ namespace BrokerServices.Migrations
                     b.HasOne("EntityModelFundabien.entities.HistoriaClinica", "historiaClinica")
                         .WithOne("tratamiento")
                         .HasForeignKey("EntityModelFundabien.entities.Tratamiento", "idHistoriaClinica")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EntityModelFundabien.entities.antecedentesPaciente", b =>
+                {
+                    b.HasOne("EntityModelFundabien.entities.HistoriaClinicaPsicologica", "HistoriaClinicaPsicologica")
+                        .WithMany("antecedentesDelPaciente")
+                        .HasForeignKey("idHistoriaClinicaPsicologica")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("EntityModelFundabien.entities.examenMental", b =>
+                {
+                    b.HasOne("EntityModelFundabien.entities.HistoriaClinicaPsicologica", "HistoriaClinicaPsicologica")
+                        .WithOne("examenMental")
+                        .HasForeignKey("EntityModelFundabien.entities.examenMental", "idHistoriaClinicaPsicologica")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

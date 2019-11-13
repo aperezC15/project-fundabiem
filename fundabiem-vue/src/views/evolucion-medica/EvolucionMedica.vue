@@ -21,10 +21,10 @@
               single-line
               hide-details
             ></v-text-field>
-            <v-tooltip bottom>
+            <v-tooltip bottom color="#0277BD">
               <template v-slot:activator="{ on }">
                 <v-btn
-                  color="indigo"
+                  color="#039BE5"
                   fab
                   class="mx-2"
                   @click="openDialogRehabilitation"
@@ -38,15 +38,15 @@
 
           <v-data-table hide-default-footer :headers="headers" :items="evolucionMedica" :search="search" class="elevation-1">
             <template v-slot:no-data v-if="evolucionMedica.length === 0">
-              <v-alert
+              <v-alert dark
                 class="text-xs-center"
                 :value="true"
-                color="warning"
+                color="#FF0000"
                 icon="warning"
               >No existen registros en la tabla</v-alert>
             </template>
 
-            <template v-slot:item.action="{item}">
+            <!-- <template v-slot:item.action="{item}">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-btn
@@ -60,7 +60,7 @@
                 </template>
                 <span>Editar evolución médica</span>
               </v-tooltip>
-            </template>
+            </template> -->
             <template v-slot:no-results>
               <v-alert type="error">EL REGISTRO "{{search}}" NO SE ENCUENTRA EN LA BASE DE DATOS</v-alert>
             </template>
@@ -76,6 +76,7 @@
     </v-layout>
 
     <evolucion-medica
+      ruta="medica"
       :dialogEvolucionMedica="dialogEvolucionMedica"
       @closeModalEvolucion="closeModalEvolucion"
       @closeDialog="closeDialog"
@@ -150,10 +151,11 @@ export default {
         rowsPerPage: 5
       };
       const response = await this.$store.dispatch("getAllEvolucionesMedicas",{pagination})
+
+      console.log(response)
       this.loading =false
-      console.log('datos ==> ',response.data)
       //verica que se encuentren registros para mostrar
-      if(response.data.registrosFundabiem.length > 0){
+      if(response.data.registrosFundabiem.length >= 0){
         this.paginationLenght = response.data.pages
         response.data.registrosFundabiem.map(register => {
           const {diagnostico,fecha} = register
@@ -183,6 +185,8 @@ export default {
 
     async saveEvolucionMedica(data) {
 
+      console.log(data)
+
       this.cargando = true
       this.dialogEvolucionMedica = false
       
@@ -193,6 +197,7 @@ export default {
             const title = "Nueva evolución médica con éxito!"
             const message = "Nueva evolución médica exitosamente"
             this.showAlert(title, message, "success")
+            this.getAllEvolucionesMedicas();
         } else {
             const title = "Nueva evolución médica sin éxito!"
             const message = "No se creó la nueva evolución médica "

@@ -7,11 +7,11 @@
       transition="dialog-bottom-transition"
     >
       <v-card class="mx-auto">
-        <v-toolbar dark color="info">
+        <v-toolbar dark color="#2c2e3f">
           <v-toolbar-title>Settings</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark text @click="closeModal">Cerrar</v-btn>
+            <v-btn dark rounded color="indigo" @click="closeModal">Cerrar</v-btn>
           </v-toolbar-items>
         </v-toolbar>
 

@@ -38,6 +38,12 @@
     <Compile Remove="Migrations\20191030174449_pruebaTerapia.Designer.cs" />
     <Compile Remove="Migrations\20191030181126_pruebaTe.cs" />
     <Compile Remove="Migrations\20191030181126_pruebaTe.Designer.cs" />
+    <Compile Remove="Migrations\20191110185241_clinicaPsicologica.cs" />
+    <Compile Remove="Migrations\20191110185241_clinicaPsicologica.Designer.cs" />
+    <Compile Remove="Migrations\20191110200253_psi.cs" />
+    <Compile Remove="Migrations\20191110200253_psi.Designer.cs" />
+    <Compile Remove="Migrations\20191111190258_examenMental.cs" />
+    <Compile Remove="Migrations\20191111190258_examenMental.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

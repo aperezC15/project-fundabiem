@@ -29,5 +29,8 @@ namespace EntityModelFundabien.entities
         public string Ocupacion { get; set; }
         [Required]
         public float salario { get; set; }
+
+
+        public EstudioSocioeconomico estudioSocioeconomico { get; set; }
     }
 }

@@ -17,14 +17,14 @@
         <v-card-text>
                 <v-stepper v-model="e1">
             <v-stepper-header>
-              <v-stepper-step :complete="e1 > 1" step="1">Datos del paciente</v-stepper-step>
+              <v-stepper-step color="indigo" :complete="e1 > 1" step="1">Datos del paciente</v-stepper-step>
 
               <v-divider></v-divider>
 
-              <v-stepper-step :complete="e1 > 2" step="2">Objetivos de intervención</v-stepper-step>
+              <v-stepper-step color="indigo" :complete="e1 > 2" step="2">Objetivos de intervención</v-stepper-step>
               <v-divider></v-divider>
 
-              <v-stepper-step :complete="e1 > 3" step="3">Checklist Objetivos de intervención</v-stepper-step>
+              <v-stepper-step color="indigo" :complete="e1 > 3" step="3">Checklist Objetivos de intervención</v-stepper-step>
               <v-divider></v-divider>
 
             </v-stepper-header>
@@ -42,8 +42,8 @@
                     </v-container>
 
                 </v-card>
-                  <v-btn color="primary ma-2" @click="continuarStepper" >Continuar</v-btn>
-                  <v-btn color="error"  @click="closeModalRehabilitation">Cerrar</v-btn>
+                  <v-btn class="mx-2" dark color="#1A237E" @click="continuarStepper" >Continuar</v-btn>
+                  <v-btn dark color="#FF6F00"  @click="closeModalRehabilitation">Cerrar</v-btn>
         
               </v-stepper-content>
  
@@ -93,7 +93,7 @@ export default {
       e1: 1,
       paciente: {},
       searchPatient: false,
-       historialClinico : { nombre: "" },
+      historialClinico : { nombre: "" },
       showAlertError: false,
       showBusquedaEmpty: false,
       objetivosIdentificacion: {},

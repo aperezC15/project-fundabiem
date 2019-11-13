@@ -126,7 +126,7 @@ namespace fundabiemAPI
                 app.UseHsts();
             }
             app.UseCors("default");
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();
         }

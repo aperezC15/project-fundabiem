@@ -9,7 +9,7 @@
                 </v-flex>
             </v-layout>
         <v-card>
-          <v-toolbar flat dark color="#2c2e3f">
+          <v-toolbar flat dark color="#616161">
             <v-toolbar-title>REGISTROS</v-toolbar-title>
             <v-divider class="mx-4" vertical></v-divider>
             <div class="flex-grow-1"></div>
@@ -21,27 +21,32 @@
               single-line
               hide-details
             ></v-text-field>
-            <v-btn
-              color="indigo"
-              fab
-              title="NUEVO CICLO DE REHABILITACIÓN"
-              class="mx-2"
-              @click="openDialogRehabilitation"
-            >
-              <v-icon>add</v-icon>
-            </v-btn>
+            <v-tooltip bottom color="#0277BD">
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  fab
+                  v-on="on"
+                  color="#039BE5"
+                  class="mx-2"
+                  @click="openDialogRehabilitation"
+                >
+                  <v-icon>add</v-icon>
+                </v-btn>
+              </template>
+              <span>NUEVO CICLO DE REHABILITACIÓN</span>
+            </v-tooltip>
           </v-toolbar>
 
           <v-data-table hide-default-footer :headers="headers" :items="cicloRehabilitacionCIF" :search="search" class="elevation-1">
             <template v-slot:no-data v-if="cicloRehabilitacionCIF.length === 0">
-              <v-alert
+              <v-alert dark
                 class="text-xs-center"
                 :value="true"
-                color="warning"
+                color="#FF0000"
                 icon="warning"
               >No existen registros en la tabla</v-alert>
             </template>
-
+<!-- 
             <template v-slot:item.action="{item}">
               <v-btn
                 title="EDITAR REGISTRO DE ESTUDIO SOCIOECONOMICO"
@@ -52,7 +57,7 @@
               >
                 <v-icon>edit</v-icon>
               </v-btn>
-            </template>
+            </template> -->
             <template v-slot:no-results>
               <v-alert type="error">EL REGISTRO "{{search}}" NO SE ENCUENTRA EN LA BASE DE DATOS</v-alert>
             </template>

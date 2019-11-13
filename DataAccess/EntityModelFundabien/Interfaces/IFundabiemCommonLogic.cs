@@ -61,7 +61,22 @@ namespace EntityModelFundabien.Interfaces
         Task<citaDTO> getCitaById(int id);
         Task<IEnumerable<citaDTO>> getCitaByDate(string DateType, DateTime fecha, bool range, DateTime dateEnd, int idTerapia, int idEstado);
         Task<clsResponse<HistoriaClinica>> getAllHistoriaClinicas(int pagina, int rowsPerPAge);
+
+
+
+        // estudio socioeconomico
+        Task<clsResponse<EstudioSocioeconomicoDTO>> getAllEstudioSocioeconomico(int pagina, int rowsPerPAge);
+        Task<EstudioSocioeconomicoDTO> getEstudioSocioeconomicoById(long id);
+        Task<clsResponse<SeccionEstudioSocioeconomicoDTO>> getAllSeccionesDeEstudioSocioeconomico();
+        Task<EstudioSocioeconomicoDTO> newEstudioSocioeconomico(CreateEstudioSocioeconomicoDTO modelo);
+
         Task<clsResponse<CicloDeRehabilitacionDTO>> getAllCiclosRehabilitacion(int pagina, int rowsPerPage);
         Task<clsResponse<DTOEvolucionMedica>> getAllEvolucionesMedicas(int pagina, int rowsPerPage);
+        Task<EvolucionTecnica> newEvolucionTecnica(CreateEvolucionTecnicaDTO model);
+        Task<EvolucionTecnicaDTO> getEvelucionTecnica(Int64 idEvolucionTecnica);
+        Task<clsResponse<EvolucionTecnicaDTO>> getAllEvolucionesTecnicas(int pagina, int rowsPerPage);
+        Task<HistoriaClinicaPsicologica> newHistoriaClinicaPsicologica(HistoriaClinicaPsicologicaDTO model);
+        Task<HistoriaClinicaPsicologica> getHistoriaClinicaPsicologicaById(int id);
+        Task<clsResponse<HistoriaClinicaPsicologicaDTOResponse>> getallHistoriaClinicaPsicologicas(int pagina, int rowsPerPage);
     }
 }
