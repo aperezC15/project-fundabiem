@@ -15,74 +15,63 @@
                 <v-stepper v-model="PasoAPaso">
                     <!-- ENCABEZADO DEL STEPPERS -->
                     <v-stepper-header>
-                        <v-stepper-step :complete="PasoAPaso > 1" editable edit-icon="check" step="1" color="#2c2e3f" title="DATOS GENERALES">DATOS GENERALES</v-stepper-step>
+                        <v-stepper-step :complete="PasoAPaso > 1" editable edit-icon="check" step="1" title="DATOS GENERALES">DATOS GENERALES</v-stepper-step>
                         <v-divider></v-divider>
 
-                        <v-stepper-step :complete="PasoAPaso > 2" editable edit-icon="check" step="2" color="#2c2e3f" title="MOTIVO DE LA CONSULTA Y ANTECEDENTES DEL PACIENTE">CONSULTA - ANTECEDENTES</v-stepper-step>
+                        <v-stepper-step :complete="PasoAPaso > 2" editable edit-icon="check" step="2"  title="MOTIVO DE LA CONSULTA Y ANTECEDENTES DEL PACIENTE">CONSULTA - ANTECEDENTES</v-stepper-step>
                         <v-divider></v-divider>
 
-                        <v-stepper-step :complete="PasoAPaso > 3" editable edit-icon="check" step="3" color="#2c2e3f" title="PERFIL SOCIAL Y PERSONALIDAD">PERFIL - PERSONALIDAD</v-stepper-step>
+                        <v-stepper-step :complete="PasoAPaso > 3" editable edit-icon="check" step="3" title="PERFIL SOCIAL Y PERSONALIDAD">PERFIL - PERSONALIDAD</v-stepper-step>
                         <v-divider></v-divider>
 
-                        <v-stepper-step :complete="PasoAPaso > 4" editable edit-icon="check" step="4" color="#2c2e3f" title="EXAMEN MENTAL">EXAMEN MENTAL</v-stepper-step>
+                        <v-stepper-step :complete="PasoAPaso > 4" editable edit-icon="check" step="4" title="EXAMEN MENTAL">EXAMEN MENTAL</v-stepper-step>
                         <v-divider></v-divider>
 
-                        <v-stepper-step :complete="PasoAPaso > 5" editable edit-icon="check" step="5" color="#2c2e3f" title="DATOS SOBRE LA FAMILIA, DIAGNOSTICO DEL PACIENTE Y PLAN PSICOLOGICO">FAMILIA - DIAGNOSTICO - PLAN PSICOLOGICO</v-stepper-step>                            
+                        <v-stepper-step :complete="PasoAPaso > 5" editable edit-icon="check" step="5"  title="DATOS SOBRE LA FAMILIA, DIAGNOSTICO DEL PACIENTE Y PLAN PSICOLOGICO">FAMILIA - DIAGNOSTICO - PLAN PSICOLOGICO</v-stepper-step>                            
 
                     </v-stepper-header>
                     <!-- CUERPO DE CADA STEPPERS -->
                     <v-stepper-items>
                         <v-stepper-content step="1">
                             <v-form>
-                                <!-- DATOS GENERALES ---------------------------- -->
-                                <v-row>
-                                    <v-col cols="12" md="4">
-                                        <v-text-field v-model="editedItem.NombreHP" label="NOMBRE COMPLETO"></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" md="4">
-                                        <v-select v-model="editedItem.SexoHP" label="SEXO" :items="itemsexo"></v-select>
-                                    </v-col>
-                                    <v-col cols="12" md="4">
-                                        <v-text-field v-model="editedItem.EdadHP" label="EDAD" type="number"></v-text-field>
-                                    </v-col>                                            
-                                </v-row>
-                                <v-row>
-                                    <v-col cols="12" md="6">
-                                        <v-text-field v-model="editedItem.EstudiosHP" label="ESTUDIOS"></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" md="6">
-                                        <v-text-field v-model="editedItem.OrigenHP" label="ORIGEN Y PROCEDENCIA"></v-text-field>
-                                    </v-col>
-                                </v-row>
-                                <v-row>
-                                    <v-col cols="12" md="6">
-                                        <v-text-field v-model="editedItem.OcupacionHP" label="OCUPACION"></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" md="3">
-                                        <v-select v-model="editedItem.EstadoCivilHP" label="ESTADO CIVIL" :items="itemEstadoCivil"></v-select>
-                                    </v-col>
-                                    <v-col cols="12" md="3">
-                                        <v-select v-model="editedItem.ReligionHP" label="RELIGION"></v-select>
-                                    </v-col>
-                                </v-row>
-                                <v-row>
-                                    <v-col cols="12" md="12">
-                                        <v-text-field v-model="editedItem.ProgenitorHP" label="DATOS DE LOS PROGENITORES"></v-text-field>
-                                    </v-col>
-                                </v-row>
+                               <buscador @buscador="buscador" @cleanData="cleanData" />
+                               <alert-error-global v-if="showAlertError" message="No se encontraron resultados para el filtro ingresado" />
+                                <alert-error-global v-if="showBusquedaEmpty" message="Debe realizar una búsqueda para poder continuar " />
+                                <v-container v-if="searchPatient">
+                                    <datos-persona :readonly="true" :familiar="1" :historialClinico="historialClinico" :paciente="paciente" />
+                                </v-container>
+                                <v-btn color="primary ma-2" @click="IrPaso2" >Continuar</v-btn>
+                                <v-btn color="error"   @click="CloseModalHistoriaPsicologica()">Cerrar</v-btn>
                             </v-form>
-                            <v-btn color="indigo" rounded dark @click="IrPaso2">SIGUIENTE</v-btn>
+                            
                         </v-stepper-content>
                         <v-stepper-content step="2">
                             <v-form>
                                 <v-row>
-                                    <v-col>
-                                        <v-textarea v-model="editedItem.MotivoConsultaHP" label="MOTIVO DE LA CONSULTA" auto-grow outlined ></v-textarea>
-                                    </v-col>
+                                    <v-container>
+                                        <v-row>
+                                            <v-col cols="12" md="4" >
+                                                <v-text-field v-model="objetoGuardar.ocupacion" :rules="nameRules"  label="Ocupacion" required></v-text-field>
+                                            </v-col>
+
+                                            <v-col cols="12" md="4">
+                                                <v-text-field v-model="objetoGuardar.origenProcedencia" :rules="nameRules"  label="Origen o Procedencia" required></v-text-field>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
                                 </v-row>
                                 <v-row>
                                     <v-col>
-                                        <v-textarea v-model="editedItem.AntecedentesPacienteHP" label="ANTECEDENTES DEL PACIENTE" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.motivoDeConsulta" label="MOTIVO DE LA CONSULTA" auto-grow outlined ></v-textarea>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col s2>
+                                        <v-textarea v-model="antecedente" label="ANTECEDENTE DEL PACIENTE" auto-grow outlined></v-textarea>
+                                        <v-btn color="primary mt-3" :disabled="!antecedente"  @click="agregarAlListado">Agregar al listado</v-btn>
+                                        <!--para los antecedentes-->
+                                        <v-data-table hide-default-footer dense :headers="headers" :items="objetoGuardar.antecedentesDelPaciente"  class="elevation-1"></v-data-table>
+                                        <!--para los antecedentes-->
                                     </v-col>
                                 </v-row>
                             </v-form>
@@ -92,12 +81,12 @@
                             <v-form>
                                 <v-row>
                                     <v-col>
-                                        <v-textarea v-model="editedItem.PerfilSocialHP" label="PERFIL SOCIAL" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.perfilSocial" label="PERFIL SOCIAL" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row>
                                 <v-row>
                                     <v-col>
-                                        <v-textarea v-model="editedItem.PersonalidadHP" label="PERSONALIDAD" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.personalidad" label="PERSONALIDAD" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row>
                             </v-form>
@@ -107,38 +96,38 @@
                             <v-form>
                                 <v-row>
                                     <v-col md="4">
-                                        <v-textarea v-model="editedItem.AparienciaGeneralHP" label="APARIENCIA GENERAL Y ACTITUD" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.aparecienciaGeneral" label="APARIENCIA GENERAL Y ACTITUD" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="4">
-                                        <v-textarea v-model="editedItem.EstadoConcienciaHP" label="ESTADO DE CONCIENCIA" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.estadoConciencia" label="ESTADO DE CONCIENCIA" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="4">
-                                        <v-textarea v-model="editedItem.EstadoAnimoHP" label="ESTADO DE ANIMO" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.estadoAnimo" label="ESTADO DE ANIMO" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row>
                                 <v-row>
                                     <v-col md="4">
-                                        <v-textarea v-model="editedItem.ActividadMotoraHP" label="ACTIVIDAD MOTORA" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.activiadMotora" label="ACTIVIDAD MOTORA" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="4">
-                                        <v-textarea v-model="editedItem.AsociacionHP" label="ASOCIACION Y FLUJO DE IDEAS" hint="ASOCIACION Y FLUJO DE IDEAS Y CARACTERISTICAS DEL LENGUAJE" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.asociacionIdeasYLenguaje" label="ASOCIACION Y FLUJO DE IDEAS" hint="ASOCIACION Y FLUJO DE IDEAS Y CARACTERISTICAS DEL LENGUAJE" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="4">
-                                        <v-textarea v-model="editedItem.ContenidoIdeasHP" label="CONTENIDO DE IDEAS" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.contenidoDeIdeas" label="CONTENIDO DE IDEAS" auto-grow outlined></v-textarea>
                                     </v-col>                                        
                                 </v-row>
                                 <v-row>
                                     <v-col md="3">
-                                        <v-textarea v-model="editedItem.SensoriumHP" label="SENSORIUM" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.sensorium" label="SENSORIUM" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="3">
-                                        <v-textarea v-model="editedItem.MemoriaHP" label="MEMORIA" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.memoria" label="MEMORIA" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="3">
-                                        <v-textarea v-model="editedItem.PensamientoHP" label="PENSAMIENTO" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.pensamiento" label="PENSAMIENTO" auto-grow outlined></v-textarea>
                                     </v-col>
                                     <v-col md="3">
-                                        <v-textarea v-model="editedItem.ResultadoHP" label="RESULTADO DEL EXAMEN" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.examenMental.resultadoExamen" label="RESULTADO DEL EXAMEN" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row>
                                 <v-btn color="indigo" rounded dark @click="IrPaso5">SIGUIENTE</v-btn>
@@ -148,17 +137,17 @@
                             <v-form>
                                 <v-row>
                                     <v-col md="12">
-                                        <v-textarea v-model="editedItem.DatosRelevantesHP" label="DATOS RELEVANTES SOBRE LA FAMILIA DEL PACIENTE" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.datosRelevantesFamiliaPaciente" label="DATOS RELEVANTES SOBRE LA FAMILIA DEL PACIENTE" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row>
                                 <v-row>
                                     <v-col md="12">
-                                        <v-textarea v-model="editedItem.DiagnosticoHP" label="DIAGNOSTICO" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.diagnostico" label="DIAGNOSTICO" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row> 
                                 <v-row>
                                     <v-col md="12">
-                                        <v-textarea v-model="editedItem.PlanOrientacionHP" label="PLAN DE ORIENTACION PSICOLOGICA" auto-grow outlined></v-textarea>
+                                        <v-textarea v-model="objetoGuardar.planOrientacionPsicologica" label="PLAN DE ORIENTACION PSICOLOGICA" auto-grow outlined></v-textarea>
                                     </v-col>
                                 </v-row>
                             </v-form>
@@ -172,24 +161,84 @@
 </template>
 
 <script>
+import Buscador from '../buscador/Buscador.vue'
+import DatosPersona from "../datos-personas/DatosPersonas.vue";
+import AlertErrorGlobal from '../alertas/alertErrorGlobal.vue'
+import DataTables from '../data-tables/DataTables.vue' 
+import moment from 'moment'
 export default {
+    components: {
+        DatosPersona,
+        Buscador,
+        AlertErrorGlobal
+    },
     props: {
         ModalHistoriaPsicologica: Boolean,
         ModalTitle: String
     },    
 
     data: () => ({
+        nameRules: [
+            v => !!v || 'Este campo es requerido',
+            //v => v.length <= 10 || 'Name must be less than 10 characters',
+        ],
+        antecedente:'',
+        paciente: {},
+        dataAntecedentes: [],
+        headers: [
+        { text: "Descripcion del antecedente", align: "left", sortable: false, value: "descripcion" },
+        //{ text: "Segundo Nombre", align: "left", sortable: false, value: "segundoNombre" }
+      ],
+        searchPatient: false,
+        showAlertError: false,
+        showBusquedaEmpty: false,
         PasoAPaso: 0,
         itemsexo: ['MASCULINO', 'FEMENINO'],
         itemEstadoCivil: ['Soltero/a','Comprometido/a', 'En Relacion', 'Casado/a', 'Separado/a', 'Divorciado/a', 'Viudo/a'],
-            // DATOS GENERALES
-            // NombreHP: '',
-            // SexoHP: '',
-            // EdadHP: '',           
+        historialClinico : { nombre: "" },  
+        objetoGuardar: {
+                        "idPaciente": 0,
+                        "motivoDeConsulta": "",
+                        "ocupacion": "",
+                        "origenProcedencia": "",
+                        "antecedentesDelPaciente": [],
+                        "examenMental": {
+                            "aparecienciaGeneral": "",
+                            "estadoConciencia": "",
+                            "estadoAnimo": "",
+                            "activiadMotora": "",
+                            "asociacionIdeasYLenguaje": "",
+                            "contenidoDeIdeas":"",
+                            "sensorium": "",
+                            "memoria": "",
+                            "pensamiento": "",
+                            "resultadoExamen": ""
+                        },
+                        "perfilSocial": "",
+                        "personalidad": "",
+                        "datosRelevantesFamiliaPaciente": "",
+                        "diagnostico": "",
+                        "planOrientacionPsicologica": ""
+                        }  
     }),
 
     methods: {
+        agregarAlListado(){
+            this.objetoGuardar.antecedentesDelPaciente.push({"descripcion":this.antecedente})
+            this.antecedente=''
+        },
+        eliminarDelListado(id) {
+            this.data = this.data.filter( item => item.id !== id)
+        },
         IrPaso2 (){
+            if( Object.keys(this.paciente).length === 0 ) {
+                this.showBusquedaEmpty = true
+
+                setTimeout( () => {
+                this.showBusquedaEmpty = false
+                },3000)
+                return
+            }
             this.PasoAPaso = 2
         },
 
@@ -210,20 +259,54 @@ export default {
         },        
 
         // llamamos las varialbes que se usaran en el modal del formulario y se guardaran en la tabla
-        editedItem(){
-            this.$emit('variables')
+        async buscador(search) {
+            const data = {
+                criterio : search.buscarPor,
+                valor : search.valorDeBusqueda
+            }
+
+            this.searchPatient = false
+            this.showAlertError = false
+            this.searchPatient = false
+
+            const response = await this.$store.dispatch('getPacient', data)
+
+            if(response.status === 200) {
+                this.searchPatient =true
+                const paciente = response.data[0]
+
+                const { persona} = paciente
+                this.paciente = {
+                idPaciente: paciente.idPaciente,
+                primerNombre: persona.primerNombre,
+                segundoNombre: persona.segundoNombre,
+                primerApellido: persona.primerApellido,
+                segundoApellido: persona.segundoApellido,
+                sexo: (persona.sexo) ? 1: 2,
+                fechaNacimiento: moment(persona.fechaNacimiento).format("L"),
+                menu2: false,
+                grupoEtnico: persona.grupoEtnico,
+                escolaridad: persona.escolaridad,
+                religion: persona.religion,
+                dpi: persona.dpi
+                }
+                this.historialClinico.nombre = paciente.historialClinico
+
+            } else {
+                this.searchPatient = false
+                this.showAlertError = true
+                setTimeout( () => {
+                this.showAlertError = false
+                },3000)
+            }
         },
-        // FUNCION GUARDAR SI FUNCIONA
-        // SaveHistoriaPsicologica(){
-        //     const data = {
-        //         NombreHP: this.NombreHP,
-        //         SexoHP: this.SexoHP,
-        //         EdadHP: this.EdadHP,
-        //     }
-        //     this.$emit('Save_Historia_Psicologica',data)
-        // },
+        cleanData() {
+            this.searchPatient = false
+        },
         SaveHistoriaPsicologica(){
-            this.$emit('Save_Historia_Psicologica')
+            console.log('datos ==> ', this.objetoGuardar)
+            this.objetoGuardar.idPaciente= this.paciente.idPaciente
+            this.$emit('Save_Historia_Psicologica',this.objetoGuardar)
         },
 
     },

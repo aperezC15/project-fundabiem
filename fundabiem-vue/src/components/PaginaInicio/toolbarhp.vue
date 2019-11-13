@@ -88,6 +88,10 @@ export default class tool extends Vue{
     userName:string = ''
     item:number=1
     items:any=[
+        { title: 'Registros Médicos', icon: "fas fa-user-plus", path:'/registro-medico'},
+        { title: 'Historia Clínica', icon: "fas fa-address-card", path:'/historia-clinica'},
+        { title: 'Ciclo de Rehabilitacion', icon: "fas fa-address-card", path:'/ciclo-rehabilitacion'},
+        { title: 'Evolución médica', icon: "fas fa-user-md", path:'/evolucion-medica'},
         // { title: 'Registros Medicos' , icon: 'far fa-address-card', path: '/HomePageRM'},
         { title: 'Estudio Socioeconómico' , icon: 'far fa-address-card', path: '/estudio-socioeconomico'},
         // { title: 'Hoja Evolución Técnica ' , icon: 'far fa-address-card', path: '/HomePageET'},

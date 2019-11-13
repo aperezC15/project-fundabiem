@@ -25,7 +25,7 @@ namespace BrokerServices.Migrations
                 {
                     table.PrimaryKey("PK_EstudioSocioeconomico", x => x.Id);
                 });
-
+/*
             migrationBuilder.CreateTable(
                 name: "SeccionesEstudioSocioeconomico",
                 columns: table => new
@@ -34,12 +34,13 @@ namespace BrokerServices.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     nombre = table.Column<string>(maxLength: 100, nullable: false),
                     descripcion = table.Column<string>(maxLength: 255, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SeccionesEstudioSocioeconomico", x => x.Id);
-                });
-
+                }
+                //constraints: table =>
+                //{
+                 //   table.PrimaryKey("PK_SeccionesEstudioSocioeconomico", x => x.Id);
+           //    }
+        );
+        */
             migrationBuilder.CreateTable(
                 name: "GrupoFamiliar",
                 columns: table => new
@@ -65,7 +66,7 @@ namespace BrokerServices.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
+/*
             migrationBuilder.CreateTable(
                 name: "ItemsEstudioSocioeconomico",
                 columns: table => new
@@ -87,7 +88,7 @@ namespace BrokerServices.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
-
+*/
             migrationBuilder.CreateTable(
                 name: "OpcionItemEstudioSocioeconomico",
                 columns: table => new
@@ -194,12 +195,12 @@ namespace BrokerServices.Migrations
                 name: "IX_GrupoFamiliar_EstudioSocioeconomicoId",
                 table: "GrupoFamiliar",
                 column: "EstudioSocioeconomicoId");
-
+            /*
             migrationBuilder.CreateIndex(
                 name: "IX_ItemsEstudioSocioeconomico_seccionId",
                 table: "ItemsEstudioSocioeconomico",
                 column: "seccionId");
-
+                */
             migrationBuilder.CreateIndex(
                 name: "IX_OpcionItemEstudioSocioeconomico_ItemEstudioSocioeconomicoId",
                 table: "OpcionItemEstudioSocioeconomico",

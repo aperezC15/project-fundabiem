@@ -3444,6 +3444,8 @@ namespace BrokerServices.Migrations
 
                     b.Property<string>("asociacionIdeasYLenguaje");
 
+                    b.Property<string>("contenidoDeIdeas");
+
                     b.Property<string>("estadoAnimo");
 
                     b.Property<string>("estadoConciencia");

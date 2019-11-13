@@ -41,6 +41,7 @@ namespace EntityModelFundabien.entities
         public string estadoAnimo { get; set; }
         public string activiadMotora { get; set; }
         public string asociacionIdeasYLenguaje { get; set; }
+        public string contenidoDeIdeas { get; set; }
         public string sensorium { get; set; }
         public string memoria { get; set; }
         public string pensamiento { get; set; }

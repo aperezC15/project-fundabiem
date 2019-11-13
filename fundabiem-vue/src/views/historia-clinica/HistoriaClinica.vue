@@ -8,7 +8,7 @@
           </v-flex>
         </v-layout>
         <v-card>
-          <v-toolbar flat dark color="#2c2e3f">
+          <v-toolbar flat dark color="#616161">
             <v-toolbar-title>Historias Clínicas</v-toolbar-title>
             <v-divider class="mx-4" vertical></v-divider>
             <div class="flex-grow-1"></div>
@@ -20,15 +20,20 @@
               single-line
               hide-details
             ></v-text-field>
-            <v-btn
-              color="indigo"
-              fab
-              title="NUEVA HISTORIA CLINICA"
-              class="mx-2"
-              @click="openDialogRegistroMedico"
-            >
-              <v-icon>add</v-icon>
-            </v-btn>
+            <v-tooltip bottom color="#0277BD">
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  fab
+                  v-on ="on"
+                  color="#039BE5"
+                  class="mx-2"
+                  @click="openDialogRegistroMedico"
+                >
+                  <v-icon>add</v-icon>
+                </v-btn>
+              </template>
+              <span>Nueva Historia Clinica</span>
+            </v-tooltip>
           </v-toolbar>
 
           <v-data-table
@@ -39,10 +44,10 @@
             class="elevation-1"
           >
             <template v-slot:no-data v-if="dataRegistersMedicals.length === 0">
-              <v-alert
+              <v-alert dark
                 class="text-xs-center"
                 :value="true"
-                color="warning"
+                color="#FF0000"
                 icon="warning"
               >No existen registros en la tabla</v-alert>
             </template>

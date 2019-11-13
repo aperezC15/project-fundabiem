@@ -7,6 +7,7 @@ using IdentityServer.dbContext;
 using IdentityServer.dbContext.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -72,6 +73,11 @@ namespace IdentityServer
             {
                 throw new Exception("need to configure key material");
             }
+
+           
+
+            // ref: https://github.com/aspnet/Docs/issues/2384
+            //app.UseForwardedHeaders(forwardOptions);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -80,10 +86,19 @@ namespace IdentityServer
             {
                 app.UseDeveloperExceptionPage();
             }
+            var forwardOptions = new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
+                RequireHeaderSymmetry = false
+            };
+
+            forwardOptions.KnownNetworks.Clear();
+            forwardOptions.KnownProxies.Clear();
 
             // uncomment if you want to support static files
+            app.UseForwardedHeaders(forwardOptions);
             app.UseCors("CorsFundabiemRules");
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseIdentityServer();
 

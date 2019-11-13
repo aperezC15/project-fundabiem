@@ -11,7 +11,7 @@ namespace BrokerServices.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Citas_Pacientes_idPaciente",
                 table: "Citas");
-
+            /*
             migrationBuilder.CreateTable(
                 name: "EvolucionTenica",
                 columns: table => new
@@ -32,12 +32,13 @@ namespace BrokerServices.Migrations
                         principalColumn: "idPaciente",
                         onDelete: ReferentialAction.Cascade);
                 });
-
+                */
+                /*
             migrationBuilder.CreateIndex(
                 name: "IX_EvolucionTenica_idPaciente",
                 table: "EvolucionTenica",
                 column: "idPaciente");
-
+                */
             migrationBuilder.AddForeignKey(
                 name: "FK_Citas_Pacientes_idPaciente",
                 table: "Citas",

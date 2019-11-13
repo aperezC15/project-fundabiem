@@ -4,7 +4,6 @@
         <!--variables de datos del formulario @variables = "editedItem" -->
         <ModalHistoriaClinicaPsicologia
             @close-modal-historia-psicologica = "CerrarDialogoHistoriaPsicologica"
-            @variables = "editedItem"
             @Save_Historia_Psicologica = "SaveHistoriaPsicologica"
             :ModalHistoriaPsicologica = "DialogoHistoriaPsicologicaHP"
             :ModalTitle = "FormTitle"
@@ -79,6 +78,10 @@ export default {
     },
 
     data: () => ({
+        nameRules: [
+            v => !!v || 'Este campo es requerido',
+            //v => v.length <= 10 || 'Name must be less than 10 characters',
+        ],
         paginationPage: 1,
         paginationLenght: 0,
         loading:false,
@@ -99,83 +102,7 @@ export default {
         ],
         // DECLARAMOS EL ARRAY QUE CONTENDRA LA INFORMACION DE LOS REGISTROS 
         DataTablePsicologia: [],
-        editedIndex: -1,
-        // DECLARAMOS LAS VARIABLES DE ENTRADA DE NUESTRO FORMULARIO 
-        editedItem: {
-            // DATOS GENERALES
-            NombreHP: '',
-            SexoHP: '',
-            EdadHP: '',
-            EstudiosHP: '',
-            OrigenHP: '',
-            OcupacionHP: '',
-            EstadoCivilHP: '',
-            ReligionHP: '',
-            ProgenitorHP: '',
-            // MOTIVO DE LA CONSULTA
-            MotivoConsultaHP: '',
-            // ANTECEDENTES DEL PACIENTE
-            AntecedentesPacienteHP: '',
-            // PERFIL SOCIAL
-            PerfilSocialHP: '',
-            // PESONALIDAD
-            PersonalidadHP: '',
-            // EXAMEN MENTAL
-            AparienciaGeneralHP: '',
-            EstadoConcienciaHP: '',
-            EstadoAnimoHP: '',
-            ActividadMotoraHP: '',
-            AsociacionHP: '',
-            ContenidoIdeasHP: '',
-            SensoriumHP: '',
-            MemoriaHP: '',
-            PensamientoHP: '',
-            ResultadoHP: '',
-            // DATOS RELEVANTES SOBRE LA FAMILIA DEL PACIENTE
-            DatosRelevantesHP: '',
-            // DIAGNOSTICO
-            DiagnosticoHP: '',
-            // PLAN DE ORIENTACION PSICOLOGICA
-            PlanOrientacionHP: '',
-        },
-
-        defaultItem: {
-            // DATOS GENERALES
-            NombreHP: '',
-            SexoHP: '',
-            EdadHP: '',
-            EstudiosHP: '',
-            OrigenHP: '',
-            OcupacionHP: '',
-            EstadoCivilHP: '',
-            ReligionHP: '',
-            ProgenitorHP: '',
-            // MOTIVO DE LA CONSULTA
-            MotivoConsultaHP: '',
-            // ANTECEDENTES DEL PACIENTE
-            AntecedentesPacienteHP: '',
-            // PERFIL SOCIAL
-            PerfilSocialHP: '',
-            // PESONALIDAD
-            PersonalidadHP: '',
-            // EXAMEN MENTAL
-            AparienciaGeneralHP: '',
-            EstadoConcienciaHP: '',
-            EstadoAnimoHP: '',
-            ActividadMotoraHP: '',
-            AsociacionHP: '',
-            ContenidoIdeasHP: '',
-            SensoriumHP: '',
-            MemoriaHP: '',
-            PensamientoHP: '',
-            ResultadoHP: '',
-            // DATOS RELEVANTES SOBRE LA FAMILIA DEL PACIENTE
-            DatosRelevantesHP: '',
-            // DIAGNOSTICO
-            DiagnosticoHP: '',
-            // PLAN DE ORIENTACION PSICOLOGICA
-            PlanOrientacionHP: '',
-        },
+        editedIndex: -1
     }),
 
     computed: {
@@ -185,9 +112,10 @@ export default {
     },
 
     watch: {
-        DialogoHistoriaPsicologicaHP (val){
-            val || this.CerrarDialogoHistoriaPsicologica()
-        },
+        paginationPage: function() {
+        this.DataTablePsicologia = [];
+        this.getAllHistoriasPsicologicas();
+        }
     },
 
    
@@ -223,11 +151,7 @@ export default {
             
         },
 
-        editItem (item) {
-            this.editedIndex = this.DataTablePsicologia.indexOf(item)
-            this.editedItem = Object.assign({}, item)
-            this.DialogoHistoriaPsicologicaHP = true
-        },         
+               
 
         OpenDialogoHistoriaPsicologica(){
             this.DialogoHistoriaPsicologicaHP = true
@@ -235,32 +159,32 @@ export default {
 
         CerrarDialogoHistoriaPsicologica(){     
             this.DialogoHistoriaPsicologicaHP = false
-            setTimeout(() => {
-                this.editedItem = Object.assign({}, this.defaultItem)
-                this.editedIndex = -1
-            }, 
-            300
-            )
         },
 
-        SaveHistoriaPsicologica () {
-            if (this.editedIndex > -1){
-                Object.assign(this.DataTablePsicologia[this.editedIndex], this.editedItem)
-            }
-            else
-            {
-                this.DataTablePsicologia.push(this.editedItem)
-            }
-            this.CerrarDialogoHistoriaPsicologica()
-         
+        SaveHistoriaPsicologica (data) {
+            console.log('recibi la info ==> ',data)
+            this.newHistoriaclinicaPsicologica(data)
         },
-        // FUNCION GUARDAR SI FUNCIONA
-        // SaveHistoriaPsicologica(data){
-        //     const {NombreHP, SexoHP, EdadHP} = data
-
-        //     this.DataTablePsicologia.push({NombreHP, EdadHP, SexoHP})
-        //     this.DialogoHistoriaPsicologicaHP =  false
-        // },
+        async newHistoriaclinicaPsicologica(data){
+            this.loading = true
+            const response = await this.$store.dispatch("newHistoriaClinicaPsicologica",data)
+            if(response.status === 201){
+                const title = "Nueva historia clínica psicologica creada con éxito!";
+                const message = "Nueva historia clínica  psicologica";
+                this.showAlert(title, message, "success");
+                this.getAllHistoriasPsicologicas()
+                this.DialogoHistoriaPsicologicaHP=false
+            }else{
+                const title = "No fue posible crear la historia clinica psicologica";
+                const message = "Intente de nuevo";
+                this.showAlert(title, message, "error");
+                this.loading=false
+            }
+        },
+        showAlert(title, message, type) {
+            this.$swal.fire(title, message, type);
+        },
+       
        
     },
     mounted(){
