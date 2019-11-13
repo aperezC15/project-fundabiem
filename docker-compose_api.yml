@@ -19,9 +19,9 @@ services:
       - Kestrel__Certificates__Default__Path=/root/.dotnet/https/cert-aspnetcore.pfx
       - Kestrel__Certificates__Default__Password=fundabiem
       #FOR FROM FUNDABIEM
-      - CORS_ORIGIN=https://35.183.69.28
-      - CORS_REDIRECT_URI1=https://35.183.69.28/oidc-callback 
-      - CORS_REDIRECT_URI2=https://35.183.69.28/silent-renew-oidc.html
+      - CORS_ORIGIN=https://35.183.69.28:8080
+      - REDIRECT1_URI=https://35.183.69.28:8080/oidc-callback 
+      - REDIRECT2_URI=https://35.183.69.28:8080/silent-renew-oidc.html
       - POST_LOGOUT=https://35.183.69.28
     ports:
       - "5000:80"

@@ -121,9 +121,9 @@ namespace IdentityServer
                         new Secret("Secreto@1#2!2018".Sha256())
                     },
                     // secret for authentication
-                    AllowedCorsOrigins ={"http://localhost:8080" }, //{Environment.GetEnvironmentVariable("CORS_ORIGIN_HUMMINGBIRD") },
-                    RedirectUris ={ "http://localhost:8080/oidc-callback", "http://localhost:8080/silent-renew-oidc.html"}, //{Environment.GetEnvironmentVariable("CORS_REDIRECT_URI1_HUMMINGBIRD"), Environment.GetEnvironmentVariable("CORS_REDIRECT_URI2_HUMMINGBIRD")},
-                    PostLogoutRedirectUris = { "http://localhost:8080" },//{ Environment.GetEnvironmentVariable("POST_LOGOUT_HUMMINGBIRD")},
+                    AllowedCorsOrigins ={Environment.GetEnvironmentVariable("URL_FUNDABIEM") },
+                    RedirectUris ={Environment.GetEnvironmentVariable("REDIREC2_FUNDABIEM"), Environment.GetEnvironmentVariable("REDIREC2_FUNDABIEM") },
+                    PostLogoutRedirectUris ={Environment.GetEnvironmentVariable("URL_FUNDABIEM") },
                     AllowedScopes = new List<string>
                     {
                         StandardScopes.OpenId,
