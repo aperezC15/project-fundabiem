@@ -122,7 +122,7 @@ namespace IdentityServer
                     },
                     // secret for authentication
                     AllowedCorsOrigins ={Environment.GetEnvironmentVariable("URL_FUNDABIEM") },
-                    RedirectUris ={Environment.GetEnvironmentVariable("REDIREC2_FUNDABIEM"), Environment.GetEnvironmentVariable("REDIREC2_FUNDABIEM") },
+                    RedirectUris ={Environment.GetEnvironmentVariable("REDIREC1_FUNDABIEM"), Environment.GetEnvironmentVariable("REDIREC2_FUNDABIEM") },
                     PostLogoutRedirectUris ={Environment.GetEnvironmentVariable("URL_FUNDABIEM") },
                     AllowedScopes = new List<string>
                     {
