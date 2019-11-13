@@ -14,19 +14,24 @@
                 @buscador="buscador"
             />
 
-          <v-toolbar flat dark color="#616161">
+          <v-toolbar flat dark color="#616161" v-if="!showAlertError" >
             <v-toolbar-title>REGISTROS</v-toolbar-title>
             <v-divider class="mx-4" vertical></v-divider>
             <div class="flex-grow-1"></div>
             
           </v-toolbar>
 
-          <v-data-table hide-default-footer :headers="headers" :items="pacientes" :search="search" class="elevation-1">
+          <alert-error 
+            message="NO EXISTEN REGISTROS PARA EL FILTRO DE BÚSQUEDA"
+            v-if="showAlertError"
+          />
+
+          <v-data-table v-if="!showAlertError" hide-default-footer :headers="headers" :items="pacientes" :search="search" class="elevation-1">
             <template v-slot:no-data v-if="pacientes.length === 0">
               <v-alert dark
                 class="text-xs-center"
                 :value="true"
-                color="#FF0000"
+                color="orange lighten-1"
                 icon="warning"
               > {{ noData ? "NO EXISTEN REGISTROS PARA EL FILTRO DE BÚSQUEDA" : "REALICE UNA BÚSQUEDA PARA VER LOS REGISTROS" }}</v-alert>
             </template>
@@ -83,13 +88,29 @@
 
 <script>
 
+let pacienteObject = {
+  primerNombre : "",
+  segundoNombre : "",
+  primerApellido : "",
+  segundoApellido : "",
+  sexo: "",
+  fechaNacimiento: "",
+  grupoEtnico: "",
+  escolaridad: "",
+  religion: "",
+  dpi: "",
+}
+
 import Buscador from '../../components/buscador/Buscador.vue'
 import PacienteComponent from '../../components/paciente/PacienteComponent.vue'
+import AlertError from '../../components/alertas/alertErrorGlobal.vue'
+
 import moment from 'moment'
 export default {
   components: { 
     Buscador,
-    PacienteComponent
+    PacienteComponent,
+    AlertError
   },
   data() {
     return {
@@ -109,9 +130,12 @@ export default {
         dialogDetallesPaciente: false,
         cicloDeRehabilitaciones: [],
         evolucionesMedicas: [],
-        paciente: {},
+        paciente: {
+          ...pacienteObject
+        },
         registrosMedicos: [],
-           historialClinico: { nombre: "" },
+        historialClinico: { nombre: "" },
+        showAlertError : false
 
     }
   },
@@ -148,6 +172,7 @@ export default {
               this.pacientes = pacientes
 
           } else {
+              this.showAlertError = true
               this.pacientes = []
               this.noData = true
           }
@@ -161,14 +186,12 @@ export default {
         this.evolucionesMedicas= []
         this.registrosMedicos = []
         this.historialClinico = {}  
+        this.showAlertError = false
     },
     async verDetallesPaciente(historyClinic) {
         this.dialogDetallesPaciente = true
 
         const response = await this.$store.dispatch('getPacientHistoryClinic', historyClinic)
-
-        console.log(response)
-
 
         if(response.status === 200) {
             const data = response.data[0]
@@ -179,13 +202,14 @@ export default {
                 nombre: historialClinico
             }
 
-            this.cicloDeRehabilitaciones = cicloDeRehabilitaciones
-            this.evolucionesMedicas= evolucionesMedicas
+            this.cicloDeRehabilitaciones = cicloDeRehabilitaciones ? cicloDeRehabilitaciones : []
+            this.evolucionesMedicas=evolucionesMedicas ? evolucionesMedicas : []
+
             this.paciente = {
                 ...persona,
-                 sexo: persona.sexo ? "Hombre" : "Mujer",
+                 sexo: persona.sexo ? {id: 1} : {id: 2} ,
             }
-            this.registrosMedicos = registrosMedicos
+            this.registrosMedicos = registrosMedicos ?  registrosMedicos : []
         }
 
     },

@@ -118,7 +118,7 @@ export default {
         ],
       rulesInputDpi: [
         v => !! v || "El campo es obligatorio",
-        v => v.length <= 13 || 'El DPI debe contener 13 digitos',
+        // v => v.length <= 13 || 'El DPI debe contener 13 digitos',
       ],
     formDatosPersonales: false,
     id: 0,
