@@ -3,15 +3,17 @@ using System;
 using BrokerServices.common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BrokerServices.Migrations
 {
     [DbContext(typeof(dbContext))]
-    partial class dbContextModelSnapshot : ModelSnapshot
+    [Migration("20191114011314_CorreccionTablaEvaluacionEstudioSocioeconomico")]
+    partial class CorreccionTablaEvaluacionEstudioSocioeconomico
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -447,8 +449,6 @@ namespace BrokerServices.Migrations
                         .HasMaxLength(5000);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("idPaciente");
 
                     b.ToTable("EstudioSocioeconomico");
                 });
@@ -3556,14 +3556,6 @@ namespace BrokerServices.Migrations
                     b.HasOne("EntityModelFundabien.entities.TipoDirecciones", "tipoDirecciones")
                         .WithMany()
                         .HasForeignKey("idTipoDireccion")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("EntityModelFundabien.entities.EstudioSocioeconomico", b =>
-                {
-                    b.HasOne("EntityModelFundabien.entities.Paciente", "paciente")
-                        .WithMany("estudiosSocioeconomicos")
-                        .HasForeignKey("idPaciente")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

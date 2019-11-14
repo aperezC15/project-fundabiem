@@ -21,5 +21,6 @@ namespace EntityModelFundabien.entities
 
         public IList<EvolucionMedica> evolucionesMedicas { get; set; }
         public IList<CicloDeRehabilitacion> cicloDeRehabilitaciones { get; set; }
+        public IList<EstudioSocioeconomico> estudiosSocioeconomicos { get; set; }
     }
 }
