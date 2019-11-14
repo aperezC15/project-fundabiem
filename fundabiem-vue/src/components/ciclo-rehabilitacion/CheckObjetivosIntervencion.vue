@@ -79,13 +79,17 @@ const modeloCheck = [
     { id: 1, valor: 'intervencion' },
     { id: 2, valor: 'tf' }, 
     { id: 3, valor: 'to'}, 
-    { id: 4, valor: 'tl'},
-    { id: 5, valor: 'ps'},
-    { id: 6, valor: 'ts'},
-    { id: 7, valor: 'ee'},
-    { id: 8, valor: 'valoracionInicial'},
-    { id: 9, valor: 'valoracionObjetivo'},
-    { id: 10, valor: 'valoracionFinal'}
+    { id: 4, valor: 'TL'},
+    { id: 5, valor: 'MT'},
+    { id: 6, valor: 'ET'},
+    { id: 7, valor: 'CEMS'},
+    { id: 8, valor: 'IREX'},
+    { id: 9, valor: 'ps'},
+    { id: 10, valor: 'ts'},
+    { id: 11, valor: 'ee'},
+    { id: 12, valor: 'valoracionInicial'},
+    { id: 13, valor: 'valoracionObjetivo'},
+    { id: 14, valor: 'valoracionFinal'}
 ]
 
 export default {

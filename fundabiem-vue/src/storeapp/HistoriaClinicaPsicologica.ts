@@ -17,6 +17,7 @@ const store = {
         getAllHisotirasPsicologicas: async ({}, pagination:any) => {
             try{
                 const response = await api.get('HistoriaClinicaPsicologica/getAll', {params: {pagina:pagination.pagination.pagina,rowsPerPage:pagination.pagination.rowsPerPage}})
+
                 if(response.status === 200){
                     return response
                 }
