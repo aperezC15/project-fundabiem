@@ -55,7 +55,7 @@ namespace EntityModelFundabien.Interfaces
         IEnumerable<Paciente> getAllPacientes();
         Task<IEnumerable<RegistroMedicoDiagnostico>> getDianostico(int idRegistroMedico);
         IEnumerable<EstadoCitas> getAllEstadoCitas();
-        IEnumerable<Terapias> getAllTerapias();
+        Task<IEnumerable<Terapias>> getAllTerapias();
         Task<Citas> NewCita(CreateCitaDTO model);
         Task<IEnumerable<Persona>> searchPersonaByDPI(string dpi);
         Task<citaDTO> getCitaById(int id);

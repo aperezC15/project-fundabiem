@@ -96,9 +96,9 @@ namespace EntityModelFundabien.common
         }
 
         //obtiene las terapias disponibles
-        public IEnumerable<Terapias> getAllTerapias()
+        public async Task<IEnumerable<Terapias>> getAllTerapias()
         {
-            return context.Terapias.ToList();
+            return await context.Terapias.ToListAsync();
         }
         //obtiene todas las historias clinicas psicologicas paginadas
         public async Task<clsResponse<HistoriaClinicaPsicologicaDTOResponse>> getallHistoriaClinicaPsicologicas(int pagina, int rowsPerPage)

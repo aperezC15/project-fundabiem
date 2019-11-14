@@ -31,7 +31,6 @@ export default {
   methods: {
     async obtenerServicios() {
       const respuesta = await this.axios.get('/Fundabiem/Terapias')
-      console.log(respuesta)
       this.servicios = respuesta.data
     }
   }, 
