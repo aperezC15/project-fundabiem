@@ -55,7 +55,7 @@ namespace EntityModelFundabien.Interfaces
         IEnumerable<Paciente> getAllPacientes();
         Task<IEnumerable<RegistroMedicoDiagnostico>> getDianostico(int idRegistroMedico);
         IEnumerable<EstadoCitas> getAllEstadoCitas();
-        IEnumerable<Terapias> getAllTerapias();
+        Task<IEnumerable<Terapias>> getAllTerapias();
         Task<Citas> NewCita(CreateCitaDTO model);
         Task<IEnumerable<Persona>> searchPersonaByDPI(string dpi);
         Task<citaDTO> getCitaById(int id);
@@ -67,7 +67,7 @@ namespace EntityModelFundabien.Interfaces
         // estudio socioeconomico
         Task<clsResponse<EstudioSocioeconomicoDTO>> getAllEstudioSocioeconomico(int pagina, int rowsPerPAge);
         Task<EstudioSocioeconomicoDTO> getEstudioSocioeconomicoById(long id);
-        Task<clsResponse<SeccionEstudioSocioeconomicoDTO>> getAllSeccionesDeEstudioSocioeconomico();
+        Task<IEnumerable<SeccionEstudioSocioeconomicoDTO>> getAllSeccionesDeEstudioSocioeconomico();
         Task<EstudioSocioeconomicoDTO> newEstudioSocioeconomico(CreateEstudioSocioeconomicoDTO modelo);
 
         Task<clsResponse<CicloDeRehabilitacionDTO>> getAllCiclosRehabilitacion(int pagina, int rowsPerPage);

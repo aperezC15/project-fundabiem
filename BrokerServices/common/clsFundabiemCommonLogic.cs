@@ -96,9 +96,9 @@ namespace EntityModelFundabien.common
         }
 
         //obtiene las terapias disponibles
-        public IEnumerable<Terapias> getAllTerapias()
+        public async Task<IEnumerable<Terapias>> getAllTerapias()
         {
-            return context.Terapias.ToList();
+            return await context.Terapias.ToListAsync();
         }
         //obtiene todas las historias clinicas psicologicas paginadas
         public async Task<clsResponse<HistoriaClinicaPsicologicaDTOResponse>> getallHistoriaClinicaPsicologicas(int pagina, int rowsPerPage)
@@ -548,23 +548,18 @@ namespace EntityModelFundabien.common
         }
 
         // ESTUDIO SOCIOECONOMICO
-        public async Task<clsResponse<SeccionEstudioSocioeconomicoDTO>> getAllSeccionesDeEstudioSocioeconomico()
+        public async Task<IEnumerable<SeccionEstudioSocioeconomicoDTO>> getAllSeccionesDeEstudioSocioeconomico()
         {
             var secciones = await context.SeccionesEstudioSocioeconomico
                 .Include(s => s.items)
                     .ThenInclude(i => i.opciones)
                 .ToListAsync();
 
-            var seccionesDTO = mapper.Map<List<SeccionEstudioSocioeconomicoDTO>>(secciones);
+            if (secciones == null) return null;
 
-            var respuesta = new clsResponse<SeccionEstudioSocioeconomicoDTO>()
-            {
-                Error = false,
-                RegistrosFundabiem = seccionesDTO,
-                totalRows = seccionesDTO.Count()
-            };
+            var seccionesDTO = mapper.Map<IEnumerable<SeccionEstudioSocioeconomicoDTO>>(secciones);
 
-            return respuesta;
+            return seccionesDTO;
         }
 
 

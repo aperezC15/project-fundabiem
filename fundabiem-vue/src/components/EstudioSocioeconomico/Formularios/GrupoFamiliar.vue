@@ -75,6 +75,7 @@
       :headers="header"
       :items="grupoFamiliar"
       class="elevation-1 my-4"
+      no-data-text="Aún no se han registrado familiares del paciente."
     >
       <template v-slot:item.action="{ item }">
         <v-icon
