@@ -67,7 +67,7 @@ namespace EntityModelFundabien.Interfaces
         // estudio socioeconomico
         Task<clsResponse<EstudioSocioeconomicoDTO>> getAllEstudioSocioeconomico(int pagina, int rowsPerPAge);
         Task<EstudioSocioeconomicoDTO> getEstudioSocioeconomicoById(long id);
-        Task<clsResponse<SeccionEstudioSocioeconomicoDTO>> getAllSeccionesDeEstudioSocioeconomico();
+        Task<IEnumerable<SeccionEstudioSocioeconomicoDTO>> getAllSeccionesDeEstudioSocioeconomico();
         Task<EstudioSocioeconomicoDTO> newEstudioSocioeconomico(CreateEstudioSocioeconomicoDTO modelo);
 
         Task<clsResponse<CicloDeRehabilitacionDTO>> getAllCiclosRehabilitacion(int pagina, int rowsPerPage);

@@ -70,12 +70,15 @@ namespace fundabiemAPI.Controllers
 
 
         [HttpGet("secciones")]
-        public async Task<ActionResult<clsResponse<SeccionEstudioSocioeconomicoDTO>>> getSecciones()
+        public async Task<ActionResult<IEnumerable<SeccionEstudioSocioeconomicoDTO>>> getSecciones()
         {
             try
             {
                 logger.LogInformation("Getting sections of EstudioSocioeconomico");
                 var respuesta = await fundabiem.getAllSeccionesDeEstudioSocioeconomico();
+
+                if (respuesta == null) return NotFound("No se han encontrado secciones de estudio socioeconómico.");
+
                 return Ok(respuesta);
             }
             catch (Exception ex)

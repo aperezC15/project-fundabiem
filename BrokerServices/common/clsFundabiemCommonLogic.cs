@@ -548,23 +548,18 @@ namespace EntityModelFundabien.common
         }
 
         // ESTUDIO SOCIOECONOMICO
-        public async Task<clsResponse<SeccionEstudioSocioeconomicoDTO>> getAllSeccionesDeEstudioSocioeconomico()
+        public async Task<IEnumerable<SeccionEstudioSocioeconomicoDTO>> getAllSeccionesDeEstudioSocioeconomico()
         {
             var secciones = await context.SeccionesEstudioSocioeconomico
                 .Include(s => s.items)
                     .ThenInclude(i => i.opciones)
                 .ToListAsync();
 
-            var seccionesDTO = mapper.Map<List<SeccionEstudioSocioeconomicoDTO>>(secciones);
+            if (secciones == null) return null;
 
-            var respuesta = new clsResponse<SeccionEstudioSocioeconomicoDTO>()
-            {
-                Error = false,
-                RegistrosFundabiem = seccionesDTO,
-                totalRows = seccionesDTO.Count()
-            };
+            var seccionesDTO = mapper.Map<IEnumerable<SeccionEstudioSocioeconomicoDTO>>(secciones);
 
-            return respuesta;
+            return seccionesDTO;
         }
 
 
