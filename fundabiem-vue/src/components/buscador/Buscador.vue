@@ -22,7 +22,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="2">
-            <v-btn large block dark color="#009933" @click="buscador">Buscar</v-btn>
+            <v-btn large block dark color="#009933" :disabled="!formValid" @click="buscador">Buscar</v-btn>
           </v-col>
           <v-col cols="12" md="2">
             <v-btn large block dark color="#039BE5" @click="cleanData">Limpiar</v-btn>
@@ -40,7 +40,7 @@ export default {
       buscarPor: "",
       valorDeBusqueda: "",
       opcionesBuscar: [
-        { id: 1, valor: "historialClínica" },
+        { id: 1, valor: "historialClinico" },
         { id: 2, valor: "DPI" },
         { id: 3, valor: "nombre" }
       ],

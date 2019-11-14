@@ -134,7 +134,7 @@ export default {
       ],
       items: ['Papá', 'Mamá', 'Encargada', 'Hermano', 'Hermana', 'Tío', 'Tía', 'Primo', 'Prima', 'Abuelo', 'Abuela'],
       religion: ['Cristiana', 'Mormon', 'Católico', 'Ateo', 'Testigo de Jehová'],
-      escolaridad: ['Pre-primaria', 'Kinder', 'Parvulos','Primaria', 'Básico', 'Diversificado', 'Universidad'],
+      escolaridad: ['Ninguno','Pre-primaria', 'Kinder', 'Parvulos','Primaria', 'Básico', 'Diversificado', 'Universidad'],
     };
   },
   methods: {
