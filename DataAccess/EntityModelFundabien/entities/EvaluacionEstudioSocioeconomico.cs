@@ -10,13 +10,12 @@ namespace EntityModelFundabien.entities
         public long Id { get; set; }
         [Required]
         public long EstudioSocioeconomicoId { get; set; }
-        [Required]
-        public long ItemEstudioSocioeconomicoId { get; set; }
+        
         [Required]
         public long OpcionItemEstudioSocioeconomicoId { get; set; }
 
         public EstudioSocioeconomico estudioSocioeconomico { get; set; }
-        public ItemEstudioSocioeconomico item { get; set; }
+        
         public OpcionItemEstudioSocioeconomico opcion { get; set; }
     }
 }
