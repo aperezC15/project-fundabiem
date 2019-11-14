@@ -32,6 +32,8 @@
 
 <script>
 export default {
-  
+  data: () => ({
+    valid: false
+  })
 }
 </script>
