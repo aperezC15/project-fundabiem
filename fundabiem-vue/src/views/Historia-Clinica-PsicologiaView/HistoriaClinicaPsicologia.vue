@@ -230,14 +230,12 @@ export default {
     },
     getSub() {
       const user = this.$store.getters[namespace + "oidcUser"];
-      console.log(user);
       return user;
     }
   },
   mounted() {
     this.getAllHistoriasPsicologicas();
     this.user = this.getSub();
-    console.log(this.user);
   }
 };
 </script>

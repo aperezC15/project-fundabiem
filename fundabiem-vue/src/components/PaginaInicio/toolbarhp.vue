@@ -151,18 +151,6 @@ export default class tool extends Vue{
         { title: 'Historia Clínica Psicologia', icon: "far fa-address-card", path:'/Psicologia-clinica', roles:['psicologia']},
     ]
 
-    
 
-
-    mounted() {
-        const user = this.$store.getters[namespace + 'oidcUser'];
-        if(user.role === 'psicologia') {
-          this.userName = 'PSICOLOGÍA'
-          return
-        } 
-
-        this.userName = 'ADMINISTRADOR'
-      
-    }
 }
 </script>

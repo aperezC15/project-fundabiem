@@ -18,12 +18,10 @@ const store = {
             try{
                 const response  = await api.get('evolucion-medica/getAll',{params: {pagina:pagination.pagination.pagina,rowsPerPage:pagination.pagination.rowsPerPage}})
 
-                console.log(response)
                 if(response.status === 200){
                     return response
                 }
             }catch(e){
-                console.log(e.response)
                 return e.response
             }
         }
