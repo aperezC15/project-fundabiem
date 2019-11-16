@@ -57,8 +57,8 @@ namespace fundabiemAPI.Controllers
                 return NotFound("No se econtraron citas entra la fecha "+dateStart.ToString() +" y "+dateEnd.ToString());
             return Ok(citas);
         }
-        [HttpPut("changeState")]
-        public async Task<ActionResult> changeState(int state, int idCita)
+        [HttpPut("changeState/{state}/{idCita}")]
+        public async Task<ActionResult> changeState(int state,int idCita)
         {
             var cita = await fundabiem.getCitaById(idCita);
             using (var transaction = context.Database.BeginTransaction())
