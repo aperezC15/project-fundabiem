@@ -205,6 +205,7 @@
                         <v-card-text>
                           <p class="text-uppercase font-weight-bold" >
                             Nombre: <span v-html="selectedEvent.name"></span>
+                         
                           </p> 
                           <p class="text-uppercase font-weight-bold" >
                             No de Orden: <span v-html="selectedEvent.details"></span>
@@ -215,8 +216,21 @@
                           <p class="text-uppercase font-weight-bold">
                             DPI: <span v-html="selectedEvent.dpi"></span> 
                           </p> 
+
+                            <v-col cols="12" >
+                              <v-select
+                                v-model="idConfirmacionCita"
+                                :items="estadosConfirmacion"
+                                item-value="idEstado"
+                                item-text="nombre"
+                                label="Seleccione el estado"
+                                hint="El campo es requerido"
+                                :rules="rulesInputConfirm"
+                              ></v-select>
+                            </v-col>
                         </v-card-text>
                         <v-card-actions>
+                          <v-btn :disabled="!rulesInputConfirm"  color="success" @click="confirmCitaFinally(selectedEvent.idCita)">Finalizar cita</v-btn>
                           <v-btn text color="secondary" @click="selectedOpen = false">Cancel</v-btn>
                         </v-card-actions>
                       </v-card>
@@ -240,6 +254,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+
   </v-row>
 </template>
 
@@ -277,6 +292,7 @@ export default {
       idTerpia: "",
       idEstado: "",
       rulesInput: [V => !!V || "El campo es requerido"],
+      rulesInputConfirm: [V => !!V || "El campo es requerido"],
       showInput: false,
       formCitesValue: false,
 
@@ -299,7 +315,11 @@ export default {
       mesIr:"",
       showCalendar: false,
       loading: false,
-      showAlertError: false
+      showAlertError: false,
+      dialogFinalizar: false,
+      estadosConfirmacion: [],
+      idConfirmacionCita: '',
+      dataEnviar: {}
     };
   },
 
@@ -350,7 +370,11 @@ export default {
         idEstado: this.idEstado
       };
 
-      const response = await this.$store.dispatch("getAllCites", data);
+      this.dataEnviar = data
+
+      console.log(this.dataEnviar)
+
+      const response = await this.$store.dispatch("getAllCites", this.dataEnviar);
 
       this.loading = false
 
@@ -392,7 +416,8 @@ export default {
         this.showCalendar = false
       }
 
-      this.$refs.citeRef.reset();
+      // this.$refs.citeRef.reset();
+      // this.dataEnviar = data
       this.showInput = false;
     },
     closeModal() {
@@ -426,7 +451,11 @@ export default {
       this.$refs.calendar.next();
     },
     showEvent({ nativeEvent, event }) {
+      this.idConfirmacionCita =""
       const open = () => {
+
+        this.estadosConfirmacion = this.estados.filter( ({nombre}) => nombre !== 'Activa' )
+
         this.selectedEvent = event;
         this.selectedElement = nativeEvent.target;
         setTimeout(() => (this.selectedOpen = true), 10);
@@ -450,6 +479,24 @@ export default {
       return d > 3 && d < 21
         ? "th"
         : ["th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"][d % 10];
+    },
+
+    confirmCitaFinally(idCita) {
+      if(this.idConfirmacionCita === '') {
+        return
+      }
+
+      const data = {
+        idEstado : this.idConfirmacionCita,
+        idCita: idCita
+      }
+
+      this.searchFilter()
+      this.selectedOpen = false
+
+      this.events = this.events.filter( item => item.idCita !== idCita)
+      this.idConfirmacionCita=""
+
     }
   },
 
