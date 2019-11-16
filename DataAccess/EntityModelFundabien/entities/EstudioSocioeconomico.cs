@@ -26,5 +26,6 @@ namespace EntityModelFundabien.entities
 
         public ICollection<GrupoFamiliar> grupoFamiliar { get; set; }
         public ICollection<EvaluacionEstudioSocioeconomico> evaluacion { get; set; }
+        public Paciente paciente { get; set; }
     }
 }

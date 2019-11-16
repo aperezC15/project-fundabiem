@@ -2,7 +2,7 @@
   <div class="text-center">
     <v-dialog v-model="closeModalCitesC" width="800" persistent>
       <v-card>
-        <v-card-title class="headline grey lighten-2" primary-title>Programación de citas</v-card-title>
+        <v-card-title class="headline grey lighten-2" primary-title>Datos de la cita</v-card-title>
 
         <v-card-text>
           <v-form v-model="formValid" ref="formCites">

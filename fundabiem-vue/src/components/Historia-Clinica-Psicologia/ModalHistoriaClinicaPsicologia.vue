@@ -304,7 +304,6 @@ export default {
             this.searchPatient = false
         },
         SaveHistoriaPsicologica(){
-            console.log('datos ==> ', this.objetoGuardar)
             this.objetoGuardar.idPaciente= this.paciente.idPaciente
             this.$emit('Save_Historia_Psicologica',this.objetoGuardar)
         },

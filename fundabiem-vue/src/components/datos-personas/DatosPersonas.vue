@@ -118,7 +118,7 @@ export default {
         ],
       rulesInputDpi: [
         v => !! v || "El campo es obligatorio",
-        v => v.length <= 13 || 'El DPI debe contener 13 digitos',
+        // v => v.length <= 13 || 'El DPI debe contener 13 digitos',
       ],
     formDatosPersonales: false,
     id: 0,
@@ -134,7 +134,7 @@ export default {
       ],
       items: ['Papá', 'Mamá', 'Encargada', 'Hermano', 'Hermana', 'Tío', 'Tía', 'Primo', 'Prima', 'Abuelo', 'Abuela'],
       religion: ['Cristiana', 'Mormon', 'Católico', 'Ateo', 'Testigo de Jehová'],
-      escolaridad: ['Pre-primaria', 'Kinder', 'Parvulos','Primaria', 'Básico', 'Diversificado', 'Universidad'],
+      escolaridad: ['Ninguno','Pre-primaria', 'Kinder', 'Parvulos','Primaria', 'Básico', 'Diversificado', 'Universidad'],
     };
   },
   methods: {

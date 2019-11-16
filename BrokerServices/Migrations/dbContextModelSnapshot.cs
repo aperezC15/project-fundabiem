@@ -448,6 +448,8 @@ namespace BrokerServices.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("idPaciente");
+
                     b.ToTable("EstudioSocioeconomico");
                 });
 
@@ -458,15 +460,11 @@ namespace BrokerServices.Migrations
 
                     b.Property<long>("EstudioSocioeconomicoId");
 
-                    b.Property<long>("ItemEstudioSocioeconomicoId");
-
                     b.Property<long>("OpcionItemEstudioSocioeconomicoId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EstudioSocioeconomicoId");
-
-                    b.HasIndex("ItemEstudioSocioeconomicoId");
 
                     b.HasIndex("OpcionItemEstudioSocioeconomicoId");
 
@@ -3366,6 +3364,13 @@ namespace BrokerServices.Migrations
                             Descripcion = "Cuarto de estimulación Sensorial",
                             Encargado = "e1f3b398-54a7-493a-adfa-11329a459e91",
                             Nombre = "CEMS"
+                        },
+                        new
+                        {
+                            IdTerapia = 9L,
+                            Descripcion = "Cuarto de estimulación Sensorial",
+                            Encargado = "e1f3b398-54a7-493a-adfa-11329a459e91",
+                            Nombre = "ET"
                         });
                 });
 
@@ -3561,16 +3566,19 @@ namespace BrokerServices.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("EntityModelFundabien.entities.EstudioSocioeconomico", b =>
+                {
+                    b.HasOne("EntityModelFundabien.entities.Paciente", "paciente")
+                        .WithMany("estudiosSocioeconomicos")
+                        .HasForeignKey("idPaciente")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("EntityModelFundabien.entities.EvaluacionEstudioSocioeconomico", b =>
                 {
                     b.HasOne("EntityModelFundabien.entities.EstudioSocioeconomico", "estudioSocioeconomico")
                         .WithMany("evaluacion")
                         .HasForeignKey("EstudioSocioeconomicoId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("EntityModelFundabien.entities.ItemEstudioSocioeconomico", "item")
-                        .WithMany("evaluaciones")
-                        .HasForeignKey("ItemEstudioSocioeconomicoId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("EntityModelFundabien.entities.OpcionItemEstudioSocioeconomico", "opcion")

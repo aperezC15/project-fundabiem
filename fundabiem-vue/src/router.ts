@@ -8,7 +8,6 @@ import toolbarhp from './components/PaginaInicio/toolbarhp.vue'
 import footerhp from './components/PaginaInicio/footerhp.vue'
 import HomePageRM from './components/PaginaRegistroMedico/HomePageRM.vue'
 import HomePageET from './components/EvolucionTecnica/HomePageET.vue'
-import HomePageES from './components/EstudioSocioeconomico/HomePageES.vue'
 import HomePageHC from './components/HistoriaClinica/PageHistoryClinic.vue'
 import HistoriaClinicaPsicologia from './views/Historia-Clinica-PsicologiaView/HistoriaClinicaPsicologia.vue'
 
@@ -18,6 +17,9 @@ import HistoriasClinicas from './views/historia-clinica/HistoriaClinica.vue'
 import EvolucionMedica from './views/evolucion-medica/EvolucionMedica.vue'
 import CitasPaciente from './views/citas/CitasPaciente.vue'
 import EvolucionTecnica from './views/eolvucion-tecnica/EvolucionTecnica.vue'
+import EstudioSocioeconomico from './views/EstudioSocioeconomico/estudiosocioeconomico.vue'
+
+import ConsultaGeneral from './views/paciente/Paciente.vue'
 
 //@ts-ignore
 import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
@@ -95,9 +97,9 @@ const router = new Router({
       component: HomePageET
     },
     {
-      path: '/HomePageES',
+      path: '/estudio-socioeconomico',
       name: 'HomePageES',
-      component: HomePageES
+      component: EstudioSocioeconomico
     },
     {
       path: '/HomePageHC',
@@ -138,6 +140,11 @@ const router = new Router({
       path: "/citas",
       name: "Citas",
       component: CitasPaciente
+    }, 
+    {
+      path: "/consulta-general",
+      name: "ConsultaGeneral",
+      component: ConsultaGeneral
     }
   ]
 })

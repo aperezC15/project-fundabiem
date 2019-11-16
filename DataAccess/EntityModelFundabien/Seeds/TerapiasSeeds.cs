@@ -66,6 +66,13 @@ namespace EntityModelFundabien.Seeds
                     Nombre = "CEMS",
                     Descripcion = "Cuarto de estimulación Sensorial",
                     Encargado = "e1f3b398-54a7-493a-adfa-11329a459e91"
+                },
+                new Terapias
+                {
+                    IdTerapia = 9,
+                    Nombre = "ET",
+                    Descripcion = "Cuarto de estimulación Sensorial",
+                    Encargado = "e1f3b398-54a7-493a-adfa-11329a459e91"
                 }
             );
         }

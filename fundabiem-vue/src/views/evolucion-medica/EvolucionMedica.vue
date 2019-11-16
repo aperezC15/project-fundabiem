@@ -152,7 +152,6 @@ export default {
       };
       const response = await this.$store.dispatch("getAllEvolucionesMedicas",{pagination})
 
-      console.log(response)
       this.loading =false
       //verica que se encuentren registros para mostrar
       if(response.data.registrosFundabiem.length >= 0){
@@ -184,8 +183,6 @@ export default {
     },
 
     async saveEvolucionMedica(data) {
-
-      console.log(data)
 
       this.cargando = true
       this.dialogEvolucionMedica = false

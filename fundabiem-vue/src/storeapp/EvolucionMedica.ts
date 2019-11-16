@@ -17,6 +17,7 @@ const store = {
         getAllEvolucionesMedicas : async({}, pagination: any) => {
             try{
                 const response  = await api.get('evolucion-medica/getAll',{params: {pagina:pagination.pagination.pagina,rowsPerPage:pagination.pagination.rowsPerPage}})
+
                 if(response.status === 200){
                     return response
                 }

@@ -18,6 +18,5 @@ namespace EntityModelFundabien.entities
 
         public SeccionEstudioSocioeconomico seccion { get; set; }
         public ICollection<OpcionItemEstudioSocioeconomico> opciones { get; set; }
-        public ICollection<EvaluacionEstudioSocioeconomico> evaluaciones { get; set; }
     }
 }

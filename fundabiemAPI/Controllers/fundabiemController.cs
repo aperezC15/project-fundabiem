@@ -79,10 +79,10 @@ namespace fundabiemAPI.Controllers
         }
 
         [HttpGet("Terapias")]
-        public ActionResult<IEnumerable<Terapias>> getTerapias()
+        public async Task<ActionResult<IEnumerable<Terapias>>> getTerapias()
         {
             logger.LogInformation("get all terapias by user => {0}", getUser());
-            var terapias = fundabiem.getAllTerapias();
+            var terapias = await fundabiem.getAllTerapias();
             if (terapias.Count() == 0)
                 return BadRequest("No se encontraron Terapias");
             return Ok(terapias);
