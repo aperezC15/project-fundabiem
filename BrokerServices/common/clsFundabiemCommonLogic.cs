@@ -96,13 +96,11 @@ namespace EntityModelFundabien.common
         }
 
         //cambia el estado de una cita
-        public Task<citaDTO> changeStateCita (int state, int idCita)
+        public async Task changeStateCita (citaDTO citaEntity)
         {
-            var cita = context.Citas.FirstOrDefaultAsync(x => x.IdCita == idCita);
-            if(cita != null)
-            {
-
-            }
+            var cita = mapper.Map<Citas>(citaEntity);
+            context.Citas.Update(cita);
+            await context.SaveChangesAsync();
         }
 
         //obtiene las terapias disponibles

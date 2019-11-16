@@ -58,9 +58,32 @@ namespace fundabiemAPI.Controllers
             return Ok(citas);
         }
         [HttpPut("changeState")]
-        public async Task<ActionResult> changeState(int state)
+        public async Task<ActionResult> changeState(int state, int idCita)
         {
-            var statNew = fundabiem.getAllEstadoCitas
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                logger.LogInformation("begin transactin change state cita");
+                try
+                {
+                    var cita = await fundabiem.getCitaById(idCita);
+                    if(cita != null)
+                    {
+                        return BadRequest("No se encontro la cita");
+                    }
+                    else
+                    {
+                        await fundabiem.changeStateCita(cita);
+                        logger.LogInformation("Commit Transaction change state cita id = " + idCita);
+                        transaction.Commit();
+                        return Ok(cita);
+                    }
+                }catch(Exception ex)
+                {
+                    transaction.Rollback();
+                    logger.LogError("Ocurrio un error al intentar cambiar el estado de la cita id = " + idCita);
+                    return BadRequest("No se completo la action cambiar estado de cita");
+                }
+            }
         }
 
         [HttpPost("new")]
