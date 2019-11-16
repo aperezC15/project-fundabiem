@@ -66,7 +66,7 @@ namespace fundabiemAPI.Controllers
                 try
                 {
                     var cita = await fundabiem.getCitaById(idCita);
-                    if(cita != null)
+                    if(cita == null)
                     {
                         return BadRequest("No se encontro la cita");
                     }

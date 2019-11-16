@@ -10,7 +10,6 @@
         v-for="(servicio, s) in servicios"
       >
         <v-checkbox
-          v-validate="'required'"
           :label="servicio.nombre"
           data-vv-name="checkbox"
           type="checkbox"

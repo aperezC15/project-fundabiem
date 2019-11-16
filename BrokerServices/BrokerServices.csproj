@@ -46,6 +46,8 @@
     <Compile Remove="Migrations\20191111190258_examenMental.Designer.cs" />
     <Compile Remove="Migrations\20191114011125_CorreccionTablaEvaluacionEstudioSocioeconomico.cs" />
     <Compile Remove="Migrations\20191114011125_CorreccionTablaEvaluacionEstudioSocioeconomico.Designer.cs" />
+    <Compile Remove="Migrations\20191116151222_AgregarTablaTerapiaEstudioSocioeconomico.cs" />
+    <Compile Remove="Migrations\20191116151222_AgregarTablaTerapiaEstudioSocioeconomico.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

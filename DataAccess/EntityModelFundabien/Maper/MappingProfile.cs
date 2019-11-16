@@ -62,6 +62,7 @@ namespace EntityModelFundabien.mapper
             CreateMap<CreateEstudioSocioeconomicoDTO, EstudioSocioeconomico>();
             CreateMap<CreateGrupoFamiliarDTO, GrupoFamiliar>();
             CreateMap<CreateEvaluacionEstudioSocioeconomicoDTO, EvaluacionEstudioSocioeconomico>();
+            CreateMap<CreateTerapiaEstudioSocioeconomicoDTO, TerapiaEstudioSocioeconomico>();
             CreateMap<HistoriaClinicaPsicologica, HistoriaClinicaPsicologicaDTO>();
             CreateMap<HistoriaClinicaPsicologicaDTO, HistoriaClinicaPsicologica>();
             CreateMap<antecedentesPaciente, antecedntePacienteDTO>();
