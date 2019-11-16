@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="text-xs-center">
+    <div class="text-xs-center" justify="center" align="center">
         <v-progress-circular :size="70"
                              :width="7"
                              color="purple"
