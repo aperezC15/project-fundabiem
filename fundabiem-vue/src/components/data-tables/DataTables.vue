@@ -38,6 +38,18 @@
                 <v-icon>delete</v-icon>
               </v-btn>
             </template>
+            <template v-slot:item.action="{item}" >
+              <v-btn
+                v-if="showEditTable"
+                title="REGISTRO"
+                fab
+                color="warning"
+                dark
+                @click="editLista(item)"
+              >
+                <v-icon>edit</v-icon>
+              </v-btn>
+            </template>
             <template v-slot:no-results>
               <v-alert type="error">EL REGISTRO "{{search}}" NO SE ENCUENTRA EN LA BASE DE DATOS</v-alert>
             </template>
@@ -70,7 +82,8 @@ export default {
      headers: Array,
      data: Array,
      title: String,
-     btnEliminar: Boolean
+     btnEliminar: Boolean,
+     showEditTable: Boolean
  },
 
   data() {
@@ -82,6 +95,9 @@ export default {
   methods: {
     eliminarDelListado(item) {
       this.$emit('eliminarDelListado', item)
+    },
+    editLista(item) {
+      this.$emit('editLista', item)
     }
   },
 

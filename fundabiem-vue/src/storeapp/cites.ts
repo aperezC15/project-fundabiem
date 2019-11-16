@@ -26,6 +26,15 @@ const store = {
             } catch (error) {
                 return error.response
             }
+        },
+
+        changeCite: async ({}, data : any) => {
+            try {
+                const response = await api.put('Citas/changeState', {params: {...data}})
+                console.log(response)
+            } catch (error) {
+                console.log(error.response)
+            }
         }
     }
 }

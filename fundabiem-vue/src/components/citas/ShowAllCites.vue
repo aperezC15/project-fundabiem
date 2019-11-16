@@ -481,15 +481,17 @@ export default {
         : ["th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"][d % 10];
     },
 
-    confirmCitaFinally(idCita) {
+    async confirmCitaFinally(idCita) {
       if(this.idConfirmacionCita === '') {
         return
       }
 
       const data = {
-        idEstado : this.idConfirmacionCita,
+        state : this.idConfirmacionCita,
         idCita: idCita
       }
+
+     const response = await this.$store.dispatch('changeCite', data)
 
       this.searchFilter()
       this.selectedOpen = false
