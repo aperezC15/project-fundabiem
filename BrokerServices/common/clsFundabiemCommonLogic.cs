@@ -96,10 +96,11 @@ namespace EntityModelFundabien.common
         }
 
         //cambia el estado de una cita
-        public async Task changeStateCita (citaDTO citaEntity)
+        public async Task changeStateCita (int stateCita, citaDTO citaEntity)
         {
-            var cita = mapper.Map<Citas>(citaEntity);
-            context.Citas.Update(cita);
+            var ct = context.Citas.FirstOrDefault(x => x.IdCita == citaEntity.IdCita);
+            ct.idEstado = stateCita;
+            context.Citas.Update(ct);
             await context.SaveChangesAsync();
         }
 
