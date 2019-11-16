@@ -57,6 +57,11 @@ namespace fundabiemAPI.Controllers
                 return NotFound("No se econtraron citas entra la fecha "+dateStart.ToString() +" y "+dateEnd.ToString());
             return Ok(citas);
         }
+        [HttpPut("changeState")]
+        public async Task<ActionResult> changeState(int state)
+        {
+            var statNew = fundabiem.getAllEstadoCitas
+        }
 
         [HttpPost("new")]
         public async Task<ActionResult> newCita([FromBody] CreateCitaDTO model)
