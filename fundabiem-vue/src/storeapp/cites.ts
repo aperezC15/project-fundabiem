@@ -29,8 +29,10 @@ const store = {
         },
 
         changeCite: async ({}, data : any) => {
+
+            console.log(data)
             try {
-                const response = await api.put('Citas/changeState', {params: {...data}})
+                const response = await api.put(`Citas/changeState/${data.state}/${data.idCita}`, {params: {"state": data.state, "idCita": data.idCita}})
                 console.log(response)
             } catch (error) {
                 console.log(error.response)
