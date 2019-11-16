@@ -57,6 +57,35 @@ namespace fundabiemAPI.Controllers
                 return NotFound("No se econtraron citas entra la fecha "+dateStart.ToString() +" y "+dateEnd.ToString());
             return Ok(citas);
         }
+        [HttpPut("changeState")]
+        public async Task<ActionResult> changeState(int state, int idCita)
+        {
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                logger.LogInformation("begin transactin change state cita");
+                try
+                {
+                    var cita = await fundabiem.getCitaById(idCita);
+                    if(cita != null)
+                    {
+                        return BadRequest("No se encontro la cita");
+                    }
+                    else
+                    {
+                        cita.idEstado = state;
+                        await fundabiem.changeStateCita(cita);
+                        logger.LogInformation("Commit Transaction change state cita id = " + idCita);
+                        transaction.Commit();
+                        return Ok(cita);
+                    }
+                }catch(Exception ex)
+                {
+                    transaction.Rollback();
+                    logger.LogError("Ocurrio un error al intentar cambiar el estado de la cita id = " + idCita);
+                    return BadRequest("No se completo la action cambiar estado de cita");
+                }
+            }
+        }
 
         [HttpPost("new")]
         public async Task<ActionResult> newCita([FromBody] CreateCitaDTO model)

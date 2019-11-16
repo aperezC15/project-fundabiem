@@ -95,6 +95,14 @@ namespace EntityModelFundabien.common
             return context.EstadoCitas.ToList();
         }
 
+        //cambia el estado de una cita
+        public async Task changeStateCita (citaDTO citaEntity)
+        {
+            var cita = mapper.Map<Citas>(citaEntity);
+            context.Citas.Update(cita);
+            await context.SaveChangesAsync();
+        }
+
         //obtiene las terapias disponibles
         public async Task<IEnumerable<Terapias>> getAllTerapias()
         {
