@@ -51,7 +51,7 @@ export default {
             RegSocialNo: '109',
             datefechaingreso: '2019-09-13',
             datefechaentrevista: '2019-09-14',
-            TSEntrevisto: 'CHINO'
+            TSEntrevisto: 'Guillermo Pisqui'
           }
       ]
     },
