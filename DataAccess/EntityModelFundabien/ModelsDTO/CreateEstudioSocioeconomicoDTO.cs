@@ -10,6 +10,12 @@ namespace EntityModelFundabien.ModelsDTO
         [Required]
         public long idPaciente { get; set; }
         [Required]
+        [StringLength(100, ErrorMessage = "El campo 'entrevistadorTS' de 'EstudioSocioeconomico' no debe exceder de 100 caracteres.")]
+        public string entrevistadorTS { get; set; }
+        [Required]
+        [StringLength(100, ErrorMessage = "El campo 'evaluador' de 'EstudioSocioeconomico' no debe exceder de 100 caracteres.")]
+        public string evaluador { get; set; }
+        [Required]
         public DateTime fechaEntrevista { get; set; }
         [Required]
         [StringLength(5000, ErrorMessage = "El campo 'motivoSolicitud' de 'EstudioSocioeconomico' no debe exceder de 5000 caracteres.")]
@@ -26,5 +32,7 @@ namespace EntityModelFundabien.ModelsDTO
         public ICollection<CreateGrupoFamiliarDTO> grupoFamiliar { get; set; }
         [Required]
         public ICollection<CreateEvaluacionEstudioSocioeconomicoDTO> evaluacion { get; set; }
+        [Required]
+        public ICollection<CreateTerapiaEstudioSocioeconomicoDTO> terapias { get; set; }
     }
 }
