@@ -58,6 +58,8 @@ namespace BrokerServices.common
         public DbSet<ItemEstudioSocioeconomico> ItemsEstudioSocioeconomico { get; set; }
 
         public DbSet<OpcionItemEstudioSocioeconomico> OpcionesItemsEstudioSocioeconomico { get; set; }
+        public DbSet<EvaluacionEstudioSocioeconomico> EvaluacionesEstudioSocioeconomico { get; set; }
+        public DbSet<TerapiaEstudioSocioeconomico> TerapiasEstudioSocioeconomico { get; set; }
         public DbSet<GrupoFamiliar> GrupoFamiliar { get; set; }
 
         public DbSet<EvolucionTecnica> EvolucionTenica { get; set; }

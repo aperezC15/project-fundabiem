@@ -5,9 +5,9 @@ using System.Text;
 
 namespace EntityModelFundabien.ModelsDTO
 {
-    public class CreateEvaluacionEstudioSocioeconomicoDTO
+    public class CreateTerapiaEstudioSocioeconomicoDTO
     {
         [Required]
-        public long OpcionItemEstudioSocioeconomicoId { get; set; }
+        public long IdTerapia { get; set; }
     }
 }
