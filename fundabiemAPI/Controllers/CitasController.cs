@@ -72,6 +72,7 @@ namespace fundabiemAPI.Controllers
                     }
                     else
                     {
+                        cita.idEstado = state;
                         await fundabiem.changeStateCita(cita);
                         logger.LogInformation("Commit Transaction change state cita id = " + idCita);
                         transaction.Commit();
