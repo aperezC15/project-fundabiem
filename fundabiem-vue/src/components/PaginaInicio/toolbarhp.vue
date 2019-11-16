@@ -2,6 +2,12 @@
     <div id="app">        
         <!-- start  of the toolbar -->
         <v-app-bar color="#2c2e3f" dark clipped-left app>
+          <v-tooltip bottom color="indigo"> 
+            <template v-slot:activator="{ on }">
+              <v-app-bar-nav-icon v-on="on" @click="drawer = !drawer"/>
+            </template>
+            <span>MENU</span>
+          </v-tooltip>
             <div>
                 <v-avatar>
                   <v-img src="http://www.fundabiem.org.gt/wp-content/uploads/2017/08/favcon.jpg"> </v-img>
