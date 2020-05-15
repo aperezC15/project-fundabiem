@@ -1,44 +1,46 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import hello from './components/HelloWorld.vue'
-import Callback from './components/oidc/callback.vue'
-import callbackError from './components/oidc/callbackError.vue'
-import HomePage from './components/PaginaInicio/HomePage.vue'
-import toolbarhp from './components/PaginaInicio/toolbarhp.vue'
-import footerhp from './components/PaginaInicio/footerhp.vue'
-import HomePageRM from './components/PaginaRegistroMedico/HomePageRM.vue'
-import HomePageET from './components/EvolucionTecnica/HomePageET.vue'
-import HomePageHC from './components/HistoriaClinica/PageHistoryClinic.vue'
-import HistoriaClinicaPsicologia from './views/Historia-Clinica-PsicologiaView/HistoriaClinicaPsicologia.vue'
+import Vue from "vue";
+import Router from "vue-router";
+import hello from "./components/HelloWorld.vue";
+import Callback from "./components/oidc/callback.vue";
+import callbackError from "./components/oidc/callbackError.vue";
+import HomePage from "./components/PaginaInicio/HomePage.vue";
+import toolbarhp from "./components/PaginaInicio/toolbarhp.vue";
+import footerhp from "./components/PaginaInicio/footerhp.vue";
+import HomePageRM from "./components/PaginaRegistroMedico/HomePageRM.vue";
+import HomePageET from "./components/EvolucionTecnica/HomePageET.vue";
+import HomePageHC from "./components/HistoriaClinica/PageHistoryClinic.vue";
+import ReportePrincipal from "./components/Reportes/ReportePrincipal.vue";
+import HistoriaClinicaPsicologia from "./views/Historia-Clinica-PsicologiaView/HistoriaClinicaPsicologia.vue";
 
-import CicloRehabilitacion from './views/Ciclo_Rehabilitacion/Ciclo_de_Rehabilitacion.vue'
-import RegistrosMedicos from './views/registro-medico/RegistroMedicos.vue'
-import HistoriasClinicas from './views/historia-clinica/HistoriaClinica.vue'
-import EvolucionMedica from './views/evolucion-medica/EvolucionMedica.vue'
-import CitasPaciente from './views/citas/CitasPaciente.vue'
-import EvolucionTecnica from './views/eolvucion-tecnica/EvolucionTecnica.vue'
-import EstudioSocioeconomico from './views/EstudioSocioeconomico/estudiosocioeconomico.vue'
+import CicloRehabilitacion from "./views/Ciclo_Rehabilitacion/Ciclo_de_Rehabilitacion.vue";
+import RegistrosMedicos from "./views/registro-medico/RegistroMedicos.vue";
+import HistoriasClinicas from "./views/historia-clinica/HistoriaClinica.vue";
+import EvolucionMedica from "./views/evolucion-medica/EvolucionMedica.vue";
+import CitasPaciente from "./views/citas/CitasPaciente.vue";
+import EvolucionTecnica from "./views/eolvucion-tecnica/EvolucionTecnica.vue";
+import EstudioSocioeconomico from "./views/EstudioSocioeconomico/estudiosocioeconomico.vue";
+import ReportesPrincipal from "./views/Reportes/ReportesPrincipal.vue";
 
-import ConsultaGeneral from './views/paciente/Paciente.vue'
+import ConsultaGeneral from "./views/paciente/Paciente.vue";
 
 //@ts-ignore
-import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
-import axios, { AxiosResponse } from 'axios'
-import store from '@/store'
+import { vuexOidcCreateRouterMiddleware } from "vuex-oidc";
+import axios, { AxiosResponse } from "axios";
+import store from "@/store";
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
-  mode: 'history',
-  base:`${process.env.VUE_APP_ROUTER_ROOT_PATH}`,
+  mode: "history",
+  base: `${process.env.VUE_APP_ROUTER_ROOT_PATH}`,
   routes: [
     {
-      path: '/toolbarhp',
-      name: 'toolbarhp',
+      path: "/toolbarhp",
+      name: "toolbarhp",
       component: toolbarhp,
-      meta:{
-        isPulic:true
-      }
+      meta: {
+        isPulic: true,
+      },
     },
     // {
     //   path: '/dashboard',
@@ -49,106 +51,111 @@ const router = new Router({
     //   }
     // },
     {
-      path: '/',
-      name: 'home',
+      path: "/",
+      name: "home",
       component: HomePage,
-      meta:{
+      meta: {
         //requiresAuth: false,
-        isPublic:true
-      }
+        isPublic: true,
+      },
     },
     {
-      path: '/oidc-callback', // Needs to match redirect_uri in you oidcSettings
-      name: 'oidcCallback',
+      path: "/oidc-callback", // Needs to match redirect_uri in you oidcSettings
+      name: "oidcCallback",
       component: Callback,
       meta: {
-          isOidcCallback: true,
-          isPublic: true
-      }
+        isOidcCallback: true,
+        isPublic: true,
+      },
     },
     {
-      path: '/oidc-callback-error', // Needs to match redirect_uri in you oidcSettings
-      name: 'oidcCallbackError',
+      path: "/oidc-callback-error", // Needs to match redirect_uri in you oidcSettings
+      name: "oidcCallbackError",
       component: callbackError,
       meta: {
-          isPublic: true
-      }
-  },
+        isPublic: true,
+      },
+    },
     {
-      path: '/footerhp',
-      name: 'footerhp',
+      path: "/footerhp",
+      name: "footerhp",
       component: footerhp,
-      meta:{
-        isPulic:true
-      }
+      meta: {
+        isPulic: true,
+      },
     },
     {
-      path: '/HomePageRM',
-      name: 'HomePageRM',
+      path: "/HomePageRM",
+      name: "HomePageRM",
       component: HomePageRM,
-      meta:{
+      meta: {
         requiresAuth: false,
-        isPulic: true
-      }
+        isPulic: true,
+      },
     },
     {
-      path: '/HomePageET',
-      name: 'HomePageET',
-      component: HomePageET
+      path: "/HomePageET",
+      name: "HomePageET",
+      component: HomePageET,
     },
     {
-      path: '/estudio-socioeconomico',
-      name: 'HomePageES',
-      component: EstudioSocioeconomico
+      path: "/estudio-socioeconomico",
+      name: "HomePageES",
+      component: EstudioSocioeconomico,
     },
     {
-      path: '/HomePageHC',
-      name: 'HomePageHC',
-      component: HomePageHC
+      path: "/HomePageHC",
+      name: "HomePageHC",
+      component: HomePageHC,
     },
     {
       path: "/ciclo-rehabilitacion",
-      name:'/ciclo-rehabilitacion',
-      component: CicloRehabilitacion
+      name: "/ciclo-rehabilitacion",
+      component: CicloRehabilitacion,
     },
     {
       path: "/Psicologia-clinica",
       name: "/Psicologia-clinica",
-      component: HistoriaClinicaPsicologia
+      component: HistoriaClinicaPsicologia,
     },
     {
       path: "/registro-medico",
       name: "registroMedico",
-      component: RegistrosMedicos
+      component: RegistrosMedicos,
     },
     {
       path: "/historia-clinica",
       name: "HistoriasClinicas",
-      component: HistoriasClinicas
+      component: HistoriasClinicas,
     },
     {
       path: "/evolucion-medica",
       name: "Evolucion Medica",
-      component: EvolucionMedica
+      component: EvolucionMedica,
     },
     {
       path: "/evolucion-tecnica",
-      name:"Evolucion técnica",
-      component: EvolucionTecnica
+      name: "Evolucion técnica",
+      component: EvolucionTecnica,
     },
     {
       path: "/citas",
       name: "Citas",
-      component: CitasPaciente
-    }, 
+      component: CitasPaciente,
+    },
     {
       path: "/consulta-general",
       name: "ConsultaGeneral",
-      component: ConsultaGeneral
-    }
-  ]
-})
+      component: ConsultaGeneral,
+    },
+    {
+      path: "/reportes-principal",
+      name: "ReportesPrincipal",
+      component: ReportesPrincipal,
+    },
+  ],
+});
 
-router.beforeEach(vuexOidcCreateRouterMiddleware(store, 'oidcStore'))
+router.beforeEach(vuexOidcCreateRouterMiddleware(store, "oidcStore"));
 
-export default router
+export default router;
