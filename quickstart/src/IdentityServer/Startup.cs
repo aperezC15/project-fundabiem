@@ -30,8 +30,8 @@ namespace IdentityServer
             //add db context for postgresql on azure
             
             services.AddDbContext<ApplicationDbContext>(options =>
-            //options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
-            options.UseNpgsql(Environment.GetEnvironmentVariable("STRING_CONNECTION")));
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+           // options.UseNpgsql(Environment.GetEnvironmentVariable("STRING_CONNECTION")));
 
             // uncomment, if you wan to add an MVC-based UI
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2);

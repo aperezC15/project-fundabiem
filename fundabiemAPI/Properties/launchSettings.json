@@ -15,7 +15,8 @@
       "launchUrl": "api/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:7001;http://localhost:7000"
     },
     "fundabiemAPI": {
       "commandName": "Project",
@@ -25,5 +26,6 @@
       },
       "applicationUrl": "https://localhost:7001;http://localhost:7000"
     }
-  }
+  },
+
 }

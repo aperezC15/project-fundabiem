@@ -19,7 +19,7 @@ namespace BrokerServices.common
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var stringConn = "Server =ec2-35-183-98-195.ca-central-1.compute.amazonaws.com; port = 5432; Database = fundabien; User Id = postgres; Password = Fundabien@2019; Pooling = true; MinPoolSize = 1; MaxPoolSize = 20; ";
+            var stringConn = "Server=127.0.0.1; port=5432; Database=fundabiem; User Id=postgres; Password=postGres2019";
             optionsBuilder.UseNpgsql(stringConn);
         }
 
