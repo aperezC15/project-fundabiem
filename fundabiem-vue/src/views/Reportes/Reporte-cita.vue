@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import ReportePrincipal from "../../components/Reportes/ReportePrincipal.vue";
+import ReporteHome from "../../components/Reportes/Reportes-home.vue";
 
 export default {
   components: {
-    homereporte: ReportePrincipal
+    homereporte: ReporteHome
   },
   data() {
     return {};
