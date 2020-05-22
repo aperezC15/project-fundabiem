@@ -1,15 +1,15 @@
 <template>
   <v-container grid-list-lg>
-    <citareporte />
+    <pacientereporte />
   </v-container>
 </template>
 
 <script>
-import ReporteCita from "../../components/Reportes/Reporte-t-Cita.vue";
+import ReportePaciente from "../../components/Reportes/Reporte-paciente.vue";
 
 export default {
   components: {
-    citareporte: ReporteCita
+    pacientereporte: ReportePaciente
   },
   data() {
     return {};

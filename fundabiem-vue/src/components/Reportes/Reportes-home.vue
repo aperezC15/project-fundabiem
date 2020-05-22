@@ -28,7 +28,7 @@
             </v-avatar>
           </div>
           <v-card-actions>
-            <v-btn class="mt-8" color="blue darken-1">
+            <v-btn :to="{name: item.componente}" class="mt-8" color="blue darken-1">
               Ir a reporte
               <v-icon class="ml-2" dark>launch</v-icon>
             </v-btn>
@@ -47,13 +47,15 @@ export default {
         color: "#546E7A",
         src: "/img/citamedica.png",
         title: "Reporte de Citas",
-        description: "Este módulo de reportes es de las citas de un paciente"
+        description: "Este módulo de reportes es de las citas de un paciente",
+        componente: "ReporteCitas"
       },
       {
         color: "#546E7A",
         src: "/img/paciente.png",
         title: "Reporte de Pacientes",
-        description: "Este módulo de reportes es de pacientes activos"
+        description: "Este módulo de reportes es de pacientes activos",
+        componente: "ReportePacientes"
       }
     ]
   }),

@@ -20,6 +20,8 @@ import CitasPaciente from './views/citas/CitasPaciente.vue';
 import EvolucionTecnica from './views/eolvucion-tecnica/EvolucionTecnica.vue';
 import EstudioSocioeconomico from './views/EstudioSocioeconomico/estudiosocioeconomico.vue';
 import ReportesHome from './views/Reportes/Reportes-home.vue';
+import ReporteCitas from './views/Reportes/Reporte-cita.vue';
+import ReportePacientes from './views/Reportes/Reporte-paciente.vue';
 
 import ConsultaGeneral from './views/paciente/Paciente.vue';
 
@@ -149,9 +151,19 @@ const router = new Router({
 			component: ConsultaGeneral
 		},
 		{
-			path: '/reportes-home',
+			path: '/reportes',
 			name: 'ReportesHome',
 			component: ReportesHome
+		},
+		{
+			path: '/reportes/citas',
+			name: 'ReporteCitas',
+			component: ReporteCitas
+		},
+		{
+			path: '/reportes/pacientes',
+			name: 'ReportePacientes',
+			component: ReportePacientes
 		}
 	]
 });

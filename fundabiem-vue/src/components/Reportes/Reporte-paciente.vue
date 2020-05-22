@@ -1,7 +1,6 @@
 <template>
   <div class="text-center">
     <v-card>
-      <!--------------------------------------------------------------------------------->
       <v-toolbar>
         <v-tooltip bottom color="#BDBDBD">
           <template v-slot:activator="{ on }">
@@ -12,7 +11,7 @@
           <span>Regresar</span>
         </v-tooltip>
         <v-flex>
-          <h1 class="text-xs-center text-uppercase">Nuevo Reporte de Citas</h1>
+          <h1 class="text-xs-center text-uppercase">Nuevo Reporte de Pacientes</h1>
         </v-flex>
       </v-toolbar>
 
@@ -103,6 +102,15 @@
             color="blue-grey darken-1"
             :items="citas"
             label="Estado de la Cita"
+            prepend-inner-icon="fas fa-clipboard-check"
+            rounded
+            outlined
+          ></v-select>
+        </v-col>
+        <v-col class="ml-2" cols="5" sm="5">
+          <v-select
+            color="blue-grey darken-1"
+            label="Municipio"
             prepend-inner-icon="fas fa-clipboard-check"
             rounded
             outlined

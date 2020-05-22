@@ -196,7 +196,7 @@ export default class tool extends Vue {
     {
       title: "Reportes",
       icon: "fad fa-address-book",
-      path: "/reportes-home",
+      path: "/reportes",
       roles: ["Administrador"]
     },
     {
