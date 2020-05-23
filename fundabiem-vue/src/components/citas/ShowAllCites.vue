@@ -126,14 +126,15 @@
               </v-row>
             </v-form>
             <template>
+              <alert-error-global
+                v-if="showAlertError"
+                message="No se econtraron citas de la fecha buscada"
+              />
 
-             <alert-error-global v-if="showAlertError" message="No se econtraron citas de la fecha buscada" />
-    
               <v-row class="fill-height" v-if="showCalendar">
                 <v-col>
                   <v-sheet height="64">
                     <v-toolbar flat color="white">
-                    
                       <v-btn fab text small @click="prev">
                         <v-icon small>keyboard_arrow_left</v-icon>
                       </v-btn>
@@ -203,34 +204,41 @@
                           </v-btn>
                         </v-toolbar>
                         <v-card-text>
-                          <p class="text-uppercase font-weight-bold" >
-                            Nombre: <span v-html="selectedEvent.name"></span>
-                         
-                          </p> 
-                          <p class="text-uppercase font-weight-bold" >
-                            No de Orden: <span v-html="selectedEvent.details"></span>
-                          </p> 
                           <p class="text-uppercase font-weight-bold">
-                            Fecha de Nacimiento:  <span  v-html="selectedEvent.fechaNc"></span> 
-                          </p> 
+                            Nombre:
+                            <span v-html="selectedEvent.name"></span>
+                          </p>
                           <p class="text-uppercase font-weight-bold">
-                            DPI: <span v-html="selectedEvent.dpi"></span> 
-                          </p> 
+                            No de Orden:
+                            <span v-html="selectedEvent.details"></span>
+                          </p>
+                          <p class="text-uppercase font-weight-bold">
+                            Fecha de Nacimiento:
+                            <span v-html="selectedEvent.fechaNc"></span>
+                          </p>
+                          <p class="text-uppercase font-weight-bold">
+                            DPI:
+                            <span v-html="selectedEvent.dpi"></span>
+                          </p>
 
-                            <v-col cols="12" >
-                              <v-select
-                                v-model="idConfirmacionCita"
-                                :items="estadosConfirmacion"
-                                item-value="idEstado"
-                                item-text="nombre"
-                                label="Seleccione el estado"
-                                hint="El campo es requerido"
-                                :rules="rulesInputConfirm"
-                              ></v-select>
-                            </v-col>
+                          <v-col cols="12">
+                            <v-select
+                              v-model="idConfirmacionCita"
+                              :items="estadosConfirmacion"
+                              item-value="idEstado"
+                              item-text="nombre"
+                              label="Seleccione el estado"
+                              hint="El campo es requerido"
+                              :rules="rulesInputConfirm"
+                            ></v-select>
+                          </v-col>
                         </v-card-text>
                         <v-card-actions>
-                          <v-btn :disabled="!rulesInputConfirm"  color="success" @click="confirmCitaFinally(selectedEvent.idCita)">Finalizar cita</v-btn>
+                          <v-btn
+                            :disabled="!rulesInputConfirm"
+                            color="success"
+                            @click="confirmCitaFinally(selectedEvent.idCita)"
+                          >Finalizar cita</v-btn>
                           <v-btn text color="secondary" @click="selectedOpen = false">Cancel</v-btn>
                         </v-card-actions>
                       </v-card>
@@ -254,7 +262,6 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-
   </v-row>
 </template>
 
@@ -312,13 +319,13 @@ export default {
       selectedElement: null,
       selectedOpen: false,
       events: [],
-      mesIr:"",
+      mesIr: "",
       showCalendar: false,
       loading: false,
       showAlertError: false,
       dialogFinalizar: false,
       estadosConfirmacion: [],
-      idConfirmacionCita: '',
+      idConfirmacionCita: "",
       dataEnviar: {}
     };
   },
@@ -357,9 +364,9 @@ export default {
   },
   methods: {
     async searchFilter() {
-      this.loading = true
-      this.showAlertError= false
-      this.mesIr = ""
+      this.loading = true;
+      this.showAlertError = false;
+      this.mesIr = "";
 
       const data = {
         DateType: this.DateType,
@@ -370,26 +377,42 @@ export default {
         idEstado: this.idEstado
       };
 
-      this.dataEnviar = data
+      this.dataEnviar = data;
 
-      console.log(this.dataEnviar)
+      console.log(this.dataEnviar);
 
-      const response = await this.$store.dispatch("getAllCites", this.dataEnviar);
+      const response = await this.$store.dispatch(
+        "getAllCites",
+        this.dataEnviar
+      );
 
-      this.loading = false
+      this.loading = false;
 
       if (response.status === 200) {
         this.events = [];
-        this.mesIr = this.dateStart
-        this.showCalendar = true
+        this.mesIr = this.dateStart;
+        this.showCalendar = true;
         response.data.map(cita => {
-          const { idTerapia, dPaciente, fechaCita, noOrden, idCita, paciente,  } = cita;
-          const { primerNombre, segundoNombre, primerApellido, segundoApellido, dpi, fechaNacimiento } = paciente.persona
+          const {
+            idTerapia,
+            dPaciente,
+            fechaCita,
+            noOrden,
+            idCita,
+            paciente
+          } = cita;
+          const {
+            primerNombre,
+            segundoNombre,
+            primerApellido,
+            segundoApellido,
+            dpi,
+            fechaNacimiento
+          } = paciente.persona;
 
-           var fechaNc = moment(fechaNacimiento).format("L");
+          var fechaNc = moment(fechaNacimiento).format("L");
 
-
-          const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`
+          const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`;
           const fecha = fechaCita.split("T")[0];
 
           this.events.push({
@@ -407,13 +430,12 @@ export default {
         });
         // { "idTerapia": 1, "dPaciente": 2, "start": "2019-11-07", "name": "1111", "idCita": 20, "color": "#000" }
         //  { name: 'Hackathon', details: 'Code like there is no tommorrow', start: '2019-01-30 23:00',   color: 'black', },
-
       } else {
-        this.loading = false
-        this.showAlertError= true
-         this.events = [];
-        this.mesIr = ""
-        this.showCalendar = false
+        this.loading = false;
+        this.showAlertError = true;
+        this.events = [];
+        this.mesIr = "";
+        this.showCalendar = false;
       }
 
       // this.$refs.citeRef.reset();
@@ -424,11 +446,11 @@ export default {
       this.$emit("closeModal");
       this.$refs.citeRef.reset();
       this.showInput = false;
-        this.loading = false
-        this.showAlertError= false
-         this.events = [];
-        this.mesIr = ""
-        this.showCalendar = false
+      this.loading = false;
+      this.showAlertError = false;
+      this.events = [];
+      this.mesIr = "";
+      this.showCalendar = false;
     },
     filtroBusqueda() {
       this.showInput = true;
@@ -451,10 +473,11 @@ export default {
       this.$refs.calendar.next();
     },
     showEvent({ nativeEvent, event }) {
-      this.idConfirmacionCita =""
+      this.idConfirmacionCita = "";
       const open = () => {
-
-        this.estadosConfirmacion = this.estados.filter( ({nombre}) => nombre !== 'Activa' )
+        this.estadosConfirmacion = this.estados.filter(
+          ({ nombre }) => nombre !== "Activa"
+        );
 
         this.selectedEvent = event;
         this.selectedElement = nativeEvent.target;
@@ -482,25 +505,23 @@ export default {
     },
 
     async confirmCitaFinally(idCita) {
-      if(this.idConfirmacionCita === '') {
-        return
+      if (this.idConfirmacionCita === "") {
+        return;
       }
 
       const data = {
-        state : this.idConfirmacionCita,
+        state: this.idConfirmacionCita,
         idCita: idCita
-      }
+      };
 
-     const response = await this.$store.dispatch('changeCite', data)
+      const response = await this.$store.dispatch("changeCite", data);
 
-      this.searchFilter()
-      this.selectedOpen = false
+      this.searchFilter();
+      this.selectedOpen = false;
 
-      this.events = this.events.filter( item => item.idCita !== idCita)
-      this.idConfirmacionCita=""
-
+      this.events = this.events.filter(item => item.idCita !== idCita);
+      this.idConfirmacionCita = "";
     }
-  },
-
+  }
 };
 </script>

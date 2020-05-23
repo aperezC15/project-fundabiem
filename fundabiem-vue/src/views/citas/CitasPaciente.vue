@@ -29,20 +29,20 @@
           class="mx-2"
           @click="showAllCites"
         >
-         Ver citas programadas
+          Ver citas programadas
           <v-icon>add</v-icon>
         </v-btn>
       </v-flex>
     </v-layout>
     <show-all-cites
-        :showCitesModal="showCitesModal"
-        :terapias="terapias"
-        :estados="estados"
-        :errorDB="errorDB"
-        @closeModal="closeModal"
+      :showCitesModal="showCitesModal"
+      :terapias="terapias"
+      :estados="estados"
+      :errorDB="errorDB"
+      @closeModal="closeModal"
     />
 
-    <programar-cita 
+    <programar-cita
       :dialogProgramarCita="dialogProgramarCita"
       @CloseProgrammingNewCiteModal="CloseProgrammingNewCiteModal"
     />
@@ -50,48 +50,53 @@
 </template>
 
 <script>
-import ShowAllCites from '../../components/citas/ShowAllCites.vue'
-import ProgramarCita from '../../components/citas/ProgramarCita.vue'
+import ShowAllCites from "../../components/citas/ShowAllCites.vue";
+import ProgramarCita from "../../components/citas/ProgramarCita.vue";
 export default {
-    components: {
-        ShowAllCites,
-        ProgramarCita
-    },
+  components: {
+    ShowAllCites,
+    ProgramarCita
+  },
   data() {
     return {
-        showCitesModal: false,
-        terapias: [],
-        estados: [],
-        errorDB: false,
-        dialogProgramarCita: false
+      showCitesModal: false,
+      terapias: [],
+      estados: [],
+      errorDB: false,
+      dialogProgramarCita: false
     };
   },
   methods: {
-      async showAllCites() {
-          this.showCitesModal = true
-          this.errorDB = false
-          const dataTerapias = await this.$store.dispatch('getTerapias')
-          const dataEstados= await this.$store.dispatch('getEstados')
+    async showAllCites() {
+      this.showCitesModal = true;
+      this.errorDB = false;
+      const dataTerapias = await this.$store.dispatch("getTerapias");
+      const dataEstados = await this.$store.dispatch("getEstados");
 
-          if(dataTerapias.status !== 200 || dataEstados !== 200) {
-              const terapias = dataTerapias.data.map( ({idTerapia,descripcion}) => ({idTerapia,descripcion}))
-              const estados = dataEstados.data.map( ({idEstado, nombre}) => ({idEstado, nombre}))
-              this.terapias =  terapias
-              this.estados = estados
-          } else {
-              this.errorDB = true
-          }
-      },
-      closeModal() {
-          this.showCitesModal = false
-      },
-      // nueva cita
-      programmingNewCite() {
-        this.dialogProgramarCita = true
-      },
-      CloseProgrammingNewCiteModal() {
-        this.dialogProgramarCita = false
+      if (dataTerapias.status !== 200 || dataEstados !== 200) {
+        const terapias = dataTerapias.data.map(
+          ({ idTerapia, descripcion }) => ({ idTerapia, descripcion })
+        );
+        const estados = dataEstados.data.map(({ idEstado, nombre }) => ({
+          idEstado,
+          nombre
+        }));
+        this.terapias = terapias;
+        this.estados = estados;
+      } else {
+        this.errorDB = true;
       }
-  },
+    },
+    closeModal() {
+      this.showCitesModal = false;
+    },
+    // nueva cita
+    programmingNewCite() {
+      this.dialogProgramarCita = true;
+    },
+    CloseProgrammingNewCiteModal() {
+      this.dialogProgramarCita = false;
+    }
+  }
 };
 </script>
