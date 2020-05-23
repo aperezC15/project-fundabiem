@@ -64,7 +64,7 @@ namespace fundabiemAPI
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = appSettings.Value.Authority;
+                    options.Authority = "http://localhost:5000";
                     options.RequireHttpsMetadata = false;
                 });
 
