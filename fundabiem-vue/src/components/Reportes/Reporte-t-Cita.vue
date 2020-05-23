@@ -91,7 +91,7 @@
         <v-col class="ml-2" cols="5" sm="5">
           <v-select
             color="blue-grey darken-1"
-            v-model="idTerapia"
+            v-model="idTerpia"
             :items="terapias"
             item-value="idTerapia"
             item-text="descripcion"
@@ -107,10 +107,22 @@
             color="blue-grey darken-1"
             v-model="idEstado"
             :items="estados"
-            item-value="idTerapia"
+            item-value="idEstado"
             item-text="nombre"
             label="Estado de la Cita"
             no-data-text="No hay estados de citas ingresados"
+            prepend-inner-icon="fas fa-clipboard-check"
+            rounded
+            outlined
+          ></v-select>
+        </v-col>
+        <v-col class="ml-2" cols="5" sm="5">
+          <v-select
+            color="blue-grey darken-1"
+            v-model="DateType"
+            :items="tipos"
+            label="Tipo Cita"
+            no-data-text="No hay citas ingresadas"
             prepend-inner-icon="fas fa-clipboard-check"
             rounded
             outlined
@@ -158,6 +170,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   props: { terapias: Array, estados: Array },
   data() {
@@ -170,13 +184,21 @@ export default {
       cantidadPagina: 0,
       elementosPagina: 10,
       idEstado: "",
-      idTerapia: "",
+      idTerpia: "",
+      DateType: "",
       headers: [
-        { text: "Paciente", value: "paciente" },
-        { text: "No. de DPI", value: "dpi", sortable: false },
-        { text: "Código", value: "codigo", sortable: false }
+        { text: "Paciente", value: "name" },
+        { text: "No. de Orden", value: "details", sortable: false },
+        { text: "Fecha de Cita", value: "fechaCita", sortable: false },
+        {
+          text: "Fecha de Nacimiento",
+          value: "fechaNc",
+          sortable: false
+        },
+        { text: "No. de DPI", value: "dpi", sortable: false }
       ],
-      reportes: []
+      reportes: [],
+      tipos: ["fechaCita", "fechaAsignacion"]
     };
   },
   watch: {
@@ -200,19 +222,20 @@ export default {
 
     obtenerTerapias_Estados() {
       const data = {
-        idTerapia: this.idTerapia,
+        idTerpia: this.idTerpia,
         terapias: this.terapias,
         idEstado: this.idEstado,
-        estados: this.estados
+        estados: this.estados,
+        DateType: this.DateType
       };
     },
     //generar reporte
     async searchFilter() {
-      this.mesIr = "";
-
       const data = {
+        DateType: this.DateType,
         dateStart: this.dateStart,
         dateEnd: this.dateEnd,
+        range: this.range === 1 ? false : true,
         idTerpia: this.idTerpia,
         idEstado: this.idEstado
       };
@@ -228,8 +251,7 @@ export default {
 
       if (response.status === 200) {
         this.reportes = [];
-        this.mesIr = this.dateStart;
-        this.showCalendar = true;
+
         response.data.map(cita => {
           const {
             idTerapia,
@@ -254,23 +276,17 @@ export default {
           const fecha = fechaCita.split("T")[0];
 
           this.reportes.push({
-            idTerapia,
-            dPaciente,
-            start: fecha,
-            end: this.dateEnd ? this.fecha : null,
             name: nombreCompleto,
-            fechaNc,
             details: noOrden,
-            idCita,
+            fechaNc,
             dpi,
-            color: "#4285F4"
+            fechaCita
           });
         });
         // { "idTerapia": 1, "dPaciente": 2, "start": "2019-11-07", "name": "1111", "idCita": 20, "color": "#000" }
         //  { name: 'Hackathon', details: 'Code like there is no tommorrow', start: '2019-01-30 23:00',   color: 'black', },
       } else {
         this.reportes = [];
-        this.mesIr = "";
       }
     } //termina searchFilter
   }
