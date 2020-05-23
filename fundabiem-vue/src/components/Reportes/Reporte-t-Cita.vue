@@ -156,7 +156,7 @@
           </v-toolbar>
         </template>
         <template v-slot:no-data>
-          <h2>No hay datos ingresados</h2>
+          <h2>No existen coincidencias</h2>
         </template>
         <template v-slot:no-results>
           <h2>No se encontraron coincidencias</h2>
@@ -188,14 +188,10 @@ export default {
       DateType: "",
       headers: [
         { text: "Paciente", value: "name" },
+        { text: "Fecha de Nacimiento", value: "fechaNc", sortable: false },
+        { text: "No. de DPI", value: "dpi", sortable: false },
         { text: "No. de Orden", value: "details", sortable: false },
-        { text: "Fecha de Cita", value: "fechaCita", sortable: false },
-        {
-          text: "Fecha de Nacimiento",
-          value: "fechaNc",
-          sortable: false
-        },
-        { text: "No. de DPI", value: "dpi", sortable: false }
+        { text: "Fecha de Cita", value: "fechaCita", sortable: false }
       ],
       reportes: [],
       tipos: ["fechaCita", "fechaAsignacion"]
@@ -273,14 +269,15 @@ export default {
           var fechaNc = moment(fechaNacimiento).format("L");
 
           const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`;
-          const fecha = fechaCita.split("T")[0];
+          const fechaC = fechaCita.split("T")[0];
+          const fecha = moment(fechaC).format("L");
 
           this.reportes.push({
             name: nombreCompleto,
             details: noOrden,
             fechaNc,
             dpi,
-            fechaCita
+            fechaCita: fecha
           });
         });
         // { "idTerapia": 1, "dPaciente": 2, "start": "2019-11-07", "name": "1111", "idCita": 20, "color": "#000" }
