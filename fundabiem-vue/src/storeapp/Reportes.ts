@@ -26,6 +26,18 @@ const store = {
 			}
 		},
 
+		obtenerReportePorPaciente: async ({}, data: any) => {
+			console.log('data', data);
+			try {
+				const response = await api.get('/reportes/pacientes', { params: { ...data } });
+				if (response.status === 200) {
+					return response;
+				}
+			} catch (error) {
+				return error.response;
+			}
+		},
+
 		changeCite: async ({}, data: any) => {
 			console.log(data);
 			try {

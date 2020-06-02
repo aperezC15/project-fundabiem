@@ -629,5 +629,20 @@ namespace EntityModelFundabien.common
             var estudioSocioeconomicoDTO = await getEstudioSocioeconomicoById(estudioSocioeconomico.Id);
             return estudioSocioeconomicoDTO;
         }
+
+        public async Task<IEnumerable<citaDTO>> getReportePacientes(int idMunicipio, int idTerapia)
+        {
+            var cita = new List<Citas>();
+
+            var personas = await context.Direcciones.Where(d => d.idMunicipio == idMunicipio).Select(d => d.persona.idPersona).ToListAsync();
+
+            cita = await context.Citas.Where(x => x.IdTerapia == idTerapia && personas.Contains(x.paciente.idPersona) == true)
+                .Include(x => x.paciente.persona)
+                .ToListAsync();
+
+            var ct = mapper.Map<List<citaDTO>>(cita);
+            return ct;
+
+        }
     }
 }   

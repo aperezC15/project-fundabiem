@@ -81,13 +81,14 @@
       <!--Parte final-->
       <v-divider></v-divider>
       <div class="text-center">
-        <v-btn class="mt-5 mb-3" rounded color="light-green darken-2" dark>
+        <v-btn class="mt-5 mb-3" rounded color="light-green darken-2" dark @click="obtenerReporte">
           <v-icon left>fas fa-file-alt</v-icon>Generar Reporte
         </v-btn>
       </div>
     </v-card>
     <v-card>
       <v-data-table
+        :items="reportes"
         :headers="headers"
         :page.sync="pagina"
         :items-per-page="elementosPagina"
@@ -118,6 +119,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 import { mapGetters } from "vuex";
 let datosResidencia = {
   pais: "",
@@ -146,13 +149,20 @@ export default {
       disabledDepartamento: false,
       disabledMunicipio: false,
       citas: ["Atendida", "En espera", "Cancelada"],
-
       headers: [
         { text: "Paciente", value: "name" },
         { text: "Fecha de Nacimiento", value: "fechaNc", sortable: false },
         { text: "No. de DPI", value: "dpi", sortable: false },
-        { text: "Municipio", value: "municipio", sortable: false }
-      ]
+        { text: "No. de Orden", value: "details", sortable: false },
+        { text: "Fecha de Cita", value: "fechaCita", sortable: false }
+      ],
+      reportes: []
+      // headers: [
+      //   { text: "Paciente", value: "name" },
+      //   { text: "Fecha de Nacimiento", value: "fechaNc", sortable: false },
+      //   { text: "No. de DPI", value: "dpi", sortable: false },
+      //   { text: "Municipio", value: "municipio", sortable: false }
+      // ]
     };
   },
   created() {
@@ -173,6 +183,53 @@ export default {
     getMunicipio() {
       this.$store.dispatch("getMunicipio", this.datosResidencia.departamento);
       this.disabledMunicipio = true;
+    },
+    async obtenerReporte() {
+      const response = await this.$store.dispatch("obtenerReportePorPaciente", {
+        idMunicipio: this.datosResidencia.idMunicipio,
+        idTerpia: this.idTerpia
+      });
+
+      if (response.status === 200) {
+        this.reportes = [];
+
+        response.data.map(cita => {
+          const {
+            idTerapia,
+            dPaciente,
+            fechaCita,
+            noOrden,
+            idCita,
+            paciente
+          } = cita;
+          const {
+            primerNombre,
+            segundoNombre,
+            primerApellido,
+            segundoApellido,
+            dpi,
+            fechaNacimiento
+          } = paciente.persona;
+
+          var fechaNc = moment(fechaNacimiento).format("L");
+
+          const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`;
+          const fechaC = fechaCita.split("T")[0];
+          const fecha = moment(fechaC).format("L");
+
+          this.reportes.push({
+            name: nombreCompleto,
+            details: noOrden,
+            fechaNc,
+            dpi,
+            fechaCita: fecha
+          });
+        });
+        // { "idTerapia": 1, "dPaciente": 2, "start": "2019-11-07", "name": "1111", "idCita": 20, "color": "#000" }
+        //  { name: 'Hackathon', details: 'Code like there is no tommorrow', start: '2019-01-30 23:00',   color: 'black', },
+      } else {
+        this.reportes = [];
+      }
     }
   }
 };
