@@ -46,7 +46,7 @@
             no-data-text="No hay departamentos disponibles"
             rounded
             outlined
-            @change="getMunicipios"
+            @change="getMunicipio"
           ></v-autocomplete>
         </v-col>
         <v-col class="ml-2" cols="5" sm="5">
