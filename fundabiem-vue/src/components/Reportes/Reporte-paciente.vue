@@ -16,102 +16,63 @@
       </v-toolbar>
 
       <v-alert border="bottom" type="info">Selecciona todos los parámetros</v-alert>
+
       <v-row justify="space-around">
-        <v-avatar color="amber darken-3" size="62">
-          <v-icon dark>far fa-calendar-alt</v-icon>
-        </v-avatar>
-        <v-avatar color="amber darken-3" size="62">
-          <v-icon dark>far fa-calendar-alt</v-icon>
-        </v-avatar>
-      </v-row>
-      <v-row justify="space-around">
-        <v-col cols="5" sm="5">
-          <v-menu
-            ref="menu"
-            v-model="menu"
-            :close-on-content-click="false"
-            transition="scale-transition"
-            offset-y
-            min-width="290px"
-          >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                class="mx-2"
-                v-model="date"
-                v-on="on"
-                color="amber darken-3"
-                label="Selecciona Fecha de Inicio"
-                outlined
-                rounded
-              ></v-text-field>
-            </template>
-            <v-date-picker
-              ref="picker"
-              v-model="date"
-              color="amber darken-3"
-              :max="new Date().toISOString().substr(0, 10)"
-              @change="save"
-              locale="gt"
-            ></v-date-picker>
-          </v-menu>
+        <v-col class="ml-2" cols="5" sm="5">
+          <v-autocomplete
+            color="blue-grey darken-1"
+            v-model="datosResidencia.pais"
+            :items="getPaises"
+            item-value="idPais"
+            item-text="nombre"
+            label="País"
+            prepend-inner-icon="location_on"
+            no-data-text="No hay países disponibles"
+            rounded
+            outlined
+            @change="getDepartamento"
+          ></v-autocomplete>
         </v-col>
-        <v-col cols="5" sm="5">
-          <v-menu
-            ref="menu2"
-            v-model="menu2"
-            :close-on-content-click="false"
-            transition="scale-transition"
-            offset-y
-            min-width="290px"
-          >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                v-model="date2"
-                class="mx-2"
-                v-on="on"
-                color="amber darken-3"
-                label="Selecciona Fecha Fin"
-                outlined
-                rounded
-              ></v-text-field>
-            </template>
-            <v-date-picker
-              ref="picker2"
-              v-model="date2"
-              color="amber darken-3"
-              :max="new Date().toISOString().substr(0, 10)"
-              @change="save2"
-              locale="gt"
-            ></v-date-picker>
-          </v-menu>
+        <v-col class="ml-2" cols="5" sm="5">
+          <v-autocomplete
+            color="blue-grey darken-1"
+            :disabled="!disabledDepartamento"
+            v-model="datosResidencia.departamento"
+            :items="getDepartamentos"
+            item-value="idDepartamento"
+            item-text="nombre"
+            label="Departamento"
+            prepend-inner-icon="location_city"
+            no-data-text="No hay departamentos disponibles"
+            rounded
+            outlined
+            @change="getMunicipios"
+          ></v-autocomplete>
         </v-col>
-      </v-row>
-      <v-row justify="space-around">
+        <v-col class="ml-2" cols="5" sm="5">
+          <v-autocomplete
+            :disabled="!disabledMunicipio"
+            v-model="datosResidencia.idMunicipio"
+            :items="getMunicipios"
+            item-value="idMunicipio"
+            item-text="nombre"
+            label="Municipios"
+            prepend-inner-icon="fas fa-building"
+            no-data-text="No hay municipios disponibles"
+            rounded
+            outlined
+          ></v-autocomplete>
+        </v-col>
         <v-col class="ml-2" cols="5" sm="5">
           <v-select
             color="blue-grey darken-1"
+            v-model="idTerpia"
             :items="terapias"
+            item-value="idTerapia"
+            item-text="descripcion"
             label="Tipo de terapia"
             prepend-inner-icon="fas fa-first-aid"
-            rounded
-            outlined
-          ></v-select>
-        </v-col>
-        <v-col class="ml-2" cols="5" sm="5">
-          <v-select
-            color="blue-grey darken-1"
-            :items="citas"
-            label="Estado de la Cita"
-            prepend-inner-icon="fas fa-clipboard-check"
-            rounded
-            outlined
-          ></v-select>
-        </v-col>
-        <v-col class="ml-2" cols="5" sm="5">
-          <v-select
-            color="blue-grey darken-1"
-            label="Municipio"
-            prepend-inner-icon="fas fa-clipboard-check"
+            no-data-text="No hay terapias ingresadas"
             rounded
             outlined
           ></v-select>
@@ -125,35 +86,93 @@
         </v-btn>
       </div>
     </v-card>
+    <v-card>
+      <v-data-table
+        :headers="headers"
+        :page.sync="pagina"
+        :items-per-page="elementosPagina"
+        @page-count="cantidadPagina = $event"
+        sort-by="codigo"
+        class="elevation-1"
+        hide-default-footer
+      >
+        <template v-slot:top>
+          <v-toolbar flat color="white">
+            <v-flex>
+              <h2 class="text-xs-center text-uppercase">Reporte obtenido</h2>
+            </v-flex>
+          </v-toolbar>
+        </template>
+        <template v-slot:no-data>
+          <h2>No existen coincidencias</h2>
+        </template>
+        <template v-slot:no-results>
+          <h2>No se encontraron coincidencias</h2>
+        </template>
+      </v-data-table>
+      <div class="text-center pt-2">
+        <v-pagination v-model="pagina" :length="cantidadPagina"></v-pagination>
+      </div>
+    </v-card>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+let datosResidencia = {
+  pais: "",
+  departamento: "",
+  idMunicipio: ""
+};
+
 export default {
+  props: { terapias: Array },
+  computed: {
+    ...mapGetters(["getPaises", "getDepartamentos", "getMunicipios"])
+  },
   data() {
     return {
       date: null,
       date2: null,
       menu: false,
       menu2: false,
+      pagina: 1,
+      cantidadPagina: 0,
+      elementosPagina: 10,
+      datosResidencia: { ...datosResidencia },
+      idTerpia: "",
+      pais: "",
+      departamento: "",
+      disabledDepartamento: false,
+      disabledMunicipio: false,
       citas: ["Atendida", "En espera", "Cancelada"],
-      terapias: ["Hidroterapia", "Fisoterapia", "Terapia del lenguaje"]
+
+      headers: [
+        { text: "Paciente", value: "name" },
+        { text: "Fecha de Nacimiento", value: "fechaNc", sortable: false },
+        { text: "No. de DPI", value: "dpi", sortable: false },
+        { text: "Municipio", value: "municipio", sortable: false }
+      ]
     };
   },
-  watch: {
-    menu(val) {
-      val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
-    },
-    menu2(val) {
-      val && setTimeout(() => (this.$refs.picker2.activePicker = "YEAR"));
-    }
+  created() {
+    this.obtenerTerapias();
   },
+
   methods: {
-    save(date) {
-      this.$refs.menu.save(date);
+    obtenerTerapias() {
+      const data = {
+        idTerpia: this.idTerpia,
+        terapias: this.terapias
+      };
     },
-    save2(date2) {
-      this.$refs.menu2.save(date2);
+    getDepartamento() {
+      this.$store.dispatch("getDepartamento", this.datosResidencia.pais);
+      this.disabledDepartamento = true;
+    },
+    getMunicipio() {
+      this.$store.dispatch("getMunicipio", this.datosResidencia.departamento);
+      this.disabledMunicipio = true;
     }
   }
 };
