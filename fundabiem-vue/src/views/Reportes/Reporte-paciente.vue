@@ -33,6 +33,8 @@ export default {
 
         this.errorDB = true;
       } //fin listar terapias
+
+      await this.$store.dispatch("getPaises");
     }
   }
 };
