@@ -108,7 +108,7 @@
           <h2>No existen coincidencias</h2>
         </template>
         <template v-slot:no-results>
-          <h2>No se encontraron coincidencias</h2>
+          <v-alert type="error">NO SE ENCONTRARON RESULTADOS</v-alert>
         </template>
       </v-data-table>
       <div class="text-center pt-2">
@@ -131,7 +131,12 @@ let datosResidencia = {
 export default {
   props: { terapias: Array },
   computed: {
-    ...mapGetters(["getPaises", "getDepartamentos", "getMunicipios"])
+    ...mapGetters([
+      "getPaises",
+      "getDepartamentos",
+      "getMunicipios",
+      "showError"
+    ])
   },
   data() {
     return {
@@ -139,6 +144,7 @@ export default {
       date2: null,
       menu: false,
       menu2: false,
+      mensaje: "",
       pagina: 1,
       cantidadPagina: 0,
       elementosPagina: 10,
@@ -157,12 +163,6 @@ export default {
         { text: "Fecha de Cita", value: "fechaCita", sortable: false }
       ],
       reportes: []
-      // headers: [
-      //   { text: "Paciente", value: "name" },
-      //   { text: "Fecha de Nacimiento", value: "fechaNc", sortable: false },
-      //   { text: "No. de DPI", value: "dpi", sortable: false },
-      //   { text: "Municipio", value: "municipio", sortable: false }
-      // ]
     };
   },
   created() {
@@ -228,9 +228,17 @@ export default {
         // { "idTerapia": 1, "dPaciente": 2, "start": "2019-11-07", "name": "1111", "idCita": 20, "color": "#000" }
         //  { name: 'Hackathon', details: 'Code like there is no tommorrow', start: '2019-01-30 23:00',   color: 'black', },
       } else {
+        // aquI podrIas mostrar la alerta, como ejemplo...
+        // mostrarMensaje(response.data);
+        const message = "NO SE ENCONTRARON DATOS";
+        this.showAlert(title, message, "error");
+        console.log("response", response);
         this.reportes = [];
       }
+    },
+    showAlert(title, message, type) {
+      this.$swal.fire(title, message, type);
     }
-  }
+  } //METHODS
 };
 </script>
