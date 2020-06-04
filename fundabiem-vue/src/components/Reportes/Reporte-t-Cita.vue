@@ -156,10 +156,8 @@
           </v-toolbar>
         </template>
         <template v-slot:no-data>
-          <h2>No existen coincidencias</h2>
-        </template>
-        <template v-slot:no-results>
-          <h2>No se encontraron coincidencias</h2>
+          <alert-error-global v-if="showAlertError" message="No se encontraron resultados" />
+          <v-alert type="warning" v-if="showAlertEmpty">No ha generado ningún reporte</v-alert>
         </template>
       </v-data-table>
       <div class="text-center pt-2">
@@ -170,16 +168,22 @@
 </template>
 
 <script>
+import AlertErrorGlobal from "../alertas/alertErrorGlobal.vue";
 import moment from "moment";
 
 export default {
   props: { terapias: Array, estados: Array },
+  components: {
+    AlertErrorGlobal
+  },
   data() {
     return {
       dateStart: null,
       dateEnd: null,
       menu: false,
       menu2: false,
+      showAlertError: false,
+      showAlertEmpty: true,
       pagina: 1,
       cantidadPagina: 0,
       elementosPagina: 10,
@@ -280,10 +284,13 @@ export default {
             fechaCita: fecha
           });
         });
-        // { "idTerapia": 1, "dPaciente": 2, "start": "2019-11-07", "name": "1111", "idCita": 20, "color": "#000" }
-        //  { name: 'Hackathon', details: 'Code like there is no tommorrow', start: '2019-01-30 23:00',   color: 'black', },
       } else {
         this.reportes = [];
+        this.showAlertEmpty = false;
+        this.showAlertError = true;
+        setTimeout(() => {
+          this.showAlertError = false;
+        }, 3000);
       }
     } //termina searchFilter
   }

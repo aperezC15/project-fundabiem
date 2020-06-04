@@ -105,10 +105,8 @@
           </v-toolbar>
         </template>
         <template v-slot:no-data>
-          <h2>No existen coincidencias</h2>
-        </template>
-        <template v-slot:no-results>
-          <v-alert type="error">NO SE ENCONTRARON RESULTADOS</v-alert>
+          <alert-error-global v-if="showAlertError" message="No se encontraron resultados" />
+          <v-alert type="warning" v-if="showAlertEmpty">No ha generado ningún reporte</v-alert>
         </template>
       </v-data-table>
       <div class="text-center pt-2">
@@ -119,6 +117,7 @@
 </template>
 
 <script>
+import AlertErrorGlobal from "../alertas/alertErrorGlobal.vue";
 import moment from "moment";
 
 import { mapGetters } from "vuex";
@@ -130,13 +129,11 @@ let datosResidencia = {
 
 export default {
   props: { terapias: Array },
+  components: {
+    AlertErrorGlobal
+  },
   computed: {
-    ...mapGetters([
-      "getPaises",
-      "getDepartamentos",
-      "getMunicipios",
-      "showError"
-    ])
+    ...mapGetters(["getPaises", "getDepartamentos", "getMunicipios"])
   },
   data() {
     return {
@@ -144,6 +141,8 @@ export default {
       date2: null,
       menu: false,
       menu2: false,
+      showAlertError: false,
+      showAlertEmpty: true,
       mensaje: "",
       pagina: 1,
       cantidadPagina: 0,
@@ -228,16 +227,20 @@ export default {
         // { "idTerapia": 1, "dPaciente": 2, "start": "2019-11-07", "name": "1111", "idCita": 20, "color": "#000" }
         //  { name: 'Hackathon', details: 'Code like there is no tommorrow', start: '2019-01-30 23:00',   color: 'black', },
       } else {
-        // aquI podrIas mostrar la alerta, como ejemplo...
         // mostrarMensaje(response.data);
-        const message = "NO SE ENCONTRARON DATOS";
-        this.showAlert(title, message, "error");
+        this.showAlertEmpty = false;
+        this.showAlertError = true;
+
+        setTimeout(() => {
+          this.showAlertError = false;
+        }, 3000);
+
         console.log("response", response);
         this.reportes = [];
       }
     },
-    showAlert(title, message, type) {
-      this.$swal.fire(title, message, type);
+    showAlert(message, type) {
+      this.$swal.fire(message, type);
     }
   } //METHODS
 };
