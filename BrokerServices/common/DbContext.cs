@@ -19,7 +19,7 @@ namespace BrokerServices.common
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var stringConn = "Server=127.0.0.1; port=5432; Database=Fundabiem; User Id=postgres; Password=P1m3sk0ns0la";
+            var stringConn = "Server=127.0.0.1; port=5432; Database=fundabiem; User Id=postgres; Password=postGres2019";
             optionsBuilder.UseNpgsql(stringConn);
         }
 
