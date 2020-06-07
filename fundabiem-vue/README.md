@@ -11,8 +11,8 @@ npm run serve
 ```
 
 ### Frontend
-La tecnología utilizada es: Vue JS(https://vuejs.org/v2/guide/)
+La tecnología utilizada es: Vue JS[Vue JS](https://vuejs.org/v2/guide/)
 ## Vuex(https://vuex.vuejs.org/)
 
 ### Backend
-El framework utilizado es ASP.NET CORE(https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-3.1)
+El framework utilizado es ASP.NET CORE[ASP.NET COREl](https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-3.1)
