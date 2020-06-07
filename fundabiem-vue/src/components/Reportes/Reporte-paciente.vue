@@ -224,17 +224,13 @@ export default {
             fechaCita: fecha
           });
         });
-        // { "idTerapia": 1, "dPaciente": 2, "start": "2019-11-07", "name": "1111", "idCita": 20, "color": "#000" }
-        //  { name: 'Hackathon', details: 'Code like there is no tommorrow', start: '2019-01-30 23:00',   color: 'black', },
       } else {
         // mostrarMensaje(response.data);
         this.showAlertEmpty = false;
         this.showAlertError = true;
-
         setTimeout(() => {
           this.showAlertError = false;
         }, 3000);
-
         console.log("response", response);
         this.reportes = [];
       }
