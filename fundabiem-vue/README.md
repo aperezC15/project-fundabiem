@@ -1,29 +1,18 @@
 # fundabiem-vue
+### Video del proyecto:
+Video Proyecto Final: [Video Proyecto Final](https://drive.google.com/open?id=136yIpUujv0nvP7aOAmpzo4Zj95wJpQmW).
 
-## Project setup
-```
-npm install
-```
+## Módulos de reportes
+El presente proyecto incluye el desarrollo del módulo de reportes.
 
-### Compiles and hot-reloads for development
+### Para correr el proyecto de Vue 
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Frontend
+La tecnología utilizada es: Vue JS(https://vuejs.org/v2/guide/)
+## Vuex(https://vuex.vuejs.org/)
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Backend
+El framework utilizado es ASP.NET CORE(https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-3.1)

@@ -37,7 +37,7 @@ namespace fundabiemAPI.Controllers
         {
             var citas = await fundabiem.getReportePacientes(idMunicipio, idTerpia);
             if (citas.Count() == 0)
-                return NotFound("No se econtraron citas de pacientes en esa región.");
+                return NotFound("No se encontraron citas de pacientes en esa región.");
             return Ok(citas);
         }
     }

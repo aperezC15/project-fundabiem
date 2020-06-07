@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "Project",
       "environmentVariables": {
-        "STRING_CONNECTION": "Server=127.0.0.1;port=5432;Database=fundabiem;User Id=postgres;Password=2019;Pooling=true;MinPoolSize=1;MaxPoolSize=20;",
+        "STRING_CONNECTION": "Server=127.0.0.1;port=5432;Database=fundabiem;User Id=postgres;Password=postGres2019;Pooling=true;MinPoolSize=1;MaxPoolSize=20;",
         "URL_FUNDABIEM": "http://localhost:8080",
         "REDIREC1_FUNDABIEM": "http://localhost:8080/oidc-callback",
         "LINK_ETHOS_LOGOUT": "https://localhost:7001/signout-callback-oidc",
